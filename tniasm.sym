@@ -126,11 +126,12 @@ ImageData_10: equ 08000h ; last def. pass 3
 BIOS_H_ISMI: equ 0FF7Fh ; last def. pass 3
 BIOS_SETPLT: equ 014Dh ; last def. pass 3
 BIOS_H_DSKF: equ 0FE12h ; last def. pass 3
+ADDR_LAST_LINE_OF_PAGE.continue: equ 043D4h ; last def. pass 3
 BIOS_CONLO: equ 0F66Ah ; last def. pass 3
 Wait_B_Vblanks: equ 0405Ch ; last def. pass 3
 BIOS_SLTTBL: equ 0FCC5h ; last def. pass 3
 BIOS_DSCTMP: equ 0F698h ; last def. pass 3
-End: equ 043E0h ; last def. pass 3
+End: equ 043E7h ; last def. pass 3
 BIOS_H_LOC: equ 0FE99h ; last def. pass 3
 BIOS_H_CVS: equ 0FE44h ; last def. pass 3
 BIOS_MIVCNT: equ 0F951h ; last def. pass 3
@@ -348,7 +349,7 @@ BIOS_KANAMD: equ 0FCADh ; last def. pass 3
 BIOS_H_DOGR: equ 0FEF3h ; last def. pass 3
 BIOS_MAXUPD: equ 0F3ECh ; last def. pass 3
 BIOS_PRMLN2: equ 0F74Eh ; last def. pass 3
-InitialSpriteAttributes: equ 043E0h ; last def. pass 3
+InitialSpriteAttributes: equ 043E7h ; last def. pass 3
 BIOS_CPLOTF: equ 0F938h ; last def. pass 3
 BIOS_GRPRT: equ 089h ; last def. pass 3
 BIOS_TOTEXT: equ 0D2h ; last def. pass 3
@@ -374,7 +375,7 @@ BIOS_RUNFLG: equ 0F866h ; last def. pass 3
 CheckCollision_16x24_16x16: equ 04110h ; last def. pass 3
 BIOS_TXTTAB: equ 0F676h ; last def. pass 3
 BIOS_CONSAV: equ 0F668h ; last def. pass 3
-ADDR_LAST_LINE_OF_PAGE.stopScroll: equ 043DDh ; last def. pass 3
+ADDR_LAST_LINE_OF_PAGE.stopScroll: equ 043E4h ; last def. pass 3
 BIOS_T32CGP: equ 0F3C1h ; last def. pass 3
 BIOS_H_TIMI: equ 0FD9Fh ; last def. pass 3
 BIOS_TRCFLG: equ 0F7C4h ; last def. pass 3

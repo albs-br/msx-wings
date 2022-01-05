@@ -140,6 +140,10 @@ ADDR_LAST_LINE_OF_PAGE: equ 0x8000 + (63 * 256)
     ; ajust Y position of sprites to compensate scroll
     ld      a, (Player_Y)
     dec     a
+    cp      216             ; hide all sprites
+    jp      nz, .continue
+    ld      a, 215
+.continue:
     ld      (Player_Y), a
 
 
