@@ -93,23 +93,33 @@ SPRATR:     equ 0xfa00
     ld      hl, SpriteColors_2_and_3
     otir
 
-    ; Atributes of all sprites
-    ld      a, 0000 0001 b
-    ld      hl, SPRATR
-    call    SetVdp_Write
-    ld      b, SpriteAttributes.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpriteAttributes
-    otir
+
+
+    ; copy from initial sprite attributes to buffer
+    ld      hl, InitialSpriteAttributes
+    ld      de, SpriteAttrTableBuffer
+    ld      bc, InitialSpriteAttributes.size
+    ldir
+
+
+
+    ; ; Atributes of all sprites
+    ; ld      a, 0000 0001 b
+    ; ld      hl, SPRATR
+    ; call    SetVdp_Write
+    ; ld      b, InitialSpriteAttributes.size
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      hl, InitialSpriteAttributes
+    ; otir
 
 ; -----------
 
     ; Load test bg image
-    ld		hl, ImageData_1        			        ; RAM address (source)
-    ld      a, 0                                    ; VRAM address (destiny, bit 16)
-    ld		de, NAMTBL + (1 * (256 * 64))           ; VRAM address (destiny, bits 15-0)
-    ld		c, 0 + (ImageData_1.size / 256)         ; Block length * 256
-    call    LDIRVM_MSX2
+    ; ld		hl, ImageData_1        			        ; RAM address (source)
+    ; ld      a, 0                                    ; VRAM address (destiny, bit 16)
+    ; ld		de, NAMTBL + (1 * (256 * 64))           ; VRAM address (destiny, bits 15-0)
+    ; ld		c, 0 + (ImageData_1.size / 256)         ; Block length * 256
+    ; call    LDIRVM_MSX2
 
     call    BIOS_ENASCR
 

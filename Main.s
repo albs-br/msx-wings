@@ -14,6 +14,8 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
 
     ; Game
     INCLUDE "InitVram.s"
+    INCLUDE "UpdateSpriteAttributesTable.s"
+    INCLUDE "InitVariables.s"
 
     ; Assets
     INCLUDE "Graphics/Sprites/SpriteAssets.s"
@@ -30,6 +32,9 @@ Execute:
 
 
 ; ---------------------
+
+
+    call    InitVariables
 
 
 ; --------- Load first screen     
@@ -132,6 +137,21 @@ ADDR_LAST_LINE_OF_PAGE: equ 0x8000 + (63 * 256)
     call    BIOS_WRTVDP
 
 
+    ; ajust Y position of sprites to compensate scroll
+    ld      a, (Player_Y)
+    dec     a
+    ld      (Player_Y), a
+
+
+    ; test
+    ld      a, (Player_X)
+    inc     a
+    ld      (Player_X), a
+
+
+
+    call    UpdateSpriteAttributesTable
+
 
     jp      .loop
 
@@ -147,7 +167,7 @@ End:
 
 
 
-SpriteAttributes:
+InitialSpriteAttributes:
     ;   Y, X, Pattern, Reserved
 
     ; sprites 0 and 1
@@ -158,7 +178,7 @@ SpriteAttributes:
     db  90 + 16, 100, 2 * 4, 0
     db  90 + 16, 100, 3 * 4, 0
 
-.size:  equ $ - SpriteAttributes
+.size:  equ $ - InitialSpriteAttributes
 
 
 
