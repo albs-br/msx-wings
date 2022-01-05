@@ -44,11 +44,11 @@
                     {
                         "value": "-romtype ASCII16",
                         "quoting": "escape"
+                    },
+                    {
+                        "value": "-script C:\\Users\\albs_\\source\\repos\\msx-wings\\msx-wings_debug.tcl",
+                        "quoting": "escape"
                     }
-                    // {
-                    //     "value": "-script C:\\Users\\albs_\\source\\repos\\msx-wings\\msx-wings_debug.tcl",
-                    //     "quoting": "escape"
-                    // }
                 ],
             "label": "run openmsx",
             "type": "shell",
