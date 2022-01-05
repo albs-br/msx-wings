@@ -1,5 +1,18 @@
 InitVram:
 
+    ; disable keyboard click
+    ld 		a, 0
+    ld 		(BIOS_CLIKSW), a     ; Key Press Click Switch 0:Off 1:On (1B/RW)
+
+    ; define screen colors
+    ld 		a, 1      	            ; Foregoung color
+    ld 		(BIOS_FORCLR), a    
+    ld 		a, 1  		            ; Backgroung color
+    ld 		(BIOS_BAKCLR), a     
+    ld 		a, 1      	            ; Border color
+    ld 		(BIOS_BDRCLR), a    
+    call 	BIOS_CHGCLR        		; Change Screen Color
+
     call    Screen11
 
     call    BIOS_DISSCR
@@ -95,11 +108,6 @@ SPRATR:     equ 0xfa00
 
 
 
-    ; copy from initial sprite attributes to buffer
-    ld      hl, InitialSpriteAttributes
-    ld      de, SpriteAttrTableBuffer
-    ld      bc, InitialSpriteAttributes.size
-    ldir
 
 
 
@@ -121,7 +129,7 @@ SPRATR:     equ 0xfa00
     ; ld		c, 0 + (ImageData_1.size / 256)         ; Block length * 256
     ; call    LDIRVM_MSX2
 
-    call    BIOS_ENASCR
+    ;call    BIOS_ENASCR
 
 
 

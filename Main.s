@@ -16,6 +16,8 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     INCLUDE "InitVram.s"
     INCLUDE "UpdateSpriteAttributesTable.s"
     INCLUDE "InitVariables.s"
+    INCLUDE "Scroll.s"
+    INCLUDE "ReadInput.s"
 
     ; Assets
     INCLUDE "Graphics/Sprites/SpriteAssets.s"
@@ -37,32 +39,8 @@ Execute:
     call    InitVariables
 
 
-; --------- Load first screen     
-    ld	    a, 14
-	ld	    (Seg_P8000_SW), a
-    ; write to VRAM bitmap area
-    ld		hl, ImageData_14        			    ; RAM address (source)
-    ld		de, NAMTBL + (0 * (256 * 64))                ; VRAM address (destiny)
-    ld		bc, ImageData_14.size				    ; Block length
-    call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
-            
-    ; -- Load middle part of first image on last 64 lines
-    ld	    a, 15
-	ld	    (Seg_P8000_SW), a
-    ; write to VRAM bitmap area
-    ld		hl, ImageData_15      				    ; RAM address (source)
-    ld		de, NAMTBL + (1 * (256 * 64))                ; VRAM address (destiny)
-    ld		bc, ImageData_15.size					; Block length
-    call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
+    call    LoadFirstScreen
 
-    ; -- Load bottom part of first image on last 64 lines
-    ld	    a, 16
-	ld	    (Seg_P8000_SW), a
-    ; write to VRAM bitmap area
-    ld		hl, ImageData_16      				    ; RAM address (source)
-    ld		de, NAMTBL + (2 * (256 * 64))                ; VRAM address (destiny)
-    ld		bc, ImageData_16.size					; Block length
-    call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
 
     call    BIOS_ENASCR
 
@@ -71,96 +49,47 @@ Execute:
 ADDR_LAST_LINE_OF_PAGE: equ 0x8000 + (63 * 256)
 
 
-.start:
-    ; initialize variables for scrolling on last line of the next page
-    ld      a, 13
-    ld      (CurrentMegaROMPage), a
-    ld      hl, ADDR_LAST_LINE_OF_PAGE
-    ld      (CurrentAddrLineScroll), hl
-    ld      hl, 255 * 256
-    ld      (CurrentVRAMAddrLineScroll), hl
+    call    InitVariablesForScroll
+
+    ; ; initialize variables for scrolling on last line of the next page
+    ; ld      a, 13
+    ; ld      (CurrentMegaROMPage), a
+    ; ld      hl, ADDR_LAST_LINE_OF_PAGE
+    ; ld      (CurrentAddrLineScroll), hl
+    ; ld      hl, 255 * 256
+    ; ld      (CurrentVRAMAddrLineScroll), hl
 
 
-    xor     a
-    ld      (VerticalScroll), a
+    ; xor     a
+    ; ld      (VerticalScroll), a
 
-.loop:
-    ld      a, (BIOS_JIFFY)
-    ld      b, a
+.gameLoop:
+    ld      hl, BIOS_JIFFY              ; (v-blank sync)
+    ld      a, (hl)
 .waitVBlank:
-    ld      a, (BIOS_JIFFY)
-    cp      b
-    jp      z, .waitVBlank
+    cp      (hl)
+    jr      z, .waitVBlank
 
-    ;call    Wait
-; .endlessLoop:
-;     jp  .endlessLoop
+    call    ExecuteScroll
 
-    ; load next line from bitmap on the last line of virtual screen (256 lines)
-    ; that will be the next to be shown on top of screen
-    ld	    a, (CurrentMegaROMPage)
-	ld	    (Seg_P8000_SW), a
-    ld      hl, (CurrentAddrLineScroll)             ; RAM address (source)
-    ld		de, (CurrentVRAMAddrLineScroll)         ; VRAM address (destiny)
-    ld		bc, 256					                ; Block length
-    call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
-	; ld	    hl, (CurrentVRAMAddrLineScroll)		; VRAM start address
-    ; ld      bc, 256                             ; number of bytes
-    ; ld      a, 00011100 b                       ; value
-    ; call    BIOS_FILVRM                         ; Fill VRAM
-
-    ; update vars
-    ld      de, (CurrentVRAMAddrLineScroll)
-    dec     d                                       ; de = de - 256
-    ld      hl, (CurrentAddrLineScroll)
-    dec     h                                       ; hl = hl - 256
-    ld      a, h
-    cp      0x80 - 1
-    jp      z, .decPage
-    jp      .dontDecPage
-.decPage:
-    ld      a, (CurrentMegaROMPage)
-    dec     a
-    jp      z, .stopScroll
-    ld      (CurrentMegaROMPage), a
-    ld      hl, ADDR_LAST_LINE_OF_PAGE
-.dontDecPage:
-    ld      (CurrentAddrLineScroll), hl
-    ld      (CurrentVRAMAddrLineScroll), de
-
-
-    ; vertical scroll
-    ld      hl, VerticalScroll
-    dec     (hl)
-    ld      b, (hl)         ; data
-    ld      c, 23           ; register #
-    call    BIOS_WRTVDP
-
-
-    ; ajust Y position of sprites to compensate scroll
-    ld      a, (Player_Y)
-    dec     a
-    cp      216             ; hide all sprites
-    jp      nz, .continue
-    ld      a, 215
-.continue:
-    ld      (Player_Y), a
-
-
-    ; test
-    ld      a, (Player_X)
-    inc     a
-    ld      (Player_X), a
-
-
+    call    AdjustSprites_Y
 
     call    UpdateSpriteAttributesTable
 
+    call    ReadInput
 
-    jp      .loop
 
-.stopScroll:
-    jp      .stopScroll
+
+
+
+    ; ; test
+    ; ld      a, (Player_X)
+    ; inc     a
+    ; ld      (Player_X), a
+
+
+    jp      .gameLoop
+
 
 
 
