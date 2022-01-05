@@ -46,7 +46,13 @@ ReadInput:
 .playerUp:
     ld      a, (Player_Y)
     sub     3
-    ;ret     c
+    
+    ; ld      b, a
+    ; ld      a, (VerticalScroll)
+    ; cp      b
+    ; ret     c
+
+    ; ld      a, b
     ld      (Player_Y), a
 
     ret
