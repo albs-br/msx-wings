@@ -18,6 +18,7 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     INCLUDE "InitVariables.s"
     INCLUDE "Scroll.s"
     INCLUDE "ReadInput.s"
+    INCLUDE "GameLogic.s"
 
     ; Assets
     INCLUDE "Graphics/Sprites/SpriteAssets.s"
@@ -78,7 +79,7 @@ ADDR_LAST_LINE_OF_PAGE: equ 0x8000 + (63 * 256)
 
     call    ReadInput
 
-
+    call    GameLogic
 
 
 
