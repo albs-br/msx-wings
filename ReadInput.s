@@ -1,3 +1,7 @@
+PLANE_PLAYER_WIDTH:             equ 21
+PLANE_PLAYER_HEIGHT:            equ 31
+PLANE_PLAYER_PIXELS_PER_MOV:    equ 3
+
 ReadInput:
     ; read keyboard
     ld      a, 8                    ; 8th line
@@ -28,7 +32,7 @@ ReadInput:
 
 .playerLeft:
     ld      a, (Player_X)
-    sub     3
+    sub     PLANE_PLAYER_PIXELS_PER_MOV
     ret     c
     ld      (Player_X), a
 
@@ -36,31 +40,34 @@ ReadInput:
 
 .playerRight:
     ld      a, (Player_X)
-    add     3
-    cp      240
+    add     PLANE_PLAYER_PIXELS_PER_MOV
+    cp      255 - PLANE_PLAYER_WIDTH
     ret     nc
     ld      (Player_X), a
 
     ret
 
 .playerUp:
-    ld      a, (Player_Y)
-    sub     3
-    
-    ; ld      b, a
-    ; ld      a, (VerticalScroll)
-    ; cp      b
-    ; ret     c
+    ld      a, (Player_Y_Static)
+    sub     PLANE_PLAYER_PIXELS_PER_MOV
+    ret     c
+    ld      (Player_Y_Static), a
 
-    ; ld      a, b
+    ld      a, (Player_Y)
+    sub     PLANE_PLAYER_PIXELS_PER_MOV
     ld      (Player_Y), a
 
     ret
 
 .playerDown:
+    ld      a, (Player_Y_Static)
+    add     PLANE_PLAYER_PIXELS_PER_MOV
+    cp      191 - PLANE_PLAYER_HEIGHT
+    ret     nc
+    ld      (Player_Y_Static), a
+
     ld      a, (Player_Y)
-    add     3
-    ;ret     c
+    add     PLANE_PLAYER_PIXELS_PER_MOV
     ld      (Player_Y), a
 
     ret

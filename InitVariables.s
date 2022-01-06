@@ -5,6 +5,7 @@ InitVariables:
 
     ld      a, 90
     ld      (Player_Y), a
+    ld      (Player_Y_Static), a
 
 
 

@@ -7,9 +7,13 @@ InitVariablesForScroll:
     ld      hl, 255 * 256
     ld      (CurrentVRAMAddrLineScroll), hl
 
-
+    ; VerticalScroll: byte
     xor     a
     ld      (VerticalScroll), a
+
+    ; VerticalScroll: word
+    ; ld      hl, 0
+    ; ld      (VerticalScroll), hl
 
     ret
 
@@ -48,6 +52,8 @@ LoadFirstScreen:
 
 ExecuteScroll:
 
+    ; TODO: use VDP command to gain speed
+
     ; load next line from bitmap on the last line of virtual screen (256 lines)
     ; that will be the next to be shown on top of screen
     ld	    a, (CurrentMegaROMPage)
@@ -81,10 +87,19 @@ ExecuteScroll:
     ld      (CurrentVRAMAddrLineScroll), de
 
 
-    ; vertical scroll
+    ; -------------- do vertical scroll
+
+    ; VerticalScroll: word
+    ; ld      hl, (VerticalScroll)
+    ; dec     hl
+    ; ld      (VerticalScroll), hl
+    ; ld      b, l            ; data
+
+    ; VerticalScroll: byte
     ld      hl, VerticalScroll
     dec     (hl)
     ld      b, (hl)         ; data
+
     ld      c, 23           ; register #
     call    BIOS_WRTVDP
 
