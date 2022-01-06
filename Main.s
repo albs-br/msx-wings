@@ -104,6 +104,8 @@ End:
 InitialSpriteAttributes:
     ;   Y, X, Pattern, Reserved
 
+; ----------- player plane
+
     ; sprites 0 and 1
     db  90, 100, 0 * 4, 0
     db  90, 100, 1 * 4, 0
@@ -111,6 +113,11 @@ InitialSpriteAttributes:
     ; sprites 2 and 3
     db  90 + 16, 100, 2 * 4, 0
     db  90 + 16, 100, 3 * 4, 0
+
+; ----------- player shots
+
+    ; sprites 4
+    db  192, 255, PLAYER_SHOT_SPR_PAT_NUMBER, 0
 
 .size:  equ $ - InitialSpriteAttributes
 

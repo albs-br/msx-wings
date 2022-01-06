@@ -1,3 +1,6 @@
+PLAYER_SHOT_SPR_PAT_NUMBER:             equ 4 * 4
+EMPTY_SPR_PAT_NUMBER:                   equ 63 * 4
+
 UpdateSpriteAttributesTable:
     ld      hl, SpriteAttrTableBuffer
 
@@ -78,6 +81,32 @@ UpdateSpriteAttributesTable:
     inc     hl
     ; ld      a, 0
     ; ld      (hl), a
+
+; ----------------------------------------
+
+    ; Sprite # 4
+    inc     hl
+    ld      a, (PlayerShot_0_Struct + 2)    ; Y
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (PlayerShot_0_Struct + 1)    ; X
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (PlayerShot_0_Struct)        ; Status
+    or      a
+    ld      a, PLAYER_SHOT_SPR_PAT_NUMBER
+    jp      nz, .sprite_4_continue          ; if (Status == 0) EMPTY_SPR_PAT_NUMBER else PLAYER_SHOT_SPR_PAT_NUMBER
+    ld      a, EMPTY_SPR_PAT_NUMBER
+.sprite_4_continue:
+    ld      (hl), a
+
+    inc     hl
+    ; ld      a, 0
+    ; ld      (hl), a
+
+;.playerShot_0_continue:
 
 ; ----------------------------------------
 

@@ -112,12 +112,36 @@ ExecuteScroll:
 
 AdjustSprites_Y:
     ; ajust Y position of sprites to compensate scroll
-    ld      a, (Player_Y)
+
+    ld      hl, Player_Y
+    call    .adjustSprite
+;     ld      a, (Player_Y)
+;     dec     a
+;     cp      216             ; avoid value 216 (hide all sprites)
+;     jp      nz, .continue
+;     ld      a, 215
+; .continue:
+;     ld      (Player_Y), a
+
+
+    ld      hl, PlayerShot_0_Struct + 2
+    call    .adjustSprite
+;     ld      a, (PlayerShot_0_Struct + 2)    ; Y
+;     dec     a
+;     cp      216             ; avoid value 216 (hide all sprites)
+;     jp      nz, .continue_1
+;     ld      a, 215
+; .continue_1:
+;     ld      (PlayerShot_0_Struct + 2), a
+    
+    ret
+
+.adjustSprite:
+    ld      a, (hl)
     dec     a
     cp      216             ; avoid value 216 (hide all sprites)
     jp      nz, .continue
     ld      a, 215
 .continue:
-    ld      (Player_Y), a
-    
+    ld      (hl), a
     ret

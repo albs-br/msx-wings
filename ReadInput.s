@@ -73,5 +73,9 @@ ReadInput:
     ret
 
 .shot:
+    ; TODO: get current shot
+    ld      hl, PlayerShot_0_Struct
+    call    PlayerShot_Init
+    
     ret
 
