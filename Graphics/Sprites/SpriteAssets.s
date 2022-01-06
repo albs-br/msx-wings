@@ -22,22 +22,27 @@ PaletteData:
 
 ; ------------------------------ Patterns
 
-SpritePattern_0_and_1:
+SpritePattern_PlayerPlane_0_and_1:
     INCBIN "Graphics/Sprites/player_plane_0.pat"
-.size:  equ $ - SpritePattern_0_and_1
-
-SpritePattern_2_and_3:
+.size:  equ $ - SpritePattern_PlayerPlane_0_and_1
+SpritePattern_PlayerPlane_2_and_3:
     INCBIN "Graphics/Sprites/player_plane_1.pat"
-.size:  equ $ - SpritePattern_2_and_3
+.size:  equ $ - SpritePattern_PlayerPlane_2_and_3
 
+SpritePattern_PlayerShot:
+    INCLUDE "Graphics/Sprites/player_shot_pattern.s"
+.size:  equ $ - SpritePattern_PlayerShot
 
 
 ; ------------------------------ Colors
 
-SpriteColors_0_and_1:
+SpriteColors_PlayerPlane_0_and_1:
     INCBIN "Graphics/Sprites/player_plane_0.col"
-.size:  equ $ - SpriteColors_0_and_1
-
-SpriteColors_2_and_3:
+.size:  equ $ - SpriteColors_PlayerPlane_0_and_1
+SpriteColors_PlayerPlane_2_and_3:
     INCBIN "Graphics/Sprites/player_plane_1.col"
-.size:  equ $ - SpriteColors_2_and_3
+.size:  equ $ - SpriteColors_PlayerPlane_2_and_3
+
+SpriteColors_PlayerShot:
+    INCLUDE "Graphics/Sprites/player_shot_color.s"
+.size:  equ $ - SpriteColors_PlayerShot

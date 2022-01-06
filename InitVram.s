@@ -73,18 +73,27 @@ SPRATR:     equ 0xfa00
     ld      a, 0000 0001 b
     ld      hl, SPRPAT
     call    SetVdp_Write
-    ld      b, SpritePattern_0_and_1.size
+    ld      b, SpritePattern_PlayerPlane_0_and_1.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpritePattern_0_and_1
+    ld      hl, SpritePattern_PlayerPlane_0_and_1
     otir
 
     ; Spr 2 and 3 patterns
     ld      a, 0000 0001 b
     ld      hl, SPRPAT + 64
     call    SetVdp_Write
-    ld      b, SpritePattern_2_and_3.size
+    ld      b, SpritePattern_PlayerPlane_2_and_3.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpritePattern_2_and_3
+    ld      hl, SpritePattern_PlayerPlane_2_and_3
+    otir
+
+    ; Spr 4 patterns
+    ld      a, 0000 0001 b
+    ld      hl, SPRPAT + 128
+    call    SetVdp_Write
+    ld      b, SpritePattern_PlayerShot.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpritePattern_PlayerShot
     otir
 
 
@@ -92,18 +101,27 @@ SPRATR:     equ 0xfa00
     ld      a, 0000 0001 b
     ld      hl, SPRCOL
     call    SetVdp_Write
-    ld      b, SpriteColors_0_and_1.size
+    ld      b, SpriteColors_PlayerPlane_0_and_1.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpriteColors_0_and_1
+    ld      hl, SpriteColors_PlayerPlane_0_and_1
     otir
 
     ; Spr 2 and 3 colors
     ld      a, 0000 0001 b
     ld      hl, SPRCOL + 32
     call    SetVdp_Write
-    ld      b, SpriteColors_2_and_3.size
+    ld      b, SpriteColors_PlayerPlane_2_and_3.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpriteColors_2_and_3
+    ld      hl, SpriteColors_PlayerPlane_2_and_3
+    otir
+
+    ; Spr 4 colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + 64
+    call    SetVdp_Write
+    ld      b, SpriteColors_PlayerShot.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpriteColors_PlayerShot
     otir
 
 
