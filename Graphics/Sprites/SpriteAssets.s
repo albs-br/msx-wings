@@ -33,6 +33,10 @@ SpritePattern_PlayerShot:
     INCLUDE "Graphics/Sprites/player_shot_pattern.s"
 .size:  equ $ - SpritePattern_PlayerShot
 
+SpritePattern_EnemyPlane_0_and_1:
+    INCBIN "Graphics/Sprites/enemy_plane.pat"
+.size:  equ $ - SpritePattern_EnemyPlane_0_and_1
+
 
 ; ------------------------------ Colors
 
@@ -46,3 +50,7 @@ SpriteColors_PlayerPlane_2_and_3:
 SpriteColors_PlayerShot:
     INCLUDE "Graphics/Sprites/player_shot_color.s"
 .size:  equ $ - SpriteColors_PlayerShot
+
+SpriteColors_EnemyPlane_0_and_1:
+    INCBIN "Graphics/Sprites/enemy_plane.col"
+.size:  equ $ - SpriteColors_EnemyPlane_0_and_1

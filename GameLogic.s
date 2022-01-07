@@ -29,7 +29,7 @@ GameLogic:
 ; PLAYER_SHOT_ADDR_JUMP_TABLE:        dw      PlayerShot_0_Struct, PlayerShot_1_Struct, PlayerShot_2_Struct, 0x0000
 
 
-FRAMES_BETWEEN_PLAYER_SHOTS:        equ 3
+FRAMES_BETWEEN_PLAYER_SHOTS:        equ 4
 
 ; Input
 ;   HL: addr of player shot struct

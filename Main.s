@@ -107,12 +107,12 @@ InitialSpriteAttributes:
 ; ----------- player plane
 
     ; sprites 0 and 1
-    db  90, 100, 0 * 4, 0
-    db  90, 100, 1 * 4, 0
+    db  90, 100, PLAYER_SPR_PAT_0_NUMBER, 0
+    db  90, 100, PLAYER_SPR_PAT_1_NUMBER, 0
 
     ; sprites 2 and 3
-    db  90 + 16, 100, 2 * 4, 0
-    db  90 + 16, 100, 3 * 4, 0
+    db  90 + 16, 100, PLAYER_SPR_PAT_2_NUMBER, 0
+    db  90 + 16, 100, PLAYER_SPR_PAT_3_NUMBER, 0
 
 ; ----------- player shots
 
@@ -120,6 +120,12 @@ InitialSpriteAttributes:
     db  192, 255, EMPTY_SPR_PAT_NUMBER, 0
     db  192, 255, EMPTY_SPR_PAT_NUMBER, 0
     db  192, 255, EMPTY_SPR_PAT_NUMBER, 0
+
+; ----------- enemy plane
+
+    ; sprites 7 and 8
+    db  10, 10, ENEMY_SPR_PAT_0_NUMBER, 0
+    db  10, 10, ENEMY_SPR_PAT_1_NUMBER, 0
 
 .size:  equ $ - InitialSpriteAttributes
 

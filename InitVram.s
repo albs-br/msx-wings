@@ -67,7 +67,7 @@ SPRATR:     equ 0xfa00
 
 
 
-; --------- Load sprites
+; --------- Load sprite patterns
 
     ; Spr 0 and 1 patterns
     ld      a, 0000 0001 b
@@ -96,6 +96,17 @@ SPRATR:     equ 0xfa00
     ld      hl, SpritePattern_PlayerShot
     otir
 
+    ; Spr 5 and 6 patterns
+    ld      a, 0000 0001 b
+    ld      hl, SPRPAT + 128 + SpritePattern_PlayerShot.size
+    call    SetVdp_Write
+    ld      b, SpritePattern_EnemyPlane_0_and_1.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpritePattern_EnemyPlane_0_and_1
+    otir
+
+
+; --------- Load sprite colors
 
     ; Spr 0 and 1 colors
     ld      a, 0000 0001 b
@@ -140,6 +151,15 @@ SPRATR:     equ 0xfa00
     ld      b, SpriteColors_PlayerShot.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
     ld      hl, SpriteColors_PlayerShot
+    otir
+
+    ; Spr 7 and 8 colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + 64 + 32 + 16
+    call    SetVdp_Write
+    ld      b, SpriteColors_EnemyPlane_0_and_1.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpriteColors_EnemyPlane_0_and_1
     otir
 
 
