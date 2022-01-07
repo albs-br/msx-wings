@@ -1,33 +1,3 @@
-NUMBER_OF_PLAYER_SHOTS:         equ 6
-
-GameLogic:
-
-    ld      hl, PlayerShot_0_Struct
-    call    PlayerShot_Logic
-    ld      hl, PlayerShot_1_Struct
-    call    PlayerShot_Logic
-    ld      hl, PlayerShot_2_Struct
-    call    PlayerShot_Logic
-    ; ld      hl, PlayerShot_3_Struct
-    ; call    PlayerShot_Logic
-    ; ld      hl, PlayerShot_4_Struct
-    ; call    PlayerShot_Logic
-    ; ld      hl, PlayerShot_5_Struct
-    ; call    PlayerShot_Logic
-
-
-    ; if (Player_FramesSinceLastShot == 255) ret
-    ld      a, (Player_FramesSinceLastShot)
-    inc     a
-    ret     z
-
-    ld      (Player_FramesSinceLastShot), a
-
-
-    ret
-
-; PLAYER_SHOT_ADDR_JUMP_TABLE:        dw      PlayerShot_0_Struct, PlayerShot_1_Struct, PlayerShot_2_Struct, 0x0000
-
 
 FRAMES_BETWEEN_PLAYER_SHOTS:        equ 4
 

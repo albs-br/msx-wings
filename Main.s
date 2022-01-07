@@ -18,7 +18,9 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     INCLUDE "InitVariables.s"
     INCLUDE "Scroll.s"
     INCLUDE "ReadInput.s"
-    INCLUDE "GameLogic.s"
+    INCLUDE "GameLogic/GameLogic.s"
+    INCLUDE "GameLogic/PlayerShotLogic.s"
+    INCLUDE "GameLogic/EnemyLogic.s"
 
     ; Assets
     INCLUDE "Graphics/Sprites/SpriteAssets.s"
