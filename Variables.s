@@ -16,9 +16,9 @@ PlayerShot_Temp_Struct.size:        equ $ - PlayerShot_Temp_Struct
 PlayerShot_0_Struct:                    rb PlayerShot_Temp_Struct.size
 PlayerShot_1_Struct:                    rb PlayerShot_Temp_Struct.size
 PlayerShot_2_Struct:                    rb PlayerShot_Temp_Struct.size
-PlayerShot_3_Struct:                    rb PlayerShot_Temp_Struct.size
-PlayerShot_4_Struct:                    rb PlayerShot_Temp_Struct.size
-PlayerShot_5_Struct:                    rb PlayerShot_Temp_Struct.size
+; PlayerShot_3_Struct:                    rb PlayerShot_Temp_Struct.size
+; PlayerShot_4_Struct:                    rb PlayerShot_Temp_Struct.size
+; PlayerShot_5_Struct:                    rb PlayerShot_Temp_Struct.size
 
 
 NextShot_Struct_Addr:                   rw 1

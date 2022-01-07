@@ -9,8 +9,10 @@ ReadInput:
     ld      e, a                    ; save value
 
 
-    bit     0, a                    ; 0th bit (space bar)
-    call    z, .shot
+    push    de
+        bit     0, a                    ; 0th bit (space bar)
+        call    z, .shot
+    pop     de
 
     ld      a, e
     bit     4, a                    ; 4th bit (key left)
@@ -83,8 +85,8 @@ ReadInput:
     ret
 
 .shot:
-    ; TODO: get current shot
-    ld      hl, PlayerShot_0_Struct
+    ; get next shot struct addr
+    ld      hl, (NextShot_Struct_Addr)
     call    PlayerShot_Init
 
     ret

@@ -116,8 +116,10 @@ InitialSpriteAttributes:
 
 ; ----------- player shots
 
-    ; sprites 4
-    db  192, 255, PLAYER_SHOT_SPR_PAT_NUMBER, 0
+    ; sprites 4, 5 and 6
+    db  192, 255, EMPTY_SPR_PAT_NUMBER, 0
+    db  192, 255, EMPTY_SPR_PAT_NUMBER, 0
+    db  192, 255, EMPTY_SPR_PAT_NUMBER, 0
 
 .size:  equ $ - InitialSpriteAttributes
 

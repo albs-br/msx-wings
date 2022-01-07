@@ -14,14 +14,20 @@ InitVariables:
     call    PlayerShot_Reset
     ld      hl, PlayerShot_2_Struct
     call    PlayerShot_Reset
-    ld      hl, PlayerShot_3_Struct
-    call    PlayerShot_Reset
-    ld      hl, PlayerShot_4_Struct
-    call    PlayerShot_Reset
-    ld      hl, PlayerShot_5_Struct
-    call    PlayerShot_Reset
+    ; ld      hl, PlayerShot_3_Struct
+    ; call    PlayerShot_Reset
+    ; ld      hl, PlayerShot_4_Struct
+    ; call    PlayerShot_Reset
+    ; ld      hl, PlayerShot_5_Struct
+    ; call    PlayerShot_Reset
 
 
+    ; load first shot struct addr
+    ld      hl, PlayerShot_0_Struct
+    ld      (NextShot_Struct_Addr), hl
+
+    ld      a, 255
+    ld      (Player_FramesSinceLastShot), a
 
 
     ; copy from initial sprite attributes to buffer

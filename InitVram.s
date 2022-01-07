@@ -124,6 +124,23 @@ SPRATR:     equ 0xfa00
     ld      hl, SpriteColors_PlayerShot
     otir
 
+    ; Spr 5 colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + 64 + 16
+    call    SetVdp_Write
+    ld      b, SpriteColors_PlayerShot.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpriteColors_PlayerShot
+    otir
+
+    ; Spr 6 colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + 64 + 32
+    call    SetVdp_Write
+    ld      b, SpriteColors_PlayerShot.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpriteColors_PlayerShot
+    otir
 
 
 
