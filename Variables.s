@@ -21,6 +21,9 @@ PlayerShot_4_Struct:                    rb PlayerShot_Temp_Struct.size
 PlayerShot_5_Struct:                    rb PlayerShot_Temp_Struct.size
 
 
+NextShot_Struct_Addr:                   rw 1
+Player_FramesSinceLastShot:             rb 1
+
 ; ---------------------------------------
 
 VerticalScroll:             rb 1

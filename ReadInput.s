@@ -36,6 +36,11 @@ ReadInput:
     ret     c
     ld      (Player_X), a
 
+    ; ; clear 7th bit (key right)
+    ; ld      a, e
+    ; or      1000 0000b
+    ; ld      e, a
+
     ret
 
 .playerRight:
@@ -44,6 +49,11 @@ ReadInput:
     cp      255 - PLANE_PLAYER_WIDTH
     ret     nc
     ld      (Player_X), a
+
+    ; ; clear 4th bit (key left)
+    ; ld      a, e
+    ; or      0001 0000b
+    ; ld      e, a
 
     ret
 
@@ -76,6 +86,6 @@ ReadInput:
     ; TODO: get current shot
     ld      hl, PlayerShot_0_Struct
     call    PlayerShot_Init
-    
+
     ret
 

@@ -113,7 +113,7 @@ BIOS_H_NEWS: equ 0FF3Eh ; last def. pass 3
 BIOS_HIMEM: equ 0FC4Ah ; last def. pass 3
 SpritePattern_PlayerPlane_2_and_3.size: equ 040h ; last def. pass 3
 BIOS_SETMLT: equ 081h ; last def. pass 3
-VerticalScroll: equ 0C01Fh ; last def. pass 3
+VerticalScroll: equ 0C022h ; last def. pass 3
 BIOS_QUEUEN: equ 0FB3Eh ; last def. pass 3
 BIOS_PROCNM: equ 0FD89h ; last def. pass 3
 REG1SAV: equ 0F3E0h ; last def. pass 3
@@ -343,12 +343,13 @@ BIOS_DISSCR: equ 041h ; last def. pass 3
 NAMTBL: equ 00h ; last def. pass 3
 BIOS_PARM2: equ 0F750h ; last def. pass 3
 BIOS_RG9SAV: equ 0FFE8h ; last def. pass 3
-CurrentAddrLineScroll: equ 0C021h ; last def. pass 3
+CurrentAddrLineScroll: equ 0C024h ; last def. pass 3
 BIOS_H_SETF: equ 0FE53h ; last def. pass 3
 BIOS_H_FINE: equ 0FF1Bh ; last def. pass 3
 BIOS_DAC: equ 0F7F6h ; last def. pass 3
 BIOS_H_MKD: equ 0FE3Ah ; last def. pass 3
 ImageData_6.size: equ 04000h ; last def. pass 3
+Player_FramesSinceLastShot: equ 0C021h ; last def. pass 3
 PlayerShot_Logic: equ 04417h ; last def. pass 3
 BIOS_INLIN: equ 0B1h ; last def. pass 3
 BIOS_SUBROM: equ 015Ch ; last def. pass 3
@@ -581,7 +582,7 @@ SpriteColors_PlayerPlane_0_and_1.size: equ 020h ; last def. pass 3
 BIOS_ENASCR: equ 044h ; last def. pass 3
 BIOS_H_ERAF: equ 0FDB8h ; last def. pass 3
 BIOS_COMMSK: equ 0FB1Eh ; last def. pass 3
-CurrentVRAMAddrLineScroll: equ 0C023h ; last def. pass 3
+CurrentVRAMAddrLineScroll: equ 0C026h ; last def. pass 3
 BIOS_H_DEVN: equ 0FEC1h ; last def. pass 3
 ImageData_14: equ 08000h ; last def. pass 3
 AdjustSprites_Y.continue: equ 0435Eh ; last def. pass 3
@@ -591,6 +592,7 @@ BIOS_QINLIN: equ 0B4h ; last def. pass 3
 BIOS_H_BUFL: equ 0FF8Eh ; last def. pass 3
 BIOS_HOLD8: equ 0F806h ; last def. pass 3
 BIOS_PDIREC: equ 0F953h ; last def. pass 3
+NextShot_Struct_Addr: equ 0C01Fh ; last def. pass 3
 ADDR_LAST_LINE_OF_PAGE: equ 0BF00h ; last def. pass 3
 BIOS_H_FPOS: equ 0FEA8h ; last def. pass 3
 BIOS_RTPROG: equ 0F955h ; last def. pass 3
@@ -607,7 +609,7 @@ PLANE_PLAYER_PIXELS_PER_MOV: equ 03h ; last def. pass 3
 BIOS_H_KEYC: equ 0FDCCh ; last def. pass 3
 BIOS_KEYINT: equ 038h ; last def. pass 3
 ImageData_1.size: equ 04000h ; last def. pass 3
-SpriteAttrTableBuffer: equ 0C025h ; last def. pass 3
+SpriteAttrTableBuffer: equ 0C028h ; last def. pass 3
 ImageData_11.size: equ 04000h ; last def. pass 3
 BIOS_T32NAM: equ 0F3BDh ; last def. pass 3
 SpriteColors_PlayerPlane_0_and_1: equ 044F3h ; last def. pass 3
@@ -619,7 +621,7 @@ BIOS_PADY: equ 0FC9Ch ; last def. pass 3
 BIOS_SYNCHR: equ 08h ; last def. pass 3
 BIOS_VLZDAT: equ 0F41Bh ; last def. pass 3
 BIOS_GTTRIG: equ 0D8h ; last def. pass 3
-CurrentMegaROMPage: equ 0C020h ; last def. pass 3
+CurrentMegaROMPage: equ 0C023h ; last def. pass 3
 BIOS_H_GEND: equ 0FEC6h ; last def. pass 3
 BIOS_STATFL: equ 0F3E7h ; last def. pass 3
 BIOS_CGTABL: equ 04h ; last def. pass 3
