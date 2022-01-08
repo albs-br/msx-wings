@@ -242,9 +242,9 @@ SetVdp_Read:
 
 
 ClearVram_MSX2:
-    xor a           ; set vram write base address
-    ld hl, 0     	; to 1st byte of page 0
-    call SetVDP_Write
+    xor     a           ; set vram write base address
+    ld      hl, 0     	; to 1st byte of page 0
+    call    SetVDP_Write
 
 ;     xor a
 ; FillL1:

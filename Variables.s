@@ -45,16 +45,36 @@ Enemy_5_Struct:                    rb Enemy_Temp_Struct.size
 
 ; ---------------------------------------
 
+LevelData_Temp_Struct:
+LevelData_Temp_Counter:             rw 1
+LevelData_Temp_EnemyType:           rb 1
+LevelData_Temp_Struct.size:         equ $ - LevelData_Temp_Struct
+
+
+
+; ---------------------------------------
+
 
 LevelCounter:                       rw 1
 
-
+LevelData_CurrentAddr:              rw 1
 
 
 VerticalScroll:             rb 1
 CurrentMegaROMPage:         rb 1
 CurrentAddrLineScroll:      rw 1
 CurrentVRAMAddrLineScroll:  rw 1
+
+
+; ---------------------------------------
+
+Debug_Temp_Byte:                 rb 1
+Debug_Temp_Word:                 rw 1
+
+
+
+
+
 
 
 

@@ -21,14 +21,12 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     INCLUDE "GameLogic/GameLogic.s"
     INCLUDE "GameLogic/PlayerShotLogic.s"
     INCLUDE "GameLogic/EnemyLogic.s"
+    INCLUDE "LevelData/Level1.s"
 
     ; Assets
     INCLUDE "Graphics/Sprites/SpriteAssets.s"
 
 Execute:
-    call    ClearRam
-
-
     call    EnableRomPage2
 
 	; enable page 1
@@ -40,6 +38,7 @@ Execute:
 
 
 ; ---------------------
+    call    ClearRam
 
 
     call    InitVariables

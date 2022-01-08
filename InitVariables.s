@@ -37,6 +37,11 @@ InitVariables:
     ld      (LevelCounter), hl
 
 
+    ld      hl, Level_1_Data
+    ld      (LevelData_CurrentAddr), hl
+
+
+
     ; copy from initial sprite attributes to buffer
     ld      hl, InitialSpriteAttributes
     ld      de, SpriteAttrTableBuffer
