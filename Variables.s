@@ -26,6 +26,31 @@ Player_FramesSinceLastShot:             rb 1
 
 ; ---------------------------------------
 
+Enemy_Temp_Struct:
+Enemy_Temp_Status:                  rb 1    
+Enemy_Temp_X:                       rb 1
+Enemy_Temp_Y:                       rb 1
+Enemy_Temp_Y_Static:                rb 1 ; y coord ignoring scroll
+Enemy_Temp_Struct.size:        equ $ - Enemy_Temp_Struct
+
+
+
+Enemy_0_Struct:                    rb Enemy_Temp_Struct.size
+Enemy_1_Struct:                    rb Enemy_Temp_Struct.size
+Enemy_2_Struct:                    rb Enemy_Temp_Struct.size
+Enemy_3_Struct:                    rb Enemy_Temp_Struct.size
+Enemy_4_Struct:                    rb Enemy_Temp_Struct.size
+Enemy_5_Struct:                    rb Enemy_Temp_Struct.size
+
+
+; ---------------------------------------
+
+
+LevelCounter:                       rw 1
+
+
+
+
 VerticalScroll:             rb 1
 CurrentMegaROMPage:         rb 1
 CurrentAddrLineScroll:      rw 1

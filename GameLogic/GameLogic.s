@@ -16,11 +16,18 @@ GameLogic:
     ; call    PlayerShot_Logic
 
 
+
+
+    ld      hl, (LevelCounter)
+    inc     hl
+    ld      (LevelCounter), hl
+
+
     ; if (Player_FramesSinceLastShot == 255) ret
     ld      a, (Player_FramesSinceLastShot)
     inc     a
     ret     z
-
+    ; else Player_FramesSinceLastShot ++ 
     ld      (Player_FramesSinceLastShot), a
 
 

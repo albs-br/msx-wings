@@ -26,6 +26,9 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     INCLUDE "Graphics/Sprites/SpriteAssets.s"
 
 Execute:
+    call    ClearRam
+
+
     call    EnableRomPage2
 
 	; enable page 1
@@ -109,12 +112,12 @@ InitialSpriteAttributes:
 ; ----------- player plane
 
     ; sprites 0 and 1
-    db  90, 100, PLAYER_SPR_PAT_0_NUMBER, 0
-    db  90, 100, PLAYER_SPR_PAT_1_NUMBER, 0
+    db  PLAYER_INITIAL_Y, PLAYER_INITIAL_X, PLAYER_SPR_PAT_0_NUMBER, 0
+    db  PLAYER_INITIAL_Y, PLAYER_INITIAL_X, PLAYER_SPR_PAT_1_NUMBER, 0
 
     ; sprites 2 and 3
-    db  90 + 16, 100, PLAYER_SPR_PAT_2_NUMBER, 0
-    db  90 + 16, 100, PLAYER_SPR_PAT_3_NUMBER, 0
+    db  PLAYER_INITIAL_Y + 16, PLAYER_INITIAL_X, PLAYER_SPR_PAT_2_NUMBER, 0
+    db  PLAYER_INITIAL_Y + 16, PLAYER_INITIAL_X, PLAYER_SPR_PAT_3_NUMBER, 0
 
 ; ----------- player shots
 
@@ -128,6 +131,9 @@ InitialSpriteAttributes:
     ; sprites 7 and 8
     db  10, 10, ENEMY_SPR_PAT_0_NUMBER, 0
     db  10, 10, ENEMY_SPR_PAT_1_NUMBER, 0
+
+; hide all sprites from here onwards
+    db  216, 0, 0, 0
 
 .size:  equ $ - InitialSpriteAttributes
 
@@ -161,4 +167,6 @@ InitialSpriteAttributes:
 ; RAM
 	org     0xc000, 0xe5ff                   ; for machines with 16kb of RAM (use it if you need 16kb RAM, will crash on 8kb machines, such as the Casio PV-7)
 
+RamStart:
     INCLUDE "Variables.s"
+RamEnd:

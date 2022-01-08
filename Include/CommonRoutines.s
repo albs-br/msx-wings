@@ -2,18 +2,18 @@
 ; v.0.1.0 (when changed remember to update file on other projects)
 
 ; Fill all RAM with 0x00
-; ClearRam:
-;     ld      hl, RamStart        ; RAM start address
-;     ld      de, RamEnd + 1      ; RAM end address
+ClearRam:
+    ld      hl, RamStart        ; RAM start address
+    ld      de, RamEnd + 1      ; RAM end address
 
-; .loop:
-;     xor     a                   ; same as ld a, 0, but faster
-;     ld      (hl), a
+.loop:
+    xor     a                   ; same as ld a, 0, but faster
+    ld      (hl), a
 
-;     inc     hl
-;     call    BIOS_DCOMPR         ; Compare Contents Of HL & DE, Set Z-Flag IF (HL == DE), Set CY-Flag IF (HL < DE)
-;     ret     z
-;     jp      .loop
+    inc     hl
+    call    BIOS_DCOMPR         ; Compare Contents Of HL & DE, Set Z-Flag IF (HL == DE), Set CY-Flag IF (HL < DE)
+    ret     z
+    jp      .loop
 
 
 

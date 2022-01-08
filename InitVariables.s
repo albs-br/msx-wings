@@ -1,9 +1,12 @@
+PLAYER_INITIAL_X:               equ 128 - (PLANE_PLAYER_WIDTH/2)
+PLAYER_INITIAL_Y:               equ 192 - 32
+
 InitVariables:
 
-    ld      a, 100
+    ld      a, PLAYER_INITIAL_X
     ld      (Player_X), a
 
-    ld      a, 90
+    ld      a, PLAYER_INITIAL_Y
     ld      (Player_Y), a
     ld      (Player_Y_Static), a
 
@@ -28,6 +31,10 @@ InitVariables:
 
     ld      a, 255
     ld      (Player_FramesSinceLastShot), a
+
+
+    ld      hl, 0
+    ld      (LevelCounter), hl
 
 
     ; copy from initial sprite attributes to buffer
