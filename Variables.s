@@ -50,6 +50,7 @@ Enemy_5_Struct:                    rb Enemy_Temp_Struct.size
 LevelData_Temp_Struct:
 LevelData_Temp_Counter:             rw 1
 LevelData_Temp_EnemyType:           rb 1
+LevelData_Temp_Initial_X:           rb 1
 LevelData_Temp_Struct.size:         equ $ - LevelData_Temp_Struct
 
 

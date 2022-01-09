@@ -9,7 +9,12 @@ Enemy_Init:
     ld      (hl), a     ; Status
 
     inc     hl
-    ld      a, 128 ; TODO: get from level data struct
+    ;ld      a, 128
+    ; get initial X coord from level data struct
+    inc     de
+    inc     de
+    inc     de
+    ld      a, (de)
     ld      (hl), a     ; X
 
     inc     hl

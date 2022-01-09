@@ -69,7 +69,7 @@ GameLogic:
     ;jp .executeLevelData ; debug
 
     ld      hl, Enemy_0_Struct
-    ;ld      de, (LevelData_CurrentAddr)
+    ld      de, (LevelData_CurrentAddr)
     call    Enemy_Init
     ; TODO: all other enemies
 
