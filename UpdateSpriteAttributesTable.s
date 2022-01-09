@@ -1,16 +1,13 @@
-/*
-
-Screen sprites budget:
-
-qty     range
-5       0-4         Player plane (can be improved to only 4 by using a offset on sprites overlapping)
-6       5-10        Player shots (3x 16x16 sprites for sinple shots; 3x 32x16 for double shots)
-14      11-24       Enemies (7x 16x16 or-color enemies; there will be many other combinations)
-6       25-30       Enemy shots (6x 16x16 sprites)
-
-1       31          free
-
-*/
+;       Screen sprites budget:
+;       =====================
+        
+;       qty     range
+;       5       0-4         Player plane (can be improved to only 4 by using a offset on sprites overlapping)
+;       6       5-10        Player shots (3x 16x16 sprites for simple shots; 3x 32x16 for double shots)
+;       14      11-24       Enemies (7x 16x16 or-color enemies; there will be many other combinations)
+;       6       25-30       Enemy shots (6x 16x16 sprites)
+        
+;       1       31          free
 
 
 PLAYER_SPR_PAT_0_NUMBER:                equ 0 * 4

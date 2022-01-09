@@ -36,6 +36,17 @@ Enemy_Init:
     ld      a, ENEMY_SPR_PAT_1_NUMBER
     ld      (hl), a     ; Pattern 1
 
+    inc     hl
+    ; get  Delta X Initial Addr from level data struct
+    inc     de
+    ld      a, (de)
+    ld      (hl), a     ; Delta X Current Addr (low byte)
+
+    inc     hl
+    inc     de
+    ld      a, (de)
+    ld      (hl), a     ; Delta X Current Addr (high byte)
+
     ret
 
 
@@ -72,30 +83,62 @@ Enemy_Reset:
 ; Input
 ;   HL: addr of enemy struct
 Enemy_Logic:
-    ld      a, (hl)                 ; get Status
-    or      a
-    ret     z                       ; if (Status == 0) ret
 
-    inc     hl
-    inc     hl
-    inc     hl
-    ld      a, (hl)                 ; Y static
-    cp      192
-    jp      nc, .enemyReset          ; if (Y >= 192) enemyReset
-    add     ENEMY_PIXELS_PER_MOV
-    ld      (hl), a
+    push    hl
+
+        ; Copy enemy struct to temp enemy struct
+        ;ld      hl, ?                                          ; source
+        ld      de, Enemy_Temp_Struct                           ; destiny
+        ld      bc, Enemy_Temp_Struct.size                      ; size
+        ldir                                                    ; Copy BC bytes from HL to DE
 
 
-    dec     hl
-    ld      a, (hl)                 ; Y
-    add     ENEMY_PIXELS_PER_MOV
-    ld      (hl), a
+        ld      a, (Enemy_Temp_Status)      ; get Status
+        or      a
+        jp      z, .return                  ; if (Status == 0) ret
 
-    ret
+        ld      a, (Enemy_Temp_Y_Static)    ; Y static
+        cp      192
+        jp      nc, .enemyReset             ; if (Y >= 192) enemyReset
+        add     ENEMY_PIXELS_PER_MOV
+        ld      (Enemy_Temp_Y_Static), a
 
-.enemyReset:
-    dec     hl                      ; back to start of struct
-    dec     hl
-    dec     hl
-    call    Enemy_Reset
+
+        ld      a, (Enemy_Temp_Y)           ; Y
+        add     ENEMY_PIXELS_PER_MOV
+        ld      (Enemy_Temp_Y), a
+
+
+        ; Delta X
+        ld      hl, (Enemy_Temp_Delta_X_Current_Addr)                 ; Delta X
+        ld      a, l
+        or      h                       ; if (Delta X addr == 0)
+        jp      z, .ignoreDeltaX
+        
+        ld      b, (hl)                 ; get delta X value
+        ld      a, (Enemy_Temp_X)       ; get current X value
+        add     a, b                    ; add to delta X
+        ; TODO: test if sides of screen were reached
+        ld      (Enemy_Temp_X), a       ; save it
+
+        inc     hl                      ; next Delta X addr
+        inc     hl
+        ld      (Enemy_Temp_Delta_X_Current_Addr), hl
+    .ignoreDeltaX:
+
+        jp      .return
+
+    .enemyReset:
+        dec     hl                      ; back to start of struct
+        dec     hl
+        dec     hl
+        call    Enemy_Reset
+        jp      .return
+
+.return:
+        ld      hl, Enemy_Temp_Struct                       ; source
+    pop     de                                              ; destiny
+    ld      bc, Enemy_Temp_Struct.size                      ; size
+    ldir                                                    ; Copy BC bytes from HL to DE
+
     ret

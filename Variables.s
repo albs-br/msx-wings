@@ -33,6 +33,7 @@ Enemy_Temp_Y:                       rb 1
 Enemy_Temp_Y_Static:                rb 1 ; y coord ignoring scroll
 Enemy_Temp_Pattern_0:               rb 1
 Enemy_Temp_Pattern_1:               rb 1
+Enemy_Temp_Delta_X_Current_Addr:    rw 1
 Enemy_Temp_Struct.size:        equ $ - Enemy_Temp_Struct
 
 
@@ -48,9 +49,10 @@ Enemy_5_Struct:                    rb Enemy_Temp_Struct.size
 ; ---------------------------------------
 
 LevelData_Temp_Struct:
-LevelData_Temp_Counter:             rw 1
-LevelData_Temp_EnemyType:           rb 1
-LevelData_Temp_Initial_X:           rb 1
+LevelData_Temp_Counter:                     rw 1
+LevelData_Temp_EnemyType:                   rb 1
+LevelData_Temp_Initial_X:                   rb 1
+LevelData_Temp_Delta_X_Initial_Addr:        rw 1
 LevelData_Temp_Struct.size:         equ $ - LevelData_Temp_Struct
 
 
