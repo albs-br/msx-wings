@@ -18,13 +18,13 @@ BIOS_T32PAT: equ 0F3C5h ; last def. pass 3
 PlayerShot_Temp_Struct.size: equ 04h ; last def. pass 3
 ClearVram_MSX2: equ 040C3h ; last def. pass 3
 BIOS_INSFLG: equ 0FCA8h ; last def. pass 3
-ADDR_LAST_LINE_OF_PAGE.waitVBlank: equ 0473Bh ; last def. pass 3
+ADDR_LAST_LINE_OF_PAGE.waitVBlank: equ 04743h ; last def. pass 3
 HTIMI: equ 0FD9Fh ; last def. pass 3
 BIOS_WINWID: equ 0FCA5h ; last def. pass 3
 ImageData_15: equ 08000h ; last def. pass 3
 ImageData_5.size: equ 04000h ; last def. pass 3
 BIOS_H_ERRP: equ 0FEFDh ; last def. pass 3
-SpritePattern_PlayerPlane_0_and_1: equ 045CDh ; last def. pass 3
+SpritePattern_PlayerPlane_0_and_1: equ 045D5h ; last def. pass 3
 LevelData_Temp_Struct: equ 0C040h ; last def. pass 3
 RamEnd: equ 0C0D2h ; last def. pass 3
 BIOS_POSIT: equ 0C6h ; last def. pass 3
@@ -82,7 +82,7 @@ BIOS_OUTDLP: equ 014Dh ; last def. pass 3
 ExecuteScroll.decPage: equ 043D8h ; last def. pass 3
 BIOS_CLPRIM: equ 0F38Ch ; last def. pass 3
 BIOS_DECTMP: equ 0F7F0h ; last def. pass 3
-SpritePattern_EnemyPlane_0_and_1: equ 0466Dh ; last def. pass 3
+SpritePattern_EnemyPlane_0_and_1: equ 04675h ; last def. pass 3
 BIOS_TAPIN: equ 0E4h ; last def. pass 3
 BIOS_H_CHPH: equ 0FDA4h ; last def. pass 3
 BIOS_NSETRD: equ 016Eh ; last def. pass 3
@@ -130,8 +130,8 @@ BIOS_KILBUF: equ 0156h ; last def. pass 3
 BIOS_DRWFLG: equ 0FCBBh ; last def. pass 3
 BIOS_DOT: equ 0F6B5h ; last def. pass 3
 BIOS_VOICCQ: equ 0FA75h ; last def. pass 3
-SpritePattern_PlayerShot: equ 0464Dh ; last def. pass 3
-Execute: equ 0471Dh ; last def. pass 3
+SpritePattern_PlayerShot: equ 04655h ; last def. pass 3
+Execute: equ 04725h ; last def. pass 3
 BIOS_ESTBLS: equ 0FB1Dh ; last def. pass 3
 BIOS_CYOFF: equ 0F947h ; last def. pass 3
 Enemy_Reset: equ 04572h ; last def. pass 3
@@ -150,7 +150,7 @@ SpritePattern_PlayerPlane_0_and_1.size: equ 040h ; last def. pass 3
 Wait_B_Vblanks: equ 0406Ch ; last def. pass 3
 BIOS_SLTTBL: equ 0FCC5h ; last def. pass 3
 BIOS_DSCTMP: equ 0F698h ; last def. pass 3
-End: equ 04750h ; last def. pass 3
+End: equ 04758h ; last def. pass 3
 BIOS_H_LOC: equ 0FE99h ; last def. pass 3
 BIOS_H_CVS: equ 0FE44h ; last def. pass 3
 BIOS_MIVCNT: equ 0F951h ; last def. pass 3
@@ -206,6 +206,7 @@ BIOS_USRDATA: equ 0F7F8h ; last def. pass 3
 LevelData_CurrentAddr: equ 0C046h ; last def. pass 3
 BIOS_TEMP8: equ 0F69Fh ; last def. pass 3
 BIOS_BEEP: equ 0C0h ; last def. pass 3
+ENEMY_PIXELS_PER_MOV: equ 03h ; last def. pass 3
 PlayerShot_Temp_X: equ 0C004h ; last def. pass 3
 ReadInput.playerLeft: equ 0444Eh ; last def. pass 3
 BIOS_MAXFIL: equ 0F85Fh ; last def. pass 3
@@ -316,7 +317,7 @@ SpriteAttrTableBuffer.size: equ 080h ; last def. pass 3
 BIOS_ARYTAB: equ 0F6C4h ; last def. pass 3
 PageSize: equ 04000h ; last def. pass 3
 BIOS_CHRGTR: equ 010h ; last def. pass 3
-ADDR_LAST_LINE_OF_PAGE.gameLoop: equ 04737h ; last def. pass 3
+ADDR_LAST_LINE_OF_PAGE.gameLoop: equ 0473Fh ; last def. pass 3
 Enemy_Temp_Status: equ 0C016h ; last def. pass 3
 BIOS_ONELIN: equ 0F6B9h ; last def. pass 3
 UpdateSpriteAttributesTable.sprite_6_continue: equ 042EAh ; last def. pass 3
@@ -339,7 +340,7 @@ BIOS_NLONLY: equ 0F87Ch ; last def. pass 3
 SetColor0ToTransparent: equ 04103h ; last def. pass 3
 Wait.waitVBlank: equ 04082h ; last def. pass 3
 BIOS_RDPRIM: equ 0F380h ; last def. pass 3
-SpritePattern_PlayerPlane_2_and_3: equ 0460Dh ; last def. pass 3
+SpritePattern_PlayerPlane_2_and_3: equ 04615h ; last def. pass 3
 MSXID1: equ 02Bh ; last def. pass 3
 ImageData_9.size: equ 04000h ; last def. pass 3
 BIOS_LOHCNT: equ 0F94Dh ; last def. pass 3
@@ -363,7 +364,7 @@ BIOS_SETGRP: equ 07Eh ; last def. pass 3
 BIOS_WRTVRM: equ 04Dh ; last def. pass 3
 BIOS_CLINEF: equ 0F935h ; last def. pass 3
 BIOS_H_OUTD: equ 0FEE4h ; last def. pass 3
-SpriteColors_PlayerShot: equ 046EDh ; last def. pass 3
+SpriteColors_PlayerShot: equ 046F5h ; last def. pass 3
 BIOS_CALLF: equ 030h ; last def. pass 3
 BIOS_ARG: equ 0F847h ; last def. pass 3
 FRAMES_BETWEEN_PLAYER_SHOTS: equ 04h ; last def. pass 3
@@ -403,7 +404,7 @@ BIOS_KANAMD: equ 0FCADh ; last def. pass 3
 BIOS_H_DOGR: equ 0FEF3h ; last def. pass 3
 BIOS_MAXUPD: equ 0F3ECh ; last def. pass 3
 BIOS_PRMLN2: equ 0F74Eh ; last def. pass 3
-InitialSpriteAttributes: equ 04750h ; last def. pass 3
+InitialSpriteAttributes: equ 04758h ; last def. pass 3
 BIOS_CPLOTF: equ 0F938h ; last def. pass 3
 BIOS_GRPRT: equ 089h ; last def. pass 3
 BIOS_TOTEXT: equ 0D2h ; last def. pass 3
@@ -653,7 +654,7 @@ Enemy_5_Struct: equ 0C03Ah ; last def. pass 3
 PlayerShot_Logic.shotReset: equ 04551h ; last def. pass 3
 LevelCounter: equ 0C044h ; last def. pass 3
 BIOS_VOICBQ: equ 0F9F5h ; last def. pass 3
-SpriteColors_PlayerPlane_2_and_3: equ 046CDh ; last def. pass 3
+SpriteColors_PlayerPlane_2_and_3: equ 046D5h ; last def. pass 3
 PLANE_PLAYER_PIXELS_PER_MOV: equ 03h ; last def. pass 3
 BIOS_H_KEYC: equ 0FDCCh ; last def. pass 3
 BIOS_KEYINT: equ 038h ; last def. pass 3
@@ -661,7 +662,7 @@ ImageData_1.size: equ 04000h ; last def. pass 3
 SpriteAttrTableBuffer: equ 0C052h ; last def. pass 3
 ImageData_11.size: equ 04000h ; last def. pass 3
 BIOS_T32NAM: equ 0F3BDh ; last def. pass 3
-SpriteColors_PlayerPlane_0_and_1: equ 046ADh ; last def. pass 3
+SpriteColors_PlayerPlane_0_and_1: equ 046B5h ; last def. pass 3
 BIOS_NVBXLN: equ 0C9h ; last def. pass 3
 LDIRVM_MSX2.loop_1: equ 04119h ; last def. pass 3
 BIOS_KNJPRT: equ 01BDh ; last def. pass 3
@@ -679,7 +680,7 @@ Wait: equ 0407Ch ; last def. pass 3
 DoCopy: equ 0413Bh ; last def. pass 3
 BIOS_H_NTFL: equ 0FE62h ; last def. pass 3
 BIOS_USRTAB: equ 0F39Ah ; last def. pass 3
-SpriteColors_EnemyPlane_0_and_1: equ 046FDh ; last def. pass 3
+SpriteColors_EnemyPlane_0_and_1: equ 04705h ; last def. pass 3
 BIOS_H_ATTR: equ 0FE1Ch ; last def. pass 3
 BIOS_CS120: equ 0F3FCh ; last def. pass 3
 CheckCollision_16x24_16x16.x1IsLarger: equ 0412Ah ; last def. pass 3
@@ -700,7 +701,7 @@ BIOS_TAPION: equ 0E1h ; last def. pass 3
 BIOS_CSTYLE: equ 0FCAAh ; last def. pass 3
 BIOS_BUFMIN: equ 0F55Dh ; last def. pass 3
 BIOS_H_LSET: equ 0FE21h ; last def. pass 3
-PaletteData: equ 045ADh ; last def. pass 3
+PaletteData: equ 045B5h ; last def. pass 3
 BIOS_CSRY: equ 0F3DCh ; last def. pass 3
 BIOS_CSRX: equ 0F3DDh ; last def. pass 3
 EnableRomPage2: equ 0404Bh ; last def. pass 3

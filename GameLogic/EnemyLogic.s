@@ -1,3 +1,6 @@
+ENEMY_PIXELS_PER_MOV:    equ 3
+
+
 ; Input
 ;   HL: addr of enemy struct
 ;   DE: addr of level data struct
@@ -79,13 +82,13 @@ Enemy_Logic:
     ld      a, (hl)                 ; Y static
     cp      192
     jp      nc, .enemyReset          ; if (Y >= 192) enemyReset
-    add     2
+    add     ENEMY_PIXELS_PER_MOV
     ld      (hl), a
 
 
     dec     hl
     ld      a, (hl)                 ; Y
-    add     2
+    add     ENEMY_PIXELS_PER_MOV
     ld      (hl), a
 
     ret

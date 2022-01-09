@@ -137,6 +137,9 @@ AdjustSprites_Y:
     ret
 
 .adjustSprite:
+
+    ; CAUTION: Adjust is only working when the objects are moving on 1px or 3px increments on Y coord (don't know why)
+
     ld      a, (hl)
     dec     a
     cp      216             ; avoid value 216 (hide all sprites)
