@@ -154,20 +154,22 @@ UpdateSpriteAttributesTable:
 
     inc     hl
 
+; ================================== ENEMIES ===================================
+
 ; ----------------------------------------
 
     ; Sprite # 7
     inc     hl
-    ld      a, 10                           ; Y
+    ld      a, (Enemy_0_Struct + 2)    ; Y
     ld      (hl), a
 
     inc     hl
-    ld      a, 10                           ; X
+    ld      a, (Enemy_0_Struct + 1)    ; X
     ld      (hl), a
 
     inc     hl
-    ; ld      a, PLANE_SPR_PAT_NUMBER_0
-    ; ld      (hl), a
+    ld      a, (Enemy_0_Struct + 4)    ; Pattern
+    ld      (hl), a
 
     inc     hl
     ; ld      a, 0
@@ -177,16 +179,16 @@ UpdateSpriteAttributesTable:
 
     ; Sprite # 8
     inc     hl
-    ld      a, 10                           ; Y
+    ld      a, (Enemy_0_Struct + 2)    ; Y
     ld      (hl), a
 
     inc     hl
-    ld      a, 10                           ; X
+    ld      a, (Enemy_0_Struct + 1)    ; X
     ld      (hl), a
 
     inc     hl
-    ; ld      a, PLANE_SPR_PAT_NUMBER_0
-    ; ld      (hl), a
+    ld      a, (Enemy_0_Struct + 5)    ; Pattern
+    ld      (hl), a
 
     inc     hl
     ; ld      a, 0

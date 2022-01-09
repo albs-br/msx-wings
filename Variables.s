@@ -31,6 +31,8 @@ Enemy_Temp_Status:                  rb 1
 Enemy_Temp_X:                       rb 1
 Enemy_Temp_Y:                       rb 1
 Enemy_Temp_Y_Static:                rb 1 ; y coord ignoring scroll
+Enemy_Temp_Pattern_0:               rb 1
+Enemy_Temp_Pattern_1:               rb 1
 Enemy_Temp_Struct.size:        equ $ - Enemy_Temp_Struct
 
 
@@ -58,6 +60,9 @@ LevelData_Temp_Struct.size:         equ $ - LevelData_Temp_Struct
 LevelCounter:                       rw 1
 
 LevelData_CurrentAddr:              rw 1
+
+
+Screen_Y_Origin:                    rb 1            ; number of first line currently visible on screen
 
 
 VerticalScroll:             rb 1

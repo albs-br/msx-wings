@@ -103,6 +103,11 @@ ExecuteScroll:
     ld      c, 23           ; register #
     call    BIOS_WRTVDP
 
+
+    ld      hl, Screen_Y_Origin
+    dec     (hl)
+
+
     ret
 
 .stopScroll:
@@ -115,25 +120,20 @@ AdjustSprites_Y:
 
     ld      hl, Player_Y
     call    .adjustSprite
-;     ld      a, (Player_Y)
-;     dec     a
-;     cp      216             ; avoid value 216 (hide all sprites)
-;     jp      nz, .continue
-;     ld      a, 215
-; .continue:
-;     ld      (Player_Y), a
 
 
     ld      hl, PlayerShot_0_Struct + 2
     call    .adjustSprite
-;     ld      a, (PlayerShot_0_Struct + 2)    ; Y
-;     dec     a
-;     cp      216             ; avoid value 216 (hide all sprites)
-;     jp      nz, .continue_1
-;     ld      a, 215
-; .continue_1:
-;     ld      (PlayerShot_0_Struct + 2), a
+    ld      hl, PlayerShot_1_Struct + 2
+    call    .adjustSprite
+    ld      hl, PlayerShot_2_Struct + 2
+    call    .adjustSprite
     
+
+    ld      hl, Enemy_0_Struct + 2
+    call    .adjustSprite
+    ; TODO: all other enemies
+
     ret
 
 .adjustSprite:

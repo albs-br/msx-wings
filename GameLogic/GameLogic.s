@@ -18,6 +18,12 @@ GameLogic:
 
     ; -------------------------------------------
 
+    ld      hl, Enemy_0_Struct
+    call    Enemy_Logic
+    ; TODO: all other enemies
+
+    ; -------------------------------------------
+
     ld      hl, (LevelCounter)
     inc     hl
     ld      (LevelCounter), hl
@@ -59,8 +65,13 @@ GameLogic:
     jp      .exitLevelData
 
 .executeLevelData:
-    call    BIOS_BEEP
+    call BIOS_BEEP; debug
     ;jp .executeLevelData ; debug
+
+    ld      hl, Enemy_0_Struct
+    ;ld      de, (LevelData_CurrentAddr)
+    call    Enemy_Init
+    ; TODO: all other enemies
 
 .exitLevelData:
 
