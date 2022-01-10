@@ -128,10 +128,23 @@ InitialSpriteAttributes:
 
 ; ----------- enemy planes
 
+    ; TODO: enemy pattern number should be loaded on Enemy_Init
     ; sprites 7 and 8
     db  192, 255, ENEMY_SPR_PAT_0_NUMBER, 0
     db  192, 255, ENEMY_SPR_PAT_1_NUMBER, 0
     ; sprites 9 and 10
+    db  192, 255, ENEMY_SPR_PAT_0_NUMBER, 0
+    db  192, 255, ENEMY_SPR_PAT_1_NUMBER, 0
+    ; sprites 11 and 12
+    db  192, 255, ENEMY_SPR_PAT_0_NUMBER, 0
+    db  192, 255, ENEMY_SPR_PAT_1_NUMBER, 0
+    ; sprites 13 and 14
+    db  192, 255, ENEMY_SPR_PAT_0_NUMBER, 0
+    db  192, 255, ENEMY_SPR_PAT_1_NUMBER, 0
+    ; sprites 15 and 16
+    db  192, 255, ENEMY_SPR_PAT_0_NUMBER, 0
+    db  192, 255, ENEMY_SPR_PAT_1_NUMBER, 0
+    ; sprites 17 and 18
     db  192, 255, ENEMY_SPR_PAT_0_NUMBER, 0
     db  192, 255, ENEMY_SPR_PAT_1_NUMBER, 0
 

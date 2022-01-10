@@ -168,7 +168,7 @@ UpdateSpriteAttributesTable:
 
 ; ================================== ENEMIES ===================================
 
-; ----------------------------------------
+; ------------------------------------------------------------------------------
 
     ; Sprite # 7
     inc     hl
@@ -206,7 +206,7 @@ UpdateSpriteAttributesTable:
     ; ld      a, 0
     ; ld      (hl), a
 
-; ----------------------------------------
+; ------------------------------------------------------------------------------
 
     ; Sprite # 9
     inc     hl
@@ -238,6 +238,158 @@ UpdateSpriteAttributesTable:
 
     inc     hl
     ld      a, (Enemy_1_Struct + 5)    ; Pattern
+    ld      (hl), a
+
+    inc     hl
+    ; ld      a, 0
+    ; ld      (hl), a
+
+; ------------------------------------------------------------------------------
+
+    ; Sprite # 11
+    inc     hl
+    ld      a, (Enemy_2_Struct + 2)    ; Y
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_2_Struct + 1)    ; X
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_2_Struct + 4)    ; Pattern
+    ld      (hl), a
+
+    inc     hl
+    ; ld      a, 0
+    ; ld      (hl), a
+
+; ----------------------------------------
+
+    ; Sprite # 12
+    inc     hl
+    ld      a, (Enemy_2_Struct + 2)    ; Y
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_2_Struct + 1)    ; X
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_2_Struct + 5)    ; Pattern
+    ld      (hl), a
+
+    inc     hl
+    ; ld      a, 0
+    ; ld      (hl), a
+
+; ------------------------------------------------------------------------------
+
+    ; Sprite # 13
+    inc     hl
+    ld      a, (Enemy_3_Struct + 2)    ; Y
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_3_Struct + 1)    ; X
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_3_Struct + 4)    ; Pattern
+    ld      (hl), a
+
+    inc     hl
+    ; ld      a, 0
+    ; ld      (hl), a
+
+; ----------------------------------------
+
+    ; Sprite # 14
+    inc     hl
+    ld      a, (Enemy_3_Struct + 2)    ; Y
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_3_Struct + 1)    ; X
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_3_Struct + 5)    ; Pattern
+    ld      (hl), a
+
+    inc     hl
+    ; ld      a, 0
+    ; ld      (hl), a
+
+; ------------------------------------------------------------------------------
+
+    ; Sprite # 15
+    inc     hl
+    ld      a, (Enemy_4_Struct + 2)    ; Y
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_4_Struct + 1)    ; X
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_4_Struct + 4)    ; Pattern
+    ld      (hl), a
+
+    inc     hl
+    ; ld      a, 0
+    ; ld      (hl), a
+
+; ----------------------------------------
+
+    ; Sprite # 16
+    inc     hl
+    ld      a, (Enemy_4_Struct + 2)    ; Y
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_4_Struct + 1)    ; X
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_4_Struct + 5)    ; Pattern
+    ld      (hl), a
+
+    inc     hl
+    ; ld      a, 0
+    ; ld      (hl), a
+
+; ------------------------------------------------------------------------------
+
+    ; Sprite # 17
+    inc     hl
+    ld      a, (Enemy_5_Struct + 2)    ; Y
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_5_Struct + 1)    ; X
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_5_Struct + 4)    ; Pattern
+    ld      (hl), a
+
+    inc     hl
+    ; ld      a, 0
+    ; ld      (hl), a
+
+; ----------------------------------------
+
+    ; Sprite # 18
+    inc     hl
+    ld      a, (Enemy_5_Struct + 2)    ; Y
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_5_Struct + 1)    ; X
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_5_Struct + 5)    ; Pattern
     ld      (hl), a
 
     inc     hl

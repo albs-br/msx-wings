@@ -22,7 +22,14 @@ GameLogic:
     call    Enemy_Logic
     ld      hl, Enemy_1_Struct
     call    Enemy_Logic
-    ; TODO: all other enemies
+    ld      hl, Enemy_2_Struct
+    call    Enemy_Logic
+    ld      hl, Enemy_3_Struct
+    call    Enemy_Logic
+    ld      hl, Enemy_4_Struct
+    call    Enemy_Logic
+    ld      hl, Enemy_5_Struct
+    call    Enemy_Logic
 
     ; -------------------------------------------
 
@@ -67,7 +74,7 @@ GameLogic:
     jp      .exitLevelData
 
 .executeLevelData:
-    call BIOS_BEEP; debug
+    ;call BIOS_BEEP; debug
     ;jp .executeLevelData ; debug
 
     ;ld      hl, Enemy_1_Struct

@@ -23,7 +23,12 @@ Enemy_Init:
         jp      z, .enemy_1
         dec     a
         jp      z, .enemy_2
-        ; TODO: put all other enemies here
+        dec     a
+        jp      z, .enemy_3
+        dec     a
+        jp      z, .enemy_4
+        dec     a
+        jp      z, .enemy_5
 .enemy_0:
         ld      hl, Enemy_0_Struct
         jp      .endEnemyNumber
@@ -32,6 +37,15 @@ Enemy_Init:
         jp      .endEnemyNumber
 .enemy_2:
         ld      hl, Enemy_2_Struct
+        jp      .endEnemyNumber
+.enemy_3:
+        ld      hl, Enemy_3_Struct
+        jp      .endEnemyNumber
+.enemy_4:
+        ld      hl, Enemy_4_Struct
+        jp      .endEnemyNumber
+.enemy_5:
+        ld      hl, Enemy_5_Struct
         jp      .endEnemyNumber
 .endEnemyNumber:
     pop     de

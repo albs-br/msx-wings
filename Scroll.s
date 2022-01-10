@@ -134,7 +134,14 @@ AdjustSprites_Y:
     call    .adjustSprite
     ld      hl, Enemy_1_Struct + 2
     call    .adjustSprite
-    ; TODO: all other enemies
+    ld      hl, Enemy_2_Struct + 2
+    call    .adjustSprite
+    ld      hl, Enemy_3_Struct + 2
+    call    .adjustSprite
+    ld      hl, Enemy_4_Struct + 2
+    call    .adjustSprite
+    ld      hl, Enemy_5_Struct + 2
+    call    .adjustSprite
 
     ret
 

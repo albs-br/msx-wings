@@ -29,7 +29,14 @@ InitVariables:
     call    Enemy_Reset
     ld      hl, Enemy_1_Struct
     call    Enemy_Reset
-    ; TODO: other enemies
+    ld      hl, Enemy_2_Struct
+    call    Enemy_Reset
+    ld      hl, Enemy_3_Struct
+    call    Enemy_Reset
+    ld      hl, Enemy_4_Struct
+    call    Enemy_Reset
+    ld      hl, Enemy_5_Struct
+    call    Enemy_Reset
 
 
     ; load first shot struct addr
