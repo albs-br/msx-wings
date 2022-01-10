@@ -35,7 +35,7 @@ InitVram:
 ; ---- set SPRATR to 0x1fa00 (SPRCOL is automatically set 512 bytes before SPRATR, so 0x1f800)
     ; bits:    16 14        7
     ;           |  |        |
-    ; 0x1fa00 = 1 1111 1010 1000 0000
+    ; 0x1fa00 = 1 1111 1010 1010 0000
     ; low bits (aaaaaaaa: bits 14 to 7)
     ld      b, 1111 0101 b  ; data
     ld      c, 5            ; register #
@@ -48,7 +48,7 @@ InitVram:
 ; ---- set SPRPAT to 0x1f000
     ; bits:    16     11
     ;           |      |
-    ; 0x1fa00 = 1 1111 0000 0000 0000
+    ; 0x1f000 = 1 1111 0000 0000 0000
     ; high bits (00aaaaaa: bits 16 to 11)
     ld      b, 0011 1110 b  ; data
     ld      c, 6            ; register #
