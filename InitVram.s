@@ -36,8 +36,8 @@ InitVram:
     ; bits:    16 14        7
     ;           |  |        |
     ; 0x1fa00 = 1 1111 1010 0000 0000
-    ; low bits (aaaaaaaa: bits 14 to 7)
-    ld      b, 1111 0111 b  ; data          ; not sure why, but bits 6 and 7 should be 1, otherwise won't work ok on openmsx (though on WebMSX runs fine)
+    ; low bits (aaaaaa11: bits 14 to 9)
+    ld      b, 1111 0111 b  ; data          ; In sprite mode 2 the least significant three bits in register 5 should be 1 otherwise mirroring will occur. ; https://www.msx.org/forum/msx-talk/development/strange-behaviour-bug-on-spratr-base-addr-register-on-v993858
     ld      c, 5            ; register #
     call    BIOS_WRTVDP
     ; high bits (000000aa: bits 16 to 15)

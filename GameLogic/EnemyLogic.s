@@ -172,9 +172,8 @@ Enemy_Logic:
         jp      .return
 
     .enemyReset:
-        dec     hl                      ; back to start of struct
-        dec     hl
-        dec     hl
+        pop     hl                        ; back to start of struct
+        push    hl
         call    Enemy_Reset
         jp      .return
 
