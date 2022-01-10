@@ -24,27 +24,27 @@ LoadFirstScreen:
     ld	    a, 14
 	ld	    (Seg_P8000_SW), a
     ; write to VRAM bitmap area
-    ld		hl, ImageData_14        			    ; RAM address (source)
+    ld		hl, START_ADDR_MEGAROM_PAGE ; ImageData_14        			    ; RAM address (source)
     ld		de, NAMTBL + (0 * (256 * 64))                ; VRAM address (destiny)
-    ld		bc, ImageData_14.size				    ; Block length
+    ld		bc, PAGE_SIZE ; ImageData_14.size				    ; Block length
     call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
             
     ; -- Load middle part of first image on last 64 lines
     ld	    a, 15
 	ld	    (Seg_P8000_SW), a
     ; write to VRAM bitmap area
-    ld		hl, ImageData_15      				    ; RAM address (source)
+    ld		hl, START_ADDR_MEGAROM_PAGE ; ImageData_15      				    ; RAM address (source)
     ld		de, NAMTBL + (1 * (256 * 64))                ; VRAM address (destiny)
-    ld		bc, ImageData_15.size					; Block length
+    ld		bc, PAGE_SIZE ; ImageData_15.size					; Block length
     call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
 
     ; -- Load bottom part of first image on last 64 lines
     ld	    a, 16
 	ld	    (Seg_P8000_SW), a
     ; write to VRAM bitmap area
-    ld		hl, ImageData_16      				    ; RAM address (source)
+    ld		hl, START_ADDR_MEGAROM_PAGE ; ImageData_16      				    ; RAM address (source)
     ld		de, NAMTBL + (2 * (256 * 64))                ; VRAM address (destiny)
-    ld		bc, ImageData_16.size					; Block length
+    ld		bc, PAGE_SIZE ; ImageData_16.size					; Block length
     call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
 
 

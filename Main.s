@@ -1,6 +1,7 @@
 FNAME "msx-wings.rom"      ; output file
 
-PageSize:	    equ	0x4000	        ; 16kB
+START_ADDR_MEGAROM_PAGE:	    equ	0x8000
+PAGE_SIZE:	    equ	0x4000	        ; 16kB
 Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 16k Mapper)
 
 
@@ -177,14 +178,14 @@ InitialSpriteAttributes:
 
     db      "End ROM started at 0x4000"
 
-	ds PageSize - ($ - 0x4000), 255	; Fill the unused area with 0xFF
+	ds PAGE_SIZE - ($ - 0x4000), 255	; Fill the unused area with 0xFF
 
 
 
 
 ; 	org	0x8000, 0xBFFF
 ; ImageData_1:
-;     INCBIN "Graphics/Bitmaps/aerofighters_0.sra.new"
+;     INCBIN "Graphics/Bitmaps/level1_0.sra.new"
 ; .size:      equ $ - ImageData_1
 ; 	ds PageSize - ($ - 0x8000), 255
 
