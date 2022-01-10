@@ -136,23 +136,23 @@ Wait:
 ; Enables the interrupts
 ;
 SetVdp_Write:
-    rlc h
+    rlc     h
     rla
-    rlc h
+    rlc     h
     rla
-    srl h
-    srl h
+    srl     h
+    srl     h
     di
-    out (PORT_1),a
-    ld a,14 + 128
-    out (PORT_1),a
-    ld a,l
+    out     (PORT_1), a
+    ld      a, 14 + 128
+    out     (PORT_1), a
+    ld      a, l
     nop
-    out (PORT_1),a
-    ld a,h
-    or 64
+    out     (PORT_1), a
+    ld      a, h
+    or      64
     ei
-    out (PORT_1),a
+    out     (PORT_1), a
     ret
 
 ;
@@ -258,6 +258,9 @@ ClearVram_MSX2:
 
 	xor		a
 
+    ; TODO: use VDP command
+
+    ; clear all 128kb of VRAM
 	ld		d, 2		; 2 repetitions
 .loop_2:
 	ld		c, 0		; 256 repetitions

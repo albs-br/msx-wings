@@ -19,7 +19,7 @@ ENEMY_SPR_PAT_0_NUMBER:                 equ 5 * 4
 ENEMY_SPR_PAT_1_NUMBER:                 equ 6 * 4
 EMPTY_SPR_PAT_NUMBER:                   equ 63 * 4
 
-UpdateSpriteAttributesTable:
+UpdateSpriteAttrTableBuffer:
     ld      hl, SpriteAttrTableBuffer
 
 

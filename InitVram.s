@@ -35,9 +35,9 @@ InitVram:
 ; ---- set SPRATR to 0x1fa00 (SPRCOL is automatically set 512 bytes before SPRATR, so 0x1f800)
     ; bits:    16 14        7
     ;           |  |        |
-    ; 0x1fa00 = 1 1111 1010 1010 0000
+    ; 0x1fa00 = 1 1111 1010 0000 0000
     ; low bits (aaaaaaaa: bits 14 to 7)
-    ld      b, 1111 0101 b  ; data
+    ld      b, 1111 0111 b  ; data          ; not sure why, but bits 6 and 7 should be 1, otherwise won't work ok on openmsx (though on WebMSX runs fine)
     ld      c, 5            ; register #
     call    BIOS_WRTVDP
     ; high bits (000000aa: bits 16 to 15)
@@ -188,8 +188,7 @@ SPRATR:     equ 0xfa00
     call    SetVdp_Write
     ld      b, SpriteColors_EnemyPlane_0_and_1.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ;ld      hl, SpriteColors_EnemyPlane_0_and_1
-    ld      hl, TEST_1
+    ld      hl, SpriteColors_EnemyPlane_0_and_1
     otir
 
     ; Spr 15 and 16 colors
@@ -207,7 +206,6 @@ SPRATR:     equ 0xfa00
     call    SetVdp_Write
     ld      b, SpriteColors_EnemyPlane_0_and_1.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ;ld      hl, TEST_1
     ld      hl, SpriteColors_EnemyPlane_0_and_1
     otir
 
@@ -240,4 +238,4 @@ SPRATR:     equ 0xfa00
 
     ret
 
-TEST_1:     db 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08
+;TEST_1:     db 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08

@@ -1,3 +1,5 @@
+ADDR_LAST_LINE_OF_PAGE: equ 0x8000 + (63 * 256)
+
 InitVariablesForScroll:
     ; initialize variables for scrolling on last line of the next page
     ld      a, 13
@@ -111,8 +113,8 @@ ExecuteScroll:
     ret
 
 .stopScroll:
-    jp      .stopScroll
-
+;     jp      .stopScroll
+    jp      Execute
 
 
 AdjustSprites_Y:

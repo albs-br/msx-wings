@@ -4,7 +4,7 @@ PageSize:	    equ	0x4000	        ; 16kB
 Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 16k Mapper)
 
 
-DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
+; DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
 
 
 ; Compilation address
@@ -18,7 +18,7 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
 
     ; Game
     INCLUDE "InitVram.s"
-    INCLUDE "UpdateSpriteAttributesTable.s"
+    INCLUDE "UpdateSpriteAttrTableBuffer.s"
     INCLUDE "BlitSPRATR.s"
     INCLUDE "InitVariables.s"
     INCLUDE "Scroll.s"
@@ -31,6 +31,7 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
 
     ; Assets
     INCLUDE "Graphics/Sprites/SpriteAssets.s"
+    ; background bitmaps are on MegaRomPages.s
 
 Execute:
     call    EnableRomPage2
@@ -57,22 +58,10 @@ Execute:
 
 ; --------- 
 
-ADDR_LAST_LINE_OF_PAGE: equ 0x8000 + (63 * 256)
 
 
     call    InitVariablesForScroll
 
-    ; ; initialize variables for scrolling on last line of the next page
-    ; ld      a, 13
-    ; ld      (CurrentMegaROMPage), a
-    ; ld      hl, ADDR_LAST_LINE_OF_PAGE
-    ; ld      (CurrentAddrLineScroll), hl
-    ; ld      hl, 255 * 256
-    ; ld      (CurrentVRAMAddrLineScroll), hl
-
-
-    ; xor     a
-    ; ld      (VerticalScroll), a
 
 .gameLoop:
     ld      hl, BIOS_JIFFY              ; (v-blank sync)
@@ -91,12 +80,11 @@ ADDR_LAST_LINE_OF_PAGE: equ 0x8000 + (63 * 256)
 
     call    ExecuteScroll
 
-
     call    BlitSPRATR
 
 
     IFDEF DEBUG
-        ld 		a, 6       	            ; Border color
+        ld 		a, 7       	            ; Border color
         ld 		(BIOS_BDRCLR), a    
         call 	BIOS_CHGCLR        		; Change Screen Color
     ENDIF
@@ -108,7 +96,7 @@ ADDR_LAST_LINE_OF_PAGE: equ 0x8000 + (63 * 256)
 
     call    AdjustSprites_Y
 
-    call    UpdateSpriteAttributesTable
+    call    UpdateSpriteAttrTableBuffer
 
 
 
@@ -157,8 +145,8 @@ InitialSpriteAttributes:
 
     ; TODO: enemy pattern number should be loaded on Enemy_Init
     ; sprites 7 and 8
-    db  192, 255, ENEMY_SPR_PAT_0_NUMBER, 0
-    db  192, 255, ENEMY_SPR_PAT_1_NUMBER, 0
+    db  0, 0, ENEMY_SPR_PAT_0_NUMBER, 0
+    db  0, 0, ENEMY_SPR_PAT_1_NUMBER, 0
     ; sprites 9 and 10
     db  192, 255, ENEMY_SPR_PAT_0_NUMBER, 0
     db  192, 255, ENEMY_SPR_PAT_1_NUMBER, 0
@@ -166,14 +154,14 @@ InitialSpriteAttributes:
     db  192, 255, ENEMY_SPR_PAT_0_NUMBER, 0
     db  192, 255, ENEMY_SPR_PAT_1_NUMBER, 0
     ; sprites 13 and 14
-    db  192, 255, ENEMY_SPR_PAT_0_NUMBER, 0
-    db  192, 255, ENEMY_SPR_PAT_1_NUMBER, 0
+    db  30, 0, ENEMY_SPR_PAT_0_NUMBER, 0
+    db  30, 0, ENEMY_SPR_PAT_1_NUMBER, 0
     ; sprites 15 and 16
-    db  192, 255, ENEMY_SPR_PAT_0_NUMBER, 0
-    db  192, 255, ENEMY_SPR_PAT_1_NUMBER, 0
+    db  60, 0, ENEMY_SPR_PAT_0_NUMBER, 0
+    db  60, 0, ENEMY_SPR_PAT_1_NUMBER, 0
     ; sprites 17 and 18
-    db  192, 255, ENEMY_SPR_PAT_0_NUMBER, 0
-    db  192, 255, ENEMY_SPR_PAT_1_NUMBER, 0
+    db  90, 0, ENEMY_SPR_PAT_0_NUMBER, 0
+    db  90, 0, ENEMY_SPR_PAT_1_NUMBER, 0
 
 ; hide all sprites from here onwards
     db  216, 0, 0, 0
