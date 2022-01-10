@@ -153,9 +153,20 @@ SPRATR:     equ 0xfa00
     ld      hl, SpriteColors_PlayerShot
     otir
 
+    ; TODO: this should be loaded on EnemyInit
+    
     ; Spr 7 and 8 colors
     ld      a, 0000 0001 b
     ld      hl, SPRCOL + 64 + 32 + 16
+    call    SetVdp_Write
+    ld      b, SpriteColors_EnemyPlane_0_and_1.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpriteColors_EnemyPlane_0_and_1
+    otir
+
+    ; Spr 9 and 10 colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + 64 + 32 + 16 + SpriteColors_EnemyPlane_0_and_1.size
     call    SetVdp_Write
     ld      b, SpriteColors_EnemyPlane_0_and_1.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster

@@ -20,6 +20,8 @@ GameLogic:
 
     ld      hl, Enemy_0_Struct
     call    Enemy_Logic
+    ld      hl, Enemy_1_Struct
+    call    Enemy_Logic
     ; TODO: all other enemies
 
     ; -------------------------------------------
@@ -68,7 +70,7 @@ GameLogic:
     call BIOS_BEEP; debug
     ;jp .executeLevelData ; debug
 
-    ld      hl, Enemy_0_Struct
+    ;ld      hl, Enemy_1_Struct
     ld      de, (LevelData_CurrentAddr)
     call    Enemy_Init
     ; TODO: all other enemies

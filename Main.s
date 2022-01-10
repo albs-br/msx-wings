@@ -126,11 +126,14 @@ InitialSpriteAttributes:
     db  192, 255, EMPTY_SPR_PAT_NUMBER, 0
     db  192, 255, EMPTY_SPR_PAT_NUMBER, 0
 
-; ----------- enemy plane
+; ----------- enemy planes
 
     ; sprites 7 and 8
-    db  10, 10, ENEMY_SPR_PAT_0_NUMBER, 0
-    db  10, 10, ENEMY_SPR_PAT_1_NUMBER, 0
+    db  192, 255, ENEMY_SPR_PAT_0_NUMBER, 0
+    db  192, 255, ENEMY_SPR_PAT_1_NUMBER, 0
+    ; sprites 9 and 10
+    db  192, 255, ENEMY_SPR_PAT_0_NUMBER, 0
+    db  192, 255, ENEMY_SPR_PAT_1_NUMBER, 0
 
 ; hide all sprites from here onwards
     db  216, 0, 0, 0

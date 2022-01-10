@@ -27,6 +27,8 @@ InitVariables:
 
     ld      hl, Enemy_0_Struct
     call    Enemy_Reset
+    ld      hl, Enemy_1_Struct
+    call    Enemy_Reset
     ; TODO: other enemies
 
 

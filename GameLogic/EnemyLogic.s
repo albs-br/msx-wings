@@ -8,6 +8,35 @@ Enemy_Init:
 
     ; init enemy / load some data from Level Data Struct to Enemy Struct
 
+    ; get enemy number from Level Data struct and point HL to the corresponding Enemy Struct
+    push    de
+        inc     de
+        inc     de
+        inc     de
+        inc     de
+        inc     de
+        inc     de
+        ld      a, (de)
+        or      a
+        jp      z, .enemy_0
+        dec     a
+        jp      z, .enemy_1
+        dec     a
+        jp      z, .enemy_2
+        ; TODO: put all other enemies here
+.enemy_0:
+        ld      hl, Enemy_0_Struct
+        jp      .endEnemyNumber
+.enemy_1:
+        ld      hl, Enemy_1_Struct
+        jp      .endEnemyNumber
+.enemy_2:
+        ld      hl, Enemy_2_Struct
+        jp      .endEnemyNumber
+.endEnemyNumber:
+    pop     de
+
+
     ld      a, 1
     ld      (hl), a     ; Status
 
