@@ -3,6 +3,10 @@ FNAME "msx-wings.rom"      ; output file
 PageSize:	    equ	0x4000	        ; 16kB
 Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 16k Mapper)
 
+
+DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
+
+
 ; Compilation address
     org 0x4000, 0xbeff	                    ; 0x8000 can be also used here if Rom size is 16kB or less.
 
@@ -15,6 +19,7 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     ; Game
     INCLUDE "InitVram.s"
     INCLUDE "UpdateSpriteAttributesTable.s"
+    INCLUDE "BlitSPRATR.s"
     INCLUDE "InitVariables.s"
     INCLUDE "Scroll.s"
     INCLUDE "ReadInput.s"
@@ -76,22 +81,44 @@ ADDR_LAST_LINE_OF_PAGE: equ 0x8000 + (63 * 256)
     cp      (hl)
     jr      z, .waitVBlank
 
+
+
+    IFDEF DEBUG
+        ld 		a, 4       	            ; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF
+
     call    ExecuteScroll
 
-    call    AdjustSprites_Y
 
-    call    UpdateSpriteAttributesTable
+    call    BlitSPRATR
+
+
+    IFDEF DEBUG
+        ld 		a, 6       	            ; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF
+
 
     call    ReadInput
 
     call    GameLogic
 
+    call    AdjustSprites_Y
+
+    call    UpdateSpriteAttributesTable
 
 
-    ; ; test
-    ; ld      a, (Player_X)
-    ; inc     a
-    ; ld      (Player_X), a
+
+    IFDEF DEBUG
+        ld 		a, 8       	            ; Border color
+        ld 		(BIOS_BDRCLR), a    
+        call 	BIOS_CHGCLR        		; Change Screen Color
+    ENDIF
+
+
 
 
     jp      .gameLoop
