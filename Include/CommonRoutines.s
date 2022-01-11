@@ -373,13 +373,12 @@ LDIRVM_MSX2:
 
 
 ;  Calculates whether a collision occurs between two 16x16 objects
-;  of a fixed size
 ; IN: 
 ;    B = x1; C = y1
 ;    D = x2; E = y2
 ; OUT: Carry set if collision
 ; CHANGES: AF
-CheckCollision_16x24_16x16:
+CheckCollision_16x16_16x16:
 
         ld      a, d                        ; get x2
         sub     b                           ; calculate x2 - x1
@@ -401,7 +400,7 @@ CheckCollision_16x24_16x16:
         ld      a, e                        ; get y2
         sub     c                           ; calculate y2 - y1
         jr      c, .y1IsLarger              ; jump if y2 < y1
-        sub     24                          ; compare with size 1
+        sub     16                          ; compare with size 1
         ret                                 ; return collision or no collision
 .y1IsLarger:
         neg                                 ; use negative value (Z80)

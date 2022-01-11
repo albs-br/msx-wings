@@ -1,4 +1,4 @@
-SpritePattern_Explosion_0:
+; frame 0
     DB 00000000b
     DB 00000000b
     DB 00000000b
@@ -32,7 +32,7 @@ SpritePattern_Explosion_0:
     DB 00000000b
     DB 00000000b
 
-SpritePattern_Explosion_1:
+; frame 1
     DB 00000011b
     DB 00001111b
     DB 00111111b
@@ -66,7 +66,7 @@ SpritePattern_Explosion_1:
     DB 11111000b
     DB 11000000b
 
-SpritePattern_Explosion_2:
+; frame 2
     DB 00000011b
     DB 00010001b
     DB 00101110b

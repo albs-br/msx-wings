@@ -136,9 +136,12 @@ Enemy_Logic:
         ldir                                                    ; Copy BC bytes from HL to DE
 
 
+        
         ld      a, (Enemy_Temp_Status)      ; get Status
         or      a
         jp      z, .return                  ; if (Status == 0) ret
+
+        ; --------------------------- enemy movement -------------------------
 
         ld      a, (Enemy_Temp_Y_Static)    ; Y static
         cp      192
@@ -168,6 +171,26 @@ Enemy_Logic:
         inc     hl
         ld      (Enemy_Temp_Delta_X_Current_Addr), hl
     .ignoreDeltaX:
+
+        ; --------------------------- check collision  -------------------------
+
+;         ; check col. between current enemy and shot 0
+;         ld      a, (Enemy_Temp_X)
+;         ld      b, a
+;         ld      a, (Enemy_Temp_Y_Static)
+;         ld      c, a
+
+;         ld      a, (PlayerShot_0_Struct)    ; Status
+;         or      a
+;         jp      z, .skipCheckColShot_0      ; if (Shot status == 0) skip Check Col.
+
+;         ld      a, (PlayerShot_0_Struct + 1)    ; X
+;         ld      d, a
+;         ld      a, (PlayerShot_0_Struct + 3)    ; Y static
+;         ld      e, a
+;         call    CheckCollision_16x16_16x16
+;         jp      c, .enemyReset
+; .skipCheckColShot_0:
 
         jp      .return
 
