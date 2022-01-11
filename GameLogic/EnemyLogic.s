@@ -180,27 +180,66 @@ Enemy_Logic:
         ld      a, (Enemy_Temp_Y_Static)
         ld      c, a
 
-        ld      a, (PlayerShot_0_Struct)    ; Status
-        or      a
-        jp      z, .skipCheckColShot_0      ; if (Shot status == 0) skip Check Col.
+        push    bc
+                ld      hl, PlayerShot_0_Struct
+                call    .checkCol_Enemy_PlayerShot
+        pop     bc
+        push    bc
+                ld      hl, PlayerShot_1_Struct
+                call    .checkCol_Enemy_PlayerShot
+        pop     bc
+        push    bc
+                ld      hl, PlayerShot_2_Struct
+                call    .checkCol_Enemy_PlayerShot
+        pop     bc
 
-        ld      a, (PlayerShot_0_Struct + 1)    ; X
-        ld      d, a
-        ld      a, (PlayerShot_0_Struct + 3)    ; Y static
-        ld      e, a
-        call    CheckCollision_16x16_16x16
-        jp      c, .enemyReset
-    .skipCheckColShot_0:
+;         ld      a, (PlayerShot_0_Struct)    ; Status
+;         or      a
+;         jp      z, .skipCheckColShot_0      ; if (Shot status == 0) skip Check Col.
+
+;         ld      a, (PlayerShot_0_Struct + 1)    ; X
+;         ld      d, a
+;         ld      a, (PlayerShot_0_Struct + 3)    ; Y static
+;         ld      e, a
+;         call    CheckCollision_16x16_16x16
+;         jp      c, .enemyReset
+;     .skipCheckColShot_0:
 
         jp      .return
+
+    ; BC: X and Y of enemy
+    ; HL: PlayerShot struct addr
+    .checkCol_Enemy_PlayerShot:
+        ld      a, (hl)    ; Status
+        or      a
+        ret     z ; jp      z, .skipCheckColShot_0      ; if (Shot status == 0) skip Check Col.
+
+        push    hl
+                inc     hl
+                ld      a, (hl)    ; X
+                ld      d, a
+
+                inc     hl
+                inc     hl
+                ld      a, (hl)    ; Y static
+                ld      e, a
+                call    CheckCollision_16x16_16x16
+        pop     hl
+        jp      c, .collision
+        ret
+;     .skipCheckColShot_0:
+;         ret
+    .collision:
+        call    PlayerShot_Reset
+        ld      hl, Enemy_Temp_Struct
+        call    Enemy_Reset
+        ret
 
     .enemyReset:
         ld      hl, Enemy_Temp_Struct
         call    Enemy_Reset
         jp      .return
     
-    ; .collision:
-    ;     jp  .collision
 
 .return:
         ld      hl, Enemy_Temp_Struct                       ; source
