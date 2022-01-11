@@ -174,31 +174,33 @@ Enemy_Logic:
 
         ; --------------------------- check collision  -------------------------
 
-;         ; check col. between current enemy and shot 0
-;         ld      a, (Enemy_Temp_X)
-;         ld      b, a
-;         ld      a, (Enemy_Temp_Y_Static)
-;         ld      c, a
+        ; check col. between current enemy and shot 0
+        ld      a, (Enemy_Temp_X)
+        ld      b, a
+        ld      a, (Enemy_Temp_Y_Static)
+        ld      c, a
 
-;         ld      a, (PlayerShot_0_Struct)    ; Status
-;         or      a
-;         jp      z, .skipCheckColShot_0      ; if (Shot status == 0) skip Check Col.
+        ld      a, (PlayerShot_0_Struct)    ; Status
+        or      a
+        jp      z, .skipCheckColShot_0      ; if (Shot status == 0) skip Check Col.
 
-;         ld      a, (PlayerShot_0_Struct + 1)    ; X
-;         ld      d, a
-;         ld      a, (PlayerShot_0_Struct + 3)    ; Y static
-;         ld      e, a
-;         call    CheckCollision_16x16_16x16
-;         jp      c, .enemyReset
-; .skipCheckColShot_0:
+        ld      a, (PlayerShot_0_Struct + 1)    ; X
+        ld      d, a
+        ld      a, (PlayerShot_0_Struct + 3)    ; Y static
+        ld      e, a
+        call    CheckCollision_16x16_16x16
+        jp      c, .enemyReset
+    .skipCheckColShot_0:
 
         jp      .return
 
     .enemyReset:
-        pop     hl                        ; back to start of struct
-        push    hl
+        ld      hl, Enemy_Temp_Struct
         call    Enemy_Reset
         jp      .return
+    
+    ; .collision:
+    ;     jp  .collision
 
 .return:
         ld      hl, Enemy_Temp_Struct                       ; source
