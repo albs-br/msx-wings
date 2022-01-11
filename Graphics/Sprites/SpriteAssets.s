@@ -38,6 +38,9 @@ SpritePattern_EnemyPlane_0_and_1:
 .size:  equ $ - SpritePattern_EnemyPlane_0_and_1
 
 
+;Explosion frames:
+    INCLUDE "Graphics/Sprites/explosion_frames.s"
+
 ; ------------------------------ Colors
 
 SpriteColors_PlayerPlane_0_and_1:
