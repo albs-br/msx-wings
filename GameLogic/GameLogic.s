@@ -80,7 +80,6 @@ GameLogic:
     ;ld      hl, Enemy_1_Struct
     ld      de, (LevelData_CurrentAddr)
     call    Enemy_Init
-    ; TODO: all other enemies
 
 .exitLevelData:
 

@@ -31,64 +31,93 @@ Enemy_Init:
         jp      z, .enemy_5
 .enemy_0:
         ld      hl, Enemy_0_Struct
+        ld      bc, ENEMY_0_SPRCOL_ADDR
         jp      .endEnemyNumber
 .enemy_1:
         ld      hl, Enemy_1_Struct
+        ld      bc, ENEMY_1_SPRCOL_ADDR
         jp      .endEnemyNumber
 .enemy_2:
         ld      hl, Enemy_2_Struct
+        ld      bc, ENEMY_2_SPRCOL_ADDR
         jp      .endEnemyNumber
 .enemy_3:
         ld      hl, Enemy_3_Struct
+        ld      bc, ENEMY_3_SPRCOL_ADDR
         jp      .endEnemyNumber
 .enemy_4:
         ld      hl, Enemy_4_Struct
+        ld      bc, ENEMY_4_SPRCOL_ADDR
         jp      .endEnemyNumber
 .enemy_5:
         ld      hl, Enemy_5_Struct
+        ld      bc, ENEMY_5_SPRCOL_ADDR
         jp      .endEnemyNumber
 .endEnemyNumber:
     pop     de
 
 
-    ld      a, 1
-    ld      (hl), a     ; Status
+    ; Load enemy colors
+    push    bc
+        push    hl
+            ld      a, 0000 0001 b
+            ld      h, b
+            ld      l, c
+            call    SetVdp_Write
+            ;ld      b, SpriteColors_EnemyPlane_0_and_1.size
+            ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+            ld      hl, SpriteColors_EnemyPlane_0_and_1
+            ;otir
+            ; 32x OUTI
+            outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+            outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+        pop     hl
+
+        ld      a, 1
+        ld      (hl), a     ; Status
+
+        inc     hl
+        ;ld      a, 128
+        ; get initial X coord from level data struct
+        inc     de
+        inc     de
+        inc     de
+        ld      a, (de)
+        ld      (hl), a     ; X
+
+        inc     hl
+        ld      a, (Screen_Y_Origin)
+        ld      (hl), a     ; Y
+
+        inc     hl
+        xor     a
+        ld      (hl), a     ; Y static
+
+        inc     hl
+        ld      a, ENEMY_SPR_PAT_0_NUMBER
+        ld      (hl), a     ; Pattern 0
+
+        inc     hl
+        ld      a, ENEMY_SPR_PAT_1_NUMBER
+        ld      (hl), a     ; Pattern 1
+
+        inc     hl
+        ; get  Delta X Initial Addr from level data struct
+        inc     de
+        ld      a, (de)
+        ld      (hl), a     ; Delta X Current Addr (low byte)
+
+        inc     hl
+        inc     de
+        ld      a, (de)
+        ld      (hl), a     ; Delta X Current Addr (high byte)
+    pop     bc
 
     inc     hl
-    ;ld      a, 128
-    ; get initial X coord from level data struct
-    inc     de
-    inc     de
-    inc     de
-    ld      a, (de)
-    ld      (hl), a     ; X
+    ld      (hl), c     ; SPRCOL Addr (low byte)
 
     inc     hl
-    ld      a, (Screen_Y_Origin)
-    ld      (hl), a     ; Y
-
-    inc     hl
-    xor     a
-    ld      (hl), a     ; Y static
-
-    inc     hl
-    ld      a, ENEMY_SPR_PAT_0_NUMBER
-    ld      (hl), a     ; Pattern 0
-
-    inc     hl
-    ld      a, ENEMY_SPR_PAT_1_NUMBER
-    ld      (hl), a     ; Pattern 1
-
-    inc     hl
-    ; get  Delta X Initial Addr from level data struct
-    inc     de
-    ld      a, (de)
-    ld      (hl), a     ; Delta X Current Addr (low byte)
-
-    inc     hl
-    inc     de
-    ld      a, (de)
-    ld      (hl), a     ; Delta X Current Addr (high byte)
+    ld      (hl), b     ; SPRCOL Addr (high byte)
 
     ret
 

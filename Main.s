@@ -5,7 +5,7 @@ PAGE_SIZE:	    equ	0x4000	        ; 16kB
 Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 16k Mapper)
 
 
-; DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
+DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
 
 
 ; Compilation address

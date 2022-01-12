@@ -162,61 +162,67 @@ SPRATR:     equ 0xfa00
     ld      hl, SpriteColors_PlayerShot
     otir
 
-    ; TODO: this should be loaded on EnemyInit
-    
-    ; Spr 7 and 8 colors
-    ld      a, 0000 0001 b
-    ld      hl, SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 0)
-    call    SetVdp_Write
-    ld      b, SpriteColors_EnemyPlane_0_and_1.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpriteColors_EnemyPlane_0_and_1
-    otir
+    ; this will be loaded on EnemyInit
+ENEMY_0_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 0)
+ENEMY_1_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 1)
+ENEMY_2_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 2)
+ENEMY_3_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 3)
+ENEMY_4_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 4)
+ENEMY_5_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 5)
 
-    ; Spr 9 and 10 colors
-    ld      a, 0000 0001 b
-    ld      hl, SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 1)
-    call    SetVdp_Write
-    ld      b, SpriteColors_EnemyPlane_0_and_1.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpriteColors_EnemyPlane_0_and_1
-    otir
+    ; ; Spr 7 and 8 colors
+    ; ld      a, 0000 0001 b
+    ; ld      hl, SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 0)
+    ; call    SetVdp_Write
+    ; ld      b, SpriteColors_EnemyPlane_0_and_1.size
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      hl, SpriteColors_EnemyPlane_0_and_1
+    ; otir
 
-    ; Spr 11 and 12 colors
-    ld      a, 0000 0001 b
-    ld      hl, SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 2)
-    call    SetVdp_Write
-    ld      b, SpriteColors_EnemyPlane_0_and_1.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpriteColors_EnemyPlane_0_and_1
-    otir
+    ; ; Spr 9 and 10 colors
+    ; ld      a, 0000 0001 b
+    ; ld      hl, SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 1)
+    ; call    SetVdp_Write
+    ; ld      b, SpriteColors_EnemyPlane_0_and_1.size
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      hl, SpriteColors_EnemyPlane_0_and_1
+    ; otir
 
-    ; Spr 13 and 14 colors
-    ld      a, 0000 0001 b
-    ld      hl, SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 3)
-    call    SetVdp_Write
-    ld      b, SpriteColors_EnemyPlane_0_and_1.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpriteColors_EnemyPlane_0_and_1
-    otir
+    ; ; Spr 11 and 12 colors
+    ; ld      a, 0000 0001 b
+    ; ld      hl, SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 2)
+    ; call    SetVdp_Write
+    ; ld      b, SpriteColors_EnemyPlane_0_and_1.size
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      hl, SpriteColors_EnemyPlane_0_and_1
+    ; otir
 
-    ; Spr 15 and 16 colors
-    ld      a, 0000 0001 b
-    ld      hl, SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 4)
-    call    SetVdp_Write
-    ld      b, SpriteColors_EnemyPlane_0_and_1.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpriteColors_EnemyPlane_0_and_1
-    otir
+    ; ; Spr 13 and 14 colors
+    ; ld      a, 0000 0001 b
+    ; ld      hl, SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 3)
+    ; call    SetVdp_Write
+    ; ld      b, SpriteColors_EnemyPlane_0_and_1.size
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      hl, SpriteColors_EnemyPlane_0_and_1
+    ; otir
 
-    ; Spr 17 and 18 colors
-    ld      a, 0000 0001 b
-    ld      hl, SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 5)
-    call    SetVdp_Write
-    ld      b, SpriteColors_EnemyPlane_0_and_1.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpriteColors_EnemyPlane_0_and_1
-    otir
+    ; ; Spr 15 and 16 colors
+    ; ld      a, 0000 0001 b
+    ; ld      hl, SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 4)
+    ; call    SetVdp_Write
+    ; ld      b, SpriteColors_EnemyPlane_0_and_1.size
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      hl, SpriteColors_EnemyPlane_0_and_1
+    ; otir
+
+    ; ; Spr 17 and 18 colors
+    ; ld      a, 0000 0001 b
+    ; ld      hl, SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 5)
+    ; call    SetVdp_Write
+    ; ld      b, SpriteColors_EnemyPlane_0_and_1.size
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      hl, SpriteColors_EnemyPlane_0_and_1
+    ; otir
 
 
 

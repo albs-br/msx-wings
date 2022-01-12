@@ -34,6 +34,7 @@ Enemy_Temp_Y_Static:                rb 1 ; y coord ignoring scroll
 Enemy_Temp_Pattern_0:               rb 1
 Enemy_Temp_Pattern_1:               rb 1
 Enemy_Temp_Delta_X_Current_Addr:    rw 1
+Enemy_Temp_SPRCOL_Addr:             rw 1
 Enemy_Temp_Struct.size:        equ $ - Enemy_Temp_Struct
 
 
