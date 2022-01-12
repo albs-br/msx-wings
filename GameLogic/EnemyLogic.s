@@ -182,15 +182,15 @@ Enemy_Logic:
 
         push    bc
                 ld      hl, PlayerShot_0_Struct
-                call    .checkCol_Enemy_PlayerShot
+                call    CheckCol_Enemy_PlayerShot
         pop     bc
         push    bc
                 ld      hl, PlayerShot_1_Struct
-                call    .checkCol_Enemy_PlayerShot
+                call    CheckCol_Enemy_PlayerShot
         pop     bc
         push    bc
                 ld      hl, PlayerShot_2_Struct
-                call    .checkCol_Enemy_PlayerShot
+                call    CheckCol_Enemy_PlayerShot
         pop     bc
 
 ;         ld      a, (PlayerShot_0_Struct)    ; Status
@@ -207,9 +207,26 @@ Enemy_Logic:
 
         jp      .return
 
-    ; BC: X and Y of enemy
-    ; HL: PlayerShot struct addr
-    .checkCol_Enemy_PlayerShot:
+    .enemyReset:
+        ld      hl, Enemy_Temp_Struct
+        call    Enemy_Reset
+        jp      .return
+    
+
+.return:
+        ld      hl, Enemy_Temp_Struct                       ; source
+    pop     de                                              ; destiny
+    ld      bc, Enemy_Temp_Struct.size                      ; size
+    ldir                                                    ; Copy BC bytes from HL to DE
+
+    ret
+
+
+
+; Inputs:
+;   BC: X and Y of enemy
+;   HL: PlayerShot struct addr
+CheckCol_Enemy_PlayerShot:
         ld      a, (hl)    ; Status
         or      a
         ret     z ; jp      z, .skipCheckColShot_0      ; if (Shot status == 0) skip Check Col.
@@ -227,24 +244,10 @@ Enemy_Logic:
         pop     hl
         jp      c, .collision
         ret
-;     .skipCheckColShot_0:
-;         ret
-    .collision:
+        ;     .skipCheckColShot_0:
+        ;         ret
+        .collision:
         call    PlayerShot_Reset
         ld      hl, Enemy_Temp_Struct
         call    Enemy_Reset
         ret
-
-    .enemyReset:
-        ld      hl, Enemy_Temp_Struct
-        call    Enemy_Reset
-        jp      .return
-    
-
-.return:
-        ld      hl, Enemy_Temp_Struct                       ; source
-    pop     de                                              ; destiny
-    ld      bc, Enemy_Temp_Struct.size                      ; size
-    ldir                                                    ; Copy BC bytes from HL to DE
-
-    ret
