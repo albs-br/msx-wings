@@ -29,6 +29,8 @@ Enemy_Init:
         jp      z, .enemy_4
         dec     a
         jp      z, .enemy_5
+        dec     a
+        jp      z, .enemy_6
 .enemy_0:
         ld      hl, Enemy_0_Struct
         ld      bc, ENEMY_0_SPRCOL_ADDR
@@ -52,6 +54,10 @@ Enemy_Init:
 .enemy_5:
         ld      hl, Enemy_5_Struct
         ld      bc, ENEMY_5_SPRCOL_ADDR
+        jp      .endEnemyNumber
+.enemy_6:
+        ld      hl, Enemy_6_Struct
+        ld      bc, ENEMY_6_SPRCOL_ADDR
         jp      .endEnemyNumber
 .endEnemyNumber:
     pop     de

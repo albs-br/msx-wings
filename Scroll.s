@@ -155,6 +155,8 @@ AdjustSprites_Y:
     call    .adjustSprite
     ld      hl, Enemy_5_Struct + 2
     call    .adjustSprite
+    ld      hl, Enemy_6_Struct + 2
+    call    .adjustSprite
 
     ret
 

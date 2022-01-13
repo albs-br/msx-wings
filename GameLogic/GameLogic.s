@@ -30,6 +30,8 @@ GameLogic:
     call    Enemy_Logic
     ld      hl, Enemy_5_Struct
     call    Enemy_Logic
+    ld      hl, Enemy_6_Struct
+    call    Enemy_Logic
 
     ; -------------------------------------------
 

@@ -5,9 +5,7 @@
 ;       5       0-4         Player plane (can be improved to only 4 by using a offset on sprites overlapping)
 ;       6       5-10        Player shots (3x 16x16 sprites for simple shots; 3x 32x16 for double shots)
 ;       14      11-24       Enemies (7x 16x16 two or-color sprites enemies; there will be many other combinations)
-;       6       25-30       Enemy shots (6x 16x16 single sprites)
-
-;       1       31          free
+;       7       25-31       Enemy shots (7x 16x16 single sprites)
 
 
 PLAYER_SPR_PAT_0_NUMBER:                equ 0 * 4
@@ -397,6 +395,44 @@ UpdateSpriteAttrTableBuffer:
 
     inc     hl
     ld      a, (Enemy_5_Struct + 5)    ; Pattern
+    ld      (hl), a
+
+    inc     hl
+    ; ld      a, 0
+    ; ld      (hl), a
+
+; ------------------------------------------------------------------------------
+
+    ; Sprite # 19
+    inc     hl
+    ld      a, (Enemy_6_Struct + 2)    ; Y
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_6_Struct + 1)    ; X
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_6_Struct + 4)    ; Pattern
+    ld      (hl), a
+
+    inc     hl
+    ; ld      a, 0
+    ; ld      (hl), a
+
+; ----------------------------------------
+
+    ; Sprite # 20
+    inc     hl
+    ld      a, (Enemy_6_Struct + 2)    ; Y
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_6_Struct + 1)    ; X
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (Enemy_6_Struct + 5)    ; Pattern
     ld      (hl), a
 
     inc     hl

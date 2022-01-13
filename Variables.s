@@ -45,6 +45,7 @@ Enemy_2_Struct:                    rb Enemy_Temp_Struct.size
 Enemy_3_Struct:                    rb Enemy_Temp_Struct.size
 Enemy_4_Struct:                    rb Enemy_Temp_Struct.size
 Enemy_5_Struct:                    rb Enemy_Temp_Struct.size
+Enemy_6_Struct:                    rb Enemy_Temp_Struct.size
 
 
 ; ---------------------------------------
