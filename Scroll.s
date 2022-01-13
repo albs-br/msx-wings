@@ -51,8 +51,16 @@ LoadFirstScreen:
     ret
 
 
+SCROLL_FULL_SPEED:      equ 0000 0000 b
+SCROLL_HALF_SPEED:      equ 0000 0001 b
 
 ExecuteScroll:
+
+    ; speed scroll (scroll only on even frames or on all frames)
+    ld      a, (BIOS_JIFFY)         ; get only low byte of JIFFY
+    and     SCROLL_HALF_SPEED
+    ret     nz
+
 
     ; TODO: use VDP command to gain speed
 
@@ -75,7 +83,7 @@ ExecuteScroll:
     ld      hl, (CurrentAddrLineScroll)
     dec     h                                       ; hl = hl - 256
     ld      a, h
-    cp      0x80 - 1
+    cp      0x80 - 1                                ; 0x7fff
     jp      z, .decPage
     jp      .dontDecPage
 .decPage:
@@ -108,6 +116,9 @@ ExecuteScroll:
 
     ld      hl, Screen_Y_Origin
     dec     (hl)
+
+    
+    call    AdjustSprites_Y
 
 
     ret
