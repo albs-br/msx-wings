@@ -41,6 +41,10 @@ SpritePattern_Explosion_Frames_0_to_2:
     INCLUDE "Graphics/Sprites/explosion_frames_patterns.s"
 .size:  equ $ - SpritePattern_Explosion_Frames_0_to_2
 
+SpritePattern_EnemyShot_0_and_1:
+    INCLUDE "Graphics/Sprites/enemy_shot_patterns.s"
+.size:  equ $ - SpritePattern_EnemyShot_0_and_1
+
 ; ------------------------------ Colors
 
 SpriteColors_PlayerPlane_0_and_1:
@@ -61,3 +65,7 @@ SpriteColors_EnemyPlane_0_and_1:
 SpriteColors_Explosion_Frames_0_to_2:
     INCLUDE "Graphics/Sprites/explosion_frames_colors.s"
 .size:  equ $ - SpriteColors_Explosion_Frames_0_to_2
+
+SpriteColors_EnemyShot_0_to_2:
+    INCLUDE "Graphics/Sprites/enemy_shot_colors.s"
+.size:  equ $ - SpriteColors_EnemyShot_0_to_2
