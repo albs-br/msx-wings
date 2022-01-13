@@ -226,18 +226,6 @@ Enemy_Logic:
                 call    CheckCol_Enemy_PlayerShot
         pop     bc
 
-;         ld      a, (PlayerShot_0_Struct)    ; Status
-;         or      a
-;         jp      z, .skipCheckColShot_0      ; if (Shot status == 0) skip Check Col.
-
-;         ld      a, (PlayerShot_0_Struct + 1)    ; X
-;         ld      d, a
-;         ld      a, (PlayerShot_0_Struct + 3)    ; Y static
-;         ld      e, a
-;         call    CheckCollision_16x16_16x16
-;         jp      c, .enemyReset
-;     .skipCheckColShot_0:
-
         jp      .return
 
     .enemyReset:
@@ -266,11 +254,13 @@ Enemy_Logic:
 
 
     ld      a, (Enemy_Temp_Status)      ; get Status
-    cp      7
-    jp      c, .loadExplosionFrame_0    ; if (Status < 7)
-    cp      11
-    jp      c, .loadExplosionFrame_1    ; if (Status < 11)
-    jp      .loadExplosionFrame_2       ; else
+    cp      3
+    jp      z, .loadExplosionFrame_0    ; animation counter between 3 and 7
+    cp      8
+    jp      z, .loadExplosionFrame_1    ; animation counter between 8 and 11
+    cp      12
+    jp      z, .loadExplosionFrame_2    ; animation counter between 12 and 15
+    jp      .return
 
 .loadExplosionFrame_0:
     ld      a, EXPLOSION_SPR_PAT_0_NUMBER
