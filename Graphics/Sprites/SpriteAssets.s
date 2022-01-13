@@ -37,9 +37,8 @@ SpritePattern_EnemyPlane_0_and_1:
     INCBIN "Graphics/Sprites/enemy_plane.pat"
 .size:  equ $ - SpritePattern_EnemyPlane_0_and_1
 
-
 SpritePattern_Explosion_Frames_0_to_2:
-    INCLUDE "Graphics/Sprites/explosion_frames.s"
+    INCLUDE "Graphics/Sprites/explosion_frames_patterns.s"
 .size:  equ $ - SpritePattern_Explosion_Frames_0_to_2
 
 ; ------------------------------ Colors
@@ -58,3 +57,7 @@ SpriteColors_PlayerShot:
 SpriteColors_EnemyPlane_0_and_1:
     INCBIN "Graphics/Sprites/enemy_plane.col"
 .size:  equ $ - SpriteColors_EnemyPlane_0_and_1
+
+SpriteColors_Explosion_Frames_0_to_2:
+    INCLUDE "Graphics/Sprites/explosion_frames_colors.s"
+.size:  equ $ - SpriteColors_Explosion_Frames_0_to_2

@@ -170,6 +170,10 @@ Enemy_Logic:
         or      a
         jp      z, .return                  ; if (Status == 0) ret
 
+        cp      1
+        jp      nz, .doExplosionAnimation   ; if (Status != 1) doExplosionAnimation
+
+
         ; --------------------------- enemy movement -------------------------
 
         ld      a, (Enemy_Temp_Y_Static)    ; Y static
@@ -251,6 +255,107 @@ Enemy_Logic:
     ret
 
 
+.doExplosionAnimation:
+
+    ld      a, (Enemy_Temp_Status)      ; get Status
+    inc     a
+    ld      (Enemy_Temp_Status), a
+    cp      16
+    ld      hl, Enemy_Temp_Struct
+    call    z, Enemy_Reset
+
+
+    ld      a, (Enemy_Temp_Status)      ; get Status
+    cp      7
+    jp      c, .loadExplosionFrame_0    ; if (Status < 7)
+    cp      11
+    jp      c, .loadExplosionFrame_1    ; if (Status < 11)
+    jp      .loadExplosionFrame_2       ; else
+
+.loadExplosionFrame_0:
+    ld      a, EXPLOSION_SPR_PAT_0_NUMBER
+    ld      (Enemy_Temp_Pattern_0), a
+    ld      a, EMPTY_SPR_PAT_NUMBER
+    ld      (Enemy_Temp_Pattern_1), a
+    
+    ; load explosion colors
+    ld      a, (Enemy_Temp_SPRCOL_Addr)         ; low byte
+    ld      l, a
+    ld      a, (Enemy_Temp_SPRCOL_Addr + 1)     ; high byte
+    ld      h, a
+    ld      a, 0000 0001 b
+    call    SetVdp_Write
+    ld      c, PORT_0
+    ld      hl, SpriteColors_Explosion_Frames_0_to_2
+    ; 16x OUTI
+    outi outi outi outi
+    outi outi outi outi
+    outi outi outi outi
+    outi outi outi outi 
+
+    ; ld      a, (Enemy_Temp_SPRCOL_Addr + 2)         ; low byte
+    ; ld      l, a
+    ; ld      a, (Enemy_Temp_SPRCOL_Addr + 3)     ; high byte
+    ; ld      h, a
+    ; ld      a, 0000 0001 b
+    ; call    SetVdp_Write
+    ; ld      c, PORT_0
+    ; ld      hl, SpriteColors_Explosion_Frames_0_to_2
+    ; ; 16x OUTI
+    ; outi outi outi outi
+    ; outi outi outi outi
+    ; outi outi outi outi
+    ; outi outi outi outi 
+
+    jp      .return
+
+.loadExplosionFrame_1:
+    ld      a, EXPLOSION_SPR_PAT_1_NUMBER
+    ld      (Enemy_Temp_Pattern_0), a
+    ld      a, EMPTY_SPR_PAT_NUMBER
+    ld      (Enemy_Temp_Pattern_1), a
+
+    ; load explosion colors
+    ld      a, (Enemy_Temp_SPRCOL_Addr)         ; low byte
+    ld      l, a
+    ld      a, (Enemy_Temp_SPRCOL_Addr + 1)     ; high byte
+    ld      h, a
+    ld      a, 0000 0001 b
+    call    SetVdp_Write
+    ld      c, PORT_0
+    ld      hl, SpriteColors_Explosion_Frames_0_to_2 + 16
+    ; 16x OUTI
+    outi outi outi outi
+    outi outi outi outi
+    outi outi outi outi
+    outi outi outi outi 
+
+    jp      .return
+
+.loadExplosionFrame_2:
+    ld      a, EXPLOSION_SPR_PAT_2_NUMBER
+    ld      (Enemy_Temp_Pattern_0), a
+    ld      a, EMPTY_SPR_PAT_NUMBER
+    ld      (Enemy_Temp_Pattern_1), a
+
+    ; load explosion colors
+    ld      a, (Enemy_Temp_SPRCOL_Addr)         ; low byte
+    ld      l, a
+    ld      a, (Enemy_Temp_SPRCOL_Addr + 1)     ; high byte
+    ld      h, a
+    ld      a, 0000 0001 b
+    call    SetVdp_Write
+    ld      c, PORT_0
+    ld      hl, SpriteColors_Explosion_Frames_0_to_2 + 32
+    ; 16x OUTI
+    outi outi outi outi
+    outi outi outi outi
+    outi outi outi outi
+    outi outi outi outi 
+
+    jp      .return
+
+
 
 ; Inputs:
 ;   BC: X and Y of enemy
@@ -275,8 +380,29 @@ CheckCol_Enemy_PlayerShot:
         ret
         ;     .skipCheckColShot_0:
         ;         ret
-        .collision:
+    .collision:
         call    PlayerShot_Reset
         ld      hl, Enemy_Temp_Struct
-        call    Enemy_Reset
+
+        ;call    Enemy_Reset
+
+        call    StartExplosionAnimation
+
         ret
+
+StartExplosionAnimation:
+    ld      a, 2
+    ld      (hl), a
+
+    ; inc     hl
+    ; inc     hl
+    ; inc     hl
+    ; inc     hl
+    ; ld      a, EXPLOSION_SPR_PAT_0_NUMBER
+    ; ld      (hl), a                         ; pattern 0
+
+    ; inc     hl
+    ; ld      a, EXPLOSION_SPR_PAT_0_NUMBER
+    ; ld      (hl), a                         ; pattern 1
+
+    ret
