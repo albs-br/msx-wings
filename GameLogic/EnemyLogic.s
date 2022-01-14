@@ -2,7 +2,6 @@ ENEMY_PIXELS_PER_MOV:    equ 3
 
 
 ; Input
-;   HL: addr of enemy struct
 ;   DE: addr of level data struct
 Enemy_Init:
 
@@ -32,52 +31,7 @@ Enemy_Init:
         inc     de
         ld      a, (de)
         ld      b, a
-        
-        jp      .endEnemyNumber
 
-;         or      a
-;         jp      z, .enemy_0
-;         dec     a
-;         jp      z, .enemy_1
-;         dec     a
-;         jp      z, .enemy_2
-;         dec     a
-;         jp      z, .enemy_3
-;         dec     a
-;         jp      z, .enemy_4
-;         dec     a
-;         jp      z, .enemy_5
-;         dec     a
-;         jp      z, .enemy_6
-; .enemy_0:
-;         ld      hl, Enemy_0_Struct
-;         ld      bc, ENEMY_0_SPRCOL_ADDR
-;         jp      .endEnemyNumber
-; .enemy_1:
-;         ld      hl, Enemy_1_Struct
-;         ld      bc, ENEMY_1_SPRCOL_ADDR
-;         jp      .endEnemyNumber
-; .enemy_2:
-;         ld      hl, Enemy_2_Struct
-;         ld      bc, ENEMY_2_SPRCOL_ADDR
-;         jp      .endEnemyNumber
-; .enemy_3:
-;         ld      hl, Enemy_3_Struct
-;         ld      bc, ENEMY_3_SPRCOL_ADDR
-;         jp      .endEnemyNumber
-; .enemy_4:
-;         ld      hl, Enemy_4_Struct
-;         ld      bc, ENEMY_4_SPRCOL_ADDR
-;         jp      .endEnemyNumber
-; .enemy_5:
-;         ld      hl, Enemy_5_Struct
-;         ld      bc, ENEMY_5_SPRCOL_ADDR
-;         jp      .endEnemyNumber
-; .enemy_6:
-;         ld      hl, Enemy_6_Struct
-;         ld      bc, ENEMY_6_SPRCOL_ADDR
-;         jp      .endEnemyNumber
-.endEnemyNumber:
     pop     de
 
 
@@ -293,10 +247,11 @@ Enemy_Logic:
     ld      (Enemy_Temp_Pattern_1), a
     
     ; load explosion colors
-    ld      a, (Enemy_Temp_SPRCOL_Addr)         ; low byte
-    ld      l, a
-    ld      a, (Enemy_Temp_SPRCOL_Addr + 1)     ; high byte
-    ld      h, a
+    ld      hl, (Enemy_Temp_SPRCOL_Addr)
+    ; ld      a, (Enemy_Temp_SPRCOL_Addr)         ; low byte
+    ; ld      l, a
+    ; ld      a, (Enemy_Temp_SPRCOL_Addr + 1)     ; high byte
+    ; ld      h, a
     ld      a, 0000 0001 b
     call    SetVdp_Write
     ld      c, PORT_0
@@ -330,10 +285,11 @@ Enemy_Logic:
     ld      (Enemy_Temp_Pattern_1), a
 
     ; load explosion colors
-    ld      a, (Enemy_Temp_SPRCOL_Addr)         ; low byte
-    ld      l, a
-    ld      a, (Enemy_Temp_SPRCOL_Addr + 1)     ; high byte
-    ld      h, a
+    ld      hl, (Enemy_Temp_SPRCOL_Addr)
+    ; ld      a, (Enemy_Temp_SPRCOL_Addr)         ; low byte
+    ; ld      l, a
+    ; ld      a, (Enemy_Temp_SPRCOL_Addr + 1)     ; high byte
+    ; ld      h, a
     ld      a, 0000 0001 b
     call    SetVdp_Write
     ld      c, PORT_0
@@ -353,10 +309,11 @@ Enemy_Logic:
     ld      (Enemy_Temp_Pattern_1), a
 
     ; load explosion colors
-    ld      a, (Enemy_Temp_SPRCOL_Addr)         ; low byte
-    ld      l, a
-    ld      a, (Enemy_Temp_SPRCOL_Addr + 1)     ; high byte
-    ld      h, a
+    ld      hl, (Enemy_Temp_SPRCOL_Addr)
+    ; ld      a, (Enemy_Temp_SPRCOL_Addr)         ; low byte
+    ; ld      l, a
+    ; ld      a, (Enemy_Temp_SPRCOL_Addr + 1)     ; high byte
+    ; ld      h, a
     ld      a, 0000 0001 b
     call    SetVdp_Write
     ld      c, PORT_0

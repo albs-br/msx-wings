@@ -85,17 +85,18 @@ GameLogic:
 
 .executeLevelData:
 
-    ;ld      hl, Enemy_1_Struct
     ld      de, (LevelData_CurrentAddr)
     ld      b, d
     ld      c, e
     inc     bc
     inc     bc
     ld      a, (bc)         ; switch (LevelData_Temp_EnemyType)
+    
     cp      ENEMY_TYPE_1
     call    z, Enemy_Init
-    ; cp      ENEMY_SHOT
-    ; call    z, EnemyShot_Init
+    
+    cp      ENEMY_SHOT_TYPE_1
+    call    z, EnemyShot_Init
 
 .exitLevelData:
 

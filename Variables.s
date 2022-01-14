@@ -80,6 +80,7 @@ LevelData_Temp_Initial_X:                   rb 1
 LevelData_Temp_Delta_X_Initial_Addr:        rw 1
 LevelData_Temp_EnemyStruct_Addr:            rw 1
 LevelData_Temp_SPRCOL_Addr:                 rw 1
+LevelData_Temp_EnemyShotStruct_Addr:        rw 1
 LevelData_Temp_Struct.size:         equ $ - LevelData_Temp_Struct
 
 ; info needed for EnemyShot:
@@ -88,6 +89,7 @@ LevelData_Temp_Struct.size:         equ $ - LevelData_Temp_Struct
 ; delta x addr (delta y will be delta x + N)
 ; enemy struct addr
 ; SPRCOL addr
+; enemy shot struct addr
 
 
 ; ---------------------------------------

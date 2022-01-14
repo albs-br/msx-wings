@@ -180,6 +180,10 @@ ENEMY_4_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane
 ENEMY_5_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 5)
 ENEMY_6_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 6)
 
+
+
+ENEMY_SHOT_0_SPRCOL_ADDR:   equ ENEMY_6_SPRCOL_ADDR + SpriteColors_EnemyPlane_0_and_1.size
+
     ; ; Spr 7 and 8 colors
     ; ld      a, 0000 0001 b
     ; ld      hl, SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 0)
