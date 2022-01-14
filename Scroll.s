@@ -177,6 +177,13 @@ AdjustSprites_Y:
     ld      hl, Enemy_6_Struct + 2
     call    .adjustSprite
 
+
+    ld      hl, EnemyShot_0_Struct + 2
+    call    .adjustSprite
+    ; ld      hl, EnemyShot_1_Struct + 2
+    ; call    .adjustSprite
+    ; TODO: all other enemy shot structs here
+
     ret
 
 .adjustSprite:

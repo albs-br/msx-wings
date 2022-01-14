@@ -27,6 +27,7 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     INCLUDE "GameLogic/GameLogic.s"
     INCLUDE "GameLogic/PlayerShotLogic.s"
     INCLUDE "GameLogic/EnemyLogic.s"
+    INCLUDE "GameLogic/EnemyShotLogic.s"
     INCLUDE "LevelData/Level_1.s"
     INCLUDE "EnemyData/EnemyData_1.s"
     INCLUDE "EnemyData/EnemyShotData.s"
@@ -132,34 +133,34 @@ InitialSpriteAttributes:
     db  PLAYER_INITIAL_Y + 16, PLAYER_INITIAL_X, PLAYER_SPR_PAT_2_NUMBER, 0
     db  PLAYER_INITIAL_Y + 16, PLAYER_INITIAL_X, PLAYER_SPR_PAT_3_NUMBER, 0
 
-; ----------- player shots
+; ; ----------- player shots
 
-    ; sprites 4, 5 and 6
-    db  192, 255, EMPTY_SPR_PAT_NUMBER, 0
-    db  192, 255, EMPTY_SPR_PAT_NUMBER, 0
-    db  192, 255, EMPTY_SPR_PAT_NUMBER, 0
+;     ; sprites 4, 5 and 6
+;     db  192, 255, EMPTY_SPR_PAT_NUMBER, 0
+;     db  192, 255, EMPTY_SPR_PAT_NUMBER, 0
+;     db  192, 255, EMPTY_SPR_PAT_NUMBER, 0
 
 ; ----------- enemy planes
 
-    ; TODO: enemy pattern number should be loaded on Enemy_Init
-    ; sprites 7 and 8
-    db  0, 0, ENEMY_SPR_PAT_0_NUMBER, 0
-    db  0, 0, ENEMY_SPR_PAT_1_NUMBER, 0
-    ; sprites 9 and 10
-    db  192, 255, ENEMY_SPR_PAT_0_NUMBER, 0
-    db  192, 255, ENEMY_SPR_PAT_1_NUMBER, 0
-    ; sprites 11 and 12
-    db  192, 255, ENEMY_SPR_PAT_0_NUMBER, 0
-    db  192, 255, ENEMY_SPR_PAT_1_NUMBER, 0
-    ; sprites 13 and 14
-    db  30, 0, ENEMY_SPR_PAT_0_NUMBER, 0
-    db  30, 0, ENEMY_SPR_PAT_1_NUMBER, 0
-    ; sprites 15 and 16
-    db  60, 0, ENEMY_SPR_PAT_0_NUMBER, 0
-    db  60, 0, ENEMY_SPR_PAT_1_NUMBER, 0
-    ; sprites 17 and 18
-    db  90, 0, ENEMY_SPR_PAT_0_NUMBER, 0
-    db  90, 0, ENEMY_SPR_PAT_1_NUMBER, 0
+    ; ; TODO: enemy pattern number should be loaded on Enemy_Init
+    ; ; sprites 7 and 8
+    ; db  0, 0, ENEMY_SPR_PAT_0_NUMBER, 0
+    ; db  0, 0, ENEMY_SPR_PAT_1_NUMBER, 0
+    ; ; sprites 9 and 10
+    ; db  192, 255, ENEMY_SPR_PAT_0_NUMBER, 0
+    ; db  192, 255, ENEMY_SPR_PAT_1_NUMBER, 0
+    ; ; sprites 11 and 12
+    ; db  192, 255, ENEMY_SPR_PAT_0_NUMBER, 0
+    ; db  192, 255, ENEMY_SPR_PAT_1_NUMBER, 0
+    ; ; sprites 13 and 14
+    ; db  30, 0, ENEMY_SPR_PAT_0_NUMBER, 0
+    ; db  30, 0, ENEMY_SPR_PAT_1_NUMBER, 0
+    ; ; sprites 15 and 16
+    ; db  60, 0, ENEMY_SPR_PAT_0_NUMBER, 0
+    ; db  60, 0, ENEMY_SPR_PAT_1_NUMBER, 0
+    ; ; sprites 17 and 18
+    ; db  90, 0, ENEMY_SPR_PAT_0_NUMBER, 0
+    ; db  90, 0, ENEMY_SPR_PAT_1_NUMBER, 0
 
 ; hide all sprites from here onwards
     db  216, 0, 0, 0

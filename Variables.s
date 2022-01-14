@@ -55,6 +55,7 @@ EnemyShot_Temp_Status:                  rb 1
 EnemyShot_Temp_X:                       rb 1
 EnemyShot_Temp_Y:                       rb 1
 EnemyShot_Temp_Y_Static:                rb 1 ; y coord ignoring scroll
+EnemyShot_Temp_Pattern:                 rb 1
 EnemyShot_Temp_Delta_X_Current_Addr:    rw 1
 EnemyShot_Temp_Delta_Y_Current_Addr:    rw 1
 EnemyShot_Temp_SPRCOL_Addr:             rw 1

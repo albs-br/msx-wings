@@ -35,6 +35,14 @@ GameLogic:
 
     ; -------------------------------------------
 
+    ld      hl, EnemyShot_0_Struct
+    call    EnemyShot_Logic
+    ; ld      hl, EnemyShot_1_Struct
+    ; call    EnemyShot_Logic
+    ; TODO: all other enemy shot structs here
+
+    ; -------------------------------------------
+
     ld      hl, (LevelCounter)
     inc     hl
     ld      (LevelCounter), hl

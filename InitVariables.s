@@ -41,6 +41,13 @@ InitVariables:
     call    Enemy_Reset
 
 
+    ld      hl, EnemyShot_0_Struct
+    call    EnemyShot_Reset
+    ;ld      hl, EnemyShot_1_Struct
+    ;call    EnemyShot_Reset
+    ; TODO: all other enemy shot structs here
+
+
     ; load first shot struct addr
     ld      hl, PlayerShot_0_Struct
     ld      (NextShot_Struct_Addr), hl
