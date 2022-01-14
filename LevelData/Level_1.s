@@ -1,14 +1,15 @@
 ENEMY_TYPE_1:           equ 1
+ENEMY_SHOT:             equ 2
 
 
 Level_1_Data:
     dw  20      db  ENEMY_TYPE_1, 32    dw  EnemyDeltaX_1     db 0
     dw  21      db  ENEMY_TYPE_1, 64    dw  EnemyDeltaX_1     db 1        ; TODO: level data in the same timing mark should work
-    dw  22      db  ENEMY_TYPE_1, 96    dw  EnemyDeltaX_1     db 2        ; TODO: level data in the same timing mark should work
-    dw  23      db  ENEMY_TYPE_1, 128   dw  EnemyDeltaX_1     db 3        ; TODO: level data in the same timing mark should work
-    dw  30      db  ENEMY_TYPE_1, 64    dw  EnemyDeltaX_1     db 4        ; TODO: level data in the same timing mark should work
-    dw  31      db  ENEMY_TYPE_1, 96    dw  EnemyDeltaX_1     db 5        ; TODO: level data in the same timing mark should work
-    dw  32      db  ENEMY_TYPE_1, 128   dw  EnemyDeltaX_1     db 6        ; TODO: level data in the same timing mark should work
+    dw  22      db  ENEMY_TYPE_1, 96    dw  EnemyDeltaX_1     db 2
+    dw  23      db  ENEMY_TYPE_1, 128   dw  EnemyDeltaX_1     db 3
+    dw  30      db  ENEMY_TYPE_1, 64    dw  EnemyDeltaX_1     db 4
+    dw  31      db  ENEMY_TYPE_1, 96    dw  EnemyDeltaX_1     db 5
+    dw  32      db  ENEMY_TYPE_1, 128   dw  EnemyDeltaX_1     db 6
 
     dw  150     db  ENEMY_TYPE_1, 64    dw  EnemyDeltaX_2     db 0
     dw  151     db  ENEMY_TYPE_1, 96    dw  EnemyDeltaX_2     db 1

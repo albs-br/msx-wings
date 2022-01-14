@@ -50,6 +50,28 @@ Enemy_6_Struct:                    rb Enemy_Temp_Struct.size
 
 ; ---------------------------------------
 
+EnemyShot_Temp_Struct:
+EnemyShot_Temp_Status:                  rb 1    
+EnemyShot_Temp_X:                       rb 1
+EnemyShot_Temp_Y:                       rb 1
+EnemyShot_Temp_Y_Static:                rb 1 ; y coord ignoring scroll
+EnemyShot_Temp_Delta_X_Current_Addr:    rw 1
+EnemyShot_Temp_Delta_Y_Current_Addr:    rw 1
+EnemyShot_Temp_SPRCOL_Addr:             rw 1
+EnemyShot_Temp_Struct.size:        equ $ - EnemyShot_Temp_Struct
+
+
+
+EnemyShot_0_Struct:                    rb Enemy_Temp_Struct.size
+EnemyShot_1_Struct:                    rb Enemy_Temp_Struct.size
+EnemyShot_2_Struct:                    rb Enemy_Temp_Struct.size
+EnemyShot_3_Struct:                    rb Enemy_Temp_Struct.size
+EnemyShot_4_Struct:                    rb Enemy_Temp_Struct.size
+EnemyShot_5_Struct:                    rb Enemy_Temp_Struct.size
+EnemyShot_6_Struct:                    rb Enemy_Temp_Struct.size
+
+; ---------------------------------------
+
 LevelData_Temp_Struct:
 LevelData_Temp_Counter:                     rw 1
 LevelData_Temp_EnemyType:                   rb 1

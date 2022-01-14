@@ -18,6 +18,8 @@ ENEMY_SPR_PAT_1_NUMBER:                 equ 6 * 4
 EXPLOSION_SPR_PAT_0_NUMBER:             equ 7 * 4
 EXPLOSION_SPR_PAT_1_NUMBER:             equ 8 * 4
 EXPLOSION_SPR_PAT_2_NUMBER:             equ 9 * 4
+ENEMY_SHOT_SPR_PAT_0_NUMBER:            equ 10 * 4
+ENEMY_SHOT_SPR_PAT_1_NUMBER:            equ 11 * 4
 EMPTY_SPR_PAT_NUMBER:                   equ 63 * 4
 
 UpdateSpriteAttrTableBuffer:

@@ -79,6 +79,8 @@ GameLogic:
     ;call BIOS_BEEP; debug
     ;jp .executeLevelData ; debug
 
+    ; TODO: check if LevelData_Temp_EnemyType == ENEMY_TYPE_1
+
     ;ld      hl, Enemy_1_Struct
     ld      de, (LevelData_CurrentAddr)
     call    Enemy_Init

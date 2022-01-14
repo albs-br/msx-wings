@@ -29,6 +29,7 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     INCLUDE "GameLogic/EnemyLogic.s"
     INCLUDE "LevelData/Level_1.s"
     INCLUDE "EnemyData/EnemyData_1.s"
+    INCLUDE "EnemyData/EnemyShotData.s"
 
     ; Assets
     INCLUDE "Graphics/Sprites/SpriteAssets.s"
