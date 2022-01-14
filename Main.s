@@ -35,6 +35,11 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     INCLUDE "Graphics/Sprites/SpriteAssets.s"
     ; background bitmaps are on MegaRomPages.s
 
+
+LEVEL_1_FIRST_SCREEN_PAGE:      equ 14
+LEVEL_2_FIRST_SCREEN_PAGE:      equ 30
+
+
 Execute:
     call    EnableRomPage2
 
@@ -53,6 +58,8 @@ Execute:
     call    InitVariables
 
 
+    ld      a, LEVEL_1_FIRST_SCREEN_PAGE
+    ;ld      a, LEVEL_2_FIRST_SCREEN_PAGE
     call    LoadFirstScreen
 
 
@@ -61,8 +68,9 @@ Execute:
 ; --------- 
 
 
-
-    call    InitVariablesForScroll
+    ;ld      a, LEVEL_1_FIRST_SCREEN_PAGE - 1
+    ;ld      a, LEVEL_2_FIRST_SCREEN_PAGE - 1
+    ;call    InitVariablesForScroll
 
 
 .gameLoop:
