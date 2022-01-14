@@ -16,49 +16,67 @@ Enemy_Init:
         inc     de
         inc     de
         inc     de
+        
+        ; HL = EnemyStruct_Addr
         ld      a, (de)
-        or      a
-        jp      z, .enemy_0
-        dec     a
-        jp      z, .enemy_1
-        dec     a
-        jp      z, .enemy_2
-        dec     a
-        jp      z, .enemy_3
-        dec     a
-        jp      z, .enemy_4
-        dec     a
-        jp      z, .enemy_5
-        dec     a
-        jp      z, .enemy_6
-.enemy_0:
-        ld      hl, Enemy_0_Struct
-        ld      bc, ENEMY_0_SPRCOL_ADDR
+        ld      l, a
+        inc     de
+        ld      a, (de)
+        ld      h, a
+
+        inc     de
+
+        ; BC = SPRCOL_Addr
+        ld      a, (de)
+        ld      c, a
+        inc     de
+        ld      a, (de)
+        ld      b, a
+        
         jp      .endEnemyNumber
-.enemy_1:
-        ld      hl, Enemy_1_Struct
-        ld      bc, ENEMY_1_SPRCOL_ADDR
-        jp      .endEnemyNumber
-.enemy_2:
-        ld      hl, Enemy_2_Struct
-        ld      bc, ENEMY_2_SPRCOL_ADDR
-        jp      .endEnemyNumber
-.enemy_3:
-        ld      hl, Enemy_3_Struct
-        ld      bc, ENEMY_3_SPRCOL_ADDR
-        jp      .endEnemyNumber
-.enemy_4:
-        ld      hl, Enemy_4_Struct
-        ld      bc, ENEMY_4_SPRCOL_ADDR
-        jp      .endEnemyNumber
-.enemy_5:
-        ld      hl, Enemy_5_Struct
-        ld      bc, ENEMY_5_SPRCOL_ADDR
-        jp      .endEnemyNumber
-.enemy_6:
-        ld      hl, Enemy_6_Struct
-        ld      bc, ENEMY_6_SPRCOL_ADDR
-        jp      .endEnemyNumber
+
+;         or      a
+;         jp      z, .enemy_0
+;         dec     a
+;         jp      z, .enemy_1
+;         dec     a
+;         jp      z, .enemy_2
+;         dec     a
+;         jp      z, .enemy_3
+;         dec     a
+;         jp      z, .enemy_4
+;         dec     a
+;         jp      z, .enemy_5
+;         dec     a
+;         jp      z, .enemy_6
+; .enemy_0:
+;         ld      hl, Enemy_0_Struct
+;         ld      bc, ENEMY_0_SPRCOL_ADDR
+;         jp      .endEnemyNumber
+; .enemy_1:
+;         ld      hl, Enemy_1_Struct
+;         ld      bc, ENEMY_1_SPRCOL_ADDR
+;         jp      .endEnemyNumber
+; .enemy_2:
+;         ld      hl, Enemy_2_Struct
+;         ld      bc, ENEMY_2_SPRCOL_ADDR
+;         jp      .endEnemyNumber
+; .enemy_3:
+;         ld      hl, Enemy_3_Struct
+;         ld      bc, ENEMY_3_SPRCOL_ADDR
+;         jp      .endEnemyNumber
+; .enemy_4:
+;         ld      hl, Enemy_4_Struct
+;         ld      bc, ENEMY_4_SPRCOL_ADDR
+;         jp      .endEnemyNumber
+; .enemy_5:
+;         ld      hl, Enemy_5_Struct
+;         ld      bc, ENEMY_5_SPRCOL_ADDR
+;         jp      .endEnemyNumber
+; .enemy_6:
+;         ld      hl, Enemy_6_Struct
+;         ld      bc, ENEMY_6_SPRCOL_ADDR
+;         jp      .endEnemyNumber
 .endEnemyNumber:
     pop     de
 

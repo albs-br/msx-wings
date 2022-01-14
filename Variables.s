@@ -77,7 +77,8 @@ LevelData_Temp_Counter:                     rw 1
 LevelData_Temp_ActionType:                  rb 1
 LevelData_Temp_Initial_X:                   rb 1
 LevelData_Temp_Delta_X_Initial_Addr:        rw 1
-LevelData_Temp_EnemyNumber:                 rb 1
+LevelData_Temp_EnemyStruct_Addr:            rw 1
+LevelData_Temp_SPRCOL_Addr:                 rw 1
 LevelData_Temp_Struct.size:         equ $ - LevelData_Temp_Struct
 
 ; info needed for EnemyShot:

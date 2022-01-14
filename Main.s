@@ -58,19 +58,14 @@ Execute:
     call    InitVariables
 
 
-    ld      a, LEVEL_1_FIRST_SCREEN_PAGE
-    ;ld      a, LEVEL_2_FIRST_SCREEN_PAGE
+    ;ld      a, LEVEL_1_FIRST_SCREEN_PAGE
+    ld      a, LEVEL_2_FIRST_SCREEN_PAGE
     call    LoadFirstScreen
 
 
     call    BIOS_ENASCR
 
 ; --------- 
-
-
-    ;ld      a, LEVEL_1_FIRST_SCREEN_PAGE - 1
-    ;ld      a, LEVEL_2_FIRST_SCREEN_PAGE - 1
-    ;call    InitVariablesForScroll
 
 
 .gameLoop:
