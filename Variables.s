@@ -74,12 +74,18 @@ EnemyShot_6_Struct:                    rb Enemy_Temp_Struct.size
 
 LevelData_Temp_Struct:
 LevelData_Temp_Counter:                     rw 1
-LevelData_Temp_EnemyType:                   rb 1
+LevelData_Temp_ActionType:                  rb 1
 LevelData_Temp_Initial_X:                   rb 1
 LevelData_Temp_Delta_X_Initial_Addr:        rw 1
 LevelData_Temp_EnemyNumber:                 rb 1
 LevelData_Temp_Struct.size:         equ $ - LevelData_Temp_Struct
 
+; info needed for EnemyShot:
+; counter
+; actiontype
+; delta x addr (delta y will be delta x + N)
+; enemy struct addr
+; SPRCOL addr
 
 
 ; ---------------------------------------

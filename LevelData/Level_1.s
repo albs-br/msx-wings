@@ -17,7 +17,7 @@ Level_1_Data:
     dw  153     db  ENEMY_TYPE_1, 160   dw  EnemyDeltaX_2     db 3
     dw  160     db  ENEMY_TYPE_1, 64+16 dw  EnemyDeltaX_2     db 4
     dw  161     db  ENEMY_TYPE_1, 96+16 dw  EnemyDeltaX_2     db 5
-    dw  162     db  ENEMY_TYPE_1, 128+16 dw  EnemyDeltaX_2     db 6
+    dw  162     db  ENEMY_TYPE_1, 144   dw  EnemyDeltaX_2     db 6
 
     dw  250     db  ENEMY_TYPE_1, 80    dw  EnemyDeltaX_0     db 0
     dw  251     db  ENEMY_TYPE_1, 112   dw  EnemyDeltaX_0     db 1
