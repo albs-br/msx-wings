@@ -18,7 +18,7 @@ Level_1_Data:
     ;dw  32      db  ENEMY_TYPE_1,           128   dw  EnemyDeltaX_1     dw Enemy_6_Struct, ENEMY_6_SPRCOL_ADDR,      0
     dw  32      db  ENEMY_TYPE_1,           256-16   dw  EnemyDeltaX_1     dw Enemy_6_Struct, ENEMY_6_SPRCOL_ADDR,      0
 
-    dw  40      db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_0 dw Enemy_3_Struct, ENEMY_SHOT_0_SPRCOL_ADDR, EnemyShot_0_Struct
+    dw  40      db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_left dw Enemy_3_Struct, ENEMY_SHOT_0_SPRCOL_ADDR, EnemyShot_0_Struct
 
 
     dw  150     db  ENEMY_TYPE_1,           64    dw  EnemyDeltaX_2     dw Enemy_0_Struct, ENEMY_0_SPRCOL_ADDR,      0
