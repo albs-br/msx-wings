@@ -179,7 +179,7 @@ Enemy_Logic:
         ld      (Enemy_Temp_X), a       ; save it
 
         inc     hl                      ; next Delta X addr
-        inc     hl
+        ;inc     hl
         ld      (Enemy_Temp_Delta_X_Current_Addr), hl
     .ignoreDeltaX:
 
