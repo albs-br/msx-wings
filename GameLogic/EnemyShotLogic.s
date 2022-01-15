@@ -178,7 +178,7 @@ EnemyShot_Logic:
         ld      (EnemyShot_Temp_Delta_X_Current_Addr), hl
     .ignoreDeltaX:
 
-        ; --------------------------- color cycling of enemy shot --------------
+        ; --------------------------- pattern/color cycling of enemy shot --------------
 
         ld      a, (BIOS_JIFFY)
         and     0000 0011 b
@@ -188,7 +188,7 @@ EnemyShot_Logic:
         jp      z, .enemyShotColor_1    ; if (A == 2) enemyShotColor_1
                                         ; else enemyShotColor_3
 
-;.enemyShotColor_3:
+    ;.enemyShotColor_3:
         ; Load enemy colors
         ld      a, 0000 0001 b
         ld      hl, (LevelData_Temp_SPRCOL_Addr)
@@ -198,9 +198,12 @@ EnemyShot_Logic:
         ; 8x OUTI (only first 8 lines are necessary)
         outi outi outi outi outi outi outi outi
 
-        jp      .return
+        ld      a, ENEMY_SHOT_SPR_PAT_0_NUMBER
+        ld      (EnemyShot_Temp_Pattern), a
 
-.enemyShotColor_0:
+        jp      .checkCollision
+
+    .enemyShotColor_0:
         ; Load enemy colors
         ld      a, 0000 0001 b
         ld      hl, (LevelData_Temp_SPRCOL_Addr)
@@ -210,9 +213,12 @@ EnemyShot_Logic:
         ; 8x OUTI (only first 8 lines are necessary)
         outi outi outi outi outi outi outi outi
 
-        jp      .return
+        ld      a, ENEMY_SHOT_SPR_PAT_1_NUMBER
+        ld      (EnemyShot_Temp_Pattern), a
 
-.enemyShotColor_1:
+        jp      .checkCollision
+
+    .enemyShotColor_1:
         ; Load enemy colors
         ld      a, 0000 0001 b
         ld      hl, (LevelData_Temp_SPRCOL_Addr)
@@ -222,10 +228,14 @@ EnemyShot_Logic:
         ; 8x OUTI (only first 8 lines are necessary)
         outi outi outi outi outi outi outi outi
 
-        jp      .return
-
+        ld      a, ENEMY_SHOT_SPR_PAT_1_NUMBER
+        ld      (EnemyShot_Temp_Pattern), a
 
         ; --------------------------- check collision  -------------------------
+
+    .checkCollision:
+
+
 
         jp      .return
 
