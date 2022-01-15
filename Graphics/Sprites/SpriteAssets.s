@@ -1,5 +1,5 @@
 PaletteData:
-    INCBIN "Graphics/Sprites/player_plane_0.pal"
+    INCBIN "Graphics/Sprites/msx-wings.pal"
 
     ; ;  data 1 (red 0-7; blue 0-7); data 2 (0000; green 0-7)
     ; db 0x00, 0x00 ; Color index 0
