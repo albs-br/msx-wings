@@ -130,24 +130,11 @@ EnemyShot_Logic:
 
         ; --------------------------- enemy shot movement -------------------------
 
-        ld      a, (EnemyShot_Temp_Y_Static)    ; Y static
-        cp      192
-        jp      nc, .enemyShotReset             ; if (Y >= 192) enemyShotReset
-        
-        add     1 ;ENEMY_PIXELS_PER_MOV
-        ld      (EnemyShot_Temp_Y_Static), a
-
-
-        ld      a, (EnemyShot_Temp_Y)           ; Y
-        add     1 ;ENEMY_PIXELS_PER_MOV
-        ld      (EnemyShot_Temp_Y), a
-
-
         ; Delta X
         ld      hl, (EnemyShot_Temp_Delta_X_Current_Addr)                 ; Delta X
-        ld      a, l
-        or      h                       ; if (Delta X addr == 0)
-        jp      z, .ignoreDeltaX
+        ; ld      a, l
+        ; or      h                       ; if (Delta X addr == 0) ----  not necessary, as Delta X is mandatory
+        ; jp      z, .ignoreDeltaX
         
         ld      b, (hl)                 ; get delta X value
         ld      a, (EnemyShot_Temp_X)   ; get current X value
@@ -159,24 +146,29 @@ EnemyShot_Logic:
         jp      z, .enemyShotReset
         ld      (EnemyShot_Temp_X), a   ; save it
 
-        inc     hl                      ; next Delta X addr
-        ;inc     hl
+        push    hl
+            inc     hl                      ; next Delta X addr
+            ld      (EnemyShot_Temp_Delta_X_Current_Addr), hl
+        pop     hl
+        
+        ; Delta Y
+        ld      bc, EnemyShotDeltaX_size
+        add     hl, bc
 
-        ; ; check if passed end of Delta X sequence
-        ; ex      de, hl
-        ; ld      bc, EnemyShotDeltaX_size
-        ; add     hl, bc
-        ; ; now HL = end of sequence, DE = current index
-        ; call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
-        ; ex      de, hl
-        ; jp      nz, .notResetDeltaX
-        ; jp      nc, .notResetDeltaX
+        ld      a, (EnemyShot_Temp_Y_Static)    ; get current Y static value
+        cp      192
+        jp      nc, .enemyShotReset             ; if (Y_Static >= 192) enemyShotReset
 
-        ; ; resetDeltaX
+        ld      b, (hl)                         ; get delta Y value
+        add     a, b                            ; add to delta Y
+        ld      (EnemyShot_Temp_Y_Static), a
 
-;.notResetDeltaX:
-        ld      (EnemyShot_Temp_Delta_X_Current_Addr), hl
-    .ignoreDeltaX:
+        ld      a, (EnemyShot_Temp_Y)           ; Y
+        add     a, b
+        ld      (EnemyShot_Temp_Y), a
+
+
+    ; .ignoreDeltaX:
 
         ; --------------------------- pattern/color cycling of enemy shot --------------
 
