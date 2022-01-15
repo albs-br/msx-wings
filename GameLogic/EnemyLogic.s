@@ -175,7 +175,11 @@ Enemy_Logic:
         ld      b, (hl)                 ; get delta X value
         ld      a, (Enemy_Temp_X)       ; get current X value
         add     a, b                    ; add to delta X
-        ; TODO: test if sides of screen were reached
+        ; test if sides of screen were reached
+        cp      3
+        jp      c, .enemyReset          ; if (X < 3) enemyReset
+        cp      254
+        jp      nc, .enemyReset         ; if (X >= 254) enemyReset
         ld      (Enemy_Temp_X), a       ; save it
 
         inc     hl                      ; next Delta X addr

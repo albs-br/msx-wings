@@ -1,6 +1,9 @@
 
 EnemyShotDeltaX_size:   equ EnemyShotDeltaX_0.end - EnemyShotDeltaX_0    ; all delta X sequences for Enemy Shot have the same size
 
+; values should be in -1, +1 range
+
+
 ; 16 x 16 = 256
 EnemyShotDeltaX_0:  db -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
                     db -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1

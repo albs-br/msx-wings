@@ -1,5 +1,7 @@
 ; Delta X values for enemy position on time
 
+; values should be in -2, +2 range
+
 EnemyDeltaX_0:  db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
                 db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
                 db -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
