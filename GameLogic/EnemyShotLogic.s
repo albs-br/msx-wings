@@ -178,6 +178,53 @@ EnemyShot_Logic:
         ld      (EnemyShot_Temp_Delta_X_Current_Addr), hl
     .ignoreDeltaX:
 
+        ; --------------------------- color cycling of enemy shot --------------
+
+        ld      a, (BIOS_JIFFY)
+        and     0000 0011 b
+        dec     a
+        jp      z, .enemyShotColor_0    ; if (A == 1) enemyShotColor_0
+        dec     a
+        jp      z, .enemyShotColor_1    ; if (A == 2) enemyShotColor_1
+                                        ; else enemyShotColor_3
+
+;.enemyShotColor_3:
+        ; Load enemy colors
+        ld      a, 0000 0001 b
+        ld      hl, (LevelData_Temp_SPRCOL_Addr)
+        call    SetVdp_Write
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpriteColors_EnemyShot_0_to_2 + 32
+        ; 8x OUTI (only first 8 lines are necessary)
+        outi outi outi outi outi outi outi outi
+
+        jp      .return
+
+.enemyShotColor_0:
+        ; Load enemy colors
+        ld      a, 0000 0001 b
+        ld      hl, (LevelData_Temp_SPRCOL_Addr)
+        call    SetVdp_Write
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpriteColors_EnemyShot_0_to_2
+        ; 8x OUTI (only first 8 lines are necessary)
+        outi outi outi outi outi outi outi outi
+
+        jp      .return
+
+.enemyShotColor_1:
+        ; Load enemy colors
+        ld      a, 0000 0001 b
+        ld      hl, (LevelData_Temp_SPRCOL_Addr)
+        call    SetVdp_Write
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpriteColors_EnemyShot_0_to_2 + 16
+        ; 8x OUTI (only first 8 lines are necessary)
+        outi outi outi outi outi outi outi outi
+
+        jp      .return
+
+
         ; --------------------------- check collision  -------------------------
 
         jp      .return
