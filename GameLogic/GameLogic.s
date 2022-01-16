@@ -37,9 +37,18 @@ GameLogic:
 
     ld      hl, EnemyShot_0_Struct
     call    EnemyShot_Logic
-    ; ld      hl, EnemyShot_1_Struct
-    ; call    EnemyShot_Logic
-    ; TODO: all other enemy shot structs here
+    ld      hl, EnemyShot_1_Struct
+    call    EnemyShot_Logic
+    ld      hl, EnemyShot_2_Struct
+    call    EnemyShot_Logic
+    ld      hl, EnemyShot_3_Struct
+    call    EnemyShot_Logic
+    ld      hl, EnemyShot_4_Struct
+    call    EnemyShot_Logic
+    ld      hl, EnemyShot_5_Struct
+    call    EnemyShot_Logic
+    ld      hl, EnemyShot_6_Struct
+    call    EnemyShot_Logic
 
     ; -------------------------------------------
 

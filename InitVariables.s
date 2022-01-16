@@ -43,9 +43,18 @@ InitVariables:
 
     ld      hl, EnemyShot_0_Struct
     call    EnemyShot_Reset
-    ;ld      hl, EnemyShot_1_Struct
-    ;call    EnemyShot_Reset
-    ; TODO: all other enemy shot structs here
+    ld      hl, EnemyShot_1_Struct
+    call    EnemyShot_Reset
+    ld      hl, EnemyShot_2_Struct
+    call    EnemyShot_Reset
+    ld      hl, EnemyShot_3_Struct
+    call    EnemyShot_Reset
+    ld      hl, EnemyShot_4_Struct
+    call    EnemyShot_Reset
+    ld      hl, EnemyShot_5_Struct
+    call    EnemyShot_Reset
+    ld      hl, EnemyShot_6_Struct
+    call    EnemyShot_Reset
 
 
     ; load first shot struct addr
@@ -58,12 +67,14 @@ InitVariables:
 
     xor     a
     ld      (Screen_Y_Origin), a
+    ld      (FramesSkipped), a
 
 
     ld      hl, 0
     ld      (LevelCounter), hl
 
 
+    ; TODO: move this to a "LoadLevel" sub
     ld      hl, Level_1_Data
     ld      (LevelData_CurrentAddr), hl
 

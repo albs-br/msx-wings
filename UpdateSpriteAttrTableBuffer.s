@@ -464,22 +464,117 @@ UpdateSpriteAttrTableBuffer:
 
 ; ----------------------------------------
 
-    ; ; Sprite # 22
-    ; inc     hl
-    ; ld      a, (EnemyShot_1_Struct + 2)    ; Y
+    ; Sprite # 22
+    inc     hl
+    ld      a, (EnemyShot_1_Struct + 2)    ; Y
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (EnemyShot_1_Struct + 1)    ; X
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (EnemyShot_1_Struct + 4)    ; Pattern
+    ld      (hl), a
+
+    inc     hl
+    ; ld      a, 0
     ; ld      (hl), a
 
-    ; inc     hl
-    ; ld      a, (EnemyShot_1_Struct + 1)    ; X
+; ----------------------------------------
+
+    ; Sprite # 23
+    inc     hl
+    ld      a, (EnemyShot_2_Struct + 2)    ; Y
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (EnemyShot_2_Struct + 1)    ; X
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (EnemyShot_2_Struct + 4)    ; Pattern
+    ld      (hl), a
+
+    inc     hl
+    ; ld      a, 0
     ; ld      (hl), a
 
-    ; inc     hl
-    ; ld      a, (EnemyShot_1_Struct + 4)    ; Pattern
+; ----------------------------------------
+
+    ; Sprite # 24
+    inc     hl
+    ld      a, (EnemyShot_3_Struct + 2)    ; Y
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (EnemyShot_3_Struct + 1)    ; X
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (EnemyShot_3_Struct + 4)    ; Pattern
+    ld      (hl), a
+
+    inc     hl
+    ; ld      a, 0
     ; ld      (hl), a
 
-    ; inc     hl
-    ; ; ld      a, 0
-    ; ; ld      (hl), a
+; ----------------------------------------
+
+    ; Sprite # 25
+    inc     hl
+    ld      a, (EnemyShot_4_Struct + 2)    ; Y
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (EnemyShot_4_Struct + 1)    ; X
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (EnemyShot_4_Struct + 4)    ; Pattern
+    ld      (hl), a
+
+    inc     hl
+    ; ld      a, 0
+    ; ld      (hl), a
+
+; ----------------------------------------
+
+    ; Sprite # 26
+    inc     hl
+    ld      a, (EnemyShot_5_Struct + 2)    ; Y
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (EnemyShot_5_Struct + 1)    ; X
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (EnemyShot_5_Struct + 4)    ; Pattern
+    ld      (hl), a
+
+    inc     hl
+    ; ld      a, 0
+    ; ld      (hl), a
+
+; ----------------------------------------
+
+    ; Sprite # 27
+    inc     hl
+    ld      a, (EnemyShot_6_Struct + 2)    ; Y
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (EnemyShot_6_Struct + 1)    ; X
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (EnemyShot_6_Struct + 4)    ; Pattern
+    ld      (hl), a
+
+    inc     hl
+    ; ld      a, 0
+    ; ld      (hl), a
 
 ; ----------------------------------------
 

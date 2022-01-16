@@ -180,9 +180,18 @@ AdjustSprites_Y:
 
     ld      hl, EnemyShot_0_Struct + 2
     call    .adjustSprite
-    ; ld      hl, EnemyShot_1_Struct + 2
-    ; call    .adjustSprite
-    ; TODO: all other enemy shot structs here
+    ld      hl, EnemyShot_1_Struct + 2
+    call    .adjustSprite
+    ld      hl, EnemyShot_2_Struct + 2
+    call    .adjustSprite
+    ld      hl, EnemyShot_3_Struct + 2
+    call    .adjustSprite
+    ld      hl, EnemyShot_4_Struct + 2
+    call    .adjustSprite
+    ld      hl, EnemyShot_5_Struct + 2
+    call    .adjustSprite
+    ld      hl, EnemyShot_6_Struct + 2
+    call    .adjustSprite
 
     ret
 

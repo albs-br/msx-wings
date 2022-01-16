@@ -62,13 +62,12 @@ EnemyShot_Init:
 
     ; Load enemy colors
     ld      a, 0000 0001 b
-    ld      hl, (LevelData_Temp_SPRCOL_Addr)
+    ld      hl, (EnemyShot_Temp_SPRCOL_Addr)
     call    SetVdp_Write
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
     ld      hl, SpriteColors_EnemyShot_0_to_2
     ; 16x OUTI
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-
 
 
 .return:
@@ -77,6 +76,7 @@ EnemyShot_Init:
     ld      de, (LevelData_Temp_EnemyShotStruct_Addr)           ; destiny
     ld      bc, EnemyShot_Temp_Struct.size                      ; size
     ldir                                                        ; Copy BC bytes from HL to DE
+
 
     ret
 
@@ -103,9 +103,22 @@ EnemyShot_Reset:
     ld      a, EMPTY_SPR_PAT_NUMBER
     ld      (hl), a     ; Pattern
 
-    ; inc     hl
-    ; ld      a, EMPTY_SPR_PAT_NUMBER
-    ; ld      (hl), a     ; Pattern 1
+    xor     a
+    
+    inc     hl          ; Delta_X_Current_Addr
+    ld      (hl), a
+    inc     hl
+    ld      (hl), a
+
+    inc     hl          ; Delta_Y_Current_Addr
+    ld      (hl), a
+    inc     hl
+    ld      (hl), a
+
+    inc     hl          ; SPRCOL_Addr
+    ld      (hl), a
+    inc     hl
+    ld      (hl), a
 
     ret
 
@@ -146,14 +159,15 @@ EnemyShot_Logic:
         jp      z, .enemyShotReset
         ld      (EnemyShot_Temp_X), a   ; save it
 
-        push    hl
+        ;push    hl
             inc     hl                      ; next Delta X addr
             ld      (EnemyShot_Temp_Delta_X_Current_Addr), hl
-        pop     hl
+        ;pop     hl
         
         ; Delta Y
-        ld      bc, EnemyShotDeltaX_size
-        add     hl, bc
+        ld      hl, (EnemyShot_Temp_Delta_Y_Current_Addr)                 ; Delta Y
+        ;ld      bc, EnemyShotDeltaX_size
+        ;add     hl, bc
 
         ld      a, (EnemyShot_Temp_Y_Static)    ; get current Y static value
         cp      192
@@ -167,13 +181,19 @@ EnemyShot_Logic:
         add     a, b
         ld      (EnemyShot_Temp_Y), a
 
+        inc     hl                      ; next Delta Y addr
+        ld      (EnemyShot_Temp_Delta_Y_Current_Addr), hl
 
     ; .ignoreDeltaX:
 
         ; --------------------------- pattern/color cycling of enemy shot --------------
 
+    .patternAndColorCycling:
+ ;jp .checkCollision ; debug
+
         ld      a, (BIOS_JIFFY)
         and     0000 0011 b
+        ;ld a, 3
         dec     a
         jp      z, .enemyShotColor_0    ; if (A == 1) enemyShotColor_0
         dec     a
@@ -183,7 +203,7 @@ EnemyShot_Logic:
     ;.enemyShotColor_3:
         ; Load enemy colors
         ld      a, 0000 0001 b
-        ld      hl, (LevelData_Temp_SPRCOL_Addr)
+        ld      hl, (EnemyShot_Temp_SPRCOL_Addr)
         call    SetVdp_Write
         ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
         ld      hl, SpriteColors_EnemyShot_0_to_2 + 32
@@ -198,7 +218,7 @@ EnemyShot_Logic:
     .enemyShotColor_0:
         ; Load enemy colors
         ld      a, 0000 0001 b
-        ld      hl, (LevelData_Temp_SPRCOL_Addr)
+        ld      hl, (EnemyShot_Temp_SPRCOL_Addr)
         call    SetVdp_Write
         ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
         ld      hl, SpriteColors_EnemyShot_0_to_2
@@ -213,7 +233,7 @@ EnemyShot_Logic:
     .enemyShotColor_1:
         ; Load enemy colors
         ld      a, 0000 0001 b
-        ld      hl, (LevelData_Temp_SPRCOL_Addr)
+        ld      hl, (EnemyShot_Temp_SPRCOL_Addr)
         call    SetVdp_Write
         ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
         ld      hl, SpriteColors_EnemyShot_0_to_2 + 16
@@ -242,5 +262,6 @@ EnemyShot_Logic:
     pop     de                                                  ; destiny
     ld      bc, EnemyShot_Temp_Struct.size                      ; size
     ldir                                                        ; Copy BC bytes from HL to DE
+
 
     ret

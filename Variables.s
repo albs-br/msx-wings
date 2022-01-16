@@ -63,13 +63,13 @@ EnemyShot_Temp_Struct.size:        equ $ - EnemyShot_Temp_Struct
 
 
 
-EnemyShot_0_Struct:                    rb Enemy_Temp_Struct.size
-EnemyShot_1_Struct:                    rb Enemy_Temp_Struct.size
-EnemyShot_2_Struct:                    rb Enemy_Temp_Struct.size
-EnemyShot_3_Struct:                    rb Enemy_Temp_Struct.size
-EnemyShot_4_Struct:                    rb Enemy_Temp_Struct.size
-EnemyShot_5_Struct:                    rb Enemy_Temp_Struct.size
-EnemyShot_6_Struct:                    rb Enemy_Temp_Struct.size
+EnemyShot_0_Struct:                    rb EnemyShot_Temp_Struct.size
+EnemyShot_1_Struct:                    rb EnemyShot_Temp_Struct.size
+EnemyShot_2_Struct:                    rb EnemyShot_Temp_Struct.size
+EnemyShot_3_Struct:                    rb EnemyShot_Temp_Struct.size
+EnemyShot_4_Struct:                    rb EnemyShot_Temp_Struct.size
+EnemyShot_5_Struct:                    rb EnemyShot_Temp_Struct.size
+EnemyShot_6_Struct:                    rb EnemyShot_Temp_Struct.size
 
 ; ---------------------------------------
 
@@ -114,8 +114,9 @@ CurrentVRAMAddrLineScroll:  rw 1
 Debug_Temp_Byte:                 rb 1
 Debug_Temp_Word:                 rw 1
 
+FramesSkipped:                   rb 1
 
-
+CurrentJiffy:                    rb 1
 
 
 

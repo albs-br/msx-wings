@@ -5,7 +5,7 @@ PAGE_SIZE:	    equ	0x4000	        ; 16kB
 Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 16k Mapper)
 
 
-;DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
+DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
 
 
 ; Compilation address
@@ -78,6 +78,17 @@ Execute:
 
 
 
+
+    IFDEF DEBUG
+        ; Save Jiffy to check if previous frame ended
+        ld      a, (hl)
+        ld      (CurrentJiffy), a
+    ENDIF    
+
+
+
+
+
     IFDEF DEBUG
         ld 		a, 4       	            ; Border color
         ld 		(BIOS_BDRCLR), a    
@@ -115,7 +126,22 @@ Execute:
 
 
 
+    IFDEF DEBUG
+        ; Checks if main loop takes more than one frame to run
+        ld      a, (BIOS_JIFFY)
+        ld      b, a
+        ld      a, (CurrentJiffy)
+        cp      b
+        call    nz, .frameSkip
+    ENDIF
+
     jp      .gameLoop
+
+.frameSkip:
+    ld      hl, FramesSkipped
+    inc     (hl)
+    ret
+
 End:
 
 
