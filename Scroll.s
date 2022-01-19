@@ -77,7 +77,7 @@ ExecuteScroll:
 
     ; speed scroll (scroll only on even frames or on all frames)
     ld      a, (BIOS_JIFFY)         ; get only low byte of JIFFY
-    and     SCROLL_FULL_SPEED
+    and     SCROLL_HALF_SPEED ; SCROLL_FULL_SPEED
     ret     nz
 
 
