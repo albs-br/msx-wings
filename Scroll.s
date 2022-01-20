@@ -1,3 +1,7 @@
+BYTES_PER_LINE:         equ 256     ; screen 11
+;BYTES_PER_LINE:         equ 128    ; screen 5
+
+
 ADDR_LAST_LINE_OF_PAGE: equ 0x8000 + (63 * 256)
 
 ; Input:
@@ -71,7 +75,7 @@ LoadFirstScreen:
 
 
 SCROLL_FULL_SPEED:      equ 0000 0000 b
-SCROLL_HALF_SPEED:      equ 0000 0001 b     ; it's buggy (sprites shaking)
+SCROLL_HALF_SPEED:      equ 0000 0001 b
 
 ExecuteScroll:
 
@@ -154,12 +158,13 @@ AdjustSprites_Y:
     call    .adjustSprite
 
 
-    ld      hl, PlayerShot_0_Struct + 2
-    call    .adjustSprite
-    ld      hl, PlayerShot_1_Struct + 2
-    call    .adjustSprite
-    ld      hl, PlayerShot_2_Struct + 2
-    call    .adjustSprite
+    ; player shots are so fast that they don't need such a small adjust (let's save some CPU cycles!)
+    ; ld      hl, PlayerShot_0_Struct + 2
+    ; call    .adjustSprite
+    ; ld      hl, PlayerShot_1_Struct + 2
+    ; call    .adjustSprite
+    ; ld      hl, PlayerShot_2_Struct + 2
+    ; call    .adjustSprite
     
 
     ld      hl, Enemy_0_Struct + 2

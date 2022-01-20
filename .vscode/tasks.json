@@ -43,6 +43,7 @@
                     },
                     {
                         "value": "-romtype ASCII16",
+                        //"value": "-romtype ASCII8",
                         "quoting": "escape"
                     },
                     {
