@@ -111,8 +111,6 @@ Execute:
 
     call    GameLogic
 
-    ;call    AdjustSprites_Y
-
     call    UpdateSpriteAttrTableBuffer
 
 
