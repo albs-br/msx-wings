@@ -68,8 +68,7 @@ UpdateSpriteAttrTableBuffer:
     ; Sprite # 2
     inc     hl
     ld      a, (Player_Y)
-    ld      b, 16
-    add     a, b
+    add     a, 16
     ld      (hl), a
 
     inc     hl
@@ -89,8 +88,7 @@ UpdateSpriteAttrTableBuffer:
     ; Sprite # 3
     inc     hl
     ld      a, (Player_Y)
-    ld      b, 16
-    add     a, b
+    add     a, 16
     ld      (hl), a
 
     inc     hl

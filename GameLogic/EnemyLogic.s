@@ -146,6 +146,11 @@ Enemy_Reset:
 ;   HL: addr of enemy struct
 Enemy_Logic:
 
+    ; check status before copying to temp vars to save cycles when disabled
+    ld      a, (hl)     ; get Status
+    or      a
+    ret     z           ; if (Status == 0) ret
+
     push    hl
 
         ; Copy enemy struct to temp enemy struct
@@ -156,10 +161,11 @@ Enemy_Logic:
 
 
         
-        ld      a, (Enemy_Temp_Status)      ; get Status
-        or      a
-        jp      z, .return                  ; if (Status == 0) ret
+        ; ld      a, (Enemy_Temp_Status)      ; get Status
+        ; or      a
+        ; jp      z, .return                  ; if (Status == 0) ret
 
+        ld      a, (Enemy_Temp_Status)      ; get Status
         cp      1
         jp      nz, .doExplosionAnimation   ; if (Status != 1) doExplosionAnimation
 

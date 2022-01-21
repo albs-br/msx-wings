@@ -128,6 +128,11 @@ EnemyShot_Reset:
 ;   HL: addr of enemy shot struct
 EnemyShot_Logic:
 
+    ; check status before copying to temp vars to save cycles when disabled
+    ld      a, (hl)     ; get Status
+    or      a
+    ret     z           ; if (Status == 0) ret
+
     push    hl
 
         ; Copy enemy shot struct to temp enemy shot struct
@@ -137,9 +142,9 @@ EnemyShot_Logic:
         ldir                                                    ; Copy BC bytes from HL to DE
 
 
-        ld      a, (EnemyShot_Temp_Status)      ; get Status
-        or      a
-        jp      z, .return                      ; if (Status == 0) ret
+        ; ld      a, (EnemyShot_Temp_Status)      ; get Status
+        ; or      a
+        ; jp      z, .return                      ; if (Status == 0) ret
 
         ; --------------------------- enemy shot movement -------------------------
 
