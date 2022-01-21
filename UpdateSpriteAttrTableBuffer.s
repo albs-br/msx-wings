@@ -187,31 +187,27 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     inc     hl
-    ld      a, (Enemy_0_Struct + 4)    ; Pattern
+    ld      a, (Enemy_0_Struct + 4)    ; Pattern 0
     ld      (hl), a
 
     inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
 
 ; ----------------------------------------
 
     ; Sprite # 8
     inc     hl
-    ld      a, (Enemy_0_Struct + 2)    ; Y
+    ld      a, (Enemy_0_Struct + 11)    ; Y1
     ld      (hl), a
 
     inc     hl
-    ld      a, (Enemy_0_Struct + 1)    ; X
+    ld      a, (Enemy_0_Struct + 10)    ; X1
     ld      (hl), a
 
     inc     hl
-    ld      a, (Enemy_0_Struct + 5)    ; Pattern
+    ld      a, (Enemy_0_Struct + 5)    ; Pattern 1
     ld      (hl), a
 
     inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
 
 ; ------------------------------------------------------------------------------
 
@@ -229,18 +225,16 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
 
 ; ----------------------------------------
 
     ; Sprite # 10
     inc     hl
-    ld      a, (Enemy_1_Struct + 2)    ; Y
+    ld      a, (Enemy_1_Struct + 11)    ; Y1
     ld      (hl), a
 
     inc     hl
-    ld      a, (Enemy_1_Struct + 1)    ; X
+    ld      a, (Enemy_1_Struct + 10)    ; X1
     ld      (hl), a
 
     inc     hl
@@ -248,8 +242,6 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
 
 ; ------------------------------------------------------------------------------
 
@@ -267,18 +259,16 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
 
 ; ----------------------------------------
 
     ; Sprite # 12
     inc     hl
-    ld      a, (Enemy_2_Struct + 2)    ; Y
+    ld      a, (Enemy_2_Struct + 11)    ; Y1
     ld      (hl), a
 
     inc     hl
-    ld      a, (Enemy_2_Struct + 1)    ; X
+    ld      a, (Enemy_2_Struct + 10)    ; X1
     ld      (hl), a
 
     inc     hl
@@ -286,8 +276,6 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
 
 ; ------------------------------------------------------------------------------
 
@@ -305,18 +293,16 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
 
 ; ----------------------------------------
 
     ; Sprite # 14
     inc     hl
-    ld      a, (Enemy_3_Struct + 2)    ; Y
+    ld      a, (Enemy_3_Struct + 11)    ; Y1
     ld      (hl), a
 
     inc     hl
-    ld      a, (Enemy_3_Struct + 1)    ; X
+    ld      a, (Enemy_3_Struct + 10)    ; X1
     ld      (hl), a
 
     inc     hl
@@ -324,8 +310,6 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
 
 ; ------------------------------------------------------------------------------
 
@@ -343,18 +327,16 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
 
 ; ----------------------------------------
 
     ; Sprite # 16
     inc     hl
-    ld      a, (Enemy_4_Struct + 2)    ; Y
+    ld      a, (Enemy_4_Struct + 11)    ; Y1
     ld      (hl), a
 
     inc     hl
-    ld      a, (Enemy_4_Struct + 1)    ; X
+    ld      a, (Enemy_4_Struct + 10)    ; X1
     ld      (hl), a
 
     inc     hl
@@ -362,8 +344,6 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
 
 ; ------------------------------------------------------------------------------
 
@@ -381,18 +361,16 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
 
 ; ----------------------------------------
 
     ; Sprite # 18
     inc     hl
-    ld      a, (Enemy_5_Struct + 2)    ; Y
+    ld      a, (Enemy_5_Struct + 11)    ; Y1
     ld      (hl), a
 
     inc     hl
-    ld      a, (Enemy_5_Struct + 1)    ; X
+    ld      a, (Enemy_5_Struct + 10)    ; X1
     ld      (hl), a
 
     inc     hl
@@ -419,18 +397,16 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
 
 ; ----------------------------------------
 
     ; Sprite # 20
     inc     hl
-    ld      a, (Enemy_6_Struct + 2)    ; Y
+    ld      a, (Enemy_6_Struct + 11)    ; Y1
     ld      (hl), a
 
     inc     hl
-    ld      a, (Enemy_6_Struct + 1)    ; X
+    ld      a, (Enemy_6_Struct + 10)    ; X1
     ld      (hl), a
 
     inc     hl
@@ -438,8 +414,7 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
+
 
 ; ================================== ENEMY SHOTS ===============================
 

@@ -61,10 +61,12 @@ Enemy_Init:
         inc     de
         inc     de
         ld      a, (de)
+        ld      ixh, a
         ld      (hl), a     ; X
 
         inc     hl
         ld      a, (Screen_Y_Origin)
+        ld      ixl, a
         ld      (hl), a     ; Y
 
         inc     hl
@@ -97,6 +99,14 @@ Enemy_Init:
     inc     hl
     ld      (hl), b     ; SPRCOL Addr (high byte)
 
+    inc     hl
+    ld      a, ixh
+    ld      (hl), a     ; X1
+
+    inc     hl
+    ld      a, ixl
+    ld      (hl), a     ; Y1
+
     ret
 
 
@@ -125,6 +135,8 @@ Enemy_Reset:
     inc     hl
     ld      a, EMPTY_SPR_PAT_NUMBER
     ld      (hl), a     ; Pattern 1
+
+    ; TODO: should other fields be reset too?
 
     ret
 
@@ -164,6 +176,10 @@ Enemy_Logic:
         ld      a, (Enemy_Temp_Y)           ; Y
         add     ENEMY_PIXELS_PER_MOV
         ld      (Enemy_Temp_Y), a
+        ld      a, (Enemy_Temp_Y1)          ; Y1
+        add     ENEMY_PIXELS_PER_MOV
+        ld      (Enemy_Temp_Y1), a
+
 
 
         ; Delta X
@@ -180,7 +196,14 @@ Enemy_Logic:
         jp      c, .enemyReset          ; if (X < 3) enemyReset
         cp      254
         jp      nc, .enemyReset         ; if (X >= 254) enemyReset
-        ld      (Enemy_Temp_X), a       ; save it
+        ld      (Enemy_Temp_X), a       ; save X
+
+        ;ld      b, (hl)                 ; get delta X value
+        ld      a, (Enemy_Temp_X1)      ; get current X1 value
+        add     a, b                    ; add to delta X
+        ld      (Enemy_Temp_X1), a      ; save X1
+
+
 
         inc     hl                      ; next Delta X addr
         ;inc     hl
@@ -189,21 +212,23 @@ Enemy_Logic:
 
         ; --------------------------- check collision  -------------------------
 
-        ; check col. between current enemy and shot 0
         ld      a, (Enemy_Temp_X)
         ld      b, a
         ld      a, (Enemy_Temp_Y_Static)
         ld      c, a
 
         push    bc
+                ; check col. between current enemy and shot 0
                 ld      hl, PlayerShot_0_Struct
                 call    CheckCol_Enemy_PlayerShot
         pop     bc
         push    bc
+                ; check col. between current enemy and shot 1
                 ld      hl, PlayerShot_1_Struct
                 call    CheckCol_Enemy_PlayerShot
         pop     bc
         push    bc
+                ; check col. between current enemy and shot 2
                 ld      hl, PlayerShot_2_Struct
                 call    CheckCol_Enemy_PlayerShot
         pop     bc
@@ -230,32 +255,28 @@ Enemy_Logic:
     ld      a, (Enemy_Temp_Status)      ; get Status
     inc     a
     ld      (Enemy_Temp_Status), a
-    cp      16
+    cp      20
     ld      hl, Enemy_Temp_Struct
     call    z, Enemy_Reset
 
 
     ld      a, (Enemy_Temp_Status)      ; get Status
-    cp      3
+    cp      3 ; first frame of explosion (don't change it)
     jp      z, .loadExplosionFrame_0    ; animation counter between 3 and 7
-    cp      8
+    cp      9
     jp      z, .loadExplosionFrame_1    ; animation counter between 8 and 11
-    cp      12
+    cp      15
     jp      z, .loadExplosionFrame_2    ; animation counter between 12 and 15
     jp      .return
 
 .loadExplosionFrame_0:
     ld      a, EXPLOSION_SPR_PAT_0_NUMBER
     ld      (Enemy_Temp_Pattern_0), a
-    ld      a, EMPTY_SPR_PAT_NUMBER
+    ;ld      a, EXPLOSION_SPR_PAT_0_NUMBER
     ld      (Enemy_Temp_Pattern_1), a
     
-    ; load explosion colors
+    ; load explosion colors (first sprite)
     ld      hl, (Enemy_Temp_SPRCOL_Addr)
-    ; ld      a, (Enemy_Temp_SPRCOL_Addr)         ; low byte
-    ; ld      l, a
-    ; ld      a, (Enemy_Temp_SPRCOL_Addr + 1)     ; high byte
-    ; ld      h, a
     ld      a, 0000 0001 b
     call    SetVdp_Write
     ld      c, PORT_0
@@ -266,34 +287,10 @@ Enemy_Logic:
     outi outi outi outi
     outi outi outi outi 
 
-    ; ld      a, (Enemy_Temp_SPRCOL_Addr + 2)         ; low byte
-    ; ld      l, a
-    ; ld      a, (Enemy_Temp_SPRCOL_Addr + 3)     ; high byte
-    ; ld      h, a
-    ; ld      a, 0000 0001 b
-    ; call    SetVdp_Write
-    ; ld      c, PORT_0
-    ; ld      hl, SpriteColors_Explosion_Frames_0_to_2
-    ; ; 16x OUTI
-    ; outi outi outi outi
-    ; outi outi outi outi
-    ; outi outi outi outi
-    ; outi outi outi outi 
-
-    jp      .return
-
-.loadExplosionFrame_1:
-    ld      a, EXPLOSION_SPR_PAT_1_NUMBER
-    ld      (Enemy_Temp_Pattern_0), a
-    ld      a, EMPTY_SPR_PAT_NUMBER
-    ld      (Enemy_Temp_Pattern_1), a
-
-    ; load explosion colors
+    ; load explosion colors (second sprite)
     ld      hl, (Enemy_Temp_SPRCOL_Addr)
-    ; ld      a, (Enemy_Temp_SPRCOL_Addr)         ; low byte
-    ; ld      l, a
-    ; ld      a, (Enemy_Temp_SPRCOL_Addr + 1)     ; high byte
-    ; ld      h, a
+    ld      bc, 16
+    add     hl, bc
     ld      a, 0000 0001 b
     call    SetVdp_Write
     ld      c, PORT_0
@@ -306,27 +303,61 @@ Enemy_Logic:
 
     jp      .return
 
+.loadExplosionFrame_1:
+    ld      a, EXPLOSION_SPR_PAT_1_NUMBER
+    ld      (Enemy_Temp_Pattern_0), a
+    ;ld      a, EXPLOSION_SPR_PAT_1_NUMBER
+    ld      (Enemy_Temp_Pattern_1), a
+
+    ; ; load explosion colors (first sprite)
+    ; ld      hl, (Enemy_Temp_SPRCOL_Addr)
+    ; ld      a, 0000 0001 b
+    ; call    SetVdp_Write
+    ; ld      c, PORT_0
+    ; ld      hl, SpriteColors_Explosion_Frames_0_to_2 + 16
+    ; ; 16x OUTI
+    ; outi outi outi outi
+    ; outi outi outi outi
+    ; outi outi outi outi
+    ; outi outi outi outi 
+
+    ; ; load explosion colors (second sprite)
+    ; ld      hl, (Enemy_Temp_SPRCOL_Addr)
+    ; ld      bc, 16
+    ; add     hl, bc
+    ; ld      a, 0000 0001 b
+    ; call    SetVdp_Write
+    ; ld      c, PORT_0
+    ; ld      hl, SpriteColors_Explosion_Frames_0_to_2 + 16
+    ; ; 16x OUTI
+    ; outi outi outi outi
+    ; outi outi outi outi
+    ; outi outi outi outi
+    ; outi outi outi outi 
+
+    jp      .return
+
 .loadExplosionFrame_2:
     ld      a, EXPLOSION_SPR_PAT_2_NUMBER
     ld      (Enemy_Temp_Pattern_0), a
-    ld      a, EMPTY_SPR_PAT_NUMBER
+    ;ld      a, EXPLOSION_SPR_PAT_2_NUMBER
     ld      (Enemy_Temp_Pattern_1), a
 
-    ; load explosion colors
-    ld      hl, (Enemy_Temp_SPRCOL_Addr)
-    ; ld      a, (Enemy_Temp_SPRCOL_Addr)         ; low byte
-    ; ld      l, a
-    ; ld      a, (Enemy_Temp_SPRCOL_Addr + 1)     ; high byte
-    ; ld      h, a
-    ld      a, 0000 0001 b
-    call    SetVdp_Write
-    ld      c, PORT_0
-    ld      hl, SpriteColors_Explosion_Frames_0_to_2 + 32
-    ; 16x OUTI
-    outi outi outi outi
-    outi outi outi outi
-    outi outi outi outi
-    outi outi outi outi 
+    ; ; load explosion colors (first sprite)
+    ; ld      hl, (Enemy_Temp_SPRCOL_Addr)
+    ; ; ld      a, (Enemy_Temp_SPRCOL_Addr)         ; low byte
+    ; ; ld      l, a
+    ; ; ld      a, (Enemy_Temp_SPRCOL_Addr + 1)     ; high byte
+    ; ; ld      h, a
+    ; ld      a, 0000 0001 b
+    ; call    SetVdp_Write
+    ; ld      c, PORT_0
+    ; ld      hl, SpriteColors_Explosion_Frames_0_to_2 + 32
+    ; ; 16x OUTI
+    ; outi outi outi outi
+    ; outi outi outi outi
+    ; outi outi outi outi
+    ; outi outi outi outi 
 
     jp      .return
 
@@ -367,17 +398,41 @@ CheckCol_Enemy_PlayerShot:
 
 StartExplosionAnimation:
     ld      a, 2
+    ld      (hl), a                         ; status
+
+    inc     hl
+    ld      a, (hl)                         ; x
+    sub     a, 6
+    ld      b, a
     ld      (hl), a
 
-    ; inc     hl
-    ; inc     hl
-    ; inc     hl
-    ; inc     hl
+    inc     hl
+    ld      a, (hl)                         ; Y
+    sub     a, 6
+    ld      c, a
+    ld      (hl), a
+
+    inc     hl
+    inc     hl
     ; ld      a, EXPLOSION_SPR_PAT_0_NUMBER
     ; ld      (hl), a                         ; pattern 0
 
-    ; inc     hl
+    inc     hl
     ; ld      a, EXPLOSION_SPR_PAT_0_NUMBER
     ; ld      (hl), a                         ; pattern 1
+
+    inc     hl
+    inc     hl
+    inc     hl
+    inc     hl
+    inc     hl
+    ld      a, b
+    add     a, 12
+    ld      (hl), a                         ; X1
+    
+    inc     hl
+    ld      a, c
+    add     a, 12
+    ld      (hl), a                         ; Y1
 
     ret

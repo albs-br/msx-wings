@@ -167,19 +167,39 @@ AdjustSprites_Y:
     ; call    .adjustSprite
     
 
-    ld      hl, Enemy_0_Struct + 2
+    ld      hl, Enemy_0_Struct + 2  ; Y
     call    .adjustSprite
+    ld      hl, Enemy_0_Struct + 11 ; Y1
+    call    .adjustSprite
+
     ld      hl, Enemy_1_Struct + 2
     call    .adjustSprite
+    ld      hl, Enemy_1_Struct + 11
+    call    .adjustSprite
+
     ld      hl, Enemy_2_Struct + 2
     call    .adjustSprite
+    ld      hl, Enemy_2_Struct + 11
+    call    .adjustSprite
+
     ld      hl, Enemy_3_Struct + 2
     call    .adjustSprite
+    ld      hl, Enemy_3_Struct + 11
+    call    .adjustSprite
+
     ld      hl, Enemy_4_Struct + 2
     call    .adjustSprite
+    ld      hl, Enemy_4_Struct + 11
+    call    .adjustSprite
+
     ld      hl, Enemy_5_Struct + 2
     call    .adjustSprite
+    ld      hl, Enemy_5_Struct + 11
+    call    .adjustSprite
+
     ld      hl, Enemy_6_Struct + 2
+    call    .adjustSprite
+    ld      hl, Enemy_6_Struct + 11
     call    .adjustSprite
 
 
