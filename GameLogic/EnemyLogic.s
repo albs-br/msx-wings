@@ -262,17 +262,19 @@ Enemy_Logic:
 
     ld      a, (Enemy_Temp_Status)      ; get Status
     cp      3 ; first frame of explosion (don't change it)
-    jp      z, .loadExplosionFrame_0    ; animation counter between 3 and 7
-    cp      9
-    jp      z, .loadExplosionFrame_1    ; animation counter between 8 and 11
+    jp      z, .loadExplosionFrame_0
+    cp      7
+    jp      z, .loadExplosionFrame_1
+    cp      11
+    jp      z, .loadExplosionFrame_2
     cp      15
-    jp      z, .loadExplosionFrame_2    ; animation counter between 12 and 15
+    jp      z, .loadExplosionFrame_3
     jp      .return
 
 .loadExplosionFrame_0:
     ld      a, EXPLOSION_SPR_PAT_0_NUMBER
     ld      (Enemy_Temp_Pattern_0), a
-    ;ld      a, EXPLOSION_SPR_PAT_0_NUMBER
+    ld      a, EMPTY_SPR_PAT_NUMBER
     ld      (Enemy_Temp_Pattern_1), a
     
     ; load explosion colors (first sprite)
@@ -306,7 +308,7 @@ Enemy_Logic:
 .loadExplosionFrame_1:
     ld      a, EXPLOSION_SPR_PAT_1_NUMBER
     ld      (Enemy_Temp_Pattern_0), a
-    ;ld      a, EXPLOSION_SPR_PAT_1_NUMBER
+    ld      a, EXPLOSION_SPR_PAT_0_NUMBER
     ld      (Enemy_Temp_Pattern_1), a
 
     ; ; load explosion colors (first sprite)
@@ -340,7 +342,7 @@ Enemy_Logic:
 .loadExplosionFrame_2:
     ld      a, EXPLOSION_SPR_PAT_2_NUMBER
     ld      (Enemy_Temp_Pattern_0), a
-    ;ld      a, EXPLOSION_SPR_PAT_2_NUMBER
+    ld      a, EXPLOSION_SPR_PAT_1_NUMBER
     ld      (Enemy_Temp_Pattern_1), a
 
     ; ; load explosion colors (first sprite)
@@ -361,7 +363,29 @@ Enemy_Logic:
 
     jp      .return
 
+.loadExplosionFrame_3:
+    ld      a, EMPTY_SPR_PAT_NUMBER
+    ld      (Enemy_Temp_Pattern_0), a
+    ld      a, EXPLOSION_SPR_PAT_2_NUMBER
+    ld      (Enemy_Temp_Pattern_1), a
 
+    ; ; load explosion colors (first sprite)
+    ; ld      hl, (Enemy_Temp_SPRCOL_Addr)
+    ; ; ld      a, (Enemy_Temp_SPRCOL_Addr)         ; low byte
+    ; ; ld      l, a
+    ; ; ld      a, (Enemy_Temp_SPRCOL_Addr + 1)     ; high byte
+    ; ; ld      h, a
+    ; ld      a, 0000 0001 b
+    ; call    SetVdp_Write
+    ; ld      c, PORT_0
+    ; ld      hl, SpriteColors_Explosion_Frames_0_to_2 + 32
+    ; ; 16x OUTI
+    ; outi outi outi outi
+    ; outi outi outi outi
+    ; outi outi outi outi
+    ; outi outi outi outi 
+
+    jp      .return
 
 ; Inputs:
 ;   BC: X and Y of enemy
