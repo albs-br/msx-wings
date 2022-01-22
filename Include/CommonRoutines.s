@@ -414,6 +414,62 @@ CheckCollision_16x16_16x16:
 
 
 
+; TODO: not working (use Dezog unit tests)
+
+;  Calculates whether a collision occurs between a point and a 16x16 object
+; IN: 
+;    B = x1; C = y1 (point)
+;    D = x2; E = y2 (16x16 box)
+; OUT: Carry set if collision
+; CHANGES: AF
+CheckCollision_Point_16x16:
+
+        ; cp b
+        ; if (a >= b) NC
+        ; if (a < b) C
+
+        ; check X
+        ld      a, d
+        cp      b
+        ret     nc      ; if (B <= D) ret             if (x1 <= x2) ret
+
+        ld      a, b
+        add     16      ; x1 = x1 + width2
+        cp      d
+        ret     nc      ; if (D <= B) ret             if (x2 <= (x1 + width2)) ret
+
+        ; check Y
+        ld      a, e
+        cp      c
+        ret     nc      ; if (C <= E) ret             if (y1 <= y2) ret
+
+        ; if (a < b) C
+        ; if (y1 < (y2 + height2)) C
+
+        ld      a, e
+        add     16
+        ld      e, a
+        ld      a, c
+        cp      e
+        ret
+
+        ; C = 100 ; E = 98
+        ; cp      98, 100         carry true
+        ; cp      100, 98+16      carry true
+
+        ; C = 120 ; E = 98
+        ; cp      98, 120         carry true
+        ; cp      120, 98+16      carry false
+
+        ; C = 30 ; E = 32
+        ; cp      32, 30         carry false
+
+        ; C = 50 ; E = 32
+        ; cp      32, 50         carry true
+        ; cp      50, 32+16      carry false
+
+
+
 ; ; Fade from black screen to palette pointed by HL
 ; ; PS: early try, it's a bit strange, but I prefer to keep
 ; ; Official FadeIn routine is below

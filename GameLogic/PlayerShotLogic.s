@@ -5,7 +5,7 @@ FRAMES_BETWEEN_PLAYER_SHOTS:        equ 4
 ;   HL: addr of player shot struct
 PlayerShot_Init:
 
-    ; if (Player_FramesSinceLastShot < 10) ret
+    ; if (Player_FramesSinceLastShot < FRAMES_BETWEEN_PLAYER_SHOTS) ret
     ld      a, (Player_FramesSinceLastShot)
     cp      FRAMES_BETWEEN_PLAYER_SHOTS
     ret     c
