@@ -252,22 +252,22 @@ EnemyShot_Logic:
 
     .checkCollision:
 
-        ; ld      a, (EnemyShot_Temp_X)
-        ; add     2
-        ; ld      b, a
-        ; ld      a, (EnemyShot_Temp_Y_Static)
-        ; add     2
-        ; ld      c, a
+        ld      a, (EnemyShot_Temp_X)
+        ;add     2
+        ld      b, a
+        ld      a, (EnemyShot_Temp_Y_Static)
+        ;add     2
+        ld      c, a
 
-        ; ld      a, (Player_X)
-        ; add     3
-        ; ld      d, a
-        ; ld      a, (Player_Y_Static)
-        ; add     12
-        ; ld      e, a
+        ld      a, (Player_X)
+        add     3
+        ld      d, a
+        ld      a, (Player_Y_Static)
+        add     12
+        ld      e, a
 
-        ; call    CheckCollision_Point_16x16
-        ; jp      c, .playerHit
+        call    CheckCollision_8x8_16x16
+        jp      c, .playerHit
 
         jp      .return
 
