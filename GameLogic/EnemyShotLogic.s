@@ -272,7 +272,9 @@ EnemyShot_Logic:
         jp      .return
 
     .playerHit:
-        jp .playerHit ; debug
+        ;jp .playerHit ; debug
+        ld      b, 30       ; 1/2 second
+        call    Wait_B_Vblanks
         jp      .enemyShotReset
 
     .enemyShotReset:

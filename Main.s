@@ -59,8 +59,8 @@ Execute:
     call    InitVariables
 
 
-    ld      a, LEVEL_1_FIRST_SCREEN_PAGE
-    ;ld      a, LEVEL_2_FIRST_SCREEN_PAGE
+    ;ld      a, LEVEL_1_FIRST_SCREEN_PAGE
+    ld      a, LEVEL_2_FIRST_SCREEN_PAGE
     call    LoadFirstScreen
 
 
