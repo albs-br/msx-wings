@@ -51,6 +51,18 @@ Enemy_Init:
             outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
         pop     hl
 
+
+
+        IFDEF DEBUG
+            ; debug trap (get if a enemy is being init before it lifecicle ends)
+            ld      a, (hl)      ; get Status
+            cp      1
+        .debugTrap:
+            jp      z, .debugTrap
+        ENDIF    
+
+
+
         ld      a, 1
         ld      (hl), a     ; Status
 

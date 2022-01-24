@@ -17,7 +17,18 @@ EnemyShot_Init:
     ld      bc, EnemyShot_Temp_Struct.size                  ; size
     ldir                                                    ; Copy BC bytes from HL to DE
 
-    
+
+
+    IFDEF DEBUG
+        ; debug trap (get if an enemy shot is being init before it lifecicle ends)
+        ld      a, (EnemyShot_Temp_Status)      ; get Status
+        cp      1
+    .debugTrap:
+        jp      z, .debugTrap
+    ENDIF    
+
+
+
     
     ; Enemy shot initialization
 
