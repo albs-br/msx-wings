@@ -54,7 +54,7 @@ Enemy_Init:
 
 
         IFDEF DEBUG
-            ; debug trap (get if a enemy is being init before it lifecicle ends)
+            ; debug trap (get if an enemy is being initialized before its lifecycle ends)
             ld      a, (hl)      ; get Status
             cp      1
         .debugTrap:
@@ -113,10 +113,12 @@ Enemy_Init:
 
     inc     hl
     ld      a, ixh
+    ;add     n          ; X offset for sprite 1
     ld      (hl), a     ; X1
 
     inc     hl
     ld      a, ixl
+    add     8           ; Y offset for sprite 1
     ld      (hl), a     ; Y1
 
     ret

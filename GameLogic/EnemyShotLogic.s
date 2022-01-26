@@ -20,7 +20,7 @@ EnemyShot_Init:
 
 
     IFDEF DEBUG
-        ; debug trap (get if an enemy shot is being init before it lifecicle ends)
+        ; debug trap (get if an enemy shot is being initialized before its lifecycle ends)
         ld      a, (EnemyShot_Temp_Status)      ; get Status
         cp      1
     .debugTrap:
