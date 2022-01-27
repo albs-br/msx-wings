@@ -113,7 +113,7 @@ Enemy_Init:
 
     inc     hl
     ld      a, ixh
-    ;add     n          ; X offset for sprite 1
+    ;add     1          ; X offset for sprite 1
     ld      (hl), a     ; X1
 
     inc     hl
@@ -230,7 +230,7 @@ Enemy_Logic:
         ld      (Enemy_Temp_Delta_X_Current_Addr), hl
     .ignoreDeltaX:
 
-        ; --------------------------- check collision  -------------------------
+        ; --------------------------- check collision (enemy x player shots) -------------------------
 
         ld      a, (Enemy_Temp_X)
         ld      b, a
@@ -252,6 +252,24 @@ Enemy_Logic:
                 ld      hl, PlayerShot_2_Struct
                 call    CheckCol_Enemy_PlayerShot
         pop     bc
+
+        ; --------------------------- check collision (enemy x player plane) -------------------------
+
+        ; ld      a, (Enemy_Temp_X)
+        ; ld      b, a
+        ; ld      a, (Enemy_Temp_Y_Static)
+        ; ld      c, a
+
+        ; check col. between current enemy and plane
+        ld      a, (Player_X)
+        add     2                           ; adjust the 16x16 collision box to the center of the plane
+        ld      d, a
+        ld      a, (Player_Y_Static)
+        add     12                          ; adjust the 16x16 collision box to the body of the plane
+        ld      e, a
+        call    CheckCol_Enemy_PlayerPlane
+
+
 
         jp      .return
 
@@ -433,12 +451,32 @@ CheckCol_Enemy_PlayerShot:
     .collision:
         call    PlayerShot_Reset
         ld      hl, Enemy_Temp_Struct
-
-        ;call    Enemy_Reset
-
         call    StartExplosionAnimation
 
         ret
+
+; Inputs:
+;   BC: X and Y of enemy
+;   DE: X and Y of player plane
+CheckCol_Enemy_PlayerPlane:
+        ;ld      a, (Player_Status)    ; Status
+        ;or      a
+        ;ret     z                  ; if (Player status == 0) skip Check Col.
+
+        call    CheckCollision_16x16_16x16
+        jp      c, .collision
+        ret
+        ;     .skipCheckColShot_0:
+        ;         ret
+    .collision:
+        ; ld      b, 30       ; 1/2 second
+        ; call    Wait_B_Vblanks
+
+        ld      hl, Enemy_Temp_Struct
+        call    StartExplosionAnimation
+
+        ret
+
 
 StartExplosionAnimation:
     ld      a, 2
