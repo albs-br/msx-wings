@@ -271,10 +271,10 @@ EnemyShot_Logic:
         ld      c, a
 
         ld      a, (Player_X)
-        add     3
+        add     2                           ; adjust the 16x16 collision box to the center of the plane
         ld      d, a
         ld      a, (Player_Y_Static)
-        add     12
+        add     12                          ; adjust the 16x16 collision box to the center of the plane
         ld      e, a
 
         call    CheckCollision_8x8_16x16

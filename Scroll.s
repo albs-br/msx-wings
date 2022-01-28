@@ -226,9 +226,11 @@ AdjustSprites_Y:
 
     ld      a, (hl)
     dec     a
-    cp      216             ; avoid value 216 (hide all sprites)
-    jp      nz, .continue
-    ld      a, 215
+    
+    ; commented out because it was causing bug
+    ;cp      216             ; avoid value 216 (hide all sprites)
+    ;jp      nz, .continue
+    ;ld      a, 215
 .continue:
     ld      (hl), a
     ret
