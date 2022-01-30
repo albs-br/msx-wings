@@ -93,6 +93,7 @@ UpdateSpriteAttrTableBuffer:
 
     inc     hl
     ld      a, (Player_X)
+    add     a, 5            ; x offset
     ld      (hl), a
 
     inc     hl

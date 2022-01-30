@@ -23,10 +23,10 @@ PaletteData:
 ; ------------------------------ Patterns
 
 SpritePattern_PlayerPlane_0_and_1:
-    INCBIN "Graphics/Sprites/player_plane_0.pat"
+    INCBIN "Graphics/Sprites/player_plane_top.pat"
 .size:  equ $ - SpritePattern_PlayerPlane_0_and_1
 SpritePattern_PlayerPlane_2_and_3:
-    INCBIN "Graphics/Sprites/player_plane_1.pat"
+    INCBIN "Graphics/Sprites/player_plane_bottom.pat"
 .size:  equ $ - SpritePattern_PlayerPlane_2_and_3
 
 SpritePattern_PlayerShot:
@@ -48,10 +48,10 @@ SpritePattern_EnemyShot_0_and_1:
 ; ------------------------------ Colors
 
 SpriteColors_PlayerPlane_0_and_1:
-    INCBIN "Graphics/Sprites/player_plane_0.col"
+    INCBIN "Graphics/Sprites/player_plane_top.col"
 .size:  equ $ - SpriteColors_PlayerPlane_0_and_1
 SpriteColors_PlayerPlane_2_and_3:
-    INCBIN "Graphics/Sprites/player_plane_1.col"
+    INCBIN "Graphics/Sprites/player_plane_bottom.col"
 .size:  equ $ - SpriteColors_PlayerPlane_2_and_3
 
 SpriteColors_PlayerShot:
