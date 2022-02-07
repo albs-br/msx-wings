@@ -8,7 +8,7 @@ Level_1_Data:
 ;                                           Initial_X                      EnemyStruct_Addr
 ;       Counter     ActionType              |         Delta_X_Initial_Addr |               SPRCOL_Addr
 ;       |           |                       |         |                    |               |
-    dw  20      db  ENEMY_TYPE_1,           32    dw  EnemyDeltaX_1     dw Enemy_0_Struct, ENEMY_0_SPRCOL_ADDR,      0
+    dw  20      db  ENEMY_TYPE_1,           32    dw  EnemyDeltaX_5     dw Enemy_0_Struct, ENEMY_0_SPRCOL_ADDR,      0
     dw  21      db  ENEMY_TYPE_1,           64    dw  EnemyDeltaX_1     dw Enemy_1_Struct, ENEMY_1_SPRCOL_ADDR,      0        
     dw  22      db  ENEMY_TYPE_1,           96    dw  EnemyDeltaX_1     dw Enemy_2_Struct, ENEMY_2_SPRCOL_ADDR,      0
     dw  23      db  ENEMY_TYPE_1,           128   dw  EnemyDeltaX_1     dw Enemy_3_Struct, ENEMY_3_SPRCOL_ADDR,      0
@@ -91,25 +91,25 @@ Level_1_Data:
 
 
 
-    dw  500     db  ENEMY_TYPE_1,           128   dw  0                 dw Enemy_0_Struct, ENEMY_0_SPRCOL_ADDR,      0
+    dw  500     db  ENEMY_TYPE_1,           128   dw  EnemyDeltaX_4     dw Enemy_0_Struct, ENEMY_0_SPRCOL_ADDR,      0
     dw  505     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right  dw Enemy_0_Struct, ENEMY_SHOT_0_SPRCOL_ADDR, EnemyShot_0_Struct
 
-    dw  510     db  ENEMY_TYPE_1,           128   dw  0                 dw Enemy_1_Struct, ENEMY_1_SPRCOL_ADDR,      0
+    dw  510     db  ENEMY_TYPE_1,           128   dw  EnemyDeltaX_4     dw Enemy_1_Struct, ENEMY_1_SPRCOL_ADDR,      0
     dw  515     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right  dw Enemy_1_Struct, ENEMY_SHOT_1_SPRCOL_ADDR, EnemyShot_1_Struct
 
-    dw  520     db  ENEMY_TYPE_1,           128   dw  0                 dw Enemy_2_Struct, ENEMY_2_SPRCOL_ADDR,      0
+    dw  520     db  ENEMY_TYPE_1,           128   dw  EnemyDeltaX_4     dw Enemy_2_Struct, ENEMY_2_SPRCOL_ADDR,      0
     dw  525     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right  dw Enemy_2_Struct, ENEMY_SHOT_2_SPRCOL_ADDR, EnemyShot_2_Struct
 
-    dw  530     db  ENEMY_TYPE_1,           128   dw  0                 dw Enemy_3_Struct, ENEMY_3_SPRCOL_ADDR,      0
+    dw  530     db  ENEMY_TYPE_1,           128   dw  EnemyDeltaX_4     dw Enemy_3_Struct, ENEMY_3_SPRCOL_ADDR,      0
     dw  535     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_0_degrees_center  dw Enemy_3_Struct, ENEMY_SHOT_3_SPRCOL_ADDR, EnemyShot_3_Struct
 
-    dw  540     db  ENEMY_TYPE_1,           128   dw  0                 dw Enemy_4_Struct, ENEMY_4_SPRCOL_ADDR,      0
+    dw  540     db  ENEMY_TYPE_1,           128   dw  EnemyDeltaX_4     dw Enemy_4_Struct, ENEMY_4_SPRCOL_ADDR,      0
     dw  545     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_left  dw Enemy_4_Struct, ENEMY_SHOT_4_SPRCOL_ADDR, EnemyShot_4_Struct
 
-    dw  550     db  ENEMY_TYPE_1,           128   dw  0                 dw Enemy_5_Struct, ENEMY_5_SPRCOL_ADDR,      0
+    dw  550     db  ENEMY_TYPE_1,           128   dw  EnemyDeltaX_4     dw Enemy_5_Struct, ENEMY_5_SPRCOL_ADDR,      0
     dw  555     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_left  dw Enemy_5_Struct, ENEMY_SHOT_5_SPRCOL_ADDR, EnemyShot_5_Struct
 
-    dw  560     db  ENEMY_TYPE_1,           128   dw  0                 dw Enemy_6_Struct, ENEMY_6_SPRCOL_ADDR,      0
+    dw  560     db  ENEMY_TYPE_1,           128   dw  EnemyDeltaX_4     dw Enemy_6_Struct, ENEMY_6_SPRCOL_ADDR,      0
     dw  565     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_left  dw Enemy_6_Struct, ENEMY_SHOT_6_SPRCOL_ADDR, EnemyShot_6_Struct
 
 

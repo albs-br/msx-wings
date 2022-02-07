@@ -36,24 +36,35 @@ Enemy_Logic:
 
         ; --------------------------- enemy movement -------------------------
 
+        ; Delta Y
+        ld      hl, (Enemy_Temp_Delta_Y_Current_Addr)                 ; Delta Y
+        ld      b, (hl)                     ; get delta Y value
+
         ld      a, (Enemy_Temp_Y_Static)    ; Y static
         cp      192
         jp      nc, .enemyReset             ; if (Y >= 192) enemyReset
-        add     ENEMY_PIXELS_PER_MOV
+        add     a, b                        ; add to delta Y
         ld      (Enemy_Temp_Y_Static), a
+
+        ; TODO: test if Y is bellow 0? (Delta Y may be negative)
 
 
         ld      a, (Enemy_Temp_Y)           ; Y
-        add     ENEMY_PIXELS_PER_MOV
+        add     a, b                        ; add to delta Y
         ld      (Enemy_Temp_Y), a
         ld      a, (Enemy_Temp_Y1)          ; Y1
-        add     ENEMY_PIXELS_PER_MOV
+        add     a, b                        ; add to delta Y
         ld      (Enemy_Temp_Y1), a
+
+        inc     hl                          ; next Delta Y addr
+        ld      (Enemy_Temp_Delta_Y_Current_Addr), hl
 
 
 
         ; Delta X
         ld      hl, (Enemy_Temp_Delta_X_Current_Addr)                 ; Delta X
+        
+        ; TODO: this probably is not necessary anymore (Delta X now is a mandatory field)
         ld      a, l
         or      h                       ; if (Delta X addr == 0)
         jp      z, .ignoreDeltaX
@@ -76,7 +87,6 @@ Enemy_Logic:
 
 
         inc     hl                      ; next Delta X addr
-        ;inc     hl
         ld      (Enemy_Temp_Delta_X_Current_Addr), hl
     .ignoreDeltaX:
 

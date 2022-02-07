@@ -157,13 +157,12 @@ Enemy_Init:
     ENDIF    
 
 
-    ; BC = SPRCOL_Addr
-    ld      bc, (LevelData_Temp_SPRCOL_Addr)
 
     ; Load enemy colors
     ld      a, 0000 0001 b
-    ld      h, b
-    ld      l, c
+    ld      hl, (LevelData_Temp_SPRCOL_Addr)
+    ; ld      h, b
+    ; ld      l, c
     call    SetVdp_Write
     ;ld      b, SpriteColors_EnemyPlane_0_and_1.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
@@ -182,16 +181,16 @@ Enemy_Init:
     ld      (Enemy_Temp_X), a
 
     ;add     1          ; X offset for sprite 1
-    ld      (Enemy_Temp_X1), a     ; X1
+    ld      (Enemy_Temp_X1), a            ; X1
 
     ld      a, (Screen_Y_Origin)
     ld      (Enemy_Temp_Y), a
 
     add     8           ; Y offset for sprite 1
-    ld      (Enemy_Temp_Y1), a     ; Y1
+    ld      (Enemy_Temp_Y1), a            ; Y1
 
     xor     a
-    ld      (Enemy_Temp_Y_Static), a     ; Y static
+    ld      (Enemy_Temp_Y_Static), a      ; Y static
 
     ld      a, ENEMY_SPR_PAT_0_NUMBER
     ld      (Enemy_Temp_Pattern_0), a     ; Pattern 0
@@ -201,7 +200,13 @@ Enemy_Init:
 
     ; get  Delta X Initial Addr from level data struct
     ld      hl, (LevelData_Temp_Delta_X_Initial_Addr)
-    ld      (Enemy_Temp_Delta_X_Current_Addr), hl
+    ld      (Enemy_Temp_Delta_X_Current_Addr), hl           ; Delta X addr
+
+    ; Delta Y data is always n bytes after Delta X data. n = EnemyDeltaX_size
+    ld      bc, EnemyDeltaX_size
+    add     hl, bc
+    ld      (Enemy_Temp_Delta_Y_Current_Addr), hl           ; Delta Y addr
+
 
 
     ld      hl, (LevelData_Temp_SPRCOL_Addr)

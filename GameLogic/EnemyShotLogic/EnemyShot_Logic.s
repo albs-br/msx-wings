@@ -38,15 +38,11 @@ EnemyShot_Logic:
         jp      z, .enemyShotReset
         ld      (EnemyShot_Temp_X), a   ; save it
 
-        ;push    hl
-            inc     hl                      ; next Delta X addr
-            ld      (EnemyShot_Temp_Delta_X_Current_Addr), hl
-        ;pop     hl
+        inc     hl                      ; next Delta X addr
+        ld      (EnemyShot_Temp_Delta_X_Current_Addr), hl
         
         ; Delta Y
         ld      hl, (EnemyShot_Temp_Delta_Y_Current_Addr)                 ; Delta Y
-        ;ld      bc, EnemyShotDeltaX_size
-        ;add     hl, bc
 
         ld      a, (EnemyShot_Temp_Y_Static)    ; get current Y static value
         cp      192
