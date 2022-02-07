@@ -37,6 +37,7 @@ Enemy_Temp_Delta_X_Current_Addr:    rw 1
 Enemy_Temp_SPRCOL_Addr:             rw 1
 Enemy_Temp_X1:                      rb 1
 Enemy_Temp_Y1:                      rb 1
+Enemy_Temp_Delta_Y_Current_Addr:    rw 1
 Enemy_Temp_Struct.size:        equ $ - Enemy_Temp_Struct
 
 

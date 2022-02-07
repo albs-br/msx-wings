@@ -1,4 +1,3 @@
-
 FRAMES_BETWEEN_PLAYER_SHOTS:        equ 4
 
 ; Input
@@ -58,55 +57,4 @@ PlayerShot_Init:
     ld      (NextShot_Struct_Addr), hl
 
 
-    ret
-
-; Input
-;   HL: addr of player shot struct
-PlayerShot_Reset:
-    xor     a
-    ld      (hl), a     ; Status
-
-    inc     hl
-    ld      a, 255
-    ld      (hl), a     ; X
-
-    inc     hl
-    ; ld      a, 192
-    ; ld      (hl), a     ; Y
-
-    inc     hl
-    ld      a, 192
-    ld      (hl), a     ; Y static
-
-    ret
-
-; Input
-;   HL: addr of player shot struct
-PlayerShot_Logic:
-    ld      a, (hl)                 ; get Status
-    or      a
-    ret     z                       ; if (Status == 0) ret
-
-    inc     hl
-    inc     hl
-    inc     hl
-    ld      a, (hl)                 ; Y static
-    cp      8
-    jp      c, .shotReset           ; if (Y < 8) shotReset
-    sub     8
-    ld      (hl), a
-
-
-    dec     hl
-    ld      a, (hl)                 ; Y
-    sub     8
-    ld      (hl), a
-
-    ret
-
-.shotReset:
-    dec     hl                      ; back to start of struct
-    dec     hl
-    dec     hl
-    call    PlayerShot_Reset
     ret
