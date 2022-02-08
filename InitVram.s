@@ -69,68 +69,99 @@ SPRATR:     equ 0xfa00
 
 ; --------- Load sprite patterns
 
-    ; Spr 0 and 1 patterns
-    ld      a, 0000 0001 b
     ld      hl, SPRPAT
-    call    SetVdp_Write
-    ld      b, SpritePattern_PlayerPlane_0_and_1.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpritePattern_PlayerPlane_0_and_1
-    otir
+
+    ; Spr 0 and 1 patterns
+    push    hl
+        ld      a, 0000 0001 b
+        ;ld      hl, SPRPAT
+        call    SetVdp_Write
+        ld      b, SpritePattern_PlayerPlane_0_and_1.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_PlayerPlane_0_and_1
+        otir
+    pop     hl
+    ld      bc, SpritePattern_PlayerPlane_0_and_1.size
+    add     hl, bc
 
     ; Spr 2 and 3 patterns
-    ld      a, 0000 0001 b
-    ld      hl, SPRPAT + 64
-    call    SetVdp_Write
-    ld      b, SpritePattern_PlayerPlane_2_and_3.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpritePattern_PlayerPlane_2_and_3
-    otir
+    push    hl
+        ld      a, 0000 0001 b
+        ;ld      hl, SPRPAT + 64
+        call    SetVdp_Write
+        ld      b, SpritePattern_PlayerPlane_2_and_3.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_PlayerPlane_2_and_3
+        otir
+    pop     hl
+    ld      bc, SpritePattern_PlayerPlane_2_and_3.size
+    add     hl, bc
 
     ; Spr 4 patterns
-    ld      a, 0000 0001 b
-    ld      hl, SPRPAT + 128
-    call    SetVdp_Write
-    ld      b, SpritePattern_PlayerShot.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpritePattern_PlayerShot
-    otir
+    push    hl
+        ld      a, 0000 0001 b
+        ;ld      hl, SPRPAT + 128
+        call    SetVdp_Write
+        ld      b, SpritePattern_PlayerShot.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_PlayerShot
+        otir
+    pop     hl
+    ld      bc, SpritePattern_PlayerShot.size
+    add     hl, bc
 
     ; Spr 5 and 6 patterns
-    ld      a, 0000 0001 b
-    ld      hl, SPRPAT + 128 + SpritePattern_PlayerShot.size
-    call    SetVdp_Write
-    ld      b, SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1
-    otir
+    push    hl
+        ld      a, 0000 0001 b
+        ;ld      hl, SPRPAT + 128 + SpritePattern_PlayerShot.size
+        call    SetVdp_Write
+        ld      b, SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1
+        otir
+    pop     hl
+    ld      bc, SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1.size
+    add     hl, bc
 
     ; Spr 7, 8 and 9 patterns
-    ld      a, 0000 0001 b
-    ld      hl, SPRPAT + 128 + SpritePattern_PlayerShot.size + SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1.size
-    call    SetVdp_Write
-    ld      b, SpritePattern_Explosion_Frames_0_to_2.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpritePattern_Explosion_Frames_0_to_2
-    otir
+    push    hl
+        ld      a, 0000 0001 b
+        ;ld      hl, SPRPAT + 128 + SpritePattern_PlayerShot.size + SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1.size
+        call    SetVdp_Write
+        ld      b, SpritePattern_Explosion_Frames_0_to_2.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_Explosion_Frames_0_to_2
+        otir
+    pop     hl
+    ld      bc, SpritePattern_Explosion_Frames_0_to_2.size
+    add     hl, bc
 
     ; Spr 10 and 11 patterns
-    ld      a, 0000 0001 b
-    ld      hl, SPRPAT + 128 + SpritePattern_PlayerShot.size + SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1.size + SpritePattern_Explosion_Frames_0_to_2.size
-    call    SetVdp_Write
-    ld      b, SpritePattern_EnemyShot_0_and_1.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpritePattern_EnemyShot_0_and_1
-    otir
+    push    hl
+        ld      a, 0000 0001 b
+        ;ld      hl, SPRPAT + 128 + SpritePattern_PlayerShot.size + SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1.size + SpritePattern_Explosion_Frames_0_to_2.size
+        call    SetVdp_Write
+        ld      b, SpritePattern_EnemyShot_0_and_1.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_EnemyShot_0_and_1
+        otir
+    pop     hl
+    ld      bc, SpritePattern_EnemyShot_0_and_1.size
+    add     hl, bc
 
     ; Spr 12 and 13 patterns
-    ld      a, 0000 0001 b
-    ld      hl, SPRPAT + 128 + SpritePattern_PlayerShot.size + SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1.size + SpritePattern_Explosion_Frames_0_to_2.size + SpritePattern_EnemyShot_0_and_1.size
-    call    SetVdp_Write
-    ld      b, SpritePattern_EnemyPlane_Frame_1_Patterns_0_and_1.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpritePattern_EnemyPlane_Frame_1_Patterns_0_and_1
-    otir
+    push    hl
+        ld      a, 0000 0001 b
+        ;ld      hl, SPRPAT + 128 + SpritePattern_PlayerShot.size + SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1.size + SpritePattern_Explosion_Frames_0_to_2.size + SpritePattern_EnemyShot_0_and_1.size
+        call    SetVdp_Write
+        ld      b, SpritePattern_EnemyPlane_Frame_1_Patterns_0_and_1.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_EnemyPlane_Frame_1_Patterns_0_and_1
+        otir
+    pop     hl
+    ld      bc, SpritePattern_EnemyPlane_Frame_1_Patterns_0_and_1.size
+    add     hl, bc
+
 
 
 ; --------- Load sprite colors
