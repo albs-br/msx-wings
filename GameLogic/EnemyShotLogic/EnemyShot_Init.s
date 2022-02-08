@@ -59,7 +59,7 @@ EnemyShot_Init:
     ld      a, ENEMY_SHOT_SPR_PAT_0_NUMBER
     ld      (EnemyShot_Temp_Pattern), a          ; Pattern
 
-    ld      hl, (LevelData_Temp_Delta_X_Initial_Addr)
+    ld      hl, (LevelData_Temp_Data_Initial_Addr)
     ld      (EnemyShot_Temp_Delta_X_Current_Addr), hl           ; Delta X addr
 
     ; Delta Y data is always n bytes after Delta X data. n = EnemyShotDeltaX_size

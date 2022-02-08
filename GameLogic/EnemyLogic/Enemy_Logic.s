@@ -37,7 +37,12 @@ Enemy_Logic:
         ; --------------------------- enemy movement -------------------------
 
         ; Delta Y
-        ld      hl, (Enemy_Temp_Delta_Y_Current_Addr)                 ; Delta Y
+        ; (Delta Y data is always n bytes after Delta X data. n = EnemyDeltaX_size)
+        ld      hl, (Enemy_Temp_Data_Current_Addr)
+        ld      bc, EnemyDeltaX_size
+        add     hl, bc
+
+        ;ld      hl, (Enemy_Temp_Delta_Y_Current_Addr)                 ; Delta Y
         ld      b, (hl)                     ; get delta Y value
 
         ld      a, (Enemy_Temp_Y_Static)    ; Y static
@@ -56,13 +61,13 @@ Enemy_Logic:
         add     a, b                        ; add to delta Y
         ld      (Enemy_Temp_Y1), a
 
-        inc     hl                          ; next Delta Y addr
-        ld      (Enemy_Temp_Delta_Y_Current_Addr), hl
+        ; inc     hl                          ; next Enemy Data addr
+        ; ld      (Enemy_Temp_Data_Current_Addr), hl
 
 
 
         ; Delta X
-        ld      hl, (Enemy_Temp_Delta_X_Current_Addr)                 ; Delta X
+        ld      hl, (Enemy_Temp_Data_Current_Addr)                 ; Delta X
         
         ; TODO: this probably is not necessary anymore (Delta X now is a mandatory field)
         ld      a, l
@@ -86,8 +91,10 @@ Enemy_Logic:
 
 
 
-        inc     hl                      ; next Delta X addr
-        ld      (Enemy_Temp_Delta_X_Current_Addr), hl
+        ; inc     hl                      ; next Delta X addr
+        ; ld      (Enemy_Temp_Delta_X_Current_Addr), hl
+        inc     hl                          ; next Enemy Data addr
+        ld      (Enemy_Temp_Data_Current_Addr), hl
     .ignoreDeltaX:
 
         ; --------------------------- check collision (enemy x player shots) -------------------------
