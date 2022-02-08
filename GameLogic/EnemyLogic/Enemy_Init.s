@@ -30,13 +30,11 @@ Enemy_Init:
     ; Load enemy colors
     ld      a, 0000 0001 b
     ld      hl, (LevelData_Temp_SPRCOL_Addr)
-    ; ld      h, b
-    ; ld      l, c
     call    SetVdp_Write
     ;ld      b, SpriteColors_EnemyPlane_0_and_1.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpriteColors_EnemyPlane_0_and_1
-    ;otir
+    ld      hl, SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1
+    ;ld      hl, SpriteColors_EnemyPlane_Frame_1_Patterns_0_and_1
     ; 32x OUTI
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
@@ -56,15 +54,19 @@ Enemy_Init:
     ld      (Enemy_Temp_Y), a
 
     add     8           ; Y offset for sprite 1
+    ;add     4           ; Y offset for sprite 1
     ld      (Enemy_Temp_Y1), a            ; Y1
 
     xor     a
     ld      (Enemy_Temp_Y_Static), a      ; Y static
 
-    ld      a, ENEMY_SPR_PAT_0_NUMBER
+    ld      a, ENEMY_0_SPR_PAT_0_NUMBER
+    ;ld      a, ENEMY_1_SPR_PAT_0_NUMBER
     ld      (Enemy_Temp_Pattern_0), a     ; Pattern 0
 
-    ld      a, ENEMY_SPR_PAT_1_NUMBER
+    add     4
+    ;ld      a, ENEMY_0_SPR_PAT_1_NUMBER
+    ;ld      a, ENEMY_1_SPR_PAT_1_NUMBER
     ld      (Enemy_Temp_Pattern_1), a     ; Pattern 1
 
     ; get  Enemy Data Initial Addr from level data struct

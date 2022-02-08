@@ -100,14 +100,14 @@ SPRATR:     equ 0xfa00
     ld      a, 0000 0001 b
     ld      hl, SPRPAT + 128 + SpritePattern_PlayerShot.size
     call    SetVdp_Write
-    ld      b, SpritePattern_EnemyPlane_0_and_1.size
+    ld      b, SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpritePattern_EnemyPlane_0_and_1
+    ld      hl, SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1
     otir
 
     ; Spr 7, 8 and 9 patterns
     ld      a, 0000 0001 b
-    ld      hl, SPRPAT + 128 + SpritePattern_PlayerShot.size + SpritePattern_EnemyPlane_0_and_1.size
+    ld      hl, SPRPAT + 128 + SpritePattern_PlayerShot.size + SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1.size
     call    SetVdp_Write
     ld      b, SpritePattern_Explosion_Frames_0_to_2.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
@@ -116,11 +116,20 @@ SPRATR:     equ 0xfa00
 
     ; Spr 10 and 11 patterns
     ld      a, 0000 0001 b
-    ld      hl, SPRPAT + 128 + SpritePattern_PlayerShot.size + SpritePattern_EnemyPlane_0_and_1.size + SpritePattern_Explosion_Frames_0_to_2.size
+    ld      hl, SPRPAT + 128 + SpritePattern_PlayerShot.size + SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1.size + SpritePattern_Explosion_Frames_0_to_2.size
     call    SetVdp_Write
     ld      b, SpritePattern_EnemyShot_0_and_1.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
     ld      hl, SpritePattern_EnemyShot_0_and_1
+    otir
+
+    ; Spr 12 and 13 patterns
+    ld      a, 0000 0001 b
+    ld      hl, SPRPAT + 128 + SpritePattern_PlayerShot.size + SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1.size + SpritePattern_Explosion_Frames_0_to_2.size + SpritePattern_EnemyShot_0_and_1.size
+    call    SetVdp_Write
+    ld      b, SpritePattern_EnemyPlane_Frame_1_Patterns_0_and_1.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpritePattern_EnemyPlane_Frame_1_Patterns_0_and_1
     otir
 
 
@@ -172,17 +181,17 @@ SPRATR:     equ 0xfa00
     otir
 
     ; this will be loaded on EnemyInit
-ENEMY_0_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 0)
-ENEMY_1_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 1)
-ENEMY_2_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 2)
-ENEMY_3_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 3)
-ENEMY_4_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 4)
-ENEMY_5_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 5)
-ENEMY_6_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 6)
+ENEMY_0_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 0)
+ENEMY_1_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 1)
+ENEMY_2_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 2)
+ENEMY_3_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 3)
+ENEMY_4_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 4)
+ENEMY_5_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 5)
+ENEMY_6_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 6)
 
 
 
-ENEMY_SHOT_0_SPRCOL_ADDR:   equ ENEMY_6_SPRCOL_ADDR + SpriteColors_EnemyPlane_0_and_1.size
+ENEMY_SHOT_0_SPRCOL_ADDR:   equ ENEMY_6_SPRCOL_ADDR + SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size
 ENEMY_SHOT_1_SPRCOL_ADDR:   equ ENEMY_SHOT_0_SPRCOL_ADDR + 16
 ENEMY_SHOT_2_SPRCOL_ADDR:   equ ENEMY_SHOT_1_SPRCOL_ADDR + 16
 ENEMY_SHOT_3_SPRCOL_ADDR:   equ ENEMY_SHOT_2_SPRCOL_ADDR + 16
