@@ -29,9 +29,23 @@ Enemy_Logic:
         ; or      a
         ; jp      z, .return                  ; if (Status == 0) ret
 
+
+
+        ; if enemy data ends, then the enemy life cycle ends
+        ld      hl, (Enemy_Temp_Frame_Counter)
+        ld      de, EnemyDeltaX_size
+        call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+        jp      nc, .enemyReset             ; if (HL >= DE) enemyReset
+
+
         ld      a, (Enemy_Temp_Status)      ; get Status
         cp      1
         jp      nz, .doExplosionAnimation   ; if (Status != 1) doExplosionAnimation
+
+
+        ; --------------------------- load data from enemy data -------------------------
+
+        call    LoadDataFromEnemyData
 
 
         ; --------------------------- enemy movement -------------------------
@@ -147,6 +161,11 @@ Enemy_Logic:
     
 
 .return:
+        ; increment Frame Counter
+        ld      hl, (Enemy_Temp_Frame_Counter)
+        inc     hl
+        ld      (Enemy_Temp_Frame_Counter), hl
+
         ld      hl, Enemy_Temp_Struct                       ; source
     pop     de                                              ; destiny
     ld      bc, Enemy_Temp_Struct.size                      ; size
@@ -385,3 +404,98 @@ StartExplosionAnimation:
     ld      (hl), a                         ; Y1
 
     ret
+
+
+
+LoadDataFromEnemyData:
+
+    ; ------------------------- patterns ------------------------
+
+    ld      hl, (Enemy_Temp_Data_Current_Addr)          ; Enemy data addr
+
+    ld      bc, EnemyDeltaX_size + EnemyDeltaY_size     ; set HL to current patternNumber
+    add     hl, bc
+
+    ld      a, (hl)
+    or      a
+    ret     z                               ; if (patternNumber == 0) keep previous pattern, offsets and SPRCOL addr
+
+    ld      (Enemy_Temp_Pattern_0), a       ; Pattern 0
+
+    add     4
+    ld      (Enemy_Temp_Pattern_1), a       ; Pattern 1
+
+    ; ------------------------- x1 ------------------------
+
+    ld      hl, (Enemy_Temp_Data_Current_Addr)          ; Enemy data addr
+
+    ld      bc, EnemyDeltaX_size + EnemyDeltaY_size + EnemyPatternNumber_size     ; set HL to current offset x1
+    add     hl, bc
+
+    ld      a, (Enemy_Temp_X)
+    ld      b, (hl)                     ; offset x1
+    add     b
+    ld      (Enemy_Temp_X1), a          ; 
+
+    ; ------------------------- y1 ------------------------
+
+    ld      hl, (Enemy_Temp_Data_Current_Addr)          ; Enemy data addr
+
+    ld      bc, EnemyDeltaX_size + EnemyDeltaY_size + EnemyPatternNumber_size + EnemyOffset_x1_size     ; set HL to current offset y1
+    add     hl, bc
+
+    ld      a, (Enemy_Temp_Y)
+    ld      b, (hl)                     ; offset y1
+    add     b
+    ld      (Enemy_Temp_Y1), a          ; 
+
+    ; -------------------------- colors -----------------------
+
+    ld      hl, (Enemy_Temp_Data_Current_Addr)          ; Enemy data addr
+
+    ld      bc, EnemyDeltaX_size + EnemyDeltaY_size + EnemyPatternNumber_size + EnemyOffset_x1_size + EnemyOffset_y1_size    ; set HL to current offset y1
+    add     hl, bc
+
+    ld      bc, (Enemy_Temp_Frame_Counter)              ; this is to duplicate the advance (this data is word, the others are byte)
+    ;dec     bc                                          ; adjust because frame counter is inc before this routine is called
+    add     hl, bc
+
+    push    hl
+        ; Load enemy colors
+        ld      a, 0000 0001 b
+        ld      hl, (Enemy_Temp_SPRCOL_Addr)
+        call    SetVdp_Write
+        ;ld      b, SpriteColors_EnemyPlane_0_and_1.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    pop     hl
+    ;ld      hl, testcolors
+    ;ld      hl, EnemyData_5 + (128 * 5)
+    ld      a, (hl)
+    inc     hl
+    ld      h, (hl)
+    ld      l, a
+    ;ld      hl, SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1
+    ;ld      hl, SpriteColors_EnemyPlane_Frame_1_Patterns_0_and_1
+    ; 32x OUTI
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi     
+
+    ; ; Load enemy colors
+    ; ld      a, 0000 0001 b
+    ; ld      hl, (Enemy_Temp_SPRCOL_Addr)
+    ; call    SetVdp_Write
+    ; ;ld      b, SpriteColors_EnemyPlane_0_and_1.size
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      hl, testcolors
+    ; ; ld      hl, SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1
+    ; ;ld      hl, SpriteColors_EnemyPlane_Frame_1_Patterns_0_and_1
+    ; ; 32x OUTI
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+
+
+    ret
+
+; testcolors: 
+;     db 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08
+;     db 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08
