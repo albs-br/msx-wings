@@ -255,41 +255,35 @@ EnemyData_5:
                 db  ENEMY_FRAME_0_SPR_PAT_0_NUMBER,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
                 db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
                 db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
-                db  ENEMY_FRAME_0_SPR_PAT_0_NUMBER,  0,  0,  0,  0,  0,  0,  0,  ENEMY_FRAME_0_SPR_PAT_0_NUMBER,  0,  0,  0,  0,  0,  0,  0 
-                db  0,  0,  ENEMY_FRAME_0_SPR_PAT_0_NUMBER,  0,  0,  0,  0,  0,  ENEMY_FRAME_0_SPR_PAT_0_NUMBER,  0,  0,  0,  0,  0,  0,  0 
-                db  ENEMY_FRAME_0_SPR_PAT_0_NUMBER,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
+                db  ENEMY_FRAME_1_SPR_PAT_0_NUMBER,  0,  0,  0,  0,  0,  0,  0,  ENEMY_FRAME_2_SPR_PAT_0_NUMBER,  0,  0,  0,  0,  0,  0,  0 
+                db  0,  0,  ENEMY_FRAME_3_SPR_PAT_0_NUMBER,  0,  0,  0,  0,  0,  ENEMY_FRAME_4_SPR_PAT_0_NUMBER,  0,  0,  0,  0,  0,  0,  0 
+                db  ENEMY_FRAME_5_SPR_PAT_0_NUMBER,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
                 db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
                 db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
 ;.offset_x1:     ; offsets will be changed only when pattern change, otherwise data will be ignored
                 db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
                 db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
                 db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
-                ;db  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
-                db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
-                db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
-                db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
+                db  1,  0,  0,  0,  0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0 
+                db  0,  0,  1,  0,  0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0 
+                db  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
                 db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
                 db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
 ;.offset_y1:
-                db  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8
-                db  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8
-                db  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8
-                db  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8
-                db  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8
-                db  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8
-                db  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8
-                db  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8
-                ; db  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
-                ; db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
-                ; db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
-                ; db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
-                ; db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
+                db  8,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
+                db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
+                db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
+                db  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
+                db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
+                db  8,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
+                db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
+                db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
 ;.SPRCOL_Addr:
                 dw  SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
                 dw  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
                 dw  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
-                dw  SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1,  0,  0,  0,  0,  0,  0,  0,  SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1,  0,  0,  0,  0,  0,  0,  0 
-                dw  0,  0,  SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1,  0,  0,  0,  0,  0,  SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1,  0,  0,  0,  0,  0,  0,  0 
-                dw  SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
+                dw  SpriteColors_EnemyPlane_Frame_1_Patterns_0_and_1,  0,  0,  0,  0,  0,  0,  0,  SpriteColors_EnemyPlane_Frame_2_Patterns_0_and_1,  0,  0,  0,  0,  0,  0,  0 
+                dw  0,  0,  SpriteColors_EnemyPlane_Frame_3_Patterns_0_and_1,  0,  0,  0,  0,  0,  SpriteColors_EnemyPlane_Frame_4_Patterns_0_and_1,  0,  0,  0,  0,  0,  0,  0 
+                dw  SpriteColors_EnemyPlane_Frame_5_Patterns_0_and_1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
                 dw  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
                 dw  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 

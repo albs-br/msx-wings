@@ -41,6 +41,22 @@ SpritePattern_EnemyPlane_Frame_1_Patterns_0_and_1:
     INCBIN "Graphics/Sprites/enemy_plane_1.pat"
 .size:  equ $ - SpritePattern_EnemyPlane_Frame_1_Patterns_0_and_1
 
+SpritePattern_EnemyPlane_Frame_2_Patterns_0_and_1:
+    INCBIN "Graphics/Sprites/enemy_plane_2.pat"
+.size:  equ $ - SpritePattern_EnemyPlane_Frame_2_Patterns_0_and_1
+
+SpritePattern_EnemyPlane_Frame_3_Patterns_0_and_1:
+    INCBIN "Graphics/Sprites/enemy_plane_3.pat"
+.size:  equ $ - SpritePattern_EnemyPlane_Frame_3_Patterns_0_and_1
+
+SpritePattern_EnemyPlane_Frame_4_Patterns_0_and_1:
+    INCBIN "Graphics/Sprites/enemy_plane_4.pat"
+.size:  equ $ - SpritePattern_EnemyPlane_Frame_4_Patterns_0_and_1
+
+SpritePattern_EnemyPlane_Frame_5_Patterns_0_and_1:
+    INCBIN "Graphics/Sprites/enemy_plane_5.pat"
+.size:  equ $ - SpritePattern_EnemyPlane_Frame_5_Patterns_0_and_1
+
 SpritePattern_Explosion_Frames_0_to_2:
     INCLUDE "Graphics/Sprites/explosion_frames_patterns.s"
 .size:  equ $ - SpritePattern_Explosion_Frames_0_to_2
@@ -69,6 +85,22 @@ SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1:
 SpriteColors_EnemyPlane_Frame_1_Patterns_0_and_1:
     INCBIN "Graphics/Sprites/enemy_plane_1.col"
 .size:  equ $ - SpriteColors_EnemyPlane_Frame_1_Patterns_0_and_1
+
+SpriteColors_EnemyPlane_Frame_2_Patterns_0_and_1:
+    INCBIN "Graphics/Sprites/enemy_plane_2.col"
+.size:  equ $ - SpriteColors_EnemyPlane_Frame_2_Patterns_0_and_1
+
+SpriteColors_EnemyPlane_Frame_3_Patterns_0_and_1:
+    INCBIN "Graphics/Sprites/enemy_plane_3.col"
+.size:  equ $ - SpriteColors_EnemyPlane_Frame_3_Patterns_0_and_1
+
+SpriteColors_EnemyPlane_Frame_4_Patterns_0_and_1:
+    INCBIN "Graphics/Sprites/enemy_plane_4.col"
+.size:  equ $ - SpriteColors_EnemyPlane_Frame_4_Patterns_0_and_1
+
+SpriteColors_EnemyPlane_Frame_5_Patterns_0_and_1:
+    INCBIN "Graphics/Sprites/enemy_plane_5.col"
+.size:  equ $ - SpriteColors_EnemyPlane_Frame_5_Patterns_0_and_1
 
 SpriteColors_Explosion_Frames_0_to_2:
     INCLUDE "Graphics/Sprites/explosion_frames_colors.s"

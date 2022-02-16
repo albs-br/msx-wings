@@ -83,6 +83,11 @@ SPRATR:     equ 0xfa00
     pop     hl
     ld      bc, SpritePattern_PlayerPlane_0_and_1.size
     add     hl, bc
+    ; ld      de, SpritePattern_PlayerPlane_0_and_1
+    ; ld      b, SpritePattern_PlayerPlane_0_and_1.size
+    ; call    LoadPatterns
+
+
 
     ; Spr 2 and 3 patterns
     push    hl
@@ -96,6 +101,9 @@ SPRATR:     equ 0xfa00
     pop     hl
     ld      bc, SpritePattern_PlayerPlane_2_and_3.size
     add     hl, bc
+    ; ld      de, SpritePattern_PlayerPlane_2_and_3
+    ; ld      b, SpritePattern_PlayerPlane_2_and_3.size
+    ; call    LoadPatterns
 
     ; Spr 4 patterns
     push    hl
@@ -162,7 +170,53 @@ SPRATR:     equ 0xfa00
     ld      bc, SpritePattern_EnemyPlane_Frame_1_Patterns_0_and_1.size
     add     hl, bc
 
+    ; Spr 14 and 15 patterns
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+        ld      b, SpritePattern_EnemyPlane_Frame_2_Patterns_0_and_1.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_EnemyPlane_Frame_2_Patterns_0_and_1
+        otir
+    pop     hl
+    ld      bc, SpritePattern_EnemyPlane_Frame_2_Patterns_0_and_1.size
+    add     hl, bc
 
+    ; Spr 16 and 17 patterns
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+        ld      b, SpritePattern_EnemyPlane_Frame_3_Patterns_0_and_1.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_EnemyPlane_Frame_3_Patterns_0_and_1
+        otir
+    pop     hl
+    ld      bc, SpritePattern_EnemyPlane_Frame_3_Patterns_0_and_1.size
+    add     hl, bc
+
+    ; Spr 18 and 19 patterns
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+        ld      b, SpritePattern_EnemyPlane_Frame_4_Patterns_0_and_1.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_EnemyPlane_Frame_4_Patterns_0_and_1
+        otir
+    pop     hl
+    ld      bc, SpritePattern_EnemyPlane_Frame_4_Patterns_0_and_1.size
+    add     hl, bc
+
+    ; Spr 20 and 21 patterns
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+        ld      b, SpritePattern_EnemyPlane_Frame_5_Patterns_0_and_1.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_EnemyPlane_Frame_5_Patterns_0_and_1
+        otir
+    pop     hl
+    ld      bc, SpritePattern_EnemyPlane_Frame_5_Patterns_0_and_1.size
+    add     hl, bc
 
 ; --------- Load sprite colors
 
@@ -314,3 +368,33 @@ ENEMY_SHOT_6_SPRCOL_ADDR:   equ ENEMY_SHOT_5_SPRCOL_ADDR + 16
     ret
 
 ;TEST_1:     db 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08
+
+
+
+; ; Inputs:
+; ;   DE: source addr in RAM
+; ;   HL: destiny addr in VRAM  (17 bits, highest bit fixed to 1)
+; ;   B: size in bytes
+; ; Output:
+; ;   HL updated to next VRAM sprite pattern place
+; LoadPatterns:
+;     ;ex      de, hl
+;     push    hl
+;         ld      a, 0000 0001 b
+;         ;ld      hl, SPRPAT
+;         call    SetVdp_Write
+;         ;ld      b, SpritePattern_PlayerPlane_0_and_1.size
+;         ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+;         ;ld      hl, SpritePattern_PlayerPlane_0_and_1
+;         ;ex      de, hl
+;         ld      h, d
+;         ld      l, e
+;         otir
+;     pop     hl
+;     ;ld      bc, SpritePattern_PlayerPlane_0_and_1.size
+;     ld      c, b
+;     ld      b, 0
+;     add     hl, bc
+;     ;ex      de, hl
+
+;     ret
