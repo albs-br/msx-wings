@@ -89,5 +89,9 @@ ReadInput:
     ld      hl, (NextShot_Struct_Addr)
     call    PlayerShot_Init
 
+    ld      b, SFX_SHOT     ; number of sfx in the bank
+    ld      c, 5            ; sound priority
+    call    PlaySfx
+
     ret
 

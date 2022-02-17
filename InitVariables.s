@@ -80,6 +80,10 @@ InitVariables:
 
 
 
+    call    InitAyFxVariables
+
+
+
     ; copy from initial sprite attributes to buffer
     ld      hl, InitialSpriteAttributes
     ld      de, SpriteAttrTableBuffer

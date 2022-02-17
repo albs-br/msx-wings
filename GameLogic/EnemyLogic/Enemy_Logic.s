@@ -403,6 +403,11 @@ StartExplosionAnimation:
     add     a, 12
     ld      (hl), a                         ; Y1
 
+
+    ld      b, SFX_EXPLOSION    ; number of sfx in the bank
+    ld      c, 1                ; sound priority
+    call    PlaySfx
+
     ret
 
 

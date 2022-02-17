@@ -16,8 +16,10 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     INCLUDE "Include/MsxBios.s"
     INCLUDE "Include/MsxConstants.s"
     INCLUDE "Include/CommonRoutines.s"
+    INCLUDE "Include/ayFXReplayer.s"
 
     ; Game
+    INCLUDE "HTIMI_Hook.s"
     INCLUDE "InitVram.s"
     INCLUDE "UpdateSpriteAttrTableBuffer.s"
     INCLUDE "BlitSPRATR.s"
@@ -37,9 +39,11 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     INCLUDE "LevelData/Level_1.s"
     INCLUDE "EnemyData/EnemyData_1.s"
     INCLUDE "EnemyData/EnemyShotData.s"
+    INCLUDE "Sound/Sfx/PlaySfx.s"
 
     ; Assets
     INCLUDE "Graphics/Sprites/SpriteAssets.s"
+    INCLUDE "Sound/Sfx/MsxWingsSfx_Bank.s"
     ; background bitmaps are on MegaRomPages.s
 
 
@@ -48,11 +52,28 @@ LEVEL_2_FIRST_SCREEN_PAGE:      equ 30
 
 
 Execute:
+    ; init interrupt mode and stack pointer (in case the ROM isn't the first thing to be loaded)
+	di                          ; disable interrupts
+	im      1                   ; interrupt mode 1
+    ld      sp, (BIOS_HIMEM)    ; init SP
+
+
+    ; install the interrupt routine
+	di
+	ld	    a, 0xc3 ; opcode for "JP nn"
+	ld	    (HTIMI), a
+	ld	    hl, HOOK
+	ld	    (HTIMI + 1), hl
+	ei
+
+
     call    EnableRomPage2
+
 
 	; enable page 1
     ld	    a, 1
 	ld	    (Seg_P8000_SW), a
+
 
     call    InitVram
 
@@ -65,8 +86,8 @@ Execute:
     call    InitVariables
 
 
-    ld      a, LEVEL_1_FIRST_SCREEN_PAGE
-    ;ld      a, LEVEL_2_FIRST_SCREEN_PAGE
+    ;ld      a, LEVEL_1_FIRST_SCREEN_PAGE
+    ld      a, LEVEL_2_FIRST_SCREEN_PAGE
     call    LoadFirstScreen
 
 
