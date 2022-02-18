@@ -16,6 +16,9 @@ GameLogic:
     ; call    PlayerShot_Logic
 
 
+    call    PlayerEngineAnimation
+
+
     ; -------------------------------------------
 
     ld      hl, Enemy_0_Struct
@@ -124,3 +127,70 @@ GameLogic:
 
 
     ret
+
+
+
+
+PlayerEngineAnimation:
+
+    ld      a, (BIOS_JIFFY)
+    and     0000 1111 b
+    cp      7
+    jp      z, .frame_0
+    cp      15
+    jp      z, .frame_1
+    ret
+
+.frame_0:
+
+    ; Spr 2 (last 4 lines)
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + 32 + 12
+    call    SetVdp_Write
+    ;ld      bc, 0 + ((ColorsPlayerPlaneEngine_Frame_0.size / 2) * 256) + PORT_0
+    ld      bc, 0 + (3 * 256) + PORT_0
+    ld      hl, ColorsPlayerPlaneEngine_Frame_0
+    otir
+
+    ; Spr 3 (last 4 lines)
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + 32 + 16 + 12
+    call    SetVdp_Write
+    ; ld      bc, 0 + ((ColorsPlayerPlaneEngine_Frame_0.size / 2) * 256) + PORT_0
+    ld      bc, 0 + (3 * 256) + PORT_0
+    ld      hl, 0 + ColorsPlayerPlaneEngine_Frame_0 + (ColorsPlayerPlaneEngine_Frame_0.size / 2)
+    otir
+
+    ret
+
+.frame_1:
+
+    ; Spr 2 (last 4 lines)
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + 32 + 12
+    call    SetVdp_Write
+    ; ld      bc, 0 + ((ColorsPlayerPlaneEngine_Frame_1.size / 2) * 256) + PORT_0
+    ld      bc, 0 + (3 * 256) + PORT_0
+    ld      hl, ColorsPlayerPlaneEngine_Frame_1
+    otir
+
+    ; Spr 3 (last 4 lines)
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + 32 + 16 + 12
+    call    SetVdp_Write
+    ; ld      bc, 0 + ((ColorsPlayerPlaneEngine_Frame_1.size / 2) * 256) + PORT_0
+    ld      bc, 0 + (3 * 256) + PORT_0
+    ld      hl, 0 + ColorsPlayerPlaneEngine_Frame_1 + (ColorsPlayerPlaneEngine_Frame_1.size / 2)
+    otir
+
+    ret
+
+ColorsPlayerPlaneEngine_Frame_0:
+    db  0x08, 0x0c, 0x0c          ; first sprite (outer colors)
+    db  0x0d, 0x08, 0x00          ; second sprite (inner colors)
+.size:  equ $ - ColorsPlayerPlaneEngine_Frame_0
+
+ColorsPlayerPlaneEngine_Frame_1:
+    db  0x0d, 0x08, 0x08          ; first sprite (outer colors)
+    db  0x0d, 0x0d, 0x00          ; second sprite (inner colors)
+.size:  equ $ - ColorsPlayerPlaneEngine_Frame_1
