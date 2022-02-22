@@ -93,6 +93,13 @@ Execute:
 
     call    BIOS_ENASCR
 
+
+    ; Setup ayFXreplayer
+    ld      hl, MsxWingsSfx_Bank
+    ld      a, 200
+    ld      (ayFX_VOLUME), a
+    call    ayFX_SETUP
+
 ; --------- 
 
 
