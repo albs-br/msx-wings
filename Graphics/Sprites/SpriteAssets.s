@@ -97,12 +97,43 @@ SpritePattern_EnemyShot_0_and_1:
 
 ; ------------------------------ Colors
 
+; Center
 SpriteColors_PlayerPlane_0_and_1:
     INCBIN "Graphics/Sprites/player_plane_top.col"
 .size:  equ $ - SpriteColors_PlayerPlane_0_and_1
 SpriteColors_PlayerPlane_2_and_3:
     INCBIN "Graphics/Sprites/player_plane_bottom.col"
 .size:  equ $ - SpriteColors_PlayerPlane_2_and_3
+
+
+SpriteColors_PlayerPlane_Left_Frame_0_Top:
+    INCBIN "Graphics/Sprites/player_plane_left_0_top.col"
+.size:  equ $ - SpriteColors_PlayerPlane_Left_Frame_0_Top
+SpriteColors_PlayerPlane_Left_Frame_0_Bottom:
+    INCBIN "Graphics/Sprites/player_plane_left_0_bottom.col"
+.size:  equ $ - SpriteColors_PlayerPlane_Left_Frame_0_Bottom
+
+SpriteColors_PlayerPlane_Left_Frame_1_Top:
+    INCBIN "Graphics/Sprites/player_plane_left_1_top.col"
+.size:  equ $ - SpriteColors_PlayerPlane_Left_Frame_1_Top
+SpriteColors_PlayerPlane_Left_Frame_1_Bottom:
+    INCBIN "Graphics/Sprites/player_plane_left_1_bottom.col"
+.size:  equ $ - SpriteColors_PlayerPlane_Left_Frame_1_Bottom
+
+SpriteColors_PlayerPlane_Right_Frame_0_Top:
+    INCBIN "Graphics/Sprites/player_plane_right_0_top.col"
+.size:  equ $ - SpriteColors_PlayerPlane_Right_Frame_0_Top
+SpriteColors_PlayerPlane_Right_Frame_0_Bottom:
+    INCBIN "Graphics/Sprites/player_plane_right_0_bottom.col"
+.size:  equ $ - SpriteColors_PlayerPlane_Right_Frame_0_Bottom
+
+SpriteColors_PlayerPlane_Right_Frame_1_Top:
+    INCBIN "Graphics/Sprites/player_plane_right_1_top.col"
+.size:  equ $ - SpriteColors_PlayerPlane_Right_Frame_1_Top
+SpriteColors_PlayerPlane_Right_Frame_1_Bottom:
+    INCBIN "Graphics/Sprites/player_plane_right_1_bottom.col"
+.size:  equ $ - SpriteColors_PlayerPlane_Right_Frame_1_Bottom
+
 
 SpriteColors_PlayerShot:
     INCLUDE "Graphics/Sprites/player_shot_color.s"

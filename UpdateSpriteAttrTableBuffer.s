@@ -28,7 +28,12 @@ EXPLOSION_SPR_PAT_2_NUMBER:             equ 9 * 4
 ENEMY_SHOT_SPR_PAT_0_NUMBER:            equ 10 * 4
 ENEMY_SHOT_SPR_PAT_1_NUMBER:            equ 11 * 4
 
-EMPTY_SPR_PAT_NUMBER:                   equ 63 * 4
+PLAYER_LEFT_FRAME_0_TOP_SPR_PAT_0_NUMBER:       equ 12 * 4
+PLAYER_LEFT_FRAME_0_TOP_SPR_PAT_1_NUMBER:       equ 13 * 4
+PLAYER_LEFT_FRAME_0_BOTTOM_SPR_PAT_0_NUMBER:    equ 14 * 4
+PLAYER_LEFT_FRAME_0_BOTTOM_SPR_PAT_1_NUMBER:    equ 15 * 4
+
+EMPTY_SPR_PAT_NUMBER:                           equ 63 * 4
 
 UpdateSpriteAttrTableBuffer:
     ld      hl, SpriteAttrTableBuffer
@@ -45,8 +50,8 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     inc     hl
-    ; ld      a, PLANE_SPR_PAT_NUMBER_0
-    ; ld      (hl), a
+    ld      a, (Player_SpritePatternNumber)
+    ld      (hl), a
 
     inc     hl
     ; ld      a, 0
@@ -64,8 +69,9 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     inc     hl
-    ; ld      a, PLANE_SPR_PAT_NUMBER_0
-    ; ld      (hl), a
+    ld      a, (Player_SpritePatternNumber)
+    add     4
+    ld      (hl), a
 
     inc     hl
     ; ld      a, 0
@@ -84,8 +90,9 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     inc     hl
-    ; ld      a, PLANE_SPR_PAT_NUMBER_0
-    ; ld      (hl), a
+    ld      a, (Player_SpritePatternNumber)
+    add     8
+    ld      (hl), a
 
     inc     hl
     ; ld      a, 0
@@ -105,8 +112,9 @@ UpdateSpriteAttrTableBuffer:
     ld      (hl), a
 
     inc     hl
-    ; ld      a, PLANE_SPR_PAT_NUMBER_0
-    ; ld      (hl), a
+    ld      a, (Player_SpritePatternNumber)
+    add     12
+    ld      (hl), a
 
     inc     hl
     ; ld      a, 0
