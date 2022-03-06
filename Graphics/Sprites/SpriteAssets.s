@@ -22,12 +22,42 @@ PaletteData:
 
 ; ------------------------------ Patterns
 
+; Center
 SpritePattern_PlayerPlane_0_and_1:
     INCBIN "Graphics/Sprites/player_plane_top.pat"
 .size:  equ $ - SpritePattern_PlayerPlane_0_and_1
 SpritePattern_PlayerPlane_2_and_3:
     INCBIN "Graphics/Sprites/player_plane_bottom.pat"
 .size:  equ $ - SpritePattern_PlayerPlane_2_and_3
+
+SpritePattern_PlayerPlane_Left_Frame_0_Top:
+    INCBIN "Graphics/Sprites/player_plane_left_0_top.pat"
+.size:  equ $ - SpritePattern_PlayerPlane_Left_Frame_0_Top
+SpritePattern_PlayerPlane_Left_Frame_0_Bottom:
+    INCBIN "Graphics/Sprites/player_plane_left_0_bottom.pat"
+.size:  equ $ - SpritePattern_PlayerPlane_Left_Frame_0_Bottom
+
+SpritePattern_PlayerPlane_Left_Frame_1_Top:
+    INCBIN "Graphics/Sprites/player_plane_left_1_top.pat"
+.size:  equ $ - SpritePattern_PlayerPlane_Left_Frame_1_Top
+SpritePattern_PlayerPlane_Left_Frame_1_Bottom:
+    INCBIN "Graphics/Sprites/player_plane_left_1_bottom.pat"
+.size:  equ $ - SpritePattern_PlayerPlane_Left_Frame_1_Bottom
+
+SpritePattern_PlayerPlane_Right_Frame_0_Top:
+    INCBIN "Graphics/Sprites/player_plane_right_0_top.pat"
+.size:  equ $ - SpritePattern_PlayerPlane_Right_Frame_0_Top
+SpritePattern_PlayerPlane_Right_Frame_0_Bottom:
+    INCBIN "Graphics/Sprites/player_plane_right_0_bottom.pat"
+.size:  equ $ - SpritePattern_PlayerPlane_Right_Frame_0_Bottom
+
+SpritePattern_PlayerPlane_Right_Frame_1_Top:
+    INCBIN "Graphics/Sprites/player_plane_right_1_top.pat"
+.size:  equ $ - SpritePattern_PlayerPlane_Right_Frame_1_Top
+SpritePattern_PlayerPlane_Right_Frame_1_Bottom:
+    INCBIN "Graphics/Sprites/player_plane_right_1_bottom.pat"
+.size:  equ $ - SpritePattern_PlayerPlane_Right_Frame_1_Bottom
+
 
 SpritePattern_PlayerShot:
     INCLUDE "Graphics/Sprites/player_shot_pattern.s"
