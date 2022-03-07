@@ -197,5 +197,117 @@ ColorsPlayerPlaneEngine_Frame_1:
 .size:  equ $ - ColorsPlayerPlaneEngine_Frame_1
 
 
+
+; Read the Player_SideMovementCounter and update the 
+; player sprite pattern and colors based on its value
 PlayerSprite:
+
+    ; if (Player_SideMovementCounter == 128)
+    ld      a, (Player_SideMovementCounter)
+    cp      128
+    jp      z, .centeredPlane
+    cp      128-1
+    jp      z, .planeLeft_0
+    ; cp      128-8
+    ; jp      z, .planeLeft_1
+
+    ret
+
+.centeredPlane:
+
+    ; change pattern
+    ld      a, PLAYER_SPR_PAT_0_NUMBER      ; set sprite pattern for plane still (not moving sideways)
+    ld      (Player_SpritePatternNumber), a
+
+    ; change colors
+    call    LoadPlayerColors_Center
+
+    ; change sprite offsets
+
+    ret
+
+.planeLeft_0:
+
+    ; change pattern
+    ld      a, PLAYER_LEFT_FRAME_0_TOP_SPR_PAT_0_NUMBER
+    ld      (Player_SpritePatternNumber), a
+
+    ; change colors
+    call    LoadPlayerColors_Left_0
+    
+    ret
+
+.planeLeft_1:
+
+    ; change pattern
+    ld      a, PLAYER_LEFT_FRAME_1_TOP_SPR_PAT_0_NUMBER
+    ld      (Player_SpritePatternNumber), a
+
+    ; change colors
+    call    LoadPlayerColors_Left_1
+    
+    ret
+
+
+LoadPlayerColors_Center:
+    ; Spr 0 and 1 colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL
+    call    SetVdp_Write
+    ld      b, SpriteColors_PlayerPlane_0_and_1.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpriteColors_PlayerPlane_0_and_1
+    otir
+
+    ; Spr 2 and 3 colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + 32
+    call    SetVdp_Write
+    ld      b, SpriteColors_PlayerPlane_2_and_3.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpriteColors_PlayerPlane_2_and_3
+    otir
+    
+    ret
+
+LoadPlayerColors_Left_0:
+    ; Spr 0 and 1 colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL
+    call    SetVdp_Write
+    ld      b, SpriteColors_PlayerPlane_Left_Frame_0_Top.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpriteColors_PlayerPlane_Left_Frame_0_Top
+    otir
+
+    ; Spr 2 and 3 colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + 32
+    call    SetVdp_Write
+    ld      b, SpriteColors_PlayerPlane_Left_Frame_0_Bottom.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpriteColors_PlayerPlane_Left_Frame_0_Bottom
+    otir
+    
+    ret
+
+LoadPlayerColors_Left_1:
+    ; Spr 0 and 1 colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL
+    call    SetVdp_Write
+    ld      b, SpriteColors_PlayerPlane_Left_Frame_1_Top.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpriteColors_PlayerPlane_Left_Frame_1_Top
+    otir
+
+    ; Spr 2 and 3 colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + 32
+    call    SetVdp_Write
+    ld      b, SpriteColors_PlayerPlane_Left_Frame_1_Bottom.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpriteColors_PlayerPlane_Left_Frame_1_Bottom
+    otir
+    
     ret
