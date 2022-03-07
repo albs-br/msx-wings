@@ -10,7 +10,10 @@ InitVariables:
     ld      (Player_Y), a
     ld      (Player_Y_Static), a
 
-    ld      a, PLAYER_SPR_PAT_0_NUMBER      ; set sprite pattern for plane centered
+    xor     a
+    ld      (Player_SideMovementCounter), a
+
+    ld      a, PLAYER_SPR_PAT_0_NUMBER      ; set sprite pattern for plane still (not moving sideways)
     ld      (Player_SpritePatternNumber), a
 
     ld      hl, PlayerShot_0_Struct

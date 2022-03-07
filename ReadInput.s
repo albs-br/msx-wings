@@ -10,9 +10,11 @@ ReadInput:
 
 
     push    de
-        bit     0, a                    ; 0th bit (space bar)
+        bit     0, a                ; 0th bit (space bar)
         call    z, .shot
     pop     de
+
+    ld      c, 0    ; control variable to check left/right press
 
     ld      a, e
     bit     4, a                    ; 4th bit (key left)
@@ -22,6 +24,11 @@ ReadInput:
     bit     7, a                    ; 7th bit (key right)
     call    z, .playerRight
     
+    ; if neither left nor right pressed, slowly return Player_SideMovementCounter to 0
+    ld      a, c
+    or      a
+    call    z, .playerNotPressedLeftRight
+
     ld      a, e
     bit     5, a                    ; 5th bit (key up)
     call    z, .playerUp
@@ -38,6 +45,14 @@ ReadInput:
     ret     c
     ld      (Player_X), a
 
+    ld      c, 1
+
+    ld      a, (Player_SideMovementCounter)
+    cp      -16
+    ret     z
+    dec     a
+    ld      (Player_SideMovementCounter), a
+
     ; ; clear 7th bit (key right)
     ; ld      a, e
     ; or      1000 0000b
@@ -52,10 +67,40 @@ ReadInput:
     ret     nc
     ld      (Player_X), a
 
+    ld      c, 1
+
+    ld      a, (Player_SideMovementCounter)
+    cp      +16
+    ret     z
+    inc     a
+    ld      (Player_SideMovementCounter), a
+
+
     ; ; clear 4th bit (key left)
     ; ld      a, e
     ; or      0001 0000b
     ; ld      e, a
+
+    ret
+
+.playerNotPressedLeftRight:
+    ; if (Player_SideMovementCounter == 0) ret
+    ld      a, (Player_SideMovementCounter)
+    or      a
+    ret     z
+
+    ;If A < N, then S and P/V are different.
+    ;A >= N, then S and P/V are the same.
+
+    ; call m,label        ;calls if S flag is set
+    ; call p,label        ;calls if S flag is reset
+
+    ; call pe,label        ;calls if P/V is set
+    ; call po,label        ;calls if P/V is reset
+
+    ; if (Player_SideMovementCounter < 0) Player_SideMovementCounter++
+
+    ; else if (Player_SideMovementCounter > 0) Player_SideMovementCounter--
 
     ret
 

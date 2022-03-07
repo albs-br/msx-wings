@@ -2,6 +2,7 @@ Player_X:                           rb 1
 Player_Y:                           rb 1
 Player_Y_Static:                    rb 1 ; y coord ignoring scroll
 
+Player_SideMovementCounter:         rb 1 ; 0: center, < 0: left > 0: right
 Player_SpritePatternNumber:         rb 1
 
 ; ---------------------------------------

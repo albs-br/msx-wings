@@ -16,6 +16,7 @@ GameLogic:
     ; call    PlayerShot_Logic
 
 
+    call    PlayerSprite
     call    PlayerEngineAnimation
 
 
@@ -194,3 +195,7 @@ ColorsPlayerPlaneEngine_Frame_1:
     db  0x0d, 0x08, 0x08          ; first sprite (outer colors)
     db  0x0d, 0x0d, 0x00          ; second sprite (inner colors)
 .size:  equ $ - ColorsPlayerPlaneEngine_Frame_1
+
+
+PlayerSprite:
+    ret

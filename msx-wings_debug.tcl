@@ -1,5 +1,8 @@
 ram_watch   add     0xc001      -type byte      -desc Player_Y             -format dec
 ram_watch   add     0xc002      -type byte      -desc Player_Y_Static      -format dec
+ram_watch   add     0xc003      -type byte      -desc Player_SideMovementCounter      -format dec
+
+
 
 #ram_watch   add     0xc022      -type word      -desc VerticalScroll       -format hex
 
@@ -19,8 +22,8 @@ ram_watch   add     0xc002      -type byte      -desc Player_Y_Static      -form
 
 ram_watch   add     0xC081      -type byte      -desc ES_0_Status          -format dec
 #ram_watch   add     0xc082      -type byte      -desc ES_0_X               -format dec
-ram_watch   add     0xc083      -type byte      -desc ES_0_Y               -format dec
-ram_watch   add     0xc084      -type byte      -desc ES_0_Y_Static        -format dec
+#ram_watch   add     0xc083      -type byte      -desc ES_0_Y               -format dec
+#ram_watch   add     0xc084      -type byte      -desc ES_0_Y_Static        -format dec
 #ram_watch   add     0xc085      -type byte      -desc ES_0_Y_Pat           -format dec
 #ram_watch   add     0xc086      -type word      -desc ES_0_DX              -format hex
 #ram_watch   add     0xc088      -type word      -desc ES_0_DY              -format hex
