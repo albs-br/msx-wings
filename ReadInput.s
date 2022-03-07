@@ -48,7 +48,7 @@ ReadInput:
     ld      c, 1
 
     ld      a, (Player_SideMovementCounter)
-    cp      -16
+    cp      128 - 16
     ret     z
     dec     a
     ld      (Player_SideMovementCounter), a
@@ -70,7 +70,7 @@ ReadInput:
     ld      c, 1
 
     ld      a, (Player_SideMovementCounter)
-    cp      +16
+    cp      128 + 16
     ret     z
     inc     a
     ld      (Player_SideMovementCounter), a
@@ -84,9 +84,9 @@ ReadInput:
     ret
 
 .playerNotPressedLeftRight:
-    ; if (Player_SideMovementCounter == 0) ret
+    ; if (Player_SideMovementCounter == 128) ret
     ld      a, (Player_SideMovementCounter)
-    or      a
+    cp      128
     ret     z
 
     ;If A < N, then S and P/V are different.
@@ -98,10 +98,22 @@ ReadInput:
     ; call pe,label        ;calls if P/V is set
     ; call po,label        ;calls if P/V is reset
 
-    ; if (Player_SideMovementCounter < 0) Player_SideMovementCounter++
+    ; if (Player_SideMovementCounter < 128) Player_SideMovementCounter++
+    jp      c, .playerNotPressedLeftRight.lessThan             ; if (a < n)
 
-    ; else if (Player_SideMovementCounter > 0) Player_SideMovementCounter--
+    ; else if (Player_SideMovementCounter > 128) Player_SideMovementCounter--    (== 128 has been blocked before)
+    jp      nc, .playerNotPressedLeftRight.greaterThan             ; if (a >= n)
 
+    ret
+
+.playerNotPressedLeftRight.lessThan:
+    inc     a
+    ld      (Player_SideMovementCounter), a
+    ret
+
+.playerNotPressedLeftRight.greaterThan:
+    dec     a
+    ld      (Player_SideMovementCounter), a
     ret
 
 .playerUp:
