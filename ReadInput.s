@@ -39,6 +39,8 @@ ReadInput:
 
     ret
 
+
+
 .playerLeft:
     ld      a, (Player_X)
     sub     PLANE_PLAYER_PIXELS_PER_MOV
@@ -48,7 +50,7 @@ ReadInput:
     ld      c, 1
 
     ld      a, (Player_SideMovementCounter)
-    cp      128 - 16
+    cp      128 - 32
     ret     z
     dec     a
     ld      (Player_SideMovementCounter), a
@@ -70,7 +72,7 @@ ReadInput:
     ld      c, 1
 
     ld      a, (Player_SideMovementCounter)
-    cp      128 + 16
+    cp      128 + 32
     ret     z
     inc     a
     ld      (Player_SideMovementCounter), a

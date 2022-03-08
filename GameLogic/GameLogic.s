@@ -206,10 +206,20 @@ PlayerSprite:
     ld      a, (Player_SideMovementCounter)
     cp      128
     jp      z, .centeredPlane
-    cp      128-1
+    
+    cp      128 - 1
+    jp      z, .planeLeft_1
+    cp      128 - 15
+    jp      z, .planeLeft_1
+    cp      128 - 16
     jp      z, .planeLeft_0
-    ; cp      128-8
-    ; jp      z, .planeLeft_1
+
+    cp      128 + 1
+    jp      z, .planeRight_1
+    cp      128 + 15
+    jp      z, .planeRight_1
+    cp      128 + 16
+    jp      z, .planeRight_0
 
     ret
 
@@ -222,12 +232,14 @@ PlayerSprite:
     ; change colors
     call    LoadPlayerColors_Center
 
-    ; change sprite offsets
+    ; change sprite 3 offset x
+    ld      a, 5
+    ld      (Player_Spr3_Offset_X), a
 
     ret
 
 .planeLeft_0:
-
+    
     ; change pattern
     ld      a, PLAYER_LEFT_FRAME_0_TOP_SPR_PAT_0_NUMBER
     ld      (Player_SpritePatternNumber), a
@@ -235,6 +247,10 @@ PlayerSprite:
     ; change colors
     call    LoadPlayerColors_Left_0
     
+    ; change sprite 3 offset x
+    xor     a
+    ld      (Player_Spr3_Offset_X), a
+
     ret
 
 .planeLeft_1:
@@ -246,6 +262,40 @@ PlayerSprite:
     ; change colors
     call    LoadPlayerColors_Left_1
     
+    ; change sprite 3 offset x
+    xor     a
+    ld      (Player_Spr3_Offset_X), a
+
+    ret
+
+.planeRight_0:
+    
+    ; change pattern
+    ld      a, PLAYER_RIGHT_FRAME_0_TOP_SPR_PAT_0_NUMBER
+    ld      (Player_SpritePatternNumber), a
+
+    ; change colors
+    call    LoadPlayerColors_Right_0
+    
+    ; change sprite 3 offset x
+    xor     a
+    ld      (Player_Spr3_Offset_X), a
+
+    ret
+
+.planeRight_1:
+
+    ; change pattern
+    ld      a, PLAYER_RIGHT_FRAME_1_TOP_SPR_PAT_0_NUMBER
+    ld      (Player_SpritePatternNumber), a
+
+    ; change colors
+    call    LoadPlayerColors_Right_1
+    
+    ; change sprite 3 offset x
+    xor     a
+    ld      (Player_Spr3_Offset_X), a
+
     ret
 
 
@@ -258,7 +308,8 @@ LoadPlayerColors_Center:
     ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
     ld      bc, 0 + (SpriteColors_PlayerPlane_0_and_1.size * 256) + PORT_0
     ld      hl, SpriteColors_PlayerPlane_0_and_1
-    otir
+    otir ; TODO: unrolled OUTI's
+
 
     ; Spr 2 colors
     ld      a, 0000 0001 b
@@ -327,3 +378,42 @@ LoadPlayerColors_Left_1:
     otir
     
     ret
+
+LoadPlayerColors_Right_0:
+    ; Spr 0 and 1 colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL
+    call    SetVdp_Write
+    ld      bc, 0 + (SpriteColors_PlayerPlane_Right_Frame_0_Top.size * 256) + PORT_0
+    ld      hl, SpriteColors_PlayerPlane_Right_Frame_0_Top
+    otir
+
+    ; Spr 2 and 3 colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + 32
+    call    SetVdp_Write
+    ld      bc, 0 + (SpriteColors_PlayerPlane_Right_Frame_0_Bottom.size * 256) + PORT_0
+    ld      hl, SpriteColors_PlayerPlane_Right_Frame_0_Bottom
+    otir
+    
+    ret
+
+LoadPlayerColors_Right_1:
+    ; Spr 0 and 1 colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL
+    call    SetVdp_Write
+    ld      bc, 0 + (SpriteColors_PlayerPlane_Right_Frame_1_Top.size * 256) + PORT_0
+    ld      hl, SpriteColors_PlayerPlane_Right_Frame_1_Top
+    otir
+
+    ; Spr 2 and 3 colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + 32
+    call    SetVdp_Write
+    ld      bc, 0 + (SpriteColors_PlayerPlane_Right_Frame_1_Bottom.size * 256) + PORT_0
+    ld      hl, SpriteColors_PlayerPlane_Right_Frame_1_Bottom
+    otir
+    
+    ret
+

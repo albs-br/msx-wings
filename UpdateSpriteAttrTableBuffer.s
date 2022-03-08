@@ -31,14 +31,18 @@ ENEMY_SHOT_SPR_PAT_1_NUMBER:            equ 11 * 4
 ; sprite patterns # 12 to 21 are Enemy Planes
 
 PLAYER_LEFT_FRAME_0_TOP_SPR_PAT_0_NUMBER:       equ 22 * 4
-PLAYER_LEFT_FRAME_0_TOP_SPR_PAT_1_NUMBER:       equ 23 * 4
-PLAYER_LEFT_FRAME_0_BOTTOM_SPR_PAT_0_NUMBER:    equ 24 * 4
-PLAYER_LEFT_FRAME_0_BOTTOM_SPR_PAT_1_NUMBER:    equ 25 * 4
+; PLAYER_LEFT_FRAME_0_TOP_SPR_PAT_1_NUMBER:       equ 23 * 4
+; PLAYER_LEFT_FRAME_0_BOTTOM_SPR_PAT_0_NUMBER:    equ 24 * 4
+; PLAYER_LEFT_FRAME_0_BOTTOM_SPR_PAT_1_NUMBER:    equ 25 * 4
 
 PLAYER_LEFT_FRAME_1_TOP_SPR_PAT_0_NUMBER:       equ 26 * 4
-PLAYER_LEFT_FRAME_1_TOP_SPR_PAT_1_NUMBER:       equ 27 * 4
-PLAYER_LEFT_FRAME_1_BOTTOM_SPR_PAT_0_NUMBER:    equ 28 * 4
-PLAYER_LEFT_FRAME_1_BOTTOM_SPR_PAT_1_NUMBER:    equ 29 * 4
+; PLAYER_LEFT_FRAME_1_TOP_SPR_PAT_1_NUMBER:       equ 27 * 4
+; PLAYER_LEFT_FRAME_1_BOTTOM_SPR_PAT_0_NUMBER:    equ 28 * 4
+; PLAYER_LEFT_FRAME_1_BOTTOM_SPR_PAT_1_NUMBER:    equ 29 * 4
+
+PLAYER_RIGHT_FRAME_0_TOP_SPR_PAT_0_NUMBER:       equ 30 * 4
+PLAYER_RIGHT_FRAME_1_TOP_SPR_PAT_0_NUMBER:       equ 34 * 4
+; -------------- NEXT AVAILABLE: 38 --------------------
 
 EMPTY_SPR_PAT_NUMBER:                           equ 63 * 4
 
@@ -113,9 +117,12 @@ UpdateSpriteAttrTableBuffer:
     add     a, 16
     ld      (hl), a
 
+    ld      a, (Player_Spr3_Offset_X)
+    ld      b, a
+
     inc     hl
     ld      a, (Player_X)
-    add     a, 5            ; x offset
+    add     a, b            ; x offset
     ld      (hl), a
 
     inc     hl

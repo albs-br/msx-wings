@@ -229,7 +229,6 @@ SPRATR:     equ 0xfa00
     pop     hl
     ld      bc, SpritePattern_PlayerPlane_Left_Frame_0_Top.size
     add     hl, bc
-
     ; Spr 24 and 25 patterns
     push    hl
         ld      a, 0000 0001 b
@@ -240,6 +239,75 @@ SPRATR:     equ 0xfa00
         otir
     pop     hl
     ld      bc, SpritePattern_PlayerPlane_Left_Frame_0_Bottom.size
+    add     hl, bc
+
+    ; Spr 26 and 27 patterns
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+        ld      b, SpritePattern_PlayerPlane_Left_Frame_1_Top.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_PlayerPlane_Left_Frame_1_Top
+        otir
+    pop     hl
+    ld      bc, SpritePattern_PlayerPlane_Left_Frame_1_Top.size
+    add     hl, bc
+    ; Spr 28 and 29 patterns
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+        ld      b, SpritePattern_PlayerPlane_Left_Frame_1_Bottom.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_PlayerPlane_Left_Frame_1_Bottom
+        otir
+    pop     hl
+    ld      bc, SpritePattern_PlayerPlane_Left_Frame_1_Bottom.size
+    add     hl, bc
+
+    ; Spr 30 and 31 patterns
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+        ld      b, SpritePattern_PlayerPlane_Right_Frame_0_Top.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_PlayerPlane_Right_Frame_0_Top
+        otir
+    pop     hl
+    ld      bc, SpritePattern_PlayerPlane_Right_Frame_0_Top.size
+    add     hl, bc
+    ; Spr 32 and 33 patterns
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+        ld      b, SpritePattern_PlayerPlane_Right_Frame_0_Bottom.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_PlayerPlane_Right_Frame_0_Bottom
+        otir
+    pop     hl
+    ld      bc, SpritePattern_PlayerPlane_Right_Frame_0_Bottom.size
+    add     hl, bc
+
+    ; Spr 34 and 35 patterns
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+        ld      b, SpritePattern_PlayerPlane_Right_Frame_1_Top.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_PlayerPlane_Right_Frame_1_Top
+        otir
+    pop     hl
+    ld      bc, SpritePattern_PlayerPlane_Right_Frame_1_Top.size
+    add     hl, bc
+    ; Spr 36 and 37 patterns
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+        ld      b, SpritePattern_PlayerPlane_Right_Frame_1_Bottom.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_PlayerPlane_Right_Frame_1_Bottom
+        otir
+    pop     hl
+    ld      bc, SpritePattern_PlayerPlane_Right_Frame_1_Bottom.size
     add     hl, bc
 
 ; --------- Load sprite colors
