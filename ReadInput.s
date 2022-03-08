@@ -2,6 +2,13 @@ PLANE_PLAYER_WIDTH:             equ 21
 PLANE_PLAYER_HEIGHT:            equ 31
 PLANE_PLAYER_PIXELS_PER_MOV:    equ 3
 
+
+
+PLAYER_SIDE_MOVEMENT_CENTER:        equ 128
+PLAYER_SIDE_MOVEMENT_LIMIT:         equ 24
+PLAYER_SIDE_MOVEMENT_INTERMEDIATE:  equ 12
+
+
 ReadInput:
     ; read keyboard
     ld      a, 8                    ; 8th line
@@ -39,8 +46,6 @@ ReadInput:
 
     ret
 
-
-
 .playerLeft:
     ld      a, (Player_X)
     sub     PLANE_PLAYER_PIXELS_PER_MOV
@@ -50,7 +55,7 @@ ReadInput:
     ld      c, 1
 
     ld      a, (Player_SideMovementCounter)
-    cp      128 - 32
+    cp      PLAYER_SIDE_MOVEMENT_CENTER - PLAYER_SIDE_MOVEMENT_LIMIT
     ret     z
     dec     a
     ld      (Player_SideMovementCounter), a
@@ -72,7 +77,7 @@ ReadInput:
     ld      c, 1
 
     ld      a, (Player_SideMovementCounter)
-    cp      128 + 32
+    cp      PLAYER_SIDE_MOVEMENT_CENTER + PLAYER_SIDE_MOVEMENT_LIMIT
     ret     z
     inc     a
     ld      (Player_SideMovementCounter), a

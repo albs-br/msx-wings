@@ -204,21 +204,21 @@ PlayerSprite:
 
     ; if (Player_SideMovementCounter == 128)
     ld      a, (Player_SideMovementCounter)
-    cp      128
+    cp      PLAYER_SIDE_MOVEMENT_CENTER
     jp      z, .centeredPlane
     
-    cp      128 - 1
+    cp      PLAYER_SIDE_MOVEMENT_CENTER - 1
     jp      z, .planeLeft_1
-    cp      128 - 15
+    cp      PLAYER_SIDE_MOVEMENT_CENTER - PLAYER_SIDE_MOVEMENT_INTERMEDIATE - 1
     jp      z, .planeLeft_1
-    cp      128 - 16
+    cp      PLAYER_SIDE_MOVEMENT_CENTER - PLAYER_SIDE_MOVEMENT_INTERMEDIATE
     jp      z, .planeLeft_0
 
-    cp      128 + 1
+    cp      PLAYER_SIDE_MOVEMENT_CENTER + 1
     jp      z, .planeRight_1
-    cp      128 + 15
+    cp      PLAYER_SIDE_MOVEMENT_CENTER + PLAYER_SIDE_MOVEMENT_INTERMEDIATE - 1
     jp      z, .planeRight_1
-    cp      128 + 16
+    cp      PLAYER_SIDE_MOVEMENT_CENTER + PLAYER_SIDE_MOVEMENT_INTERMEDIATE
     jp      z, .planeRight_0
 
     ret

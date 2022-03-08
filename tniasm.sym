@@ -193,6 +193,7 @@ BIOS_CYOFF: equ 0F947h ; last def. pass 3
 Enemy_Reset: equ 04D2Dh ; last def. pass 3
 BIOS_CXOFF: equ 0F945h ; last def. pass 3
 PlayerSprite.planeLeft_0: equ 04B8Dh ; last def. pass 3
+PLAYER_SIDE_MOVEMENT_CENTER: equ 080h ; last def. pass 3
 Enemy_Logic.loadExplosionFrame_1: equ 04E8Bh ; last def. pass 3
 BIOS_MLTCOL: equ 0F3D3h ; last def. pass 3
 PlayerShot_0_Struct: equ 0C00Ah ; last def. pass 3
@@ -521,6 +522,7 @@ BIOS_H_EOF: equ 0FEA3h ; last def. pass 3
 BIOS_LOW: equ 0F406h ; last def. pass 3
 Wait.loop: equ 0407Eh ; last def. pass 3
 MSXID2: equ 02Ch ; last def. pass 3
+PLAYER_SIDE_MOVEMENT_INTERMEDIATE: equ 0Ch ; last def. pass 3
 BIOS_CHPUT: equ 0A2h ; last def. pass 3
 BIOS_OLDTXT: equ 0F6C0h ; last def. pass 3
 BIOS_DEFTBL: equ 0F6CAh ; last def. pass 3
@@ -764,6 +766,7 @@ Enemy_Init: equ 04CDDh ; last def. pass 3
 ayFX_PLAY.SETPOINTER: equ 04225h ; last def. pass 3
 BIOS_RG3SAV: equ 0F3E2h ; last def. pass 3
 BIOS_NSTWRT: equ 0171h ; last def. pass 3
+PLAYER_SIDE_MOVEMENT_LIMIT: equ 018h ; last def. pass 3
 BIOS_H_PINL: equ 0FDDBh ; last def. pass 3
 BIOS_KANAST: equ 0FCACh ; last def. pass 3
 Enemy_Temp_Struct: equ 0C019h ; last def. pass 3
