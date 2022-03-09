@@ -111,9 +111,17 @@ ExecuteScroll:
     jp      z, .decPage
     jp      .dontDecPage
 .decPage:
+    ; if (CurrentMegaROMPage == CurrentLevelLastScreen) stopScroll
+    ld      a, (CurrentLevelLastScreen)
+    ld      b, a
     ld      a, (CurrentMegaROMPage)
+    cp      b
+    jp      z, .stopScroll
+
+    ; if (CurrentMegaROMPage == 1) stopScroll
     dec     a
     jp      z, .stopScroll
+
     ld      (CurrentMegaROMPage), a
     ld      hl, ADDR_LAST_LINE_OF_PAGE
 .dontDecPage:
@@ -148,8 +156,8 @@ ExecuteScroll:
     ret
 
 .stopScroll:
-;     jp      .stopScroll
-    jp      Execute
+    jp      .stopScroll
+    ;jp      Execute
 
 
 AdjustSprites_Y:

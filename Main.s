@@ -27,6 +27,7 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     INCLUDE "Scroll.s"
     INCLUDE "ReadInput.s"
     INCLUDE "GameLogic/GameLogic.s"
+    INCLUDE "GameLogic/PlayerLogic.s"
     INCLUDE "GameLogic/PlayerShotLogic/PlayerShot_Init.s"
     INCLUDE "GameLogic/PlayerShotLogic/PlayerShot_Reset.s"
     INCLUDE "GameLogic/PlayerShotLogic/PlayerShot_Logic.s"
@@ -36,6 +37,7 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     INCLUDE "GameLogic/EnemyShotLogic/EnemyShot_Init.s"
     INCLUDE "GameLogic/EnemyShotLogic/EnemyShot_Reset.s"
     INCLUDE "GameLogic/EnemyShotLogic/EnemyShot_Logic.s"
+    INCLUDE "LevelData/LoadLevel.s"
     INCLUDE "LevelData/Level_1.s"
     INCLUDE "EnemyData/EnemyData_1.s"
     INCLUDE "EnemyData/EnemyShotData.s"
@@ -47,8 +49,6 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     ; background bitmaps are on MegaRomPages.s
 
 
-LEVEL_1_FIRST_SCREEN_PAGE:      equ 14
-LEVEL_2_FIRST_SCREEN_PAGE:      equ 30
 
 
 Execute:
@@ -86,9 +86,9 @@ Execute:
     call    InitVariables
 
 
-    ;ld      a, LEVEL_1_FIRST_SCREEN_PAGE
-    ld      a, LEVEL_2_FIRST_SCREEN_PAGE
-    call    LoadFirstScreen
+    ;ld      a, 1
+    ld      a, 2
+    call    LoadLevel
 
 
     call    BIOS_ENASCR

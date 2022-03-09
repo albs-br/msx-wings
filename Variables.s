@@ -102,6 +102,7 @@ LevelData_Temp_Struct.size:         equ $ - LevelData_Temp_Struct
 
 ; ---------------------------------------
 
+CurrentLevelLastScreen:             rb 1
 
 LevelCounter:                       rw 1
 
