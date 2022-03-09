@@ -85,6 +85,13 @@ Execute:
 
     call    InitVariables
 
+    
+    ; Setup ayFXreplayer
+    ld      hl, MsxWingsSfx_Bank
+    ld      a, 200
+    ld      (ayFX_VOLUME), a
+    call    ayFX_SETUP
+
 
     ;ld      a, 1
     ld      a, 2
@@ -93,12 +100,6 @@ Execute:
 
     call    BIOS_ENASCR
 
-
-    ; Setup ayFXreplayer
-    ld      hl, MsxWingsSfx_Bank
-    ld      a, 200
-    ld      (ayFX_VOLUME), a
-    call    ayFX_SETUP
 
 ; --------- 
 
