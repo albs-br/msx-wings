@@ -1,5 +1,18 @@
 ; MegaROM pages at 0x8000
 
+; =========================================== Reserved for data =================================
+
+; ------- Page 1
+	org	0x8000, 0xBFFF
+    ;INCBIN "Graphics/Bitmaps/Level_1/level1_0.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+; ------- Page 2
+	org	0x8000, 0xBFFF
+    ;INCBIN "Graphics/Bitmaps/Level_1/level1_0.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+
 ; =========================================== Level 1 ===========================================
 
 ; ------- Page 1

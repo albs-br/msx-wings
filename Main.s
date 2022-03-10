@@ -93,8 +93,8 @@ Execute:
     call    ayFX_SETUP
 
 
-    ;ld      a, 1
-    ld      a, 2
+    ld      a, 1
+    ;ld      a, 2
     call    LoadLevel
 
 

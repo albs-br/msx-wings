@@ -1,8 +1,10 @@
-LEVEL_1_FIRST_SCREEN_PAGE:      equ 14
-LEVEL_1_LAST_SCREEN_PAGE:       equ 1
 
-LEVEL_2_FIRST_SCREEN_PAGE:      equ 30
-LEVEL_2_LAST_SCREEN_PAGE:       equ 17
+; "+ 2" means the number of reserved pages before the level data (refer to MegaRomPages.s)
+LEVEL_1_FIRST_SCREEN_PAGE:      equ 14 + 2  ; actually this is the third page, as level one goes from 16 to 1 pages (backwards)
+LEVEL_1_LAST_SCREEN_PAGE:       equ 1 + 2
+
+LEVEL_2_FIRST_SCREEN_PAGE:      equ 30 + 2
+LEVEL_2_LAST_SCREEN_PAGE:       equ 17 + 2
 
 ; Input: 
 ;   A: level number
