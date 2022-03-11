@@ -1,10 +1,15 @@
 
-; "+ 2" means the number of reserved pages before the level data (refer to MegaRomPages.s)
-LEVEL_1_FIRST_SCREEN_PAGE:      equ 14 + 2  ; actually this is the third page, as level one goes from 16 to 1 pages (backwards)
-LEVEL_1_LAST_SCREEN_PAGE:       equ 1 + 2
+; Level 1: pages 16 to 1
+LEVEL_1_FIRST_SCREEN_PAGE:      equ 16 - 2  ; actually this is the third page, as level one goes from 16 to 1 pages (backwards)
+LEVEL_1_LAST_SCREEN_PAGE:       equ 1
 
-LEVEL_2_FIRST_SCREEN_PAGE:      equ 30 + 2
-LEVEL_2_LAST_SCREEN_PAGE:       equ 17 + 2
+; Level 2: pages 32 to 17
+LEVEL_2_FIRST_SCREEN_PAGE:      equ 32 - 2
+LEVEL_2_LAST_SCREEN_PAGE:       equ 17
+
+; Level 3: pages 63 to 33
+LEVEL_3_FIRST_SCREEN_PAGE:      equ 63 - 2
+LEVEL_3_LAST_SCREEN_PAGE:       equ 33
 
 ; Input: 
 ;   A: level number
@@ -14,6 +19,8 @@ LoadLevel:
     jp      z, .level_1
     cp      2
     jp      z, .level_2
+    cp      3
+    jp      z, .level_3
 
 .level_1:
     ld      a, LEVEL_1_FIRST_SCREEN_PAGE
@@ -31,6 +38,16 @@ LoadLevel:
     call    LoadFirstScreen
 
     ld      a, LEVEL_2_LAST_SCREEN_PAGE
+    ld      (CurrentLevelLastScreen), a
+
+    jp      .continue
+
+.level_3:
+    ld      a, LEVEL_3_FIRST_SCREEN_PAGE
+    ld      (CurrentLevelFirstScreen), a
+    call    LoadFirstScreen
+
+    ld      a, LEVEL_3_LAST_SCREEN_PAGE
     ld      (CurrentLevelLastScreen), a
 
     jp      .continue
