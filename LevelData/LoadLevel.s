@@ -19,9 +19,13 @@ LEVEL_4_LAST_SCREEN_PAGE:       equ 64
 LEVEL_5_FIRST_SCREEN_PAGE:      equ 135 - 2
 LEVEL_5_LAST_SCREEN_PAGE:       equ 95
 
-; Level 5: pages 176 to 136
+; Level 6: pages 176 to 136
 LEVEL_6_FIRST_SCREEN_PAGE:      equ 176 - 2
 LEVEL_6_LAST_SCREEN_PAGE:       equ 136
+
+; Level 7: pages 217 to 177
+LEVEL_7_FIRST_SCREEN_PAGE:      equ 217 - 2
+LEVEL_7_LAST_SCREEN_PAGE:       equ 177
 
 ; Input: 
 ;   A: level number
@@ -39,8 +43,8 @@ LoadLevel:
     jp      z, .level_5
     cp      6
     jp      z, .level_6
-    ; cp      7
-    ; jp      z, .level_7
+    cp      7
+    jp      z, .level_7
     ; cp      8
     ; jp      z, .level_8
 
@@ -104,15 +108,15 @@ LoadLevel:
 
     jp      .continue
 
-; .level_7:
-;     ld      a, LEVEL_7_FIRST_SCREEN_PAGE
-;     ld      (CurrentLevelFirstScreen), a
-;     call    LoadFirstScreen
+.level_7:
+    ld      a, LEVEL_7_FIRST_SCREEN_PAGE
+    ld      (CurrentLevelFirstScreen), a
+    call    LoadFirstScreen
 
-;     ld      a, LEVEL_7_LAST_SCREEN_PAGE
-;     ld      (CurrentLevelLastScreen), a
+    ld      a, LEVEL_7_LAST_SCREEN_PAGE
+    ld      (CurrentLevelLastScreen), a
 
-;     jp      .continue
+    jp      .continue
 
 ; .level_8:
 ;     ld      a, LEVEL_8_FIRST_SCREEN_PAGE
