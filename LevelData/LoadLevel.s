@@ -15,6 +15,10 @@ LEVEL_3_LAST_SCREEN_PAGE:       equ 33
 LEVEL_4_FIRST_SCREEN_PAGE:      equ 94 - 2
 LEVEL_4_LAST_SCREEN_PAGE:       equ 64
 
+; Level 5: pages 95 to 135
+LEVEL_5_FIRST_SCREEN_PAGE:      equ 135 - 2
+LEVEL_5_LAST_SCREEN_PAGE:       equ 95
+
 ; Input: 
 ;   A: level number
 LoadLevel:
@@ -27,6 +31,14 @@ LoadLevel:
     jp      z, .level_3
     cp      4
     jp      z, .level_4
+    cp      5
+    jp      z, .level_5
+    ; cp      6
+    ; jp      z, .level_6
+    ; cp      7
+    ; jp      z, .level_7
+    ; cp      8
+    ; jp      z, .level_8
 
 .level_1:
     ld      a, LEVEL_1_FIRST_SCREEN_PAGE
@@ -68,9 +80,49 @@ LoadLevel:
 
     jp      .continue
 
+.level_5:
+    ld      a, LEVEL_5_FIRST_SCREEN_PAGE
+    ld      (CurrentLevelFirstScreen), a
+    call    LoadFirstScreen
+
+    ld      a, LEVEL_5_LAST_SCREEN_PAGE
+    ld      (CurrentLevelLastScreen), a
+
+    jp      .continue
+
+; .level_6:
+;     ld      a, LEVEL_6_FIRST_SCREEN_PAGE
+;     ld      (CurrentLevelFirstScreen), a
+;     call    LoadFirstScreen
+
+;     ld      a, LEVEL_6_LAST_SCREEN_PAGE
+;     ld      (CurrentLevelLastScreen), a
+
+;     jp      .continue
+
+; .level_7:
+;     ld      a, LEVEL_7_FIRST_SCREEN_PAGE
+;     ld      (CurrentLevelFirstScreen), a
+;     call    LoadFirstScreen
+
+;     ld      a, LEVEL_7_LAST_SCREEN_PAGE
+;     ld      (CurrentLevelLastScreen), a
+
+;     jp      .continue
+
+; .level_8:
+;     ld      a, LEVEL_8_FIRST_SCREEN_PAGE
+;     ld      (CurrentLevelFirstScreen), a
+;     call    LoadFirstScreen
+
+;     ld      a, LEVEL_8_LAST_SCREEN_PAGE
+;     ld      (CurrentLevelLastScreen), a
+
+;     ;jp      .continue
+
 .continue:
 
-    ; Pre-load all level pages (for sd mapper users, otherwise there will 
+    ; Pre-load all level pages (for sd mapper users, otherwise there would 
     ; be a lag every time a page is read for the first time)
 
     ld      hl, CurrentLevelLastScreen
