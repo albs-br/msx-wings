@@ -273,8 +273,137 @@
     INCBIN "Graphics/Bitmaps/Level_3/level3_29.sra.new"
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
+; ------- Page 63
 	org	0x8000, 0xBFFF
     INCBIN "Graphics/Bitmaps/Level_3/level3_30.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+; =========================================== Level 4 ===========================================
+
+; ------- Page 64
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_0.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_1.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_2.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_3.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_4.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_5.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_6.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_7.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_8.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_9.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_10.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_11.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_12.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_13.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_14.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_15.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_16.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_17.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_18.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_19.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_20.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_21.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_22.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_23.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_24.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_25.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_26.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_27.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_28.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_29.sra.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+; ------- Page 94
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/Level_4/level4_30.sra.new"
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
 ; =========================================== Reserved for data =================================
