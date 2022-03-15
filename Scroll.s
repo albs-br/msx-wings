@@ -81,8 +81,8 @@ ExecuteScroll:
 
     ; speed scroll (scroll only on even frames or on all frames)
     ld      a, (BIOS_JIFFY)         ; get only low byte of JIFFY
-    and     SCROLL_FULL_SPEED
-    ;and     SCROLL_HALF_SPEED
+    ;and     SCROLL_FULL_SPEED
+    and     SCROLL_HALF_SPEED
     ret     nz
 
 
@@ -161,7 +161,7 @@ ExecuteScroll:
 
 
 AdjustSprites_Y:
-    ; ajust Y position of sprites to compensate scroll
+    ; adjust Y position of sprites to compensate scroll
 
     ld      hl, Player_Y
     call    .adjustSprite
@@ -233,13 +233,17 @@ AdjustSprites_Y:
 
     ; CAUTION: Adjust is only working when the objects are moving on 1px or 3px increments on Y coord (don't know why)
 
-    ld      a, (hl)
-    dec     a
+    ; TODO: if this routine has only one instruction, 
+    ; substitute the call by the instruction itself
+    dec     (hl)
+
+;     ld      a, (hl)
+;     dec     a
     
-    ; commented out because it was causing bug
-    ;cp      216             ; avoid value 216 (hide all sprites)
-    ;jp      nz, .continue
-    ;ld      a, 215
-.continue:
-    ld      (hl), a
+;     ; commented out because it was causing bug
+;     ;cp      216             ; avoid value 216 (hide all sprites)
+;     ;jp      nz, .continue
+;     ;ld      a, 215
+; .continue:
+;     ld      (hl), a
     ret

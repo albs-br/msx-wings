@@ -131,7 +131,9 @@ Execute:
 
     call    ExecuteScroll
 
-    call    BlitSPRATR
+    ; call    UpdateSpriteAttrTableBuffer
+
+    ; call    BlitSPRATR
 
 
     IFDEF DEBUG
@@ -146,6 +148,8 @@ Execute:
     call    GameLogic
 
     call    UpdateSpriteAttrTableBuffer
+
+    call    BlitSPRATR
 
 
 

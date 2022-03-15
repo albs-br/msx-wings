@@ -1,10 +1,10 @@
 ram_watch   add     0xc001      -type byte      -desc Player_Y             -format dec
 ram_watch   add     0xc002      -type byte      -desc Player_Y_Static      -format dec
-ram_watch   add     0xc003      -type byte      -desc Player_SideMovementCounter      -format dec
+#ram_watch   add     0xc003      -type byte      -desc Player_SideMovementCounter      -format dec
 
 
 
-#ram_watch   add     0xc022      -type word      -desc VerticalScroll       -format hex
+ram_watch   add     0xC0F4      -type byte      -desc VerticalScroll       -format dec
 
 #ram_watch   add     0xc007      -type byte      -desc PShot_0_Status       -format dec
 #ram_watch   add     0xc009      -type byte      -desc PShot_0_Y            -format dec
@@ -20,7 +20,7 @@ ram_watch   add     0xc003      -type byte      -desc Player_SideMovementCounter
 
 #ram_watch   add     0xc047      -type byte      -desc Screen_Y_Origin       -format dec
 
-ram_watch   add     0xC081      -type byte      -desc ES_0_Status          -format dec
+#ram_watch   add     0xC081      -type byte      -desc ES_0_Status          -format dec
 #ram_watch   add     0xc082      -type byte      -desc ES_0_X               -format dec
 #ram_watch   add     0xc083      -type byte      -desc ES_0_Y               -format dec
 #ram_watch   add     0xc084      -type byte      -desc ES_0_Y_Static        -format dec
@@ -31,4 +31,4 @@ ram_watch   add     0xC081      -type byte      -desc ES_0_Status          -form
 
 #ram_watch   add     0xc026      -type byte      -desc En1_Status            -format dec
 
-ram_watch   add     0xC0e8      -type byte      -desc FramesSkipped     -format dec
+ram_watch   add     0xC119      -type byte      -desc FramesSkipped     -format dec
