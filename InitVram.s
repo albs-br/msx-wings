@@ -1,7 +1,7 @@
 InitVram:
 
     ; disable keyboard click
-    ld 		a, 0
+    xor     a
     ld 		(BIOS_CLIKSW), a     ; Key Press Click Switch 0:Off 1:On (1B/RW)
 
     ; define screen colors
@@ -25,10 +25,6 @@ InitVram:
 
     call    SetColor0ToTransparent
 
-    ; set Video RAM active (instead of Expansion RAM)
-    ; ld      b, 0000 0000 b  ; data
-    ; ld      c, 45            ; register #
-    ; call    BIOS_WRTVDP
 
 
 

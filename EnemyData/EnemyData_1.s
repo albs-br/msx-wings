@@ -232,7 +232,7 @@ EnemyData_4:
                 dw  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
                 dw  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
 
-; Enemy plane comes from top of screen, goes until bottom and flips backwards, returnig to top of screen inverted
+; Enemy plane comes from top of screen, goes until bottom and flips backwards, returning to top of screen inverted
 EnemyData_5:  
 ; .deltaX:
                 db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
