@@ -1,5 +1,6 @@
 ENEMY_TYPE_1:           equ 1
 ENEMY_SHOT_TYPE_1:      equ 2
+ITEM_P:                 equ 100
 
 
 Level_1_Data:

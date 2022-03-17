@@ -81,6 +81,32 @@ EnemyShot_6_Struct:                    rb EnemyShot_Temp_Struct.size
 
 ; ---------------------------------------
 
+Item_Temp_Struct:
+Item_Temp_Status:                  rb 1    
+Item_Temp_X:                       rb 1
+Item_Temp_Y:                       rb 1
+Item_Temp_Y_Static:                rb 1    ; y coord ignoring scroll
+Item_Temp_Pattern_0:               rb 1
+Item_Temp_Pattern_1:               rb 1
+Item_Temp_Data_Current_Addr:       rw 1
+Item_Temp_SPRCOL_Addr:             rw 1    ; VRAM addr for colors of these two patterns
+Item_Temp_X1:                      rb 1
+Item_Temp_Y1:                      rb 1
+Item_Temp_Frame_Counter:           rw 1
+Item_Temp_Struct.size:        equ $ - Item_Temp_Struct
+
+
+
+Item_0_Struct:                    rb Item_Temp_Struct.size
+Item_1_Struct:                    rb Item_Temp_Struct.size
+Item_2_Struct:                    rb Item_Temp_Struct.size
+Item_3_Struct:                    rb Item_Temp_Struct.size
+Item_4_Struct:                    rb Item_Temp_Struct.size
+Item_5_Struct:                    rb Item_Temp_Struct.size
+Item_6_Struct:                    rb Item_Temp_Struct.size
+
+; ---------------------------------------
+
 LevelData_Temp_Struct:
 LevelData_Temp_Counter:                     rw 1
 LevelData_Temp_ActionType:                  rb 1

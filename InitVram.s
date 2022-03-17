@@ -306,6 +306,18 @@ SPRATR:     equ 0xfa00
     ld      bc, SpritePattern_PlayerPlane_Right_Frame_1_Bottom.size
     add     hl, bc
 
+    ; Spr 38 and 39 patterns
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+        ld      b, SpritePattern_Item_P_Frames_0_to_7.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_Item_P_Frames_0_to_7
+        otir
+    pop     hl
+    ld      bc, SpritePattern_Item_P_Frames_0_to_7.size
+    add     hl, bc
+
 ; --------- Load sprite colors
 
     ; Spr 0 and 1 colors

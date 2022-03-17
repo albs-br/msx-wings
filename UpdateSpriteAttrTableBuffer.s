@@ -40,9 +40,11 @@ PLAYER_LEFT_FRAME_1_TOP_SPR_PAT_0_NUMBER:       equ 26 * 4
 ; PLAYER_LEFT_FRAME_1_BOTTOM_SPR_PAT_0_NUMBER:    equ 28 * 4
 ; PLAYER_LEFT_FRAME_1_BOTTOM_SPR_PAT_1_NUMBER:    equ 29 * 4
 
-PLAYER_RIGHT_FRAME_0_TOP_SPR_PAT_0_NUMBER:       equ 30 * 4
-PLAYER_RIGHT_FRAME_1_TOP_SPR_PAT_0_NUMBER:       equ 34 * 4
-; -------------- NEXT AVAILABLE: 38 --------------------
+PLAYER_RIGHT_FRAME_0_TOP_SPR_PAT_0_NUMBER:       equ 30 * 4     ; 30 to 33
+PLAYER_RIGHT_FRAME_1_TOP_SPR_PAT_0_NUMBER:       equ 34 * 4     ; 34 to 37
+
+ITEM_P_FRAME_0_SPR_PAT_0_NUMBER:                 equ 38 * 4     ; 38 to ??
+; -------------- NEXT AVAILABLE: 40 --------------------
 
 EMPTY_SPR_PAT_NUMBER:                           equ 63 * 4
 
