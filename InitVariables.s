@@ -91,7 +91,7 @@ InitVariables:
 
     ; copy from initial sprite attributes to buffer
     ld      hl, InitialSpriteAttributes
-    ld      de, SpriteAttrTableBuffer
+    ld      de, SPRATR_Buffer
     ld      bc, InitialSpriteAttributes.size
     ldir
 

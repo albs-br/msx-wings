@@ -21,7 +21,7 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     ; Game
     INCLUDE "HTIMI_Hook.s"
     INCLUDE "InitVram.s"
-    INCLUDE "UpdateSpriteAttrTableBuffer.s"
+    INCLUDE "Update_SPRATR_Buffer.s"
     INCLUDE "BlitSPRATR.s"
     INCLUDE "InitVariables.s"
     INCLUDE "Scroll.s"
@@ -134,7 +134,7 @@ Execute:
 
     call    ExecuteScroll
 
-    ; call    UpdateSpriteAttrTableBuffer
+    ; call    Update_SPRATR_Buffer
 
     ; call    BlitSPRATR
 
@@ -150,7 +150,7 @@ Execute:
 
     call    GameLogic
 
-    call    UpdateSpriteAttrTableBuffer
+    call    Update_SPRATR_Buffer
 
     call    BlitSPRATR
 

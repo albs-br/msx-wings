@@ -48,8 +48,8 @@ ITEM_P_FRAME_0_SPR_PAT_0_NUMBER:                 equ 38 * 4     ; 38 to ??
 
 EMPTY_SPR_PAT_NUMBER:                           equ 63 * 4
 
-UpdateSpriteAttrTableBuffer:
-    ld      hl, SpriteAttrTableBuffer
+Update_SPRATR_Buffer:
+    ld      hl, SPRATR_Buffer
 
 
 ; ================================== PLAYER PLANE ===================================

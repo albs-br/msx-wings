@@ -179,5 +179,5 @@ CurrentJiffy:                    rb 1
 ; ---------------------------------------
 
 
-SpriteAttrTableBuffer:      rb 32 * 4
-.size:  equ $ - SpriteAttrTableBuffer
+SPRATR_Buffer:      rb 32 * 4
+.size:  equ $ - SPRATR_Buffer
