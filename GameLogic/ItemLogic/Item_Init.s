@@ -13,6 +13,9 @@ Item_Init:
             ldir                                                    ; Copy BC bytes from HL to DE
         pop     de
 
+        ld      a, 1
+        ld      (Item_Temp_Status), a
+
         ; Item_X = Enemy_X
         inc     de
         ld      a, (de)
@@ -40,6 +43,9 @@ Item_Init:
         inc     de
         ld      a, (de)
         ld      (Item_Temp_SPRCOL_Addr), a
+
+        xor     a
+        ld      (Item_Temp_Frame_Counter), a
 
 ;     ld      hl, (LevelData_Temp_SPRCOL_Addr)
 ;     ld      (Enemy_Temp_SPRCOL_Addr), hl
