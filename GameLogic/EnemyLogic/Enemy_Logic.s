@@ -10,6 +10,8 @@ ENEMY_PIXELS_PER_MOV:    equ 3
 ;   HL: addr of enemy struct
 Enemy_Logic:
 
+    ; TODO: if (status == 2) JP Item_Logic
+
     ; check status before copying to temp vars to save cycles when disabled
     ld      a, (hl)     ; get Status
     or      a

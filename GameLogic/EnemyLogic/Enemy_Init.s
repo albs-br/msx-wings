@@ -16,6 +16,9 @@ Enemy_Init:
     ld      bc, Enemy_Temp_Struct.size                      ; size
     ldir                                                    ; Copy BC bytes from HL to DE
 
+    ; return if this enemy is now an item
+    ; TODO: if (Enemy_Temp_Status == 2) ret     ; Status = 2 means that this enemy was turned into item
+
 
     IFDEF DEBUG
         ; debug trap (get if an enemy is being initialized before its lifecycle ends)

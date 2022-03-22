@@ -32,7 +32,7 @@ Player_FramesSinceLastShot:             rb 1
 ; ---------------------------------------
 
 Enemy_Temp_Struct:
-Enemy_Temp_Status:                  rb 1    
+Enemy_Temp_Status:                  rb 1    ; 0: dead, 1: alive, 2: enemy became item
 Enemy_Temp_X:                       rb 1
 Enemy_Temp_Y:                       rb 1
 Enemy_Temp_Y_Static:                rb 1    ; y coord ignoring scroll
@@ -164,6 +164,8 @@ ayFX_Variables.size:     equ $ - ayFX_Variables
 
 
 ; ---------------------------------------
+
+; some vars for debugging purposes
 
 Debug_Temp_Byte:                 rb 1
 Debug_Temp_Word:                 rw 1
