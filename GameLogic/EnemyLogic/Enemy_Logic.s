@@ -10,7 +10,11 @@ ENEMY_PIXELS_PER_MOV:    equ 3
 ;   HL: addr of enemy struct
 Enemy_Logic:
 
-    ; TODO: if (status == 2) JP Item_Logic
+    ; if (status == 255) JP Item_Logic
+    ld      a, (hl)     ; get Status
+    cp      255           ; Status = 2 means that this enemy was turned into item
+    jp      z, Item_Logic
+
 
     ; check status before copying to temp vars to save cycles when disabled
     ld      a, (hl)     ; get Status
@@ -183,7 +187,8 @@ Enemy_Logic:
     ld      (Enemy_Temp_Status), a
     cp      20
     ld      hl, Enemy_Temp_Struct
-    call    z, Enemy_Reset
+    ;call    z, Enemy_Reset
+    call    z, .doEnemy_Reset
 
 
     ld      a, (Enemy_Temp_Status)      ; get Status
@@ -196,6 +201,25 @@ Enemy_Logic:
     cp      15
     jp      z, .loadExplosionFrame_3
     jp      .return
+
+.doEnemy_Reset:
+    ; check if this enemy should become an item after dead
+    ; if (Enemy_Temp_ItemStruct_Addr != 0) Status = 255
+    push    hl
+        ld      hl, (Enemy_Temp_ItemStruct_Addr)
+        ld      a, l
+        or      h
+        call    nz, .doInitItem      
+    pop     hl
+
+    call    z, Enemy_Reset
+    ret
+
+.doInitItem:
+jp .doInitItem
+    ld      a, 255
+    ld      (Enemy_Temp_Status), a
+    ret
 
 .loadExplosionFrame_0:
     ld      a, EXPLOSION_SPR_PAT_0_NUMBER

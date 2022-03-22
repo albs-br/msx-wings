@@ -1,6 +1,20 @@
 ; Input
-;   HL: addr of item struct
+;   HL: addr of enemy struct (the item struct addr is inside enemy struct)
 Item_Logic:
+
+
+            call BIOS_BEEP
+            jp Item_Logic ; debug
+
+    ; get item struct addr from enemy struct and put it in HL
+    ld      bc, 0 + (Enemy_Temp_ItemStruct_Addr - Enemy_Temp_Struct)
+    add     hl, bc
+    ; HL = (HL)
+    ld      a, (hl)
+    inc     hl
+    ld      h, (hl)
+    ld      l, a
+
 
     ; check status before copying to temp vars to save cycles when disabled
     ld      a, (hl)     ; get Status

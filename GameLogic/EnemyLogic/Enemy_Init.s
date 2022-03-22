@@ -17,7 +17,10 @@ Enemy_Init:
     ldir                                                    ; Copy BC bytes from HL to DE
 
     ; return if this enemy is now an item
-    ; TODO: if (Enemy_Temp_Status == 2) ret     ; Status = 2 means that this enemy was turned into item
+    ; if (Enemy_Temp_Status == 255) ret     ; Status = 255 means that this enemy was turned into item
+    ld      a, (Enemy_Temp_Status)      ; get Status
+    cp      255
+    ret     z
 
 
     IFDEF DEBUG
@@ -87,7 +90,12 @@ Enemy_Init:
 
     ; get  Enemy Data Initial Addr from level data struct
     ld      hl, (LevelData_Temp_Data_Initial_Addr)
-    ld      (Enemy_Temp_Data_Current_Addr), hl           ; Enemy data addr
+    ld      (Enemy_Temp_Data_Current_Addr), hl              ; Enemy data addr
+
+
+    ld      hl, (LevelData_Temp_ExtraData_Addr)
+    ld      (Enemy_Temp_ItemStruct_Addr), hl                ; Item data addr
+
 
 
     ;call    LoadDataFromEnemyData

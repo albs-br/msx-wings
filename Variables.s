@@ -32,7 +32,7 @@ Player_FramesSinceLastShot:             rb 1
 ; ---------------------------------------
 
 Enemy_Temp_Struct:
-Enemy_Temp_Status:                  rb 1    ; 0: dead, 1: alive, 2: enemy became item
+Enemy_Temp_Status:                  rb 1    ; 0: dead, 1: alive, 2-20: explosion animation, 255: enemy became item
 Enemy_Temp_X:                       rb 1
 Enemy_Temp_Y:                       rb 1
 Enemy_Temp_Y_Static:                rb 1    ; y coord ignoring scroll
@@ -43,6 +43,8 @@ Enemy_Temp_SPRCOL_Addr:             rw 1    ; VRAM addr for colors of these two 
 Enemy_Temp_X1:                      rb 1
 Enemy_Temp_Y1:                      rb 1
 Enemy_Temp_Frame_Counter:           rw 1
+Enemy_Temp_ItemStruct_Addr:         rw 1    ; 0x0000 means that this enemy will not be turned into an item when killed,
+                                            ; otherwise stores the Item Struct Addr (should have the same index as the enemy)
 Enemy_Temp_Struct.size:        equ $ - Enemy_Temp_Struct
 
 
@@ -115,6 +117,7 @@ LevelData_Temp_Data_Initial_Addr:           rw 1
 LevelData_Temp_EnemyStruct_Addr:            rw 1
 LevelData_Temp_SPRCOL_Addr:                 rw 1
 LevelData_Temp_EnemyShotStruct_Addr:        rw 1
+LevelData_Temp_ExtraData_Addr:              rw 1    ; will hold Item Struct Adrr, for enemy entries
 LevelData_Temp_Struct.size:         equ $ - LevelData_Temp_Struct
 
 ; info needed for EnemyShot:
