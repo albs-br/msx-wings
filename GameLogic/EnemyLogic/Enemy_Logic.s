@@ -205,20 +205,30 @@ Enemy_Logic:
 .doEnemy_Reset:
     ; check if this enemy should become an item after dead
     ; if (Enemy_Temp_ItemStruct_Addr != 0) Status = 255
-    push    hl
+    ;push    hl
         ld      hl, (Enemy_Temp_ItemStruct_Addr)
         ld      a, l
         or      h
-        call    nz, .doInitItem      
-    pop     hl
+    ;pop     hl
+    jp      nz, .doInitItem
 
+    ld      hl, Enemy_Temp_Struct
     call    z, Enemy_Reset
     ret
 
 .doInitItem:
-jp .doInitItem
+;jp .doInitItem ; debug
+
+    ld      hl, (Enemy_Temp_ItemStruct_Addr)
+    ld      de, Enemy_Temp_Struct
+    call    Item_Init
+
+    ; ld      hl, Enemy_Temp_Struct
+    ; call    z, Enemy_Reset
+
     ld      a, 255
     ld      (Enemy_Temp_Status), a
+        
     ret
 
 .loadExplosionFrame_0:

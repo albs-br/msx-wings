@@ -51,17 +51,15 @@ Item_Init:
 ;     ld      (Enemy_Temp_SPRCOL_Addr), hl
 
 
-;     ; ; Load enemy colors
-;     ; ld      a, 0000 0001 b
-;     ; ld      hl, (Enemy_Temp_SPRCOL_Addr)
-;     ; call    SetVdp_Write
-;     ; ;ld      b, SpriteColors_EnemyPlane_0_and_1.size
-;     ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-;     ; ld      hl, SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1
-;     ; ;ld      hl, SpriteColors_EnemyPlane_Frame_1_Patterns_0_and_1
-;     ; ; 32x OUTI
-;     ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-;     ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+        ; Load item colors
+        ld      a, 0000 0001 b
+        ld      hl, (Item_Temp_SPRCOL_Addr)
+        call    SetVdp_Write
+        ld      c, PORT_0
+        ld      hl, SpriteColors_Item_P_Frames_0_to_7
+        ; 32x OUTI
+        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
 
 
@@ -125,9 +123,9 @@ Item_Init:
         pop     de  ; restore addr of item data struct
     
     ; Copy temp Item struct back to Item struct
-    ld      hl, Item_Temp_Struct                               ; source
+    ld      hl, Item_Temp_Struct                                ; source
     ;ld      de, (LevelData_Temp_EnemyStruct_Addr)               ; destiny
-    ld      bc, Enemy_Temp_Struct.size                          ; size
+    ld      bc, Item_Temp_Struct.size                           ; size
     ldir                                                        ; Copy BC bytes from HL to DE
 
     ret
