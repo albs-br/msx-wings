@@ -54,6 +54,10 @@ Item_Init:
         ld      hl, 0
         ld      (Item_Temp_Frame_Counter), hl      ; reset frame counter
 
+        ld      a, -1
+        ld      (Item_Temp_Delta_X), a
+        ld      (Item_Temp_Delta_Y), a
+
 ;     ld      hl, (LevelData_Temp_SPRCOL_Addr)
 ;     ld      (Enemy_Temp_SPRCOL_Addr), hl
 

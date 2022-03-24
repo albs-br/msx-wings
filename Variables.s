@@ -95,6 +95,8 @@ Item_Temp_SPRCOL_Addr:             rw 1    ; VRAM addr for colors of these two p
 Item_Temp_X1:                      rb 1
 Item_Temp_Y1:                      rb 1
 Item_Temp_Frame_Counter:           rw 1
+Item_Temp_Delta_X:                 rb 1
+Item_Temp_Delta_Y:                 rb 1
 Item_Temp_Struct.size:        equ $ - Item_Temp_Struct
 
 

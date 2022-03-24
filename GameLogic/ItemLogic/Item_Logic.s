@@ -40,14 +40,21 @@ Item_Logic:
         ldir                                                    ; Copy BC bytes from HL to DE
 
 
-        ; TODO: item logic here
+        ; ------ item logic
 
         ; copy sprite attrs from item to enemy (they share the place on SPRATR table)
+
         ld      a, (Item_Temp_X)
+        ld      hl, Item_Temp_Delta_X
+        add     (hl)
+        ld      (Item_Temp_X), a
         ld      (Enemy_Temp_X), a
         ld      (Enemy_Temp_X1), a
         
         ld      a, (Item_Temp_Y)
+        ld      hl, Item_Temp_Delta_Y
+        add     (hl)
+        ld      (Item_Temp_Y), a
         ld      (Enemy_Temp_Y), a
         ld      (Enemy_Temp_Y1), a
 
