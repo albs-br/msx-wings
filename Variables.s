@@ -149,6 +149,10 @@ CurrentVRAMAddrLineScroll:  rw 1
 
 ; ---------------------------------------
 
+Temp_Addr:                  rw 1
+
+; ---------------------------------------
+
 ;ayFX variables:
 ayFX_Variables:
 AYREGS:		    rb 14

@@ -26,7 +26,7 @@ Item_Init:
         ld      a, (de)
         ld      (Item_Temp_Y), a
 
-        ; Item_X_Static = Enemy_X_Static
+        ; Item_Y_Static = Enemy_Y_Static
         inc     de
         ld      a, (de)
         ld      (Item_Temp_Y_Static), a
@@ -41,25 +41,32 @@ Item_Init:
         inc     de
         inc     de
         inc     de
+        inc     de
+        
+        ; HL = (DE)
         ld      a, (de)
-        ld      (Item_Temp_SPRCOL_Addr), a
+        ld      l, a
+        inc     de
+        ld      a, (de)
+        ld      h, a
+        ld      (Item_Temp_SPRCOL_Addr), hl
 
-        xor     a
-        ld      (Item_Temp_Frame_Counter), a
+        ld      hl, 0
+        ld      (Item_Temp_Frame_Counter), hl      ; reset frame counter
 
 ;     ld      hl, (LevelData_Temp_SPRCOL_Addr)
 ;     ld      (Enemy_Temp_SPRCOL_Addr), hl
 
 
-        ; Load item colors
-        ld      a, 0000 0001 b
-        ld      hl, (Item_Temp_SPRCOL_Addr)
-        call    SetVdp_Write
-        ld      c, PORT_0
-        ld      hl, SpriteColors_Item_P_Frames_0_to_7
-        ; 32x OUTI
-        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+        ; ; Load item colors
+        ; ld      a, 0000 0001 b
+        ; ld      hl, (Item_Temp_SPRCOL_Addr)
+        ; call    SetVdp_Write
+        ; ld      c, PORT_0
+        ; ld      hl, SpriteColors_Item_P_Frames_0_to_7
+        ; ; 32x OUTI
+        ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+        ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
 
 

@@ -39,6 +39,10 @@ EnemyShot_Init:
     ld      a, (hl)
     or      a
     jp      z, .return
+
+    ; if enemy is turned into item return
+    cp      255
+    jp      z, .return
     
     ld      a, 1
     ld      (EnemyShot_Temp_Status), a          ; Status
