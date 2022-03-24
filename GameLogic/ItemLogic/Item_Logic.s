@@ -57,6 +57,8 @@ Item_Logic:
         ld      a, (Item_Temp_Pattern_1)
         ld      (Enemy_Temp_Pattern_1), a
 
+        ; TODO: load colors only when frame changes
+        
         ; Load item colors
         ld      a, 0000 0001 b
         ld      hl, (Item_Temp_SPRCOL_Addr)

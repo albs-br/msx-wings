@@ -227,6 +227,12 @@ AdjustSprites_Y:
     ld      hl, EnemyShot_6_Struct + 2
     call    .adjustSprite
 
+
+    ld      hl, Item_0_Struct + 2
+    call    .adjustSprite
+    ld      hl, Item_0_Struct + 11
+    call    .adjustSprite
+
     ret
 
 .adjustSprite:
