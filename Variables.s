@@ -87,16 +87,16 @@ Item_Temp_Struct:
 Item_Temp_Status:                  rb 1    
 Item_Temp_X:                       rb 1
 Item_Temp_Y:                       rb 1
-Item_Temp_Y_Static:                rb 1    ; y coord ignoring scroll
+Item_Temp_Y_Static:                rb 1     ; y coord ignoring scroll
 Item_Temp_Pattern_0:               rb 1
 Item_Temp_Pattern_1:               rb 1
 Item_Temp_Data_Current_Addr:       rw 1
-Item_Temp_SPRCOL_Addr:             rw 1    ; VRAM addr for colors of these two patterns
-Item_Temp_X1:                      rb 1
-Item_Temp_Y1:                      rb 1
+Item_Temp_SPRCOL_Addr:             rw 1     ; VRAM addr for colors of these two patterns
+Item_Temp_X1:                      rb 1     ; not used
+Item_Temp_Y1:                      rb 1     ; not used
 Item_Temp_Frame_Counter:           rw 1
-Item_Temp_Delta_X:                 rb 1
-Item_Temp_Delta_Y:                 rb 1
+Item_Temp_Delta_X:                 rb 1     ; +1 or -1
+Item_Temp_Delta_Y:                 rb 1     ; +1 or -1
 Item_Temp_Struct.size:        equ $ - Item_Temp_Struct
 
 

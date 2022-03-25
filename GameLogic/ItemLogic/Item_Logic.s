@@ -44,6 +44,16 @@ Item_Logic:
 
         ; copy sprite attrs from item to enemy (they share the place on SPRATR table)
 
+        ; if (X == 0) DeltaX = +1
+        ld      a, (Item_Temp_X)
+        cp      -2
+        call    z, .itemX_Equal_0
+        ; if (X == 240) DeltaX = -1
+        ld      a, (Item_Temp_X)
+        cp      242
+        call    z, .itemX_Equal_240
+        
+        ; X += Delta_X
         ld      a, (Item_Temp_X)
         ld      hl, Item_Temp_Delta_X
         add     (hl)
@@ -51,6 +61,22 @@ Item_Logic:
         ld      (Enemy_Temp_X), a
         ld      (Enemy_Temp_X1), a
         
+        ; if (Y_Static == 0) DeltaY = +1
+        ld      a, (Item_Temp_Y_Static)
+        or      a
+        call    z, .itemYStatic_Equal_0
+        ; if (Y_Static == 176) DeltaY = -1
+        ld      a, (Item_Temp_Y_Static)
+        cp      176
+        call    z, .itemYStatic_Equal_176
+
+        ; Y_Static += Delta_Y
+        ld      a, (Item_Temp_Y_Static)
+        ld      hl, Item_Temp_Delta_Y
+        add     (hl)
+        ld      (Item_Temp_Y_Static), a
+
+        ; Y += Delta_Y
         ld      a, (Item_Temp_Y)
         ld      hl, Item_Temp_Delta_Y
         add     (hl)
@@ -93,4 +119,24 @@ Item_Logic:
     ld      bc, Enemy_Temp_Struct.size                          ; size
     ldir                                                        ; Copy BC bytes from HL to DE
 
+    ret
+
+.itemX_Equal_0:
+    ld      a, +1
+    ld      (Item_Temp_Delta_X), a
+    ret
+
+.itemX_Equal_240:
+    ld      a, -1
+    ld      (Item_Temp_Delta_X), a
+    ret
+
+.itemYStatic_Equal_0:
+    ld      a, +1
+    ld      (Item_Temp_Delta_Y), a
+    ret
+
+.itemYStatic_Equal_176:
+    ld      a, -1
+    ld      (Item_Temp_Delta_Y), a
     ret
