@@ -3,8 +3,8 @@
 Item_Logic:
 
 
-            ; call BIOS_BEEP
-            ; jp Item_Logic ; debug
+            call BIOS_BEEP
+            ;jp Item_Logic ; debug
 
     push    hl
         ; Copy enemy struct to temp enemy struct

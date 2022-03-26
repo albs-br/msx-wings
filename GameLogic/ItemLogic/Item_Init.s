@@ -141,7 +141,7 @@ Item_Init:
     ldir                                                        ; Copy BC bytes from HL to DE
 
 
-; .eTERNALloop:
-; JP .eTERNALloop
+.eTERNALloop:
+JP .eTERNALloop
 
     ret

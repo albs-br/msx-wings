@@ -11,15 +11,15 @@ ENEMY_PIXELS_PER_MOV:    equ 3
 Enemy_Logic:
 
     ; if (status == 255) JP Item_Logic
-    ld      a, (hl)     ; get Status
-    cp      255           ; Status = 2 means that this enemy was turned into item
+    ld      a, (hl)         ; get Status
+    cp      255             ; Status = 255 means that this enemy was turned into item
     jp      z, Item_Logic
 
 
     ; check status before copying to temp vars to save cycles when disabled
-    ld      a, (hl)     ; get Status
+    ld      a, (hl)         ; get Status
     or      a
-    ret     z           ; if (Status == 0) ret
+    ret     z               ; if (Status == 0) ret
 
     push    hl
 
