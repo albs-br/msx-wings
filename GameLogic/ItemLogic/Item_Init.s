@@ -30,6 +30,7 @@ Item_Init:
         inc     de
         ;ld      a, (de)
         ld      a, (Enemy_Temp_Y_Static)
+        sub     6                           ; not sure why, but Y static need to be ajusted by 6 pixels..,
         ld      (Item_Temp_Y_Static), a
 
         ld      a, ITEM_P_FRAME_0_SPR_PAT_0_NUMBER
@@ -55,7 +56,7 @@ Item_Init:
         ld      hl, 0
         ld      (Item_Temp_Frame_Counter), hl      ; reset frame counter
 
-        ld      a, -1
+        ld      a, -1 ; TODO: randomize delta_X
         ld      (Item_Temp_Delta_X), a
         ld      (Item_Temp_Delta_Y), a
 
