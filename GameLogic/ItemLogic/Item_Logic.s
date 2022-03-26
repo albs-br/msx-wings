@@ -40,7 +40,7 @@ Item_Logic:
         ldir                                                    ; Copy BC bytes from HL to DE
 
 
-        ; ------ item logic
+        ; --------------------------- item movement
 
         ; copy sprite attrs from item to enemy (they share the place on SPRATR table)
 
@@ -84,11 +84,14 @@ Item_Logic:
         ld      (Enemy_Temp_Y), a
         ld      (Enemy_Temp_Y1), a
 
+        ; --------------------------- item animation
+
         ld      a, (Item_Temp_Pattern_0)
         ld      (Enemy_Temp_Pattern_0), a
 
         ld      a, (Item_Temp_Pattern_1)
         ld      (Enemy_Temp_Pattern_1), a
+
 
         ; TODO: load colors only when frame changes
         
@@ -102,11 +105,39 @@ Item_Logic:
         outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
         outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
-.return:
+
+        ; --------------------------- check collision between item and player
+
+        ld      a, (Item_Temp_X)
+        ld      b, a
+        ld      a, (Item_Temp_Y_Static)
+        ld      c, a
+
+        ld      a, (Player_X)
+        add     2                           ; adjust the 16x16 collision box to the center of the plane
+        ld      d, a
+        ld      a, (Player_Y_Static)
+        add     12                          ; adjust the 16x16 collision box to the body of the plane
+        ld      e, a
+
+        call    CheckCollision_16x16_16x16
+        jp      c, .collision
+        
+        jp      .return
+
+    .collision:
+
+        call BIOS_BEEP
+        jp .collision
+
+    .return:
         ; increment Frame Counter
         ld      hl, (Item_Temp_Frame_Counter)
         inc     hl
         ld      (Item_Temp_Frame_Counter), hl
+
+        ; TODO: check if max item lifespan was reached
+
 
         ld      hl, Item_Temp_Struct                        ; source
     pop     de                                              ; destiny
