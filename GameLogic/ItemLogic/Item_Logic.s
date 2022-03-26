@@ -3,7 +3,7 @@
 Item_Logic:
 
 
-            call BIOS_BEEP
+            ;call BIOS_BEEP
             ;jp Item_Logic ; debug
 
     push    hl
