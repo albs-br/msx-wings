@@ -67,7 +67,7 @@ Enemy_Logic:
 
         ld      a, (Enemy_Temp_Y_Static)    ; Y static
         cp      192
-        jp      nc, .enemyReset             ; if (Y >= 192) enemyReset
+        jp      nc, .enemyReset             ; if (Y_Static >= 192) enemyReset
         add     a, b                        ; add to delta Y
         ld      (Enemy_Temp_Y_Static), a
 

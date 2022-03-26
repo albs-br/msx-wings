@@ -3,8 +3,20 @@
 #ram_watch   add     0xc003      -type byte      -desc Player_SideMovementCounter      -format dec
 
 
+ram_watch   add     0xc02c      -type byte      -desc Enemy_0_Y_Static     -format dec
+ram_watch   add     0xC01C      -type byte      -desc Enemy_Temp_Y_Static  -format dec
 
-ram_watch   add      0xC0F4      -type byte      -desc Item_Temp_Y_Static       -format dec
+ram_watch   add     0xc101      -type byte      -desc Item_0_Status        -format dec
+ram_watch   add     0xc102      -type byte      -desc Item_0_X             -format dec
+ram_watch   add     0xc103      -type byte      -desc Item_0_Y             -format dec
+ram_watch   add     0xc104      -type byte      -desc Item_0_Y_Static      -format dec
+
+ram_watch   add     0xc185      -type byte      -desc Screen_Y_Origin      -format dec
+
+
+
+
+#ram_watch   add      0xC0F4      -type byte      -desc Item_Temp_Y_Static       -format dec
 
 #ram_watch   add     0xC0F4      -type byte      -desc VerticalScroll       -format dec
 

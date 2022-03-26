@@ -28,7 +28,8 @@ Item_Init:
 
         ; Item_Y_Static = Enemy_Y_Static
         inc     de
-        ld      a, (de)
+        ;ld      a, (de)
+        ld      a, (Enemy_Temp_Y_Static)
         ld      (Item_Temp_Y_Static), a
 
         ld      a, ITEM_P_FRAME_0_SPR_PAT_0_NUMBER
@@ -138,5 +139,9 @@ Item_Init:
     ;ld      de, (LevelData_Temp_EnemyStruct_Addr)               ; destiny
     ld      bc, Item_Temp_Struct.size                           ; size
     ldir                                                        ; Copy BC bytes from HL to DE
+
+
+; .eTERNALloop:
+; JP .eTERNALloop
 
     ret
