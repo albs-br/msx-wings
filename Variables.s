@@ -1,3 +1,7 @@
+Seed:                               rw 1
+
+
+
 Player_X:                           rb 1
 Player_Y:                           rb 1
 Player_Y_Static:                    rb 1 ; y coord ignoring scroll

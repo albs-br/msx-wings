@@ -3,6 +3,14 @@ PLAYER_INITIAL_Y:               equ 192 - 32
 
 InitVariables:
 
+
+    ld      hl, (BIOS_JIFFY)                    ; msx bios time variable
+    ld      a, l
+    or      0x80                                ; a value different of zero is granted
+    ld      (Seed), a
+    ld      a, h
+    ld      (Seed + 1), a
+
     ld      a, PLAYER_INITIAL_X
     ld      (Player_X), a
 
