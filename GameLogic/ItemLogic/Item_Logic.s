@@ -44,11 +44,11 @@ Item_Logic:
 
         ; copy sprite attrs from item to enemy (they share the place on SPRATR table)
 
-        ; if (X == 0) DeltaX = +1
+        ; if (X == -2) DeltaX = +1
         ld      a, (Item_Temp_X)
         cp      -2
         call    z, .itemX_Equal_0
-        ; if (X == 240) DeltaX = -1
+        ; if (X == 242) DeltaX = -1
         ld      a, (Item_Temp_X)
         cp      242
         call    z, .itemX_Equal_240

@@ -230,7 +230,19 @@ AdjustSprites_Y:
 
     ld      hl, Item_0_Struct + 2
     call    .adjustSprite
-    ld      hl, Item_0_Struct + 11
+    ; ld      hl, Item_0_Struct + 11        ; y1 isn't used for items
+    ; call    .adjustSprite
+    ld      hl, Item_1_Struct + 2
+    call    .adjustSprite
+    ld      hl, Item_2_Struct + 2
+    call    .adjustSprite
+    ld      hl, Item_3_Struct + 2
+    call    .adjustSprite
+    ld      hl, Item_4_Struct + 2
+    call    .adjustSprite
+    ld      hl, Item_5_Struct + 2
+    call    .adjustSprite
+    ld      hl, Item_6_Struct + 2
     call    .adjustSprite
 
     ret
