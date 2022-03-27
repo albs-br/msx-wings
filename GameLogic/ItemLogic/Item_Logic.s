@@ -127,8 +127,18 @@ Item_Logic:
 
     .collision:
 
-        call BIOS_BEEP
-        jp .collision
+    ; TODO: improve player shot
+
+    ; reset item
+    pop     hl                                              ; destiny
+    call    Item_Reset
+
+    ; reset enemy
+    ld      hl, (Temp_Addr)                                     ; get enemy struct Temp_Addr
+    call    Enemy_Reset
+
+    ret
+
 
     .return:
         ; increment Frame Counter

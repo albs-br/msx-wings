@@ -8,18 +8,18 @@ ram_watch   add     0xc07c      -type byte      -desc Enemy_5_Y_Static     -form
 
 #ram_watch   add     0xC01C      -type byte      -desc Enemy_Temp_Y_Static  -format dec
 
-ram_watch   add     0xc101      -type byte      -desc Item_0_Status        -format dec
-ram_watch   add     0xc102      -type byte      -desc Item_0_X             -format dec
-ram_watch   add     0xc103      -type byte      -desc Item_0_Y             -format dec
-ram_watch   add     0xc104      -type byte      -desc Item_0_Y_Static      -format dec
+ram_watch   add     0xc103      -type byte      -desc Item_0_Status        -format dec
+ram_watch   add     0xc104      -type byte      -desc Item_0_X             -format dec
+ram_watch   add     0xc105      -type byte      -desc Item_0_Y             -format dec
+ram_watch   add     0xc106      -type byte      -desc Item_0_Y_Static      -format dec
 
-ram_watch   add     0xc151      -type byte      -desc Item_5_Status        -format dec
-ram_watch   add     0xc152      -type byte      -desc Item_5_X             -format dec
-ram_watch   add     0xc153      -type byte      -desc Item_5_Y             -format dec
-ram_watch   add     0xc154      -type byte      -desc Item_5_Y_Static      -format dec
+ram_watch   add     0xc153      -type byte      -desc Item_5_Status        -format dec
+ram_watch   add     0xc154      -type byte      -desc Item_5_X             -format dec
+ram_watch   add     0xc155      -type byte      -desc Item_5_Y             -format dec
+ram_watch   add     0xc156      -type byte      -desc Item_5_Y_Static      -format dec
 
-#Item_0_Struct: equ 0C101h ; last def. pass 3
-#Item_5_Struct: equ 0C151h ; last def. pass 3
+#Item_0_Struct: equ 0C103h ; last def. pass 3
+#Item_5_Struct: equ 0C153h ; last def. pass 3
 
 
 ram_watch   add     0xc185      -type byte      -desc Screen_Y_Origin      -format dec
