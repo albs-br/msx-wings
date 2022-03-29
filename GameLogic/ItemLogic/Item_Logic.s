@@ -129,8 +129,13 @@ Item_Logic:
 
     ; TODO: improve player shot
 
+    ;ld      a, 100             ; volume
+    ld      a, SFX_GET_ITEM     ; number of sfx in the bank
+    ld      c, 15               ; sound priority
+    call    PlaySfx
+
     ; reset item
-    pop     hl                                              ; destiny
+    pop     hl                                                  ; destiny
     call    Item_Reset
 
     ; reset enemy
