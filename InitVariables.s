@@ -81,6 +81,7 @@ InitVariables:
     xor     a
     ld      (Screen_Y_Origin), a
     ld      (FramesSkipped), a
+    ld      (ItemAnimation_CurrentFrame), a
 
 
     ld      hl, 0

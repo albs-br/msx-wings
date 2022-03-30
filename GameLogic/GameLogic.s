@@ -19,6 +19,9 @@ GameLogic:
     call    PlayerSprite
     call    PlayerEngineAnimation
 
+    ; -------------------------------------------
+
+    call    ItemAnimation
 
     ; -------------------------------------------
 

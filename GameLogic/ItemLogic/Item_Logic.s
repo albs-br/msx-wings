@@ -93,7 +93,7 @@ Item_Logic:
         ld      (Enemy_Temp_Pattern_1), a
 
 
-        ; TODO: load colors only when frame changes
+        ; TODO: load colors only on INITVRAM
         
         ; Load item colors
         ld      a, 0000 0001 b
@@ -185,4 +185,46 @@ Item_Logic:
 .itemYStatic_Equal_176:
     ld      a, -1
     ld      (Item_Temp_Delta_Y), a
+    ret
+
+
+
+ItemAnimation:
+
+    ld      a, (BIOS_JIFFY)
+    and     0000 0011 b         ; animation only at each 4 frames
+    ret     nz
+
+    ; TODO: check if is there any item visible
+
+
+    ld      a, (ItemAnimation_CurrentFrame)
+    and     0000 0111 b         ; mask to get a 0 to 8
+
+    ; set HL to current pattern addr
+    ld      hl, SpritePattern_Item_P_Frames_0_to_7
+    ld      bc, 64
+    ld      d, a
+    or      a
+.loop:
+    jp      z, .endLoop
+    add     hl, bc              ; HL will be incremented 64 bytes x ItemAnimation_CurrentFrame
+    dec     d
+    jp      .loop
+.endLoop:
+
+    push    hl
+        ld      a, 0000 0001 b
+        ld      hl, SPRPAT + (ITEM_P_SPR_PAT_0_NUMBER * 8)
+        call    SetVdp_Write
+    pop     hl
+    ; ld      b, 64 ;SpritePattern_Item_P_Frames_0_to_7.size
+    ; ld      c, PORT_0
+    ld      bc, 0 + (64 * 256) + PORT_0
+    otir
+
+    ; next ItemAnimation_CurrentFrame
+    ld      hl, ItemAnimation_CurrentFrame
+    inc     (hl)
+
     ret

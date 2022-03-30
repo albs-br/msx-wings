@@ -148,10 +148,12 @@ LevelData_CurrentAddr:              rw 1
 Screen_Y_Origin:                    rb 1            ; number of first line currently visible on screen
 
 
-VerticalScroll:             rb 1
-CurrentMegaROMPage:         rb 1
-CurrentAddrLineScroll:      rw 1
-CurrentVRAMAddrLineScroll:  rw 1
+VerticalScroll:                     rb 1
+CurrentMegaROMPage:                 rb 1
+CurrentAddrLineScroll:              rw 1
+CurrentVRAMAddrLineScroll:          rw 1
+
+ItemAnimation_CurrentFrame:         rb 1
 
 ; ---------------------------------------
 

@@ -33,7 +33,7 @@ Item_Init:
         sub     6                           ; not sure why, but Y static need to be ajusted by 6 pixels..,
         ld      (Item_Temp_Y_Static), a
 
-        ld      a, ITEM_P_FRAME_0_SPR_PAT_0_NUMBER
+        ld      a, ITEM_P_SPR_PAT_0_NUMBER
         ld      (Item_Temp_Pattern_0), a
 
         add     4
