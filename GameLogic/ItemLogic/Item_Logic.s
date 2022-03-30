@@ -195,7 +195,24 @@ ItemAnimation:
     and     0000 0011 b         ; animation only at each 4 frames
     ret     nz
 
-    ; TODO: check if is there any item visible
+
+    ; check if is there any item visible
+    xor     a
+    ld      hl, Item_0_Struct   ; first byte of Item Struct is Status (0: disabled, 1: enabled)
+    add     (hl)
+    ld      hl, Item_1_Struct
+    add     (hl)
+    ld      hl, Item_2_Struct
+    add     (hl)
+    ld      hl, Item_3_Struct
+    add     (hl)
+    ld      hl, Item_4_Struct
+    add     (hl)
+    ld      hl, Item_5_Struct
+    add     (hl)
+    ld      hl, Item_6_Struct
+    add     (hl)
+    ret     z               ; summing up all Item's Status, if sum is 0, no one Item is enabled
 
 
     ld      a, (ItemAnimation_CurrentFrame)
@@ -218,10 +235,16 @@ ItemAnimation:
         ld      hl, SPRPAT + (ITEM_P_SPR_PAT_0_NUMBER * 8)
         call    SetVdp_Write
     pop     hl
-    ; ld      b, 64 ;SpritePattern_Item_P_Frames_0_to_7.size
-    ; ld      c, PORT_0
     ld      bc, 0 + (64 * 256) + PORT_0
     otir
+
+    ; TODO: use unrolled OUTIs
+    ; ld      c, PORT_0
+    ; ; 64x OUTI
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
     ; next ItemAnimation_CurrentFrame
     ld      hl, ItemAnimation_CurrentFrame
