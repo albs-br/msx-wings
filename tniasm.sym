@@ -563,7 +563,7 @@ BIOS_LOW: equ 0F406h ; last def. pass 3
 Wait.loop: equ 0407Eh ; last def. pass 3
 Item_Temp_Struct.size: equ 010h ; last def. pass 3
 MSXID2: equ 02Ch ; last def. pass 3
-PLAYER_SIDE_MOVEMENT_INTERMEDIATE: equ 0Ch ; last def. pass 3
+PLAYER_SIDE_MOVEMENT_INTERMEDIATE: equ 0Ah ; last def. pass 3
 CurrentLevelFirstScreen: equ 0C181h ; last def. pass 3
 BIOS_CHPUT: equ 0A2h ; last def. pass 3
 BIOS_OLDTXT: equ 0F6C0h ; last def. pass 3
@@ -828,7 +828,7 @@ Enemy_Init: equ 04D47h ; last def. pass 3
 ayFX_PLAY.SETPOINTER: equ 04234h ; last def. pass 3
 BIOS_RG3SAV: equ 0F3E2h ; last def. pass 3
 BIOS_NSTWRT: equ 0171h ; last def. pass 3
-PLAYER_SIDE_MOVEMENT_LIMIT: equ 018h ; last def. pass 3
+PLAYER_SIDE_MOVEMENT_LIMIT: equ 014h ; last def. pass 3
 LEVEL_6_FIRST_SCREEN_PAGE: equ 0AEh ; last def. pass 3
 BIOS_H_PINL: equ 0FDDBh ; last def. pass 3
 BIOS_KANAST: equ 0FCACh ; last def. pass 3
