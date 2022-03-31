@@ -64,6 +64,11 @@ GameLogic:
     ld      (LevelCounter), hl
 
 
+    ; set MegaROM page for Level 1 data
+    ld      a, 242
+    ld	    (Seg_P8000_SW), a
+
+
     ;ld      hl, Level_1_Data
     ld      hl, (LevelData_CurrentAddr)
     ld      de, (LevelCounter)

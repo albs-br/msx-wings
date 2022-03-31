@@ -5,7 +5,7 @@ PAGE_SIZE:	    equ	0x4000	        ; 16kB
 Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 16k Mapper, same for 8k Mapper)
 
 
-;DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
+DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
 
 
 ; Compilation address
@@ -41,9 +41,9 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     INCLUDE "GameLogic/ItemLogic/Item_Reset.s"
     INCLUDE "GameLogic/ItemLogic/Item_Logic.s"
     INCLUDE "LevelData/LoadLevel.s"
-    INCLUDE "LevelData/Level_1.s"
-    INCLUDE "EnemyData/EnemyData_1.s"
-    INCLUDE "EnemyData/EnemyShotData.s"
+    ; INCLUDE "LevelData/Level_1.s"         ; moved to a MegaROM page
+    INCLUDE "EnemyData/EnemyData_1.s"       ; TODO: move this data too
+    INCLUDE "EnemyData/EnemyShotData.s"     ; TODO: move this data too
     INCLUDE "Sound/Sfx/PlaySfx.s"
 
     ; Assets

@@ -1012,9 +1012,10 @@
 
 ; =========================================== Reserved for data =================================
 
-; ------- Page ?
+; ------- Page 242
 	org	0x8000, 0xBFFF
     ;INCBIN "Graphics/Bitmaps/Level_1/level1_0.sra.new"
+    INCLUDE "LevelData/Level_1.s"
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
 ; ------- Page ?
