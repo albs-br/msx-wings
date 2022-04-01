@@ -179,7 +179,7 @@ SpriteColors_EnemyShot_0_to_2:
 
 
 
-SpriteColors_Item_P_Frames_0_to_7:
+SpriteColors_Item_P_Frame_0:
     INCLUDE "Graphics/Sprites/item_p_colors.s"
-.size:  equ $ - SpriteColors_Item_P_Frames_0_to_7
+.size:  equ $ - SpriteColors_Item_P_Frame_0
 

@@ -1,3 +1,6 @@
+ITEM_P_MAX_LIFETIME:            equ 600         ; 600 frames = 10 seconds
+ITEM_P_LIFETIME_START_BLINK:    equ 420
+
 ; Input
 ;   HL: addr of enemy struct (the item struct addr is inside enemy struct)
 Item_Logic:
@@ -86,25 +89,51 @@ Item_Logic:
 
         ; --------------------------- item animation
 
+
+        ; if (Item_Temp_Frame_Counter >= 600) jp .resetItem
+        ld      hl, (Item_Temp_Frame_Counter)
+        ld      de, ITEM_P_MAX_LIFETIME
+        call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+        jp      nc, .resetItem
+
+
+        ; if (Item_Temp_Frame_Counter >= 420) blink item
+        ld      hl, (Item_Temp_Frame_Counter)
+        ld      de, ITEM_P_LIFETIME_START_BLINK     ; after 7 seconds
+        call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+        jp      c, .showItem
+
+        ; blink item when lifetime will be ending
+        ld      a, (BIOS_JIFFY)
+        and     0000 0100 b
+        or      a
+        jp      z, .showItem
+
+        ; hide item
+        ld      a, EMPTY_SPR_PAT_NUMBER
+        ld      (Enemy_Temp_Pattern_0), a
+        ld      (Enemy_Temp_Pattern_1), a
+        
+        jp      .continue
+        
+        ; ; Load item colors
+        ; ld      a, 0000 0001 b
+        ; ld      hl, (Item_Temp_SPRCOL_Addr)
+        ; call    SetVdp_Write
+        ; ld      c, PORT_0
+        ; ld      hl, SpriteColors_Item_P_Frames_0_to_7
+        ; ; 32x OUTI
+        ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+        ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+
+    .showItem:
         ld      a, (Item_Temp_Pattern_0)
         ld      (Enemy_Temp_Pattern_0), a
 
         ld      a, (Item_Temp_Pattern_1)
         ld      (Enemy_Temp_Pattern_1), a
 
-
-        ; TODO: load colors only on INITVRAM
-        
-        ; Load item colors
-        ld      a, 0000 0001 b
-        ld      hl, (Item_Temp_SPRCOL_Addr)
-        call    SetVdp_Write
-        ld      c, PORT_0
-        ld      hl, SpriteColors_Item_P_Frames_0_to_7
-        ; 32x OUTI
-        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-
+    .continue:
 
         ; --------------------------- check collision between item and player
 
@@ -127,22 +156,23 @@ Item_Logic:
 
     .collision:
 
-    ; TODO: improve player shot
+        ; TODO: improve player shot
 
-    ;ld      a, 100             ; volume
-    ld      a, SFX_GET_ITEM     ; number of sfx in the bank
-    ld      c, 15               ; sound priority
-    call    PlaySfx
+        ;ld      a, 100             ; volume
+        ld      a, SFX_GET_ITEM     ; number of sfx in the bank
+        ld      c, 15               ; sound priority
+        call    PlaySfx
 
-    ; reset item
-    pop     hl                                                  ; destiny
-    call    Item_Reset
+    .resetItem:
+        ; reset item
+        pop     hl                                                  ; destiny
+        call    Item_Reset
 
-    ; reset enemy
-    ld      hl, (Temp_Addr)                                     ; get enemy struct Temp_Addr
-    call    Enemy_Reset
+        ; reset enemy
+        ld      hl, (Temp_Addr)                                     ; get enemy struct Temp_Addr
+        call    Enemy_Reset
 
-    ret
+        ret
 
 
     .return:
@@ -235,16 +265,13 @@ ItemAnimation:
         ld      hl, SPRPAT + (ITEM_P_SPR_PAT_0_NUMBER * 8)
         call    SetVdp_Write
     pop     hl
-    ld      bc, 0 + (64 * 256) + PORT_0
-    otir
-
-    ; TODO: use unrolled OUTIs
-    ; ld      c, PORT_0
-    ; ; 64x OUTI
-    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; unrolled OUTIs
+    ld      c, PORT_0
+    ; 64x OUTI
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
     ; next ItemAnimation_CurrentFrame
     ld      hl, ItemAnimation_CurrentFrame

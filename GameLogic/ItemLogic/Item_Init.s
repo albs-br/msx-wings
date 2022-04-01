@@ -71,7 +71,18 @@ Item_Init:
         ld      (Item_Temp_Delta_Y), a
 
 
-.return:
+        ; Load item colors
+        ld      a, 0000 0001 b
+        ld      hl, (Item_Temp_SPRCOL_Addr)
+        call    SetVdp_Write
+        ld      c, PORT_0
+        ld      hl, SpriteColors_Item_P_Frame_0
+        ; 32x OUTI
+        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+
+
+; .return:
 
     pop     de  ; restore addr of item data struct
     
@@ -81,8 +92,5 @@ Item_Init:
     ld      bc, Item_Temp_Struct.size                           ; size
     ldir                                                        ; Copy BC bytes from HL to DE
 
-
-; .eTERNALloop:
-; JP .eTERNALloop
 
     ret
