@@ -7,6 +7,10 @@ EnemyShot_Logic:
     or      a
     ret     z           ; if (Status == 0) ret
 
+    ; set MegaROM page for Enemy Shot data
+    ld      a, ENEMY_SHOT_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
     push    hl
 
         ; Copy enemy shot struct to temp enemy shot struct

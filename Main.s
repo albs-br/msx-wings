@@ -43,7 +43,7 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     INCLUDE "LevelData/LoadLevel.s"
     ; INCLUDE "LevelData/Level_1.s"         ; moved to a MegaROM page
     ; INCLUDE "EnemyData/EnemyData_1.s"     ; moved to a MegaROM page
-    INCLUDE "EnemyData/EnemyShotData.s"     ; TODO: move this data too
+    ; INCLUDE "EnemyData/EnemyShotData.s"     ; moved to a MegaROM page
     INCLUDE "Sound/Sfx/PlaySfx.s"
 
     ; Assets
