@@ -21,6 +21,10 @@ Enemy_Logic:
     or      a
     ret     z               ; if (Status == 0) ret
 
+    ; set MegaROM page for Enemy data
+    ld      a, ENEMY_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
     push    hl
 
         ; Copy enemy struct to temp enemy struct

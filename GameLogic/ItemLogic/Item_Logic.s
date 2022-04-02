@@ -103,7 +103,7 @@ Item_Logic:
         call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
         jp      c, .showItem
 
-        ; blink item when lifetime will be ending
+        ; blink item when lifetime is ending
         ld      a, (BIOS_JIFFY)
         and     0000 0100 b
         or      a
