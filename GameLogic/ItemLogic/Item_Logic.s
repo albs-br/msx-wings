@@ -156,7 +156,9 @@ Item_Logic:
 
     .collision:
 
-        ; TODO: improve player shot
+        ; improve player shot
+        ld      a, PLAYER_SHOT_DOUBLE
+        ld      (Player_Shot_Type), a
 
         ;ld      a, 100             ; volume
         ld      a, SFX_GET_ITEM     ; number of sfx in the bank

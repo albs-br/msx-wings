@@ -1,6 +1,9 @@
 PLAYER_INITIAL_X:               equ 128 - (PLANE_PLAYER_WIDTH/2)
 PLAYER_INITIAL_Y:               equ 192 - 32
 
+PLAYER_SHOT_SINGLE:             equ 0
+PLAYER_SHOT_DOUBLE:             equ 1
+
 InitVariables:
 
 
@@ -17,6 +20,9 @@ InitVariables:
     ld      a, PLAYER_INITIAL_Y
     ld      (Player_Y), a
     ld      (Player_Y_Static), a
+
+    ld      a, PLAYER_SHOT_SINGLE
+    ld      (Player_Shot_Type), a
 
     ld      a, 128
     ld      (Player_SideMovementCounter), a
