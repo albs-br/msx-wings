@@ -414,6 +414,48 @@ CheckCollision_16x16_16x16:
 
 
 
+;  Calculates whether a collision occurs between a 16x16 object and a 32x16 object
+; IN: 
+;    B = x1; C = y1
+;    D = x2; E = y2
+; OUT: Carry set if collision
+; CHANGES: AF
+CheckCollision_16x16_32x16:
+
+        ld      a, d                        ; get x2
+        sub     b                           ; calculate x2 - x1
+        jr      c, .x1IsLarger              ; jump if x2 < x1
+        sub     16                          ; compare with size 1
+        ret     nc                          ; return if no collision
+        jp      .checkVerticalCollision
+.x1IsLarger:
+        neg                                 ; use negative value (Z80)
+        ; emulate neg instruction (Gameboy)
+        ; ld      b, a
+        ; xor     a                           ; same as ld a, 0
+        ; sub     a, b
+    
+        sub     32                          ; compare with size 2
+        ret     nc                          ; return if no collision
+
+.checkVerticalCollision:
+        ld      a, e                        ; get y2
+        sub     c                           ; calculate y2 - y1
+        jr      c, .y1IsLarger              ; jump if y2 < y1
+        sub     16                          ; compare with size 1
+        ret                                 ; return collision or no collision
+.y1IsLarger:
+        neg                                 ; use negative value (Z80)
+        ; emulate neg instruction (Gameboy)
+        ; ld      c, a
+        ; xor     a                           ; same as ld a, 0
+        ; sub     a, c
+    
+        sub     16                          ; compare with size 2
+        ret                                 ; return collision or no collision
+
+
+
 
 ;  Calculates whether a collision occurs between a 8x8 and a 16x16 object
 ; IN: 

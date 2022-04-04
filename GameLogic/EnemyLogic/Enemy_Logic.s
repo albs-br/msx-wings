@@ -143,6 +143,21 @@ Enemy_Logic:
                 ld      hl, PlayerShot_2_Struct
                 call    CheckCol_Enemy_PlayerShot
         pop     bc
+        ; push    bc
+        ;         ; check col. between current enemy and shot 3
+        ;         ld      hl, PlayerShot_3_Struct
+        ;         call    CheckCol_Enemy_PlayerShot
+        ; pop     bc
+        ; push    bc
+        ;         ; check col. between current enemy and shot 4
+        ;         ld      hl, PlayerShot_4_Struct
+        ;         call    CheckCol_Enemy_PlayerShot
+        ; pop     bc
+        ; push    bc
+        ;         ; check col. between current enemy and shot 5
+        ;         ld      hl, PlayerShot_5_Struct
+        ;         call    CheckCol_Enemy_PlayerShot
+        ; pop     bc
 
         ; --------------------------- check collision (enemy x player plane) -------------------------
 
@@ -352,7 +367,7 @@ Enemy_Logic:
     jp      .return
 
 ; Inputs:
-;   BC: X and Y of enemy
+;   BC: X and Y static of enemy
 ;   HL: PlayerShot struct addr
 CheckCol_Enemy_PlayerShot:
         ld      a, (hl)    ; Status
@@ -361,14 +376,23 @@ CheckCol_Enemy_PlayerShot:
 
         push    hl
                 inc     hl
-                ld      a, (hl)    ; X
+                ld      a, (hl)    ; player shot X
                 ld      d, a
 
                 inc     hl
                 inc     hl
-                ld      a, (hl)    ; Y static
+                ld      a, (hl)    ; player shot Y static
                 ld      e, a
+                
+                ; if (Player_Shot_Type == PLAYER_SHOT_DOUBLE) CheckCollision_16x16_32x16 else CheckCollision_16x16_16x16
+                ld      a, (Player_Shot_Type)
+                cp      PLAYER_SHOT_DOUBLE
+                jp      nz, .singleShot
+                call    CheckCollision_16x16_32x16
+                jp      .continue
+            .singleShot:
                 call    CheckCollision_16x16_16x16
+            .continue:                
         pop     hl
         jp      c, .collision
         ret

@@ -27,9 +27,21 @@ PlayerShot_Init:
     inc     a
     ld      (hl), a     ; set Status = 1
 
+
+
     inc     hl
+    ; check if double shot is enabled
+    ld      a, (Player_Shot_Type)
+    cp      PLAYER_SHOT_DOUBLE
     ld      a, (Player_X)
+    jp      nz, .continue_0
+
+    sub     8 ; on double shot, adjust 8px left to centralize
+
+.continue_0:
     ld      (hl), a     ; X
+
+
 
     inc     hl
     ld      a, (Player_Y)
@@ -40,6 +52,21 @@ PlayerShot_Init:
     ld      a, (Player_Y_Static)
     sub     16
     ld      (hl), a     ; Y static
+
+    inc     hl
+    ld      a, PLAYER_SHOT_SPR_PAT_NUMBER
+    ld      (hl), a     ; pattern number 0
+
+    ; check if double shot is enabled
+    ld      a, (Player_Shot_Type)
+    cp      PLAYER_SHOT_DOUBLE
+    jp      nz, .continue_1
+
+    inc     hl
+    ld      a, PLAYER_SHOT_SPR_PAT_NUMBER
+    ld      (hl), a     ; pattern number 1
+
+.continue_1:
 
     ; next shot
     ld      hl, (NextShot_Struct_Addr)

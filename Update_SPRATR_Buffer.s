@@ -2,10 +2,10 @@
 ;       =====================
 
 ;       qty     range
-;       5       0-4         Player plane (can be improved to only 4 by using a offset on sprites overlapping)
-;       6       5-10        Player shots (3x 16x16 sprites for simple shots; 3x 32x16 for double shots)
-;       14      11-24       Enemies (7x 16x16 two or-color sprites enemies; there will be many other combinations)
-;       7       25-31       Enemy shots (7x 16x16 single sprites)
+;       4       0-3         Player plane (can be improved to only 4 by using a offset on sprites overlapping)
+;       6       4-9        Player shots (3x 16x16 sprites for simple shots; 3x 32x16 for double shots)
+;       14      10-23       Enemies (7x 16x16 two or-color sprites enemies; there will be many other combinations)
+;       7       24-30       Enemy shots (7x 16x16 single sprites)
 
 
 PLAYER_SPR_PAT_0_NUMBER:                equ 0 * 4
@@ -150,12 +150,25 @@ Update_SPRATR_Buffer:
     ld      (hl), a
 
     inc     hl
-    ld      a, (PlayerShot_0_Struct)        ; Status
-    or      a
-    ld      a, PLAYER_SHOT_SPR_PAT_NUMBER
-    jp      nz, .sprite_4_continue          ; if (Status == 0) EMPTY_SPR_PAT_NUMBER else PLAYER_SHOT_SPR_PAT_NUMBER
-    ld      a, EMPTY_SPR_PAT_NUMBER
-.sprite_4_continue:
+    ld      a, (PlayerShot_0_Struct + 4)    ; Pattern number 0
+    ld      (hl), a
+
+    inc     hl
+
+; ----------------------------------------
+
+    ; Sprite # 4 a
+    inc     hl
+    ld      a, (PlayerShot_0_Struct + 2)    ; Y
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (PlayerShot_0_Struct + 1)    ; X
+    add     16
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (PlayerShot_0_Struct + 5)    ; Pattern number 1
     ld      (hl), a
 
     inc     hl
@@ -172,12 +185,25 @@ Update_SPRATR_Buffer:
     ld      (hl), a
 
     inc     hl
-    ld      a, (PlayerShot_1_Struct)        ; Status
-    or      a
-    ld      a, PLAYER_SHOT_SPR_PAT_NUMBER
-    jp      nz, .sprite_5_continue          ; if (Status == 0) EMPTY_SPR_PAT_NUMBER else PLAYER_SHOT_SPR_PAT_NUMBER
-    ld      a, EMPTY_SPR_PAT_NUMBER
-.sprite_5_continue:
+    ld      a, (PlayerShot_1_Struct + 4)    ; Pattern number 0
+    ld      (hl), a
+
+    inc     hl
+
+; ----------------------------------------
+
+    ; Sprite # 5 a
+    inc     hl
+    ld      a, (PlayerShot_1_Struct + 2)    ; Y
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (PlayerShot_1_Struct + 1)    ; X
+    add     16
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (PlayerShot_1_Struct + 5)    ; Pattern number 1
     ld      (hl), a
 
     inc     hl
@@ -194,12 +220,25 @@ Update_SPRATR_Buffer:
     ld      (hl), a
 
     inc     hl
-    ld      a, (PlayerShot_2_Struct)        ; Status
-    or      a
-    ld      a, PLAYER_SHOT_SPR_PAT_NUMBER
-    jp      nz, .sprite_6_continue          ; if (Status == 0) EMPTY_SPR_PAT_NUMBER else PLAYER_SHOT_SPR_PAT_NUMBER
-    ld      a, EMPTY_SPR_PAT_NUMBER
-.sprite_6_continue:
+    ld      a, (PlayerShot_2_Struct + 4)    ; Pattern number 0
+    ld      (hl), a
+
+    inc     hl
+
+; ----------------------------------------
+
+    ; Sprite # 6 a
+    inc     hl
+    ld      a, (PlayerShot_2_Struct + 2)    ; Y
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (PlayerShot_2_Struct + 1)    ; X
+    add     16
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (PlayerShot_2_Struct + 5)    ; Pattern number 1
     ld      (hl), a
 
     inc     hl

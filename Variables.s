@@ -20,6 +20,8 @@ PlayerShot_Temp_Status:                  rb 1
 PlayerShot_Temp_X:                       rb 1
 PlayerShot_Temp_Y:                       rb 1
 PlayerShot_Temp_Y_Static:                rb 1 ; y coord ignoring scroll
+PlayerShot_Temp_PatternNumber_0:         rb 1
+PlayerShot_Temp_PatternNumber_1:         rb 1
 PlayerShot_Temp_Struct.size:        equ $ - PlayerShot_Temp_Struct
 
 

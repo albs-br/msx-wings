@@ -16,4 +16,12 @@ PlayerShot_Reset:
     ld      a, 192
     ld      (hl), a     ; Y static
 
+    inc     hl
+    ld      a, EMPTY_SPR_PAT_NUMBER
+    ld      (hl), a     ; pattern number 0
+
+    inc     hl
+    ld      a, EMPTY_SPR_PAT_NUMBER
+    ld      (hl), a     ; pattern number 1
+
     ret

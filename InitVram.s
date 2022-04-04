@@ -340,7 +340,7 @@ SPRATR:     equ 0xfa00
 
     ; Spr 4 colors
     ld      a, 0000 0001 b
-    ld      hl, SPRCOL + 64
+    ld      hl, SPRCOL + 64 + (SpriteColors_PlayerShot.size * 0)
     call    SetVdp_Write
     ld      b, SpriteColors_PlayerShot.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
@@ -349,7 +349,7 @@ SPRATR:     equ 0xfa00
 
     ; Spr 5 colors
     ld      a, 0000 0001 b
-    ld      hl, SPRCOL + 64 + 16
+    ld      hl, SPRCOL + 64 + (SpriteColors_PlayerShot.size * 1)
     call    SetVdp_Write
     ld      b, SpriteColors_PlayerShot.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
@@ -358,7 +358,34 @@ SPRATR:     equ 0xfa00
 
     ; Spr 6 colors
     ld      a, 0000 0001 b
-    ld      hl, SPRCOL + 64 + 32
+    ld      hl, SPRCOL + 64 + (SpriteColors_PlayerShot.size * 2)
+    call    SetVdp_Write
+    ld      b, SpriteColors_PlayerShot.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpriteColors_PlayerShot
+    otir
+
+    ; Spr 7 colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + 64 + (SpriteColors_PlayerShot.size * 3)
+    call    SetVdp_Write
+    ld      b, SpriteColors_PlayerShot.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpriteColors_PlayerShot
+    otir
+
+    ; Spr 8 colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + 64 + (SpriteColors_PlayerShot.size * 4)
+    call    SetVdp_Write
+    ld      b, SpriteColors_PlayerShot.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, SpriteColors_PlayerShot
+    otir
+
+    ; Spr 9 colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + 64 + (SpriteColors_PlayerShot.size * 5)
     call    SetVdp_Write
     ld      b, SpriteColors_PlayerShot.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
@@ -366,13 +393,13 @@ SPRATR:     equ 0xfa00
     otir
 
     ; this will be loaded on EnemyInit
-ENEMY_0_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 0)
-ENEMY_1_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 1)
-ENEMY_2_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 2)
-ENEMY_3_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 3)
-ENEMY_4_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 4)
-ENEMY_5_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 5)
-ENEMY_6_SPRCOL_ADDR:        equ SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 6)
+ENEMY_0_SPRCOL_ADDR:        equ SPRCOL + 64 + (16 * 6) + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 0)
+ENEMY_1_SPRCOL_ADDR:        equ SPRCOL + 64 + (16 * 6) + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 1)
+ENEMY_2_SPRCOL_ADDR:        equ SPRCOL + 64 + (16 * 6) + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 2)
+ENEMY_3_SPRCOL_ADDR:        equ SPRCOL + 64 + (16 * 6) + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 3)
+ENEMY_4_SPRCOL_ADDR:        equ SPRCOL + 64 + (16 * 6) + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 4)
+ENEMY_5_SPRCOL_ADDR:        equ SPRCOL + 64 + (16 * 6) + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 5)
+ENEMY_6_SPRCOL_ADDR:        equ SPRCOL + 64 + (16 * 6) + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 6)
 
 
 
