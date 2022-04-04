@@ -49,6 +49,7 @@ ReadInput:
 .playerLeft:
     ld      a, (Player_X)
     sub     PLANE_PLAYER_PIXELS_PER_MOV
+    cp      6
     ret     c
     ld      (Player_X), a
 

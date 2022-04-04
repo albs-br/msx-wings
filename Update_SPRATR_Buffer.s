@@ -138,7 +138,7 @@ Update_SPRATR_Buffer:
 
 ; ================================== PLAYER SHOTS ===================================
 
-; ----------------------------------------
+; --------------------------------------------------------------------------------
 
     ; Sprite # 4
     inc     hl
@@ -157,7 +157,7 @@ Update_SPRATR_Buffer:
 
 ; ----------------------------------------
 
-    ; Sprite # 4 a
+    ; Sprite # 5
     inc     hl
     ld      a, (PlayerShot_0_Struct + 2)    ; Y
     ld      (hl), a
@@ -173,9 +173,9 @@ Update_SPRATR_Buffer:
 
     inc     hl
 
-; ----------------------------------------
+; --------------------------------------------------------------------------------
 
-    ; Sprite # 5
+    ; Sprite # 6
     inc     hl
     ld      a, (PlayerShot_1_Struct + 2)    ; Y
     ld      (hl), a
@@ -192,7 +192,7 @@ Update_SPRATR_Buffer:
 
 ; ----------------------------------------
 
-    ; Sprite # 5 a
+    ; Sprite # 7
     inc     hl
     ld      a, (PlayerShot_1_Struct + 2)    ; Y
     ld      (hl), a
@@ -208,9 +208,9 @@ Update_SPRATR_Buffer:
 
     inc     hl
 
-; ----------------------------------------
+; --------------------------------------------------------------------------------
 
-    ; Sprite # 6
+    ; Sprite # 8
     inc     hl
     ld      a, (PlayerShot_2_Struct + 2)    ; Y
     ld      (hl), a
@@ -227,7 +227,7 @@ Update_SPRATR_Buffer:
 
 ; ----------------------------------------
 
-    ; Sprite # 6 a
+    ; Sprite # 9
     inc     hl
     ld      a, (PlayerShot_2_Struct + 2)    ; Y
     ld      (hl), a
@@ -247,7 +247,7 @@ Update_SPRATR_Buffer:
 
 ; ------------------------------------------------------------------------------
 
-    ; Sprite # 7
+    ; Sprite # 10
     inc     hl
     ld      a, (Enemy_0_Struct + 2)    ; Y
     ld      (hl), a
@@ -264,7 +264,7 @@ Update_SPRATR_Buffer:
 
 ; ----------------------------------------
 
-    ; Sprite # 8
+    ; Sprite # 11
     inc     hl
     ld      a, (Enemy_0_Struct + 11)    ; Y1
     ld      (hl), a
@@ -281,7 +281,7 @@ Update_SPRATR_Buffer:
 
 ; ------------------------------------------------------------------------------
 
-    ; Sprite # 9
+    ; Sprite # 12
     inc     hl
     ld      a, (Enemy_1_Struct + 2)    ; Y
     ld      (hl), a
@@ -298,7 +298,7 @@ Update_SPRATR_Buffer:
 
 ; ----------------------------------------
 
-    ; Sprite # 10
+    ; Sprite # 13
     inc     hl
     ld      a, (Enemy_1_Struct + 11)    ; Y1
     ld      (hl), a
@@ -315,7 +315,7 @@ Update_SPRATR_Buffer:
 
 ; ------------------------------------------------------------------------------
 
-    ; Sprite # 11
+    ; Sprite # 14
     inc     hl
     ld      a, (Enemy_2_Struct + 2)    ; Y
     ld      (hl), a
@@ -332,7 +332,7 @@ Update_SPRATR_Buffer:
 
 ; ----------------------------------------
 
-    ; Sprite # 12
+    ; Sprite # 15
     inc     hl
     ld      a, (Enemy_2_Struct + 11)    ; Y1
     ld      (hl), a
@@ -349,7 +349,7 @@ Update_SPRATR_Buffer:
 
 ; ------------------------------------------------------------------------------
 
-    ; Sprite # 13
+    ; Sprite # 16
     inc     hl
     ld      a, (Enemy_3_Struct + 2)    ; Y
     ld      (hl), a
@@ -366,7 +366,7 @@ Update_SPRATR_Buffer:
 
 ; ----------------------------------------
 
-    ; Sprite # 14
+    ; Sprite # 17
     inc     hl
     ld      a, (Enemy_3_Struct + 11)    ; Y1
     ld      (hl), a
@@ -383,7 +383,7 @@ Update_SPRATR_Buffer:
 
 ; ------------------------------------------------------------------------------
 
-    ; Sprite # 15
+    ; Sprite # 18
     inc     hl
     ld      a, (Enemy_4_Struct + 2)    ; Y
     ld      (hl), a
@@ -400,7 +400,7 @@ Update_SPRATR_Buffer:
 
 ; ----------------------------------------
 
-    ; Sprite # 16
+    ; Sprite # 19
     inc     hl
     ld      a, (Enemy_4_Struct + 11)    ; Y1
     ld      (hl), a
@@ -417,7 +417,7 @@ Update_SPRATR_Buffer:
 
 ; ------------------------------------------------------------------------------
 
-    ; Sprite # 17
+    ; Sprite # 20
     inc     hl
     ld      a, (Enemy_5_Struct + 2)    ; Y
     ld      (hl), a
@@ -434,7 +434,7 @@ Update_SPRATR_Buffer:
 
 ; ----------------------------------------
 
-    ; Sprite # 18
+    ; Sprite # 21
     inc     hl
     ld      a, (Enemy_5_Struct + 11)    ; Y1
     ld      (hl), a
@@ -453,7 +453,7 @@ Update_SPRATR_Buffer:
 
 ; ------------------------------------------------------------------------------
 
-    ; Sprite # 19
+    ; Sprite # 22
     inc     hl
     ld      a, (Enemy_6_Struct + 2)    ; Y
     ld      (hl), a
@@ -470,7 +470,7 @@ Update_SPRATR_Buffer:
 
 ; ----------------------------------------
 
-    ; Sprite # 20
+    ; Sprite # 23
     inc     hl
     ld      a, (Enemy_6_Struct + 11)    ; Y1
     ld      (hl), a
@@ -490,7 +490,7 @@ Update_SPRATR_Buffer:
 
 ; ----------------------------------------
 
-    ; Sprite # 21
+    ; Sprite # 24
     inc     hl
     ld      a, (EnemyShot_0_Struct + 2)    ; Y
     ld      (hl), a
@@ -509,7 +509,7 @@ Update_SPRATR_Buffer:
 
 ; ----------------------------------------
 
-    ; Sprite # 22
+    ; Sprite # 25
     inc     hl
     ld      a, (EnemyShot_1_Struct + 2)    ; Y
     ld      (hl), a
@@ -528,7 +528,7 @@ Update_SPRATR_Buffer:
 
 ; ----------------------------------------
 
-    ; Sprite # 23
+    ; Sprite # 26
     inc     hl
     ld      a, (EnemyShot_2_Struct + 2)    ; Y
     ld      (hl), a
@@ -547,7 +547,7 @@ Update_SPRATR_Buffer:
 
 ; ----------------------------------------
 
-    ; Sprite # 24
+    ; Sprite # 27
     inc     hl
     ld      a, (EnemyShot_3_Struct + 2)    ; Y
     ld      (hl), a
@@ -566,7 +566,7 @@ Update_SPRATR_Buffer:
 
 ; ----------------------------------------
 
-    ; Sprite # 25
+    ; Sprite # 28
     inc     hl
     ld      a, (EnemyShot_4_Struct + 2)    ; Y
     ld      (hl), a
@@ -585,7 +585,7 @@ Update_SPRATR_Buffer:
 
 ; ----------------------------------------
 
-    ; Sprite # 26
+    ; Sprite # 29
     inc     hl
     ld      a, (EnemyShot_5_Struct + 2)    ; Y
     ld      (hl), a
@@ -604,7 +604,7 @@ Update_SPRATR_Buffer:
 
 ; ----------------------------------------
 
-    ; Sprite # 27
+    ; Sprite # 30
     inc     hl
     ld      a, (EnemyShot_6_Struct + 2)    ; Y
     ld      (hl), a

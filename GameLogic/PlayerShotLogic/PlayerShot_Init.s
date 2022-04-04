@@ -39,6 +39,7 @@ PlayerShot_Init:
     sub     8 ; on double shot, adjust 8px left to centralize
 
 .continue_0:
+    add     2 ; small adjust to centralize (due to the fact that the player sprite isn't centralized on the 32x32 box?)
     ld      (hl), a     ; X
 
 
