@@ -94,9 +94,6 @@ InitVariables:
     ld      (LevelCounter), hl
 
 
-    ; TODO: move this to a "LoadLevel" sub
-    ld      hl, Level_1_Data
-    ld      (LevelData_CurrentAddr), hl
 
 
 

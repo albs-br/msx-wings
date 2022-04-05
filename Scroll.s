@@ -158,6 +158,7 @@ ExecuteScroll:
 .stopScroll:
     jp      .stopScroll
     ;jp      Execute
+    ;jp      NextLevel
 
 
 AdjustSprites_Y:

@@ -60,6 +60,9 @@ LoadLevel:
     ld      a, LEVEL_1_LAST_SCREEN_PAGE
     ld      (CurrentLevelLastScreen), a
 
+    ld      hl, Level_1_Data
+    ld      (LevelData_CurrentAddr), hl
+
     jp      .continue
 
 .level_2:
@@ -69,6 +72,9 @@ LoadLevel:
 
     ld      a, LEVEL_2_LAST_SCREEN_PAGE
     ld      (CurrentLevelLastScreen), a
+
+    ld      hl, Level_2_Data
+    ld      (LevelData_CurrentAddr), hl
 
     jp      .continue
 
@@ -80,6 +86,9 @@ LoadLevel:
     ld      a, LEVEL_3_LAST_SCREEN_PAGE
     ld      (CurrentLevelLastScreen), a
 
+    ld      hl, Level_1_Data ; TODO: fix
+    ld      (LevelData_CurrentAddr), hl
+
     jp      .continue
 
 .level_4:
@@ -89,6 +98,9 @@ LoadLevel:
 
     ld      a, LEVEL_4_LAST_SCREEN_PAGE
     ld      (CurrentLevelLastScreen), a
+
+    ld      hl, Level_1_Data ; TODO: fix
+    ld      (LevelData_CurrentAddr), hl
 
     jp      .continue
 
@@ -100,6 +112,9 @@ LoadLevel:
     ld      a, LEVEL_5_LAST_SCREEN_PAGE
     ld      (CurrentLevelLastScreen), a
 
+    ld      hl, Level_1_Data ; TODO: fix
+    ld      (LevelData_CurrentAddr), hl
+
     jp      .continue
 
 .level_6:
@@ -109,6 +124,9 @@ LoadLevel:
 
     ld      a, LEVEL_6_LAST_SCREEN_PAGE
     ld      (CurrentLevelLastScreen), a
+
+    ld      hl, Level_1_Data ; TODO: fix
+    ld      (LevelData_CurrentAddr), hl
 
     jp      .continue
 
@@ -120,6 +138,9 @@ LoadLevel:
     ld      a, LEVEL_7_LAST_SCREEN_PAGE
     ld      (CurrentLevelLastScreen), a
 
+    ld      hl, Level_1_Data ; TODO: fix
+    ld      (LevelData_CurrentAddr), hl
+
     jp      .continue
 
 .level_8:
@@ -129,6 +150,9 @@ LoadLevel:
 
     ld      a, LEVEL_8_LAST_SCREEN_PAGE
     ld      (CurrentLevelLastScreen), a
+
+    ld      hl, Level_1_Data ; TODO: fix
+    ld      (LevelData_CurrentAddr), hl
 
     ;jp      .continue
 
@@ -148,3 +172,20 @@ LoadLevel:
     jp      nz, .loop
 
     ret
+
+
+
+; NextLevel:
+
+;     ld      a, (CurrentLevelNumber)
+;     inc     a
+;     ld      (CurrentLevelNumber), a
+
+;     call    BIOS_DISSCR
+
+;     call    LoadLevel
+
+;     call    BIOS_ENASCR
+
+
+;     jp      Execute.gameLoop

@@ -96,7 +96,8 @@ Execute:
     call    ayFX_SETUP
 
 
-    ld      a, 7            ; level number (1-8)
+    ld      a, 4                        ; level number (1-8)
+    ld      (CurrentLevelNumber), a
     call    LoadLevel
 
 

@@ -1020,6 +1020,7 @@ ENEMY_SHOT_DATA_MEGAROM_PAGE:   equ 242
 ; ------- Page 242
 	org	0x8000, 0xBFFF
     INCLUDE "LevelData/Level_1.s"
+    INCLUDE "LevelData/Level_2.s"
     INCLUDE "EnemyData/EnemyData_1.s"
     INCLUDE "EnemyData/EnemyShotData.s"
 	ds PAGE_SIZE - ($ - 0x8000), 255
