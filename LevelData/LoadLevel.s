@@ -166,6 +166,12 @@ LoadLevel:
 .loop:
     ld	    (Seg_P8000_SW), a
 
+    ; read some bytes
+    ld      de, (0x8000)        ; TODO: check on real hardware again
+    ld      de, (0x9000)
+    ld      de, (0xa000)
+    ld      de, (0xb000)
+
     dec     a
     cp      (hl)
 
@@ -176,6 +182,8 @@ LoadLevel:
 
 
 ; NextLevel:
+
+;     call    InitVariables
 
 ;     ld      a, (CurrentLevelNumber)
 ;     inc     a

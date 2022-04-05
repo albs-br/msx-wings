@@ -156,8 +156,8 @@ ExecuteScroll:
     ret
 
 .stopScroll:
-    jp      .stopScroll
-    ;jp      Execute
+    ;jp      .stopScroll
+    jp      Execute
     ;jp      NextLevel
 
 
