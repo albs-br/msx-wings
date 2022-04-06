@@ -125,9 +125,9 @@ GroundTarget_Temp_X:                       rb 1
 GroundTarget_Temp_Y:                       rb 1
 GroundTarget_Temp_Y_Static:                rb 1     ; y coord ignoring scroll
 GroundTarget_Temp_Pattern_0:               rb 1
-GroundTarget_Temp_Pattern_1:               rb 1
+GroundTarget_Temp_Pattern_1:               rb 1     ; not used
 GroundTarget_Temp_Data_Current_Addr:       rw 1
-GroundTarget_Temp_SPRCOL_Addr:             rw 1     ; VRAM addr for colors of these two patterns
+GroundTarget_Temp_SPRCOL_Addr:             rw 1     ; VRAM addr for colors of this pattern
 GroundTarget_Temp_X1:                      rb 1     ; not used
 GroundTarget_Temp_Y1:                      rb 1     ; not used
 GroundTarget_Temp_Frame_Counter:           rw 1

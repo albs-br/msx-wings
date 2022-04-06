@@ -18,6 +18,14 @@ GroundTarget_Init:
 
 
 
+
+    ld      a, 1
+    ld      (GroundTarget_Temp_Status), a     ; Status
+
+    ; ld      hl, 0
+    ; ld      (GroundTarget_Temp_Frame_Counter), hl      ; reset frame counter
+
+
     ; TODO: do init stuff here
 
 
