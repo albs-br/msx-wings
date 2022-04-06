@@ -4,6 +4,9 @@
 
 ram_watch   add     0xc005      -type byte       -desc Player_Shot_Type      -format dec
 
+ram_watch   add     0xC1FD      -type word       -desc LevelCounter      -format dec
+
+
 
 
 #ram_watch   add     0xc02c      -type byte      -desc Enemy_0_Y_Static     -format dec

@@ -59,6 +59,21 @@ GameLogic:
 
     ; -------------------------------------------
 
+    ld      hl, GroundTarget_0_Struct
+    call    GroundTarget_Logic
+    ld      hl, GroundTarget_1_Struct
+    call    GroundTarget_Logic
+    ld      hl, GroundTarget_2_Struct
+    call    GroundTarget_Logic
+    ld      hl, GroundTarget_3_Struct
+    call    GroundTarget_Logic
+    ld      hl, GroundTarget_4_Struct
+    call    GroundTarget_Logic
+    ld      hl, GroundTarget_5_Struct
+    call    GroundTarget_Logic
+
+    ; -------------------------------------------
+
     ld      hl, (LevelCounter)
     inc     hl
     ld      (LevelCounter), hl

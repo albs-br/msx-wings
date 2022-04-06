@@ -19,8 +19,10 @@ GroundTarget_Init:
 
 
     ; TODO: do init stuff here
-.endlessLoop:
-jp .endlessLoop ; debug
+
+
+; .endlessLoop:
+; jp .endlessLoop ; debug
 
 
 .return:
