@@ -411,6 +411,12 @@ ENEMY_SHOT_4_SPRCOL_ADDR:   equ ENEMY_SHOT_3_SPRCOL_ADDR + 16
 ENEMY_SHOT_5_SPRCOL_ADDR:   equ ENEMY_SHOT_4_SPRCOL_ADDR + 16
 ENEMY_SHOT_6_SPRCOL_ADDR:   equ ENEMY_SHOT_5_SPRCOL_ADDR + 16
 
+
+
+GROUND_TARGET_SPRCOL_ADDR:  equ ENEMY_SHOT_6_SPRCOL_ADDR + 16
+
+
+
     ; ; Spr 7 and 8 colors
     ; ld      a, 0000 0001 b
     ; ld      hl, SPRCOL + 64 + 32 + 16 + (SpriteColors_EnemyPlane_0_and_1.size * 0)

@@ -119,12 +119,39 @@ Item_6_Struct:                    rb Item_Temp_Struct.size
 
 ; ---------------------------------------
 
+GroundTarget_Temp_Struct:
+GroundTarget_Temp_Status:                  rb 1    
+GroundTarget_Temp_X:                       rb 1
+GroundTarget_Temp_Y:                       rb 1
+GroundTarget_Temp_Y_Static:                rb 1     ; y coord ignoring scroll
+GroundTarget_Temp_Pattern_0:               rb 1
+GroundTarget_Temp_Pattern_1:               rb 1
+GroundTarget_Temp_Data_Current_Addr:       rw 1
+GroundTarget_Temp_SPRCOL_Addr:             rw 1     ; VRAM addr for colors of these two patterns
+GroundTarget_Temp_X1:                      rb 1     ; not used
+GroundTarget_Temp_Y1:                      rb 1     ; not used
+GroundTarget_Temp_Frame_Counter:           rw 1
+GroundTarget_Temp_Delta_X:                 rb 1     ; +1 or -1
+GroundTarget_Temp_Delta_Y:                 rb 1     ; +1 or -1
+GroundTarget_Temp_Struct.size:        equ $ - GroundTarget_Temp_Struct
+
+
+
+GroundTarget_0_Struct:                    rb GroundTarget_Temp_Struct.size
+GroundTarget_1_Struct:                    rb GroundTarget_Temp_Struct.size
+GroundTarget_2_Struct:                    rb GroundTarget_Temp_Struct.size
+GroundTarget_3_Struct:                    rb GroundTarget_Temp_Struct.size
+GroundTarget_4_Struct:                    rb GroundTarget_Temp_Struct.size
+GroundTarget_5_Struct:                    rb GroundTarget_Temp_Struct.size
+
+; ---------------------------------------
+
 LevelData_Temp_Struct:
 LevelData_Temp_Counter:                     rw 1
 LevelData_Temp_ActionType:                  rb 1
 LevelData_Temp_Initial_X:                   rb 1
 LevelData_Temp_Data_Initial_Addr:           rw 1
-LevelData_Temp_EnemyStruct_Addr:            rw 1
+LevelData_Temp_EnemyStruct_Addr:            rw 1    ; TODO: rename to a more generic name like LevelData_Temp_ObjectStruct_Addr
 LevelData_Temp_SPRCOL_Addr:                 rw 1
 LevelData_Temp_EnemyShotStruct_Addr:        rw 1
 LevelData_Temp_ExtraData_Addr:              rw 1    ; will hold Item Struct Adrr, for enemy entries

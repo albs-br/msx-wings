@@ -76,6 +76,36 @@ InitVariables:
     call    EnemyShot_Reset
 
 
+    ld      hl, Item_0_Struct
+    call    Item_Reset
+    ld      hl, Item_1_Struct
+    call    Item_Reset
+    ld      hl, Item_2_Struct
+    call    Item_Reset
+    ld      hl, Item_3_Struct
+    call    Item_Reset
+    ld      hl, Item_4_Struct
+    call    Item_Reset
+    ld      hl, Item_5_Struct
+    call    Item_Reset
+    ld      hl, Item_6_Struct
+    call    Item_Reset
+
+
+    ld      hl, GroundTarget_0_Struct
+    call    GroundTarget_Reset
+    ld      hl, GroundTarget_1_Struct
+    call    GroundTarget_Reset
+    ld      hl, GroundTarget_2_Struct
+    call    GroundTarget_Reset
+    ld      hl, GroundTarget_3_Struct
+    call    GroundTarget_Reset
+    ld      hl, GroundTarget_4_Struct
+    call    GroundTarget_Reset
+    ld      hl, GroundTarget_5_Struct
+    call    GroundTarget_Reset
+
+
     ; load first shot struct addr
     ld      hl, PlayerShot_0_Struct
     ld      (NextShot_Struct_Addr), hl

@@ -119,6 +119,9 @@ GameLogic:
     cp      ENEMY_SHOT_TYPE_1
     call    z, EnemyShot_Init
 
+    cp      GROUND_TARGET
+    call    z, GroundTarget_Init
+
 .exitLevelData:
 
 

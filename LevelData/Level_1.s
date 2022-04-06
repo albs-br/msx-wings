@@ -1,6 +1,7 @@
 ENEMY_TYPE_1:           equ 1
 ENEMY_SHOT_TYPE_1:      equ 2
-ITEM_P:                 equ 100
+ITEM_P:                 equ 100     ; this is gonna be used only on bonus stages
+GROUND_TARGET:          equ 150
 
 
 Level_1_Data:
@@ -17,6 +18,9 @@ Level_1_Data:
     dw  22      db  ENEMY_TYPE_1,           192   dw  EnemyData_5     dw Enemy_5_Struct, ENEMY_5_SPRCOL_ADDR,      0,       Item_5_Struct
     ; test debug trap    
     ; dw  33      db  ENEMY_TYPE_1,           32    dw  EnemyData_1     dw Enemy_0_Struct, ENEMY_0_SPRCOL_ADDR,      0,       0
+
+    dw  25      db  GROUND_TARGET,          128   dw  0       dw GroundTarget_0_Struct, GROUND_TARGET_SPRCOL_ADDR, 0,       0
+
 
     dw  35      db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_45_degrees_left  dw Enemy_3_Struct, ENEMY_SHOT_0_SPRCOL_ADDR, EnemyShot_0_Struct,       Item_0_Struct
     dw  36      db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_left  dw Enemy_3_Struct, ENEMY_SHOT_1_SPRCOL_ADDR, EnemyShot_1_Struct,       0

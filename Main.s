@@ -28,18 +28,27 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     INCLUDE "ReadInput.s"
     INCLUDE "GameLogic/GameLogic.s"
     INCLUDE "GameLogic/PlayerLogic.s"
+    
     INCLUDE "GameLogic/PlayerShotLogic/PlayerShot_Init.s"
     INCLUDE "GameLogic/PlayerShotLogic/PlayerShot_Reset.s"
     INCLUDE "GameLogic/PlayerShotLogic/PlayerShot_Logic.s"
+    
     INCLUDE "GameLogic/EnemyLogic/Enemy_Init.s"
     INCLUDE "GameLogic/EnemyLogic/Enemy_Reset.s"
     INCLUDE "GameLogic/EnemyLogic/Enemy_Logic.s"
+    
     INCLUDE "GameLogic/EnemyShotLogic/EnemyShot_Init.s"
     INCLUDE "GameLogic/EnemyShotLogic/EnemyShot_Reset.s"
     INCLUDE "GameLogic/EnemyShotLogic/EnemyShot_Logic.s"
+    
     INCLUDE "GameLogic/ItemLogic/Item_Init.s"
     INCLUDE "GameLogic/ItemLogic/Item_Reset.s"
     INCLUDE "GameLogic/ItemLogic/Item_Logic.s"
+
+    INCLUDE "GameLogic/GroundTargetLogic/GroundTarget_Init.s"
+    INCLUDE "GameLogic/GroundTargetLogic/GroundTarget_Reset.s"
+    INCLUDE "GameLogic/GroundTargetLogic/GroundTarget_Logic.s"
+
     INCLUDE "LevelData/LoadLevel.s"
     ; INCLUDE "LevelData/Level_1.s"         ; moved to a MegaROM page
     ; INCLUDE "EnemyData/EnemyData_1.s"     ; moved to a MegaROM page
