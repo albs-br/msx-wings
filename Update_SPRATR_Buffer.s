@@ -46,7 +46,7 @@ PLAYER_RIGHT_FRAME_1_TOP_SPR_PAT_0_NUMBER:       equ 34 * 4     ; 34 to 37
 ITEM_P_SPR_PAT_0_NUMBER:                         equ 38 * 4     ; 38 to 39  ; all frames of item P will be put here
 ; -------------- NEXT AVAILABLE: 40 --------------------
 
-EMPTY_SPR_PAT_NUMBER:                           equ 63 * 4
+EMPTY_SPR_PAT_NUMBER:                            equ 63 * 4
 
 Update_SPRATR_Buffer:
     ld      hl, SPRATR_Buffer
@@ -56,6 +56,9 @@ Update_SPRATR_Buffer:
 
     ; Sprite # 0
     ld      a, (Player_Y)
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -75,6 +78,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 1
     inc     hl
     ld      a, (Player_Y)
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -96,6 +102,9 @@ Update_SPRATR_Buffer:
     inc     hl
     ld      a, (Player_Y)
     add     a, 16
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -117,6 +126,9 @@ Update_SPRATR_Buffer:
     inc     hl
     ld      a, (Player_Y)
     add     a, 16
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     ld      a, (Player_Spr3_Offset_X)
@@ -143,6 +155,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 4
     inc     hl
     ld      a, (PlayerShot_0_Struct + 2)    ; Y
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -160,6 +175,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 5
     inc     hl
     ld      a, (PlayerShot_0_Struct + 2)    ; Y
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -178,6 +196,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 6
     inc     hl
     ld      a, (PlayerShot_1_Struct + 2)    ; Y
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -195,6 +216,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 7
     inc     hl
     ld      a, (PlayerShot_1_Struct + 2)    ; Y
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -213,6 +237,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 8
     inc     hl
     ld      a, (PlayerShot_2_Struct + 2)    ; Y
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -230,6 +257,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 9
     inc     hl
     ld      a, (PlayerShot_2_Struct + 2)    ; Y
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -250,6 +280,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 10
     inc     hl
     ld      a, (Enemy_0_Struct + 2)    ; Y
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -267,6 +300,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 11
     inc     hl
     ld      a, (Enemy_0_Struct + 11)    ; Y1
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -284,6 +320,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 12
     inc     hl
     ld      a, (Enemy_1_Struct + 2)    ; Y
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -301,6 +340,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 13
     inc     hl
     ld      a, (Enemy_1_Struct + 11)    ; Y1
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -318,6 +360,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 14
     inc     hl
     ld      a, (Enemy_2_Struct + 2)    ; Y
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -335,6 +380,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 15
     inc     hl
     ld      a, (Enemy_2_Struct + 11)    ; Y1
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -352,6 +400,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 16
     inc     hl
     ld      a, (Enemy_3_Struct + 2)    ; Y
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -369,6 +420,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 17
     inc     hl
     ld      a, (Enemy_3_Struct + 11)    ; Y1
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -386,6 +440,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 18
     inc     hl
     ld      a, (Enemy_4_Struct + 2)    ; Y
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -403,6 +460,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 19
     inc     hl
     ld      a, (Enemy_4_Struct + 11)    ; Y1
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -420,6 +480,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 20
     inc     hl
     ld      a, (Enemy_5_Struct + 2)    ; Y
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -437,6 +500,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 21
     inc     hl
     ld      a, (Enemy_5_Struct + 11)    ; Y1
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -456,6 +522,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 22
     inc     hl
     ld      a, (Enemy_6_Struct + 2)    ; Y
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -473,6 +542,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 23
     inc     hl
     ld      a, (Enemy_6_Struct + 11)    ; Y1
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -493,6 +565,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 24
     inc     hl
     ld      a, (EnemyShot_0_Struct + 2)    ; Y
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -512,6 +587,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 25
     inc     hl
     ld      a, (EnemyShot_1_Struct + 2)    ; Y
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -531,6 +609,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 26
     inc     hl
     ld      a, (EnemyShot_2_Struct + 2)    ; Y
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -550,6 +631,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 27
     inc     hl
     ld      a, (EnemyShot_3_Struct + 2)    ; Y
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -569,6 +653,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 28
     inc     hl
     ld      a, (EnemyShot_4_Struct + 2)    ; Y
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -588,6 +675,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 29
     inc     hl
     ld      a, (EnemyShot_5_Struct + 2)    ; Y
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -607,6 +697,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 30
     inc     hl
     ld      a, (EnemyShot_6_Struct + 2)    ; Y
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl
@@ -626,6 +719,9 @@ Update_SPRATR_Buffer:
     ; Sprite # 31
     inc     hl
     ld      a, (GroundTarget_Temp_Struct + 2)    ; Y
+    cp      216         ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
     ld      (hl), a
 
     inc     hl

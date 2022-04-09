@@ -120,7 +120,7 @@ Item_6_Struct:                    rb Item_Temp_Struct.size
 ; ---------------------------------------
 
 GroundTarget_Temp_Struct:
-GroundTarget_Temp_Status:                  rb 1    
+GroundTarget_Temp_Status:                  rb 1    ; 0: disabled, 1: enabled (alive), 2-20: explosion animation, 254: became item, 255: item after got by player
 GroundTarget_Temp_X:                       rb 1
 GroundTarget_Temp_Y:                       rb 1
 GroundTarget_Temp_Y_Static:                rb 1     ; y coord ignoring scroll
