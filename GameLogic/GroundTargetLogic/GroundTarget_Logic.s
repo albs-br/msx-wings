@@ -18,6 +18,13 @@ GroundTarget_Logic:
 
 
         ; TODO: ground target logic here
+        
+        ; if (IsScroll)
+        ld      a, (GroundTarget_Temp_Y_Static)
+        inc     a
+        ld      (GroundTarget_Temp_Y_Static), a
+
+
 
 
 .return:

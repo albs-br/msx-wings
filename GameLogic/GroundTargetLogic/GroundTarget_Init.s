@@ -25,6 +25,29 @@ GroundTarget_Init:
     ; ld      hl, 0
     ; ld      (GroundTarget_Temp_Frame_Counter), hl      ; reset frame counter
 
+    ; get initial X coord from level data struct
+    ld      a, (LevelData_Temp_Initial_X)
+    ld      (GroundTarget_Temp_X), a
+
+    ld      a, (Screen_Y_Origin)
+    ld      (GroundTarget_Temp_Y), a
+
+    xor     a
+    ld      (GroundTarget_Temp_Y_Static), a      ; Y static
+
+    ld      a, PLAYER_SPR_PAT_0_NUMBER
+    ld      (GroundTarget_Temp_Pattern_0), a     ; Pattern 0
+
+    ; Load ground target colors
+    ld      a, 0000 0001 b
+    ld      hl, GROUND_TARGET_SPRCOL_ADDR ; (GroundTarget_Temp_SPRCOL_Addr)
+    call    SetVdp_Write
+    ld      c, PORT_0
+    ld      hl, SpriteColors_Item_P_Frame_0
+    ; 32x OUTI
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+
 
     ; TODO: do init stuff here
 

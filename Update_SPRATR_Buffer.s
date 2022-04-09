@@ -623,5 +623,23 @@ Update_SPRATR_Buffer:
 
 ; ----------------------------------------
 
+    ; Sprite # 31
+    inc     hl
+    ld      a, (GroundTarget_Temp_Struct + 2)    ; Y
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (GroundTarget_Temp_Struct + 1)    ; X
+    ld      (hl), a
+
+    inc     hl
+    ld      a, (GroundTarget_Temp_Struct + 4)    ; Pattern
+    ld      (hl), a
+
+    inc     hl
+    ; ld      a, 0
+    ; ld      (hl), a
+
+
 
     ret
