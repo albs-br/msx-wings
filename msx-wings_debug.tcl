@@ -6,6 +6,9 @@ ram_watch   add     0xc005      -type byte       -desc Player_Shot_Type      -fo
 
 ram_watch   add     0xC1FD      -type word       -desc LevelCounter      -format dec
 
+ram_watch   add     0xC18f      -type byte       -desc GT0_Y_Static      -format dec
+
+#GroundTarget_0_Struct: equ 0C18Ch ; last def. pass 3
 
 
 

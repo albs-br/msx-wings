@@ -93,6 +93,7 @@ Level_1_Data:
     ; dw  417     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right  dw Enemy_6_Struct, ENEMY_SHOT_2_SPRCOL_ADDR, EnemyShot_2_Struct,       0
 
 
+    dw  499     db  GROUND_TARGET,          0     dw  0       dw GroundTarget_0_Struct, GROUND_TARGET_SPRCOL_ADDR, 0,       0
 
 
     dw  500     db  ENEMY_TYPE_1,           128   dw  EnemyData_4     dw Enemy_0_Struct, ENEMY_0_SPRCOL_ADDR,      0,       0

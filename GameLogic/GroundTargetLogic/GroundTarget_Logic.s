@@ -19,16 +19,16 @@ GroundTarget_Logic:
 
         ; -------------------------- ground target logic --------------------------
         
-        ; if (IsScroll)
+        ; if (IsScroll) GroundTarget_Temp_Y_Static++
         ld      a, (BIOS_JIFFY)         ; get only low byte of JIFFY
         and     SCROLL_SPEED
         jp      nz, .isNotScroll
-
 
         ld      a, (GroundTarget_Temp_Y_Static)
         inc     a
         ld      (GroundTarget_Temp_Y_Static), a
 
+        ; if (GroundTarget_Temp_Y_Static == 192) groundTargetReset
         cp      192
         jp      z, .groundTargetReset
 
