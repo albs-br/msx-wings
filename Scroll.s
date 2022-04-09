@@ -77,12 +77,13 @@ LoadFirstScreen:
 SCROLL_FULL_SPEED:      equ 0000 0000 b
 SCROLL_HALF_SPEED:      equ 0000 0001 b
 
+SCROLL_SPEED:           equ SCROLL_HALF_SPEED
+
 ExecuteScroll:
 
     ; speed scroll (scroll only on even frames or on all frames)
     ld      a, (BIOS_JIFFY)         ; get only low byte of JIFFY
-    ;and     SCROLL_FULL_SPEED
-    and     SCROLL_HALF_SPEED
+    and     SCROLL_SPEED
     ret     nz
 
 
