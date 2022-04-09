@@ -28,7 +28,9 @@ Enemy_Init:
         ld      a, (Enemy_Temp_Status)      ; get Status
         cp      1
     .debugTrap:
-        jp      z, .debugTrap
+        ;jp      z, .debugTrap
+        ld      hl, STRING_DEBUG_ENEMY_INIT_ERROR
+        JP      z, DebugMessage
     ENDIF    
 
 

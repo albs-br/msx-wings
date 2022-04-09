@@ -24,7 +24,9 @@ EnemyShot_Init:
         ld      a, (EnemyShot_Temp_Status)      ; get Status
         cp      1
     .debugTrap:
-        jp      z, .debugTrap
+        ;jp      z, .debugTrap
+        ld      hl, STRING_DEBUG_ENEMY_SHOT_INIT_ERROR
+        JP      z, DebugMessage
     ENDIF    
 
 
