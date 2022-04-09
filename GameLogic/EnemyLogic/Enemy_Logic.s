@@ -366,82 +366,18 @@ Enemy_Logic:
 
     jp      .return
 
-; Inputs:
-;   BC: X and Y static of object
-;   HL: PlayerShot struct addr
-; Output:
-;   Carry set: collision
-;   Carry reset: no collision
-CheckCol_Object_PlayerShot:
-        ld      a, (hl)    ; Status
-        or      a
-        ret     z ; jp      z, .skipCheckColShot_0      ; if (Shot status == 0) skip Check Col.
 
-        push    hl
-                inc     hl
-                ld      a, (hl)    ; player shot X
-                ld      d, a
-
-                inc     hl
-                inc     hl
-                ld      a, (hl)    ; player shot Y static
-                ld      e, a
-                
-                ; if (Player_Shot_Type == PLAYER_SHOT_DOUBLE) CheckCollision_16x16_32x16 else CheckCollision_16x16_16x16
-                ld      a, (Player_Shot_Type)
-                cp      PLAYER_SHOT_DOUBLE
-                jp      nz, .singleShot
-                call    CheckCollision_16x16_32x16
-                jp      .continue
-            .singleShot:
-                call    CheckCollision_16x16_16x16
-            .continue:                
-        pop     hl
-        ;jp      c, .collision
-        ;     .skipCheckColShot_0:
-        ;         ret
-    ;.collision:
-        ; call    PlayerShot_Reset
-        ; ld      hl, Enemy_Temp_Struct
-        ; call    StartExplosionAnimation
-
-        ret
 
 ; Inputs:
 ;   BC: X and Y static of enemy
 ;   HL: PlayerShot struct addr
 CheckCol_Enemy_PlayerShot:
-        ; ld      a, (hl)    ; Status
-        ; or      a
-        ; ret     z ; jp      z, .skipCheckColShot_0      ; if (Shot status == 0) skip Check Col.
-
-        ; push    hl
-        ;         inc     hl
-        ;         ld      a, (hl)    ; player shot X
-        ;         ld      d, a
-
-        ;         inc     hl
-        ;         inc     hl
-        ;         ld      a, (hl)    ; player shot Y static
-        ;         ld      e, a
-                
-        ;         ; if (Player_Shot_Type == PLAYER_SHOT_DOUBLE) CheckCollision_16x16_32x16 else CheckCollision_16x16_16x16
-        ;         ld      a, (Player_Shot_Type)
-        ;         cp      PLAYER_SHOT_DOUBLE
-        ;         jp      nz, .singleShot
-        ;         call    CheckCollision_16x16_32x16
-        ;         jp      .continue
-        ;     .singleShot:
-        ;         call    CheckCollision_16x16_16x16
-        ;     .continue:                
-        ; pop     hl
 
         call    CheckCol_Object_PlayerShot
 
         jp      c, .collision
         ret
-        ;     .skipCheckColShot_0:
-        ;         ret
+
     .collision:
         call    PlayerShot_Reset
         ld      hl, Enemy_Temp_Struct
@@ -449,23 +385,7 @@ CheckCol_Enemy_PlayerShot:
 
         ret
 
-; Inputs:
-;   BC: X and Y static of ground target
-;   HL: PlayerShot struct addr
-CheckCol_GroundTarget_PlayerShot:
-        call    CheckCol_Object_PlayerShot
 
-        jp      c, .collision
-        ret
-        ;     .skipCheckColShot_0:
-        ;         ret
-    .collision:
-        jp .collision ; debug
-        ;call    PlayerShot_Reset
-        ; ld      hl, GroundTarget_Temp_Struct
-        ; call    ______StartExplosionAnimation
-
-        ret
 
 ; Inputs:
 ;   BC: X and Y of enemy

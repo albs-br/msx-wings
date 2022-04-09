@@ -26,6 +26,8 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     INCLUDE "InitVariables.s"
     INCLUDE "Scroll.s"
     INCLUDE "ReadInput.s"
+    
+    INCLUDE "GameLogic/CommonLogic.s"
     INCLUDE "GameLogic/GameLogic.s"
     INCLUDE "GameLogic/PlayerLogic.s"
     

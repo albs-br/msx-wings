@@ -78,3 +78,22 @@ GroundTarget_Logic:
     ld      hl, GroundTarget_Temp_Struct
     call    GroundTarget_Reset
     jp      .return
+
+
+
+; Inputs:
+;   BC: X and Y static of ground target
+;   HL: PlayerShot struct addr
+CheckCol_GroundTarget_PlayerShot:
+        call    CheckCol_Object_PlayerShot
+
+        jp      c, .collision
+        ret
+
+    .collision:
+        jp .collision ; debug
+        ;call    PlayerShot_Reset
+        ; ld      hl, GroundTarget_Temp_Struct
+        ; call    ______StartExplosionAnimation
+
+        ret
