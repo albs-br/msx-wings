@@ -25,4 +25,17 @@ GroundTarget_Reset:
 
     ; TODO: should other fields be reset too?
     
+
+
+    ; Ground target sprite attributes
+    xor     a
+    ld      (GroundTarget_Sprite.X), a
+
+    ;ld      a, ???
+    ld      (GroundTarget_Sprite.Y), a
+
+    ld      a, EMPTY_SPR_PAT_NUMBER
+    ld      (GroundTarget_Sprite.PatternNumber), a
+
+
     ret

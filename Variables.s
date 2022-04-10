@@ -146,6 +146,14 @@ GroundTarget_5_Struct:                    rb GroundTarget_Temp_Struct.size
 
 ; ---------------------------------------
 
+; sprite for the "blink" effect when an ground target gets hit
+GroundTarget_Sprite:
+.X:                                       rb 1
+.Y:                                       rb 1
+.PatternNumber:                           rb 1
+
+; ---------------------------------------
+
 LevelData_Temp_Struct:
 LevelData_Temp_Counter:                     rw 1
 LevelData_Temp_ActionType:                  rb 1

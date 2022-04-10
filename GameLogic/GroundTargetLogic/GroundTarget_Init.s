@@ -36,8 +36,11 @@ GroundTarget_Init:
     xor     a
     ld      (GroundTarget_Temp_Y_Static), a      ; Y static
 
-    ld      a, PLAYER_SPR_PAT_0_NUMBER
-    ld      (GroundTarget_Temp_Pattern_0), a     ; Pattern 0
+    ; TODO: remove (not used anymore)
+    ; ld      a, PLAYER_SPR_PAT_0_NUMBER
+    ; ld      (GroundTarget_Temp_Pattern_0), a     ; Pattern 0
+
+
 
     ; Load ground target colors
     ld      a, 0000 0001 b
@@ -49,6 +52,17 @@ GroundTarget_Init:
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
+
+
+    ; Ground target sprite attributes
+    ld      a, (LevelData_Temp_Initial_X)
+    ld      (GroundTarget_Sprite.X), a
+
+    ld      a, (Screen_Y_Origin)
+    ld      (GroundTarget_Sprite.Y), a
+
+    ld      a, PLAYER_SPR_PAT_0_NUMBER
+    ld      (GroundTarget_Sprite.PatternNumber), a
 
 
 .return:

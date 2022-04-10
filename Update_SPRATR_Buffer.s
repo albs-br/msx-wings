@@ -723,18 +723,18 @@ Update_SPRATR_Buffer:
 
     ; Sprite # 31
     inc     hl
-    ld      a, (GroundTarget_Temp_Struct + 2)    ; Y
+    ld      a, (GroundTarget_Sprite.Y)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
     ld      (hl), a
 
     inc     hl
-    ld      a, (GroundTarget_Temp_Struct + 1)    ; X
+    ld      a, (GroundTarget_Sprite.X)    ; X
     ld      (hl), a
 
     inc     hl
-    ld      a, (GroundTarget_Temp_Struct + 4)    ; Pattern
+    ld      a, (GroundTarget_Sprite.PatternNumber)    ; Pattern
     ld      (hl), a
 
     inc     hl
