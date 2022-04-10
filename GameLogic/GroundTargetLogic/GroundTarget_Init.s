@@ -18,6 +18,7 @@ GroundTarget_Init:
 
 
 
+    ; ----------------------- ground target init logic here -----------------------
 
     ld      a, 1
     ld      (GroundTarget_Temp_Status), a     ; Status
@@ -48,12 +49,6 @@ GroundTarget_Init:
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
-
-    ; TODO: do init stuff here
-
-
-; .endlessLoop:
-; jp .endlessLoop ; debug
 
 
 .return:

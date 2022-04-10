@@ -375,8 +375,9 @@ CheckCol_Enemy_PlayerShot:
 
         call    CheckCol_Object_PlayerShot
 
-        jp      c, .collision
-        ret
+        ret     nc
+        ; jp      c, .collision
+        ; ret
 
     .collision:
         call    PlayerShot_Reset

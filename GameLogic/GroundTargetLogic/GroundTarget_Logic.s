@@ -87,8 +87,9 @@ GroundTarget_Logic:
 CheckCol_GroundTarget_PlayerShot:
         call    CheckCol_Object_PlayerShot
 
-        jp      c, .collision
-        ret
+        ret     nc
+        ; jp      c, .collision
+        ; ret
 
     .collision:
         jp .collision ; debug
