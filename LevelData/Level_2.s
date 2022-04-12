@@ -1,7 +1,5 @@
 
 Level_2_Data:
-    ; TODO: level data in the same timing mark should work
-
 ;                                           Initial_X                      EnemyStruct_Addr
 ;       Counter     ActionType              |         Delta_X_Initial_Addr |               SPRCOL_Addr
 ;       |           |                       |         |                    |               |

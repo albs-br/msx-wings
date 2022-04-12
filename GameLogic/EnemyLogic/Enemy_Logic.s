@@ -373,18 +373,15 @@ Enemy_Logic:
 ;   HL: PlayerShot struct addr
 CheckCol_Enemy_PlayerShot:
 
-        call    CheckCol_Object_PlayerShot
+    call    CheckCol_Object_PlayerShot
+    ret     nc
 
-        ret     nc
-        ; jp      c, .collision
-        ; ret
+;.collision:
+    call    PlayerShot_Reset
+    ld      hl, Enemy_Temp_Struct
+    call    StartExplosionAnimation
 
-    .collision:
-        call    PlayerShot_Reset
-        ld      hl, Enemy_Temp_Struct
-        call    StartExplosionAnimation
-
-        ret
+    ret
 
 
 
@@ -392,23 +389,21 @@ CheckCol_Enemy_PlayerShot:
 ;   BC: X and Y of enemy
 ;   DE: X and Y of player plane
 CheckCol_Enemy_PlayerPlane:
-        ;ld      a, (Player_Status)    ; Status
-        ;or      a
-        ;ret     z                  ; if (Player status == 0) skip Check Col.
+    ;ld      a, (Player_Status)    ; Status
+    ;or      a
+    ;ret     z                  ; if (Player status == 0) skip Check Col.
 
-        call    CheckCollision_16x16_16x16
-        jp      c, .collision
-        ret
-        ;     .skipCheckColShot_0:
-        ;         ret
-    .collision:
-        ; ld      b, 30       ; 1/2 second
-        ; call    Wait_B_Vblanks
+    call    CheckCollision_16x16_16x16
+    ret     nc
 
-        ld      hl, Enemy_Temp_Struct
-        call    StartExplosionAnimation
+;.collision:
+    ; ld      b, 30       ; 1/2 second
+    ; call    Wait_B_Vblanks
 
-        ret
+    ld      hl, Enemy_Temp_Struct
+    call    StartExplosionAnimation
+
+    ret
 
 
 StartExplosionAnimation:

@@ -85,23 +85,23 @@ GroundTarget_Logic:
 ;   BC: X and Y static of ground target
 ;   HL: PlayerShot struct addr
 CheckCol_GroundTarget_PlayerShot:
-        call    CheckCol_Object_PlayerShot
-        ret     nc
+    call    CheckCol_Object_PlayerShot
+    ret     nc
 
-    .collision:
-        ; Ground target sprite attributes
-        ld      a, (GroundTarget_Temp_X)
-        ld      (GroundTarget_Sprite.X), a
+;.collision:
+    ; Ground target sprite attributes
+    ld      a, (GroundTarget_Temp_X)
+    ld      (GroundTarget_Sprite.X), a
 
-        ld      a, (GroundTarget_Temp_Y)
-        ld      (GroundTarget_Sprite.Y), a
+    ld      a, (GroundTarget_Temp_Y)
+    ld      (GroundTarget_Sprite.Y), a
 
-        ld      a, PLAYER_SPR_PAT_0_NUMBER
-        ld      (GroundTarget_Sprite.PatternNumber), a        
-        
-        ;jp .collision ; debug
-        call    PlayerShot_Reset
-        ; ld      hl, GroundTarget_Temp_Struct
-        ; call    ______StartExplosionAnimation
+    ld      a, PLAYER_SPR_PAT_0_NUMBER
+    ld      (GroundTarget_Sprite.PatternNumber), a        
+    
+    ;jp .collision ; debug
+    call    PlayerShot_Reset
+    ; ld      hl, GroundTarget_Temp_Struct
+    ; call    ______StartExplosionAnimation
 
-        ret
+    ret
