@@ -59,6 +59,19 @@ GameLogic:
 
     ; -------------------------------------------
 
+    ; reset ground target sprite
+    ld      a, 255
+    ld      (GroundTarget_Sprite.X), a
+
+    ld      a, (Screen_Y_Origin)
+    add     212                             ; out of visible screen
+    ld      (GroundTarget_Sprite.Y), a
+
+    ld      a, EMPTY_SPR_PAT_NUMBER
+    ld      (GroundTarget_Sprite.PatternNumber), a
+
+
+
     ld      hl, GroundTarget_0_Struct
     call    GroundTarget_Logic
     ld      hl, GroundTarget_1_Struct

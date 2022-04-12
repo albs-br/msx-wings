@@ -55,14 +55,14 @@ GroundTarget_Init:
 
 
     ; Ground target sprite attributes
-    ld      a, (LevelData_Temp_Initial_X)
-    ld      (GroundTarget_Sprite.X), a
+    ; ld      a, (LevelData_Temp_Initial_X)
+    ; ld      (GroundTarget_Sprite.X), a
 
-    ld      a, (Screen_Y_Origin)
-    ld      (GroundTarget_Sprite.Y), a
+    ; ld      a, (Screen_Y_Origin)
+    ; ld      (GroundTarget_Sprite.Y), a
 
-    ld      a, PLAYER_SPR_PAT_0_NUMBER
-    ld      (GroundTarget_Sprite.PatternNumber), a
+    ; ld      a, PLAYER_SPR_PAT_0_NUMBER
+    ; ld      (GroundTarget_Sprite.PatternNumber), a
 
 
 .return:
