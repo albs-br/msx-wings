@@ -101,6 +101,11 @@ SpritePattern_Item_P_Frames_0_to_7:
     INCLUDE "Graphics/Sprites/item_p_patterns.s"
 .size:  equ $ - SpritePattern_Item_P_Frames_0_to_7
 
+SpritePattern_GroundTarget_0:
+    INCLUDE "Graphics/Sprites/ground_target_pattern_0.s"
+.size:  equ $ - SpritePattern_GroundTarget_0
+
+
 ; ------------------------------ Colors
 
 ; Center
@@ -182,4 +187,10 @@ SpriteColors_EnemyShot_0_to_2:
 SpriteColors_Item_P_Frame_0:
     INCLUDE "Graphics/Sprites/item_p_colors.s"
 .size:  equ $ - SpriteColors_Item_P_Frame_0
+
+
+
+SpriteColors_GroundTarget_0:
+    INCLUDE "Graphics/Sprites/ground_target_colors_0.s"
+.size:  equ $ - SpriteColors_GroundTarget_0
 

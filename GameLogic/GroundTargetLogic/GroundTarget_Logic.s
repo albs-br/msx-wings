@@ -96,7 +96,7 @@ CheckCol_GroundTarget_PlayerShot:
     ld      a, (GroundTarget_Temp_Y)
     ld      (GroundTarget_Sprite.Y), a
 
-    ld      a, PLAYER_SPR_PAT_0_NUMBER
+    ld      a, GROUND_TARGET_PAT_0_NUMBER
     ld      (GroundTarget_Sprite.PatternNumber), a        
     
     ;jp .collision ; debug

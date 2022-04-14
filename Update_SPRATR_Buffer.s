@@ -44,8 +44,11 @@ PLAYER_LEFT_FRAME_1_TOP_SPR_PAT_0_NUMBER:       equ 26 * 4
 PLAYER_RIGHT_FRAME_0_TOP_SPR_PAT_0_NUMBER:       equ 30 * 4     ; 30 to 33
 PLAYER_RIGHT_FRAME_1_TOP_SPR_PAT_0_NUMBER:       equ 34 * 4     ; 34 to 37
 
-ITEM_P_SPR_PAT_0_NUMBER:                         equ 38 * 4     ; 38 to 39  ; all frames of item P will be put here
-; -------------- NEXT AVAILABLE: 40 --------------------
+ITEM_P_SPR_PAT_0_NUMBER:                         equ 38 * 4     ; 38 to 39  ; all frames of item P will be put here (each frame uses 2 sprites)
+
+GROUND_TARGET_PAT_0_NUMBER:                      equ 40 * 4
+
+; -------------- NEXT AVAILABLE: 41 --------------------
 
 EMPTY_SPR_PAT_NUMBER:                            equ 63 * 4
 

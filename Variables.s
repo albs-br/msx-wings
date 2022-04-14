@@ -120,19 +120,19 @@ Item_6_Struct:                    rb Item_Temp_Struct.size
 ; ---------------------------------------
 
 GroundTarget_Temp_Struct:
-GroundTarget_Temp_Status:                  rb 1    ; 0: disabled, 1: enabled (alive), 2-20: explosion animation, 254: became item, 255: item after got by player
+GroundTarget_Temp_Status:                  rb 1     ; 0: disabled, 1: enabled (alive), 2-20: explosion animation, 254: became item, 255: item after got by player
 GroundTarget_Temp_X:                       rb 1
 GroundTarget_Temp_Y:                       rb 1
 GroundTarget_Temp_Y_Static:                rb 1     ; y coord ignoring scroll
 GroundTarget_Temp_Pattern_0:               rb 1
 GroundTarget_Temp_Pattern_1:               rb 1     ; not used
-GroundTarget_Temp_Data_Current_Addr:       rw 1
-GroundTarget_Temp_SPRCOL_Addr:             rw 1     ; VRAM addr for colors of this pattern
+GroundTarget_Temp_Data_Current_Addr:       rw 1     ; not used
+GroundTarget_Temp_SPRCOL_Addr:             rw 1     ; not used
 GroundTarget_Temp_X1:                      rb 1     ; not used
 GroundTarget_Temp_Y1:                      rb 1     ; not used
 GroundTarget_Temp_Frame_Counter:           rw 1
-GroundTarget_Temp_Delta_X:                 rb 1     ; +1 or -1
-GroundTarget_Temp_Delta_Y:                 rb 1     ; +1 or -1
+GroundTarget_Temp_Delta_X:                 rb 1     ; not used
+GroundTarget_Temp_Delta_Y:                 rb 1     ; not used
 GroundTarget_Temp_Struct.size:        equ $ - GroundTarget_Temp_Struct
 
 

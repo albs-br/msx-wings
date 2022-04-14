@@ -47,7 +47,7 @@ GroundTarget_Init:
     ld      hl, GROUND_TARGET_SPRCOL_ADDR ; (GroundTarget_Temp_SPRCOL_Addr)
     call    SetVdp_Write
     ld      c, PORT_0
-    ld      hl, SpriteColors_Item_P_Frame_0
+    ld      hl, SpriteColors_GroundTarget_0
     ; 32x OUTI
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
