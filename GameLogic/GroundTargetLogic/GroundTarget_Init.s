@@ -39,6 +39,8 @@ GroundTarget_Init:
     ; ld      a, PLAYER_SPR_PAT_0_NUMBER
     ; ld      (GroundTarget_Temp_Pattern_0), a     ; Pattern 0
 
+    ld      a, 10
+    ld      (GroundTarget_Temp_Health), a
 
 
     ; Load ground target colors

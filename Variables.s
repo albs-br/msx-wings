@@ -130,9 +130,10 @@ GroundTarget_Temp_Data_Current_Addr:       rw 1     ; not used
 GroundTarget_Temp_SPRCOL_Addr:             rw 1     ; not used
 GroundTarget_Temp_X1:                      rb 1     ; not used
 GroundTarget_Temp_Y1:                      rb 1     ; not used
-GroundTarget_Temp_Frame_Counter:           rw 1
+GroundTarget_Temp_Frame_Counter:           rw 1     ; not used (yet)
 GroundTarget_Temp_Delta_X:                 rb 1     ; not used
 GroundTarget_Temp_Delta_Y:                 rb 1     ; not used
+GroundTarget_Temp_Health:                  rb 1     ; initialized at 10, dec at each shot received; 0 is dead
 GroundTarget_Temp_Struct.size:        equ $ - GroundTarget_Temp_Struct
 
 

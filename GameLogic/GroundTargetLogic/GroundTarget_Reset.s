@@ -19,9 +19,10 @@ GroundTarget_Reset:
     ld      a, EMPTY_SPR_PAT_NUMBER
     ld      (hl), a     ; Pattern 0
 
-    inc     hl
-    ld      a, EMPTY_SPR_PAT_NUMBER
-    ld      (hl), a     ; Pattern 1
+    ; not used
+    ; inc     hl
+    ; ld      a, EMPTY_SPR_PAT_NUMBER
+    ; ld      (hl), a     ; Pattern 1
 
     ; TODO: should other fields be reset too?
     

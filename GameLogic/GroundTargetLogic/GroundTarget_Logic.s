@@ -89,6 +89,13 @@ CheckCol_GroundTarget_PlayerShot:
     ret     nc
 
 ;.collision:
+    ; decrement health
+    ld      a, (GroundTarget_Temp_Health)
+    dec     a
+.DEBUG_eternalLoop: ; debug
+    jp      z, .DEBUG_eternalLoop
+    ld      (GroundTarget_Temp_Health), a
+
     ; Ground target sprite attributes
     ld      a, (GroundTarget_Temp_X)
     ld      (GroundTarget_Sprite.X), a
