@@ -37,18 +37,25 @@ LoadLevel:
 
     cp      1
     jp      z, .level_1
+    
     cp      2
     jp      z, .level_2
+    
     cp      3
     jp      z, .level_3
+    
     cp      4
     jp      z, .level_4
+    
     cp      5
     jp      z, .level_5
+    
     cp      6
     jp      z, .level_6
+    
     cp      7
     jp      z, .level_7
+    
     cp      8
     jp      z, .level_8
 

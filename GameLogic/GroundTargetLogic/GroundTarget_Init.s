@@ -36,7 +36,6 @@ GroundTarget_Init:
     xor     a
     ld      (GroundTarget_Temp_Y_Static), a      ; Y static
 
-    ; TODO: remove (not used anymore)
     ; ld      a, PLAYER_SPR_PAT_0_NUMBER
     ; ld      (GroundTarget_Temp_Pattern_0), a     ; Pattern 0
 
@@ -44,7 +43,7 @@ GroundTarget_Init:
 
     ; Load ground target colors
     ld      a, 0000 0001 b
-    ld      hl, GROUND_TARGET_SPRCOL_ADDR ; (GroundTarget_Temp_SPRCOL_Addr)
+    ld      hl, GROUND_TARGET_SPRCOL_ADDR
     call    SetVdp_Write
     ld      c, PORT_0
     ld      hl, SpriteColors_GroundTarget_0

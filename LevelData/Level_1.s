@@ -31,7 +31,7 @@ Level_1_Data:
     ; test debug trap    
     ;dw  42      db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_45_degrees_left  dw Enemy_6_Struct, ENEMY_SHOT_0_SPRCOL_ADDR, EnemyShot_0_Struct,       0
 
-    dw  100     db  GROUND_TARGET,          112   dw  0       dw GroundTarget_0_Struct, GROUND_TARGET_SPRCOL_ADDR, 0,       0
+    dw  100     db  GROUND_TARGET,          112   dw  0       dw GroundTarget_0_Struct, 0,                         0,       0
 
 
     dw  150     db  ENEMY_TYPE_1,           64    dw  EnemyData_2     dw Enemy_0_Struct, ENEMY_0_SPRCOL_ADDR,      0,       Item_0_Struct
