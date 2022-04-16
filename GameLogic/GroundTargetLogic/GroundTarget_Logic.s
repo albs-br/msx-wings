@@ -126,14 +126,12 @@ GroundTarget_Logic:
 
 
     ld      a, (GroundTarget_Temp_Status)      ; get Status
-    cp      3 ; first frame of explosion (don't change it)
-    jp      z, .loadExplosionFrame_0
-    cp      7
-    jp      z, .loadExplosionFrame_1
-    cp      11
-    jp      z, .loadExplosionFrame_2
     cp      15
-    jp      z, .loadExplosionFrame_3
+    jp      nc, .loadExplosionFrame_2   ; if (Status >= 15) loadExplosionFrame_2
+    cp      9
+    jp      nc, .loadExplosionFrame_1   ; if (Status >= 9) loadExplosionFrame_1
+    cp      3 ; first frame of explosion (don't change it)
+    jp      nc, .loadExplosionFrame_0   ; if (Status >= 3) loadExplosionFrame_0
     jp      .return
 
 .loadExplosionFrame_0:
@@ -170,10 +168,10 @@ GroundTarget_Logic:
     ld      (GroundTarget_Sprite.PatternNumber), a
     jp      .return
 
-.loadExplosionFrame_3:
-    ld      a, EMPTY_SPR_PAT_NUMBER
-    ld      (GroundTarget_Sprite.PatternNumber), a
-    jp      .return
+; .loadExplosionFrame_3:
+;     ld      a, EMPTY_SPR_PAT_NUMBER
+;     ld      (GroundTarget_Sprite.PatternNumber), a
+;     jp      .return
 
 ; Inputs:
 ;   BC: X and Y static of ground target
