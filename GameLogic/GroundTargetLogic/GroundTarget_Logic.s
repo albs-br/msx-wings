@@ -16,6 +16,10 @@ GroundTarget_Logic:
         ldir                                                    ; Copy BC bytes from HL to DE
 
 
+        ld      a, (GroundTarget_Temp_Status)      ; get Status
+        cp      1
+        jp      nz, .doExplosionAnimation   ; if (Status != 1) doExplosionAnimation
+
 
         ; -------------------------- ground target logic --------------------------
         
@@ -42,17 +46,17 @@ GroundTarget_Logic:
         ld      c, a
 
         push    bc
-                ; check col. between current enemy and shot 0
+                ; check col. between current ground target and shot 0
                 ld      hl, PlayerShot_0_Struct
                 call    CheckCol_GroundTarget_PlayerShot
         pop     bc
         push    bc
-                ; check col. between current enemy and shot 1
+                ; check col. between current ground target and shot 1
                 ld      hl, PlayerShot_1_Struct
                 call    CheckCol_GroundTarget_PlayerShot
         pop     bc
         push    bc
-                ; check col. between current enemy and shot 2
+                ; check col. between current ground target and shot 2
                 ld      hl, PlayerShot_2_Struct
                 call    CheckCol_GroundTarget_PlayerShot
         pop     bc
@@ -79,12 +83,108 @@ GroundTarget_Logic:
     call    GroundTarget_Reset
     jp      .return
 
+.endExplosionAnimation:
+    ; Load ground target colors
+    ld      a, 0000 0001 b
+    ld      hl, GROUND_TARGET_SPRCOL_ADDR
+    call    SetVdp_Write
+    ld      c, PORT_0
+    ld      hl, SpriteColors_GroundTarget_0
+    ; 32x OUTI
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    jp      .groundTargetReset
 
+.doExplosionAnimation:
+
+    ld      a, (GroundTarget_Temp_Status)      ; get Status
+    inc     a
+    ld      (GroundTarget_Temp_Status), a
+    cp      20
+    ; ld      hl, GroundTarget_Temp_Struct
+    ; call    z, GroundTarget_Reset
+    jp      z, .endExplosionAnimation
+
+
+    ld      a, (GroundTarget_Temp_X)
+    ld      (GroundTarget_Sprite.X), a
+
+    ld      a, (GroundTarget_Temp_Y)
+    ld      (GroundTarget_Sprite.Y), a
+
+    ; load explosion colors
+    ld      hl, GROUND_TARGET_SPRCOL_ADDR
+    ld      a, 0000 0001 b
+    call    SetVdp_Write
+    ld      c, PORT_0
+    ld      hl, SpriteColors_Explosion_Frames_0_to_2
+    ; 16x OUTI
+    outi outi outi outi
+    outi outi outi outi
+    outi outi outi outi
+    outi outi outi outi 
+
+
+    ld      a, (GroundTarget_Temp_Status)      ; get Status
+    cp      3 ; first frame of explosion (don't change it)
+    jp      z, .loadExplosionFrame_0
+    cp      7
+    jp      z, .loadExplosionFrame_1
+    cp      11
+    jp      z, .loadExplosionFrame_2
+    cp      15
+    jp      z, .loadExplosionFrame_3
+    jp      .return
+
+.loadExplosionFrame_0:
+    ; ld      a, (GroundTarget_Temp_X)
+    ; ld      (GroundTarget_Sprite.X), a
+
+    ; ld      a, (GroundTarget_Temp_Y)
+    ; ld      (GroundTarget_Sprite.Y), a
+
+    ld      a, EXPLOSION_SPR_PAT_0_NUMBER
+    ld      (GroundTarget_Sprite.PatternNumber), a
+    
+    ; ; load explosion colors (first sprite)
+    ; ld      hl, GROUND_TARGET_SPRCOL_ADDR
+    ; ld      a, 0000 0001 b
+    ; call    SetVdp_Write
+    ; ld      c, PORT_0
+    ; ld      hl, SpriteColors_Explosion_Frames_0_to_2
+    ; ; 16x OUTI
+    ; outi outi outi outi
+    ; outi outi outi outi
+    ; outi outi outi outi
+    ; outi outi outi outi 
+
+    jp      .return
+
+.loadExplosionFrame_1:
+    ld      a, EXPLOSION_SPR_PAT_1_NUMBER
+    ld      (GroundTarget_Sprite.PatternNumber), a
+    jp      .return
+
+.loadExplosionFrame_2:
+    ld      a, EXPLOSION_SPR_PAT_2_NUMBER
+    ld      (GroundTarget_Sprite.PatternNumber), a
+    jp      .return
+
+.loadExplosionFrame_3:
+    ld      a, EMPTY_SPR_PAT_NUMBER
+    ld      (GroundTarget_Sprite.PatternNumber), a
+    jp      .return
 
 ; Inputs:
 ;   BC: X and Y static of ground target
 ;   HL: PlayerShot struct addr
 CheckCol_GroundTarget_PlayerShot:
+
+    ; check collision only on status 1
+    ld      a, (GroundTarget_Temp_Status)
+    cp      1
+    ret     nz
+
     call    CheckCol_Object_PlayerShot
     ret     nc
 
@@ -92,9 +192,10 @@ CheckCol_GroundTarget_PlayerShot:
     ; decrement health
     ld      a, (GroundTarget_Temp_Health)
     dec     a
-.DEBUG_eternalLoop: ; debug
-    jp      z, .DEBUG_eternalLoop
     ld      (GroundTarget_Temp_Health), a
+    call    z, .startExplosionAnimation
+
+
 
     ; Ground target sprite attributes
     ld      a, (GroundTarget_Temp_X)
@@ -106,9 +207,24 @@ CheckCol_GroundTarget_PlayerShot:
     ld      a, GROUND_TARGET_PAT_0_NUMBER
     ld      (GroundTarget_Sprite.PatternNumber), a        
     
-    ;jp .collision ; debug
     call    PlayerShot_Reset
-    ; ld      hl, GroundTarget_Temp_Struct
-    ; call    ______StartExplosionAnimation
 
     ret
+
+.startExplosionAnimation:
+    ; ld      hl, GroundTarget_Temp_Struct
+    ; call    StartExplosionAnimation
+
+    ld      a, 2
+    ld      (GroundTarget_Temp_Status), a                         ; status
+    ; ld      (hl), a                         ; status
+
+
+
+    ;ld      a, 200          ; volume
+    ld      a, SFX_EXPLOSION    ; number of sfx in the bank
+    ld      c, 1                ; sound priority
+    call    PlaySfx
+
+    ret
+

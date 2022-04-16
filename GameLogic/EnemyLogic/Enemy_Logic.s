@@ -379,7 +379,7 @@ CheckCol_Enemy_PlayerShot:
 ;.collision:
     call    PlayerShot_Reset
     ld      hl, Enemy_Temp_Struct
-    call    StartExplosionAnimation
+    call    Enemy_StartExplosionAnimation
 
     ret
 
@@ -401,12 +401,12 @@ CheckCol_Enemy_PlayerPlane:
     ; call    Wait_B_Vblanks
 
     ld      hl, Enemy_Temp_Struct
-    call    StartExplosionAnimation
+    call    Enemy_StartExplosionAnimation
 
     ret
 
 
-StartExplosionAnimation:
+Enemy_StartExplosionAnimation:
     ld      a, 2
     ld      (hl), a                         ; status
 
