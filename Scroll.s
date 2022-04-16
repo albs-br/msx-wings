@@ -74,10 +74,11 @@ LoadFirstScreen:
     ret
 
 
-SCROLL_FULL_SPEED:      equ 0000 0000 b
-SCROLL_HALF_SPEED:      equ 0000 0001 b
+SCROLL_FULL_SPEED:          equ 0000 0000 b
+SCROLL_HALF_SPEED:          equ 0000 0001 b
+SCROLL_ONE_FOURTH_SPEED:    equ 0000 0011 b
 
-SCROLL_SPEED:           equ SCROLL_HALF_SPEED
+SCROLL_SPEED:           equ SCROLL_ONE_FOURTH_SPEED
 
 ExecuteScroll:
 

@@ -328,7 +328,7 @@ BIOS_MAXFIL: equ 0F85Fh ; last def. pass 3
 BIOS_H_DSPF: equ 0FDB3h ; last def. pass 3
 LEVEL_2_LAST_SCREEN_PAGE: equ 011h ; last def. pass 3
 SpriteColors_PlayerPlane_Right_Frame_0_Top: equ 061B3h ; last def. pass 3
-SCROLL_SPEED: equ 01h ; last def. pass 3
+SCROLL_SPEED: equ 03h ; last def. pass 3
 BIOS_GETPLT: equ 0149h ; last def. pass 3
 EnemyShotDeltaX_22_degrees_left: equ 09960h ; last def. pass 3
 SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1.size: equ 040h ; last def. pass 3
@@ -1028,6 +1028,7 @@ BIOS_VLZDAT: equ 0F41Bh ; last def. pass 3
 BIOS_GTTRIG: equ 0D8h ; last def. pass 3
 CurrentMegaROMPage: equ 0C20Dh ; last def. pass 3
 ayFX_INIT: equ 041E6h ; last def. pass 3
+SCROLL_ONE_FOURTH_SPEED: equ 03h ; last def. pass 3
 Item_Temp_Pattern_0: equ 0C100h ; last def. pass 3
 BIOS_H_GEND: equ 0FEC6h ; last def. pass 3
 BIOS_STATFL: equ 0F3E7h ; last def. pass 3
