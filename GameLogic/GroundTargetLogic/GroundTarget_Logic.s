@@ -93,7 +93,35 @@ GroundTarget_Logic:
     ; 32x OUTI
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+
+
+
+    ; -------------------------- test draw on background bitmap (screen 11)
+    ld      hl, (CurrentVRAMAddrLineScroll)
+
+    ; HL += (GroundTarget_Temp_Y_Static * 256) + GroundTarget_Temp_X
+    ld      a, (GroundTarget_Temp_Y_Static)
+    ld      c, 0
+    ld      b, a
+    ; ld      bc, 60 * 256
+    add     hl, bc
+    ld      a, (GroundTarget_Temp_X)
+    ld      b, 0
+    ld      c, a
+    add     hl, bc
+
+    ld      a, 0000 0000 b
+    call    SetVdp_Write
+    ld      c, PORT_0
+    ld      hl, .TestDrawBg
+    ; 16x OUTI
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+
     jp      .groundTargetReset
+
+.TestDrawBg:
+    db  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
 
 .doExplosionAnimation:
 

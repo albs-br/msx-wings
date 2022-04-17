@@ -82,7 +82,7 @@ SCROLL_SPEED:           equ SCROLL_ONE_FOURTH_SPEED
 
 ExecuteScroll:
 
-    ; speed scroll (scroll only on even frames or on all frames)
+    ; speed scroll (scroll only on even frames or on all frames, or at 1/4 of frames)
     ld      a, (BIOS_JIFFY)         ; get only low byte of JIFFY
     and     SCROLL_SPEED
     ret     nz
