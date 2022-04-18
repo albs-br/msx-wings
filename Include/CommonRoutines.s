@@ -290,6 +290,7 @@ Screen11:
 SetSprites16x16:
     ld      a, (REG1SAV)
     or      0000 0010 b
+    ld      (REG1SAV), a
     ld      b, a
     ld      c, 1            ; register #
     call    BIOS_WRTVDP
@@ -302,6 +303,7 @@ Set192Lines:
     ; call    BIOS_WRTVDP
     ld      a, (REG9SAV)
     and     0111 1111 b
+    ld      (REG9SAV), a
     ld      b, a
     ld      c, 9            ; register #
     call    BIOS_WRTVDP
@@ -314,6 +316,7 @@ SetColor0ToTransparent:
     ; call    BIOS_WRTVDP
     ld      a, (REG8SAV)
     and     1101 1111 b
+    ld      (REG8SAV), a
     ld      b, a
     ld      c, 8            ; register #
     call    BIOS_WRTVDP

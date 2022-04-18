@@ -122,6 +122,16 @@ GroundTarget_Logic:
             ld      hl, .TestDrawBg
             ; 16x OUTI
             outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+        ;     ld      b, 16
+        ; .loop_1:
+        ;     ld      a, (hl)
+        ;     or      a
+        ;     jp      z, .next_1          ; if (pixel == 0) ignore
+        ;     out     (c), a
+        ; .next_1:
+        ;     inc     hl
+        ;     djnz    .loop_1
+
         pop     hl
         ld      bc, 256  ; next line
         add     hl, bc
@@ -131,7 +141,10 @@ GroundTarget_Logic:
     jp      .groundTargetReset
 
 .TestDrawBg:
-    db  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    ; 4 high bits: color index from palette
+    ; 4 low bits: 1000 (set pixel to RGB palette instead of YJK)
+    ; db  0x08, 0x18, 0x28, 0x38, 0x48, 0x58, 0x68, 0x78, 0x88, 0x98, 0xa8, 0xb8, 0xc8, 0xd8, 0xe8, 0xf8
+    db  0xd8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xd8
 
 
 .doExplosionAnimation:
