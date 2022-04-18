@@ -6,11 +6,11 @@ ram_watch   add     0xc005      -type byte       -desc Player_Shot_Type      -fo
 
 ram_watch   add     0xC1FD      -type word       -desc LevelCounter      -format dec
 
-ram_watch   add     0xC18d      -type byte       -desc GT0_Y_Status      -format dec
+ram_watch   add     0xC190      -type byte       -desc GT0_Y_Static      -format dec
 
 ram_watch   add     0xC201      -type byte       -desc Screen_Y_Origin      -format dec
 
-#GroundTarget_0_Struct: equ 0C18Ch ; last def. pass 3
+#GroundTarget_0_Struct: equ 0C18Dh ; last def. pass 3
 #Screen_Y_Origin: equ 0C201h ; last def. pass 3
 
 

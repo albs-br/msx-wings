@@ -16,10 +16,6 @@ GroundTarget_Logic:
         ldir                                                    ; Copy BC bytes from HL to DE
 
 
-        ld      a, (GroundTarget_Temp_Status)      ; get Status
-        cp      1
-        jp      nz, .doExplosionAnimation   ; if (Status != 1) doExplosionAnimation
-
 
         ; -------------------------- ground target logic --------------------------
         
@@ -32,11 +28,18 @@ GroundTarget_Logic:
         inc     a
         ld      (GroundTarget_Temp_Y_Static), a
 
+    .isNotScroll:
+        ; -------------------------- 
+        
+        ld      a, (GroundTarget_Temp_Status)      ; get Status
+        cp      1
+        jp      nz, .doExplosionAnimation   ; if (Status != 1) doExplosionAnimation
+
         ; if (GroundTarget_Temp_Y_Static == 192) groundTargetReset
+        ld      a, (GroundTarget_Temp_Y_Static)
         cp      192
         jp      z, .groundTargetReset
 
-    .isNotScroll:
 
         ; --------------------------- check collision (ground target x player shots) -------------------------
 
@@ -96,26 +99,34 @@ GroundTarget_Logic:
 
 
 
-    ; -------------------------- test draw on background bitmap (screen 11)
+    ; -------------------------- test draw 16x16 box on background bitmap (screen 11)
     ld      hl, (CurrentVRAMAddrLineScroll)
 
     ; HL += (GroundTarget_Temp_Y_Static * 256) + GroundTarget_Temp_X
     ld      a, (GroundTarget_Temp_Y_Static)
+    ld      b, a    ; same as multiplying Y static by 256
     ld      c, 0
-    ld      b, a
-    ; ld      bc, 60 * 256
     add     hl, bc
     ld      a, (GroundTarget_Temp_X)
     ld      b, 0
     ld      c, a
     add     hl, bc
 
-    ld      a, 0000 0000 b
-    call    SetVdp_Write
-    ld      c, PORT_0
-    ld      hl, .TestDrawBg
-    ; 16x OUTI
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ld      b, 16 ; number of lines
+.loop:
+    push    bc
+        push    hl
+            ld      a, 0000 0000 b
+            call    SetVdp_Write
+            ld      c, PORT_0
+            ld      hl, .TestDrawBg
+            ; 16x OUTI
+            outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+        pop     hl
+        ld      bc, 256  ; next line
+        add     hl, bc
+    pop     bc
+    djnz    .loop
 
     jp      .groundTargetReset
 
