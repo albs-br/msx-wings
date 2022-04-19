@@ -140,7 +140,16 @@ GroundTarget_Logic:
             jp      nz, .continue_1          ; if (pixel == 0) ignore
         ; .keepBGpixel:
             ld      a, (de)
+            jp      .next_1
         .continue_1:
+            and     1111 1000 b             ; mask to keep 5 high bits from source
+            push    af
+                ld      a, (de)
+                and     0000 0111 b         ; mask to keep 3 low bits from bg
+                ld      ixh, a
+            pop     af
+            or      ixh
+        .next_1:
             out     (c), a
             inc     hl
             inc     de
