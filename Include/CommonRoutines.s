@@ -132,7 +132,7 @@ Wait:
 	jp		nz, .loop
 
 ;
-; Set VDP address counter to write from address AHL (17-bit)
+; Set VDP address counter to write to address AHL (17-bit)
 ; Enables the interrupts
 ;
 SetVdp_Write:
@@ -160,22 +160,22 @@ SetVdp_Write:
 ; Enables the interrupts
 ;
 SetVdp_Read:
-    rlc h
+    rlc     h
     rla
-    rlc h
+    rlc     h
     rla
-    srl h
-    srl h
+    srl     h
+    srl     h
     di
-    out (PORT_1),a
-    ld a,14 + 128
-    out (PORT_1),a
-    ld a,l
+    out     (PORT_1), a
+    ld      a, 14 + 128
+    out     (PORT_1), a
+    ld      a, l
     nop
-    out (PORT_1),a
-    ld a,h
+    out     (PORT_1), a
+    ld      a,h
     ei
-    out (PORT_1),a
+    out     (PORT_1), a
     ret
 
 

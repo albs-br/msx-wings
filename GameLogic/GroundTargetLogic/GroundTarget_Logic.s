@@ -116,21 +116,35 @@ GroundTarget_Logic:
 .loop:
     push    bc
         push    hl
+            ; read current bg line and save it to a temp array
+            ld      a, 0000 0000 b
+            call    SetVdp_Read
+            ld      c, PORT_0
+            ld      hl, CurrentLineBGPixels
+            ; 16x INI
+            ini ini ini ini ini ini ini ini ini ini ini ini ini ini ini ini 
+        pop     hl
+        push    hl
+            ; copy source line to current bg line unless bg == 0 (keep bg)
             ld      a, 0000 0000 b
             call    SetVdp_Write
             ld      c, PORT_0
             ld      hl, .TestDrawBg
-            ; 16x OUTI
-            outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-        ;     ld      b, 16
-        ; .loop_1:
-        ;     ld      a, (hl)
-        ;     or      a
-        ;     jp      z, .next_1          ; if (pixel == 0) ignore
-        ;     out     (c), a
-        ; .next_1:
-        ;     inc     hl
-        ;     djnz    .loop_1
+            ; ; 16x OUTI
+            ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+            ld      de, CurrentLineBGPixels
+            ld      b, 16
+        .loop_1:
+            ld      a, (hl)
+            or      a
+            jp      nz, .continue_1          ; if (pixel == 0) ignore
+        ; .keepBGpixel:
+            ld      a, (de)
+        .continue_1:
+            out     (c), a
+            inc     hl
+            inc     de
+            djnz    .loop_1
 
         pop     hl
         ld      bc, 256  ; next line

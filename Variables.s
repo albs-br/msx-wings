@@ -240,3 +240,6 @@ CurrentJiffy:                    rb 1
 
 SPRATR_Buffer:      rb 32 * 4
 .size:  equ $ - SPRATR_Buffer
+
+; ---------------------------------------
+CurrentLineBGPixels:  rb 16
