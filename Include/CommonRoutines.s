@@ -173,7 +173,7 @@ SetVdp_Read:
     ld      a, l
     nop
     out     (PORT_1), a
-    ld      a,h
+    ld      a, h
     ei
     out     (PORT_1), a
     ret
@@ -892,4 +892,72 @@ DoCopy:
     outi
     outi
     outi
+    ret
+
+
+
+; Input:
+;   DE: source on RAM
+;   HL: destiny on VRAM
+Copy16x16ImageFromRAMToVRAM:
+    ld      b, 16 ; number of lines
+.loop:
+    push    bc
+        push    de
+            push    hl
+                ; read current bg line and save it to a temp array
+                ld      a, 0000 0000 b
+                call    SetVdp_Read
+                ld      c, PORT_0
+                ld      hl, CurrentLineBGPixels
+                ; 16x INI
+                ini ini ini ini ini ini ini ini ini ini ini ini ini ini ini ini 
+            pop     hl
+            push    hl
+                ; copy source line to current bg line unless bg == 0 (keep bg)
+                ld      a, 0000 0000 b
+                call    SetVdp_Write
+                ld      c, PORT_0
+                ;ld      hl, .TestDrawBg
+                ex      de, hl          ; HL <= DE (source image on RAM)
+                ; ; 16x OUTI
+                ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+                ld      de, CurrentLineBGPixels
+                ld      b, 16
+            .loop_1:
+                ld      a, (hl)
+                or      a
+                jp      nz, .continue_1          ; if (pixel == 0) ignore
+            ; .keepBGpixel:
+                ld      a, (de)
+                jp      .next_1
+            .continue_1:
+                and     1111 1000 b             ; mask to keep 5 high bits from source
+                push    af
+                    ld      a, (de)
+                    and     0000 0111 b         ; mask to keep 3 low bits from bg
+                    ld      ixh, a
+                pop     af
+                or      ixh
+            .next_1:
+                out     (c), a
+                inc     hl
+                inc     de
+                djnz    .loop_1
+
+            pop     hl
+            ld      bc, 256  ; next line
+            add     hl, bc
+        pop     de
+        
+        ; DE += 16
+        push    hl
+            ex      de, hl
+            ld      bc, 16
+            add     hl, bc
+            ex      de, hl
+        pop     hl
+    pop     bc
+    djnz    .loop
+    
     ret

@@ -113,71 +113,15 @@ GroundTarget_Logic:
     add     hl, bc
 
     ld      de, .TestDrawBg
-    ld      b, 16 ; number of lines
-.loop:
-    push    bc
-        push    de
-            push    hl
-                ; read current bg line and save it to a temp array
-                ld      a, 0000 0000 b
-                call    SetVdp_Read
-                ld      c, PORT_0
-                ld      hl, CurrentLineBGPixels
-                ; 16x INI
-                ini ini ini ini ini ini ini ini ini ini ini ini ini ini ini ini 
-            pop     hl
-            push    hl
-                ; copy source line to current bg line unless bg == 0 (keep bg)
-                ld      a, 0000 0000 b
-                call    SetVdp_Write
-                ld      c, PORT_0
-                ;ld      hl, .TestDrawBg
-                ex      de, hl          ; HL <= DE (source image on ROM)
-                ; ; 16x OUTI
-                ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-                ld      de, CurrentLineBGPixels
-                ld      b, 16
-            .loop_1:
-                ld      a, (hl)
-                or      a
-                jp      nz, .continue_1          ; if (pixel == 0) ignore
-            ; .keepBGpixel:
-                ld      a, (de)
-                jp      .next_1
-            .continue_1:
-                and     1111 1000 b             ; mask to keep 5 high bits from source
-                push    af
-                    ld      a, (de)
-                    and     0000 0111 b         ; mask to keep 3 low bits from bg
-                    ld      ixh, a
-                pop     af
-                or      ixh
-            .next_1:
-                out     (c), a
-                inc     hl
-                inc     de
-                djnz    .loop_1
-
-            pop     hl
-            ld      bc, 256  ; next line
-            add     hl, bc
-        pop     de
-        
-        ; DE += 16
-        push    hl
-            ex      de, hl
-            ld      bc, 16
-            add     hl, bc
-            ex      de, hl
-        pop     hl
-    pop     bc
-    djnz    .loop
+    call    Copy16x16ImageFromRAMToVRAM
 
     jp      .groundTargetReset
 
 .TestDrawBg:
     ; 4 high bits: color index from palette
     ; 4 low bits: 1000 (set pixel to RGB palette instead of YJK)
+    ; 0x00: transparent (repeat background)
+
     ; db  0x08, 0x18, 0x28, 0x38, 0x48, 0x58, 0x68, 0x78, 0x88, 0x98, 0xa8, 0xb8, 0xc8, 0xd8, 0xe8, 0xf8
     ;db  0xd8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xd8
     db  0xd8, 0, 0xd8, 0xd8, 0xd8, 0xd8, 0xd8, 0xd8, 0xd8, 0xd8, 0xd8, 0xd8, 0xd8, 0xd8, 0xd8, 0xd8
