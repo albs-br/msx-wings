@@ -49,7 +49,8 @@ ram_watch   add     0xC201      -type byte       -desc Screen_Y_Origin      -for
 #ram_watch   add     0xc009      -type byte      -desc PShot_0_Y            -format dec
 
 #ram_watch   add     0xc01f      -type word      -desc NextShot_Struct_Addr       -format hex
-#ram_watch   add     0xc021      -type byte      -desc FramesSinceLastShot            -format dec
+ram_watch   add     0xC234      -type byte      -desc FramesSinceLastShot            -format dec
+
 
 
 #ram_watch   add     0xc043      -type word      -desc LevelCounter          -format hex
