@@ -961,3 +961,36 @@ Copy16x16ImageFromRAMToVRAM:
     djnz    .loop
     
     ret
+
+
+
+; Convert MSX2 sprites (or-color) to SC 11 format to be ploted on screen
+ConvertMsx2SpritesToSc11:
+
+; read patterns & colors
+    ld      (Pattern_0), a
+    ld      (Pattern_1), a
+    ld      (Color_0), a
+    ld      (Color_1), a
+
+; destiny format:
+    ; 4 high bits: color index from palette
+    ; 4 low bits: 1000 (set pixel to RGB palette instead of YJK)
+    ; 0x00: transparent (repeat background)
+
+    ; if (Bit_Pattern_0 == 0 && Bit_Pattern_1 == 0) Output = 0
+
+    ; RL: Rotates arg1 register to the left with the carry's value put into bit 0 and bit 7 is put into the carry.
+    ; RLA: same, but faster
+
+    ld      a, (Pattern_0)
+    rla
+    jp      c, .setBitTrue
+    xor     a
+    jp      .saveBit_Pattern_0
+.setBitTrue:
+    ld      a, 1
+.saveBit_Pattern_0:
+    ld      (Bit_Pattern_0), a
+
+    ret
