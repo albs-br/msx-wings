@@ -965,12 +965,27 @@ Copy16x16ImageFromRAMToVRAM:
 
 
 ; Convert MSX2 sprites (or-color) to SC 11 format to be ploted on screen
+; Input:
+;   HL: pointer to sprite on RAM (32 bytes for pattern 0, 32 bytes for pattern 1, 16 bytes for color 0, 16 bytes for color 1)
 ConvertMsx2SpritesToSc11:
 
 ; read patterns & colors
+    ld      a, (hl)
     ld      (Pattern_0), a
+
+    ld      bc, 32
+    add     hl, bc
+    ld      a, (hl)
     ld      (Pattern_1), a
+
+    ;ld      c, 32       ; no need to load B, as it is already 0
+    add     hl, bc
+    ld      a, (hl)
     ld      (Color_0), a
+
+    ld      c, 16       ; no need to load B, as it is already 0
+    add     hl, bc
+    ld      a, (hl)
     ld      (Color_1), a
 
 ; destiny format:
@@ -978,13 +993,13 @@ ConvertMsx2SpritesToSc11:
     ; 4 low bits: 1000 (set pixel to RGB palette instead of YJK)
     ; 0x00: transparent (repeat background)
 
-    ; if (Bit_Pattern_0 == 0 && Bit_Pattern_1 == 0) Output = 0
 
     ; RL: Rotates arg1 register to the left with the carry's value put into bit 0 and bit 7 is put into the carry.
     ; RLA: same, but faster
 
     ld      a, (Pattern_0)
     rla
+    ld      (Pattern_0), a          ; save
     jp      c, .setBitTrue
     xor     a
     jp      .saveBit_Pattern_0
@@ -992,5 +1007,31 @@ ConvertMsx2SpritesToSc11:
     ld      a, 1
 .saveBit_Pattern_0:
     ld      (Bit_Pattern_0), a
+
+    ; do the same for bit of pattern 1
+
+
+    ; if (Bit_Pattern_0 == 0 && Bit_Pattern_1 == 0) Output = 0
+    ; else if (Bit_Pattern_0 == 1 && Bit_Pattern_1 == 0) Output = Color_0
+    ; else if (Bit_Pattern_0 == 0 && Bit_Pattern_1 == 1) Output = Color_1
+    ; else Output = Color_1 | Color_1 ; or-color
+    ld      a, (Bit_Pattern_0)
+    sla
+    ld      b, a
+    ld      a, (Bit_Pattern_1)
+    or      b
+
+    or      a
+    jp      z, .setOutput_0
+    cp      0000 0010 b
+    jp      z, .setOutput_Color_0
+    cp      0000 0001 b
+    jp      z, .setOutput_Color_1
+    jp      .setOutput_Or_Color
+
+
+.setOutput_0:
+    xor     a
+    ld      (Output), a
 
     ret
