@@ -1016,7 +1016,7 @@ ConvertMsx2SpritesToSc11:
     ; else if (Bit_Pattern_0 == 0 && Bit_Pattern_1 == 1) Output = Color_1
     ; else Output = Color_1 | Color_1 ; or-color
     ld      a, (Bit_Pattern_0)
-    sla
+    sla     a
     ld      b, a
     ld      a, (Bit_Pattern_1)
     or      b
@@ -1027,11 +1027,35 @@ ConvertMsx2SpritesToSc11:
     jp      z, .setOutput_Color_0
     cp      0000 0001 b
     jp      z, .setOutput_Color_1
-    jp      .setOutput_Or_Color
+    ;jp      .setOutput_Or_Color
 
+;.setOutput_Or_Color:
+    ld      a, (Color_0)
+    ld      b, a
+    ld      a, (Color_1)
+    or      b
+    jp      .saveOutput_differentFrom_0
 
 .setOutput_0:
     xor     a
+    jp      .saveOutput
+
+.setOutput_Color_0:
+    ld      a, (Color_0)
+    jp      .saveOutput_differentFrom_0
+
+.setOutput_Color_1:
+    ld      a, (Color_1)
+    jp      .saveOutput_differentFrom_0
+
+.saveOutput_differentFrom_0:
+    sla     a       ; TODO: improve speed (using RLA)
+    sla     a
+    sla     a
+    sla     a
+    or      0000 1000 b
+
+.saveOutput:
     ld      (Output), a
 
     ret
