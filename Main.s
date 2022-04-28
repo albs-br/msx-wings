@@ -116,6 +116,21 @@ Execute:
 
     call    BIOS_ENASCR
 
+; testing ConvertMsx2SpritesToSc11
+
+        ;         ld hl, ConvertMsx2SpritesToSc11_TestData
+        ;         call   ConvertMsx2SpritesToSc11
+        ; ld      a, 0000 0001 b
+        ; ld      hl, NAMTBL
+        ; call    SetVdp_Write
+        ; ld      b, SpritePattern_GroundTarget_0.size
+        ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ; ld      hl, SpritePattern_GroundTarget_0
+
+        ;     .testLoop:
+        ;         jp .testLoop
+ConvertMsx2SpritesToSc11_TestData:
+    db 1100 0011 b
 
 ; --------- 
 
