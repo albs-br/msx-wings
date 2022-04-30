@@ -129,8 +129,8 @@ Execute:
 
         ;     .testLoop:
         ;         jp .testLoop
-ConvertMsx2SpritesToSc11_TestData:
-    db 1100 0011 b
+; ConvertMsx2SpritesToSc11_TestData:
+;     db 1100 0011 b
 
 ; --------- 
 
