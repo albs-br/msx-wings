@@ -99,7 +99,7 @@ GroundTarget_Logic:
 
 
 
-    ; -------------------------- test draw 16x16 box on background bitmap (screen 11)
+    ; -------------------------- draw 16x16 bitmap over background bitmap (screen 11)
     ld      hl, (CurrentVRAMAddrLineScroll)
 
     ; HL += (GroundTarget_Temp_Y_Static * 256) + GroundTarget_Temp_X

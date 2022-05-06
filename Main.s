@@ -61,6 +61,7 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
 
     ; Assets
     INCLUDE "Graphics/Sprites/SpriteAssets.s"
+    INCLUDE "Graphics/Sprites/Fonts/Fonts.s"
     INCLUDE "Sound/Sfx/MsxWingsSfx_Bank.s"
 	INCLUDE "Graphics/Bitmaps/GroundTargetDestroyed.s"
     ; background bitmaps are on MegaRomPages.s
@@ -110,7 +111,7 @@ Execute:
     call    ayFX_SETUP
 
 
-    ld      a, 3                        ; level number (1-8)
+    ld      a, 1                        ; level number (1-8)
     ld      (CurrentLevelNumber), a
     call    LoadLevel
 
@@ -119,17 +120,24 @@ Execute:
 
 ; testing ConvertMsx2SpritesToSc11
 
-        ;         ld hl, ConvertMsx2SpritesToSc11_TestData
-        ;         call   ConvertMsx2SpritesToSc11
-        ; ld      a, 0000 0001 b
-        ; ld      hl, NAMTBL
-        ; call    SetVdp_Write
-        ; ld      b, SpritePattern_GroundTarget_0.size
-        ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-        ; ld      hl, SpritePattern_GroundTarget_0
+                ld hl, SmallFont_Char_0
+                ld de, ConvertMsx2SpritesToSc11_Output
+                call   ConvertMsx2SpritesToSc11
 
-        ;     .testLoop:
-        ;         jp .testLoop
+                ; ld      a, 0000 0000 b
+                ; ld      hl, NAMTBL
+                ; call    SetVdp_Write
+                ; ld      b, 8
+                ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+                ; ld      hl, ConvertMsx2SpritesToSc11_Output
+                ; otir
+
+                ld      de, ConvertMsx2SpritesToSc11_Output
+                ld      hl, NAMTBL
+                call    Copy16x16ImageFromRAMToVRAM
+
+            .testLoop:
+                jp .testLoop
 ; ConvertMsx2SpritesToSc11_TestData:
 ;     db 1100 0011 b
 

@@ -259,4 +259,4 @@ Color_0:               rb 1
 Color_1:               rb 1
 Bit_Pattern_0:         rb 1
 Bit_Pattern_1:         rb 1
-Output:                rb 1
+ConvertMsx2SpritesToSc11_Output:                rb 16*16

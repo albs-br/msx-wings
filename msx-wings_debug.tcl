@@ -9,9 +9,18 @@ ram_watch   add     0xC1FD      -type word       -desc LevelCounter      -format
 ram_watch   add     0xC190      -type byte       -desc GT0_Y_Static      -format dec
 
 ram_watch   add     0xC201      -type byte       -desc Screen_Y_Origin      -format dec
+ram_watch   add     0xC2cc      -type byte       -desc Output0      -format hex
+ram_watch   add     0xC2cd      -type byte       -desc Output1      -format hex
+ram_watch   add     0xC2ce      -type byte       -desc Output2      -format hex
+ram_watch   add     0xC2cf      -type byte       -desc Output3      -format hex
+ram_watch   add     0xC2cf      -type byte       -desc Output4      -format hex
+ram_watch   add     0xC2d0      -type byte       -desc Output5      -format hex
+ram_watch   add     0xC2d1      -type byte       -desc Output6      -format hex
+ram_watch   add     0xC2d2      -type byte       -desc Output7      -format hex
 
 #GroundTarget_0_Struct: equ 0C18Dh ; last def. pass 3
 #Screen_Y_Origin: equ 0C201h ; last def. pass 3
+
 
 
 
@@ -49,7 +58,8 @@ ram_watch   add     0xC201      -type byte       -desc Screen_Y_Origin      -for
 #ram_watch   add     0xc009      -type byte      -desc PShot_0_Y            -format dec
 
 #ram_watch   add     0xc01f      -type word      -desc NextShot_Struct_Addr       -format hex
-ram_watch   add     0xC234      -type byte      -desc FramesSinceLastShot            -format dec
+ram_watch   add     0xC234      -type byte      -desc FramesSkipped            -format dec
+
 
 
 

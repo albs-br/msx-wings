@@ -896,6 +896,11 @@ DoCopy:
 
 
 
+; Copy 16x16 bmp (SC11) from RAM to VRAM
+; Source format:
+;     ; 4 high bits: color index from palette
+;     ; 4 low bits: 1000 (set pixel to RGB palette instead of YJK)
+;     ; 0x00: transparent (repeat background)
 ; Input:
 ;   DE: source on RAM
 ;   HL: destiny on VRAM
@@ -964,9 +969,10 @@ Copy16x16ImageFromRAMToVRAM:
 
 
 
-; Convert MSX2 sprites (or-color) to SC 11 format to be ploted on screen
+; Convert MSX2 sprites (or-color) to SC 11 format to be plotted on screen
 ; Input:
 ;   HL: pointer to sprite on RAM (32 bytes for pattern 0, 32 bytes for pattern 1, 16 bytes for color 0, 16 bytes for color 1)
+;   DE: destiny addr on RAM
 ConvertMsx2SpritesToSc11:
 
 ; read patterns & colors
@@ -993,69 +999,91 @@ ConvertMsx2SpritesToSc11:
     ; 4 low bits: 1000 (set pixel to RGB palette instead of YJK)
     ; 0x00: transparent (repeat background)
 
+    ex      de, hl
+    ld      b, 8    ; number of pixels on destiny
+.loop:
+    push    bc
+        push    hl
 
-    ; RL: Rotates arg1 register to the left with the carry's value put into bit 0 and bit 7 is put into the carry.
-    ; RLA: same, but faster
+            ; RL: Rotates arg1 register to the left with the carry's value put into bit 0 and bit 7 is put into the carry.
+            ; RLA: same, but faster
 
-    ld      a, (Pattern_0)
-    rla
-    ld      (Pattern_0), a          ; save
-    jp      c, .setBitTrue
-    xor     a
-    jp      .saveBit_Pattern_0
-.setBitTrue:
-    ld      a, 1
-.saveBit_Pattern_0:
-    ld      (Bit_Pattern_0), a
+            ld      a, (Pattern_0)
+            rla
+            ld      (Pattern_0), a          ; save
+            jp      c, .setBitTrue
+            xor     a
+            jp      .saveBit_Pattern_0
+        .setBitTrue:
+            ld      a, 1
+        .saveBit_Pattern_0:
+            ld      (Bit_Pattern_0), a
 
-    ; do the same for bit of pattern 1
+            ; do the same for bit of pattern 1
+            ld      a, (Pattern_1)
+            rla
+            ld      (Pattern_1), a          ; save
+            jp      c, .setBit_1_True
+            xor     a
+            jp      .saveBit_Pattern_1
+        .setBit_1_True:
+            ld      a, 1
+        .saveBit_Pattern_1:
+            ld      (Bit_Pattern_1), a
 
+            ; if (Bit_Pattern_0 == 0 && Bit_Pattern_1 == 0) Output = 0
+            ; else if (Bit_Pattern_0 == 1 && Bit_Pattern_1 == 0) Output = Color_0
+            ; else if (Bit_Pattern_0 == 0 && Bit_Pattern_1 == 1) Output = Color_1
+            ; else Output = Color_1 | Color_1 ; or-color
+            ld      a, (Bit_Pattern_0)
+            sla     a
+            ld      b, a
+            ld      a, (Bit_Pattern_1)
+            or      b
 
-    ; if (Bit_Pattern_0 == 0 && Bit_Pattern_1 == 0) Output = 0
-    ; else if (Bit_Pattern_0 == 1 && Bit_Pattern_1 == 0) Output = Color_0
-    ; else if (Bit_Pattern_0 == 0 && Bit_Pattern_1 == 1) Output = Color_1
-    ; else Output = Color_1 | Color_1 ; or-color
-    ld      a, (Bit_Pattern_0)
-    sla     a
-    ld      b, a
-    ld      a, (Bit_Pattern_1)
-    or      b
+            or      a
+            jp      z, .setOutput_0
+            cp      0000 0010 b
+            jp      z, .setOutput_Color_0
+            cp      0000 0001 b
+            jp      z, .setOutput_Color_1
+            ;jp      .setOutput_Or_Color
 
-    or      a
-    jp      z, .setOutput_0
-    cp      0000 0010 b
-    jp      z, .setOutput_Color_0
-    cp      0000 0001 b
-    jp      z, .setOutput_Color_1
-    ;jp      .setOutput_Or_Color
+        ;.setOutput_Or_Color:
+            ld      a, (Color_0)
+            ld      b, a
+            ld      a, (Color_1)
+            or      b
+            jp      .saveOutput_differentFrom_0
 
-;.setOutput_Or_Color:
-    ld      a, (Color_0)
-    ld      b, a
-    ld      a, (Color_1)
-    or      b
-    jp      .saveOutput_differentFrom_0
+        .setOutput_0:
+            xor     a
+            jp      .saveOutput
 
-.setOutput_0:
-    xor     a
-    jp      .saveOutput
+        .setOutput_Color_0:
+            ld      a, (Color_0)
+            jp      .saveOutput_differentFrom_0
 
-.setOutput_Color_0:
-    ld      a, (Color_0)
-    jp      .saveOutput_differentFrom_0
+        .setOutput_Color_1:
+            ld      a, (Color_1)
+            jp      .saveOutput_differentFrom_0
 
-.setOutput_Color_1:
-    ld      a, (Color_1)
-    jp      .saveOutput_differentFrom_0
+        .saveOutput_differentFrom_0:
+            sla     a       ; TODO: improve speed (using RLA)
+            sla     a
+            sla     a
+            sla     a
+            or      0000 1000 b
 
-.saveOutput_differentFrom_0:
-    sla     a       ; TODO: improve speed (using RLA)
-    sla     a
-    sla     a
-    sla     a
-    or      0000 1000 b
+        .saveOutput:
+            ;ld      (Output), a
 
-.saveOutput:
-    ld      (Output), a
+        pop     hl
+        
+        ld      (hl), a
+        inc     hl
+
+    pop     bc
+    djnz    .loop
 
     ret
