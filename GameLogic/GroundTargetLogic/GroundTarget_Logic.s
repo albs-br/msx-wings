@@ -113,7 +113,7 @@ GroundTarget_Logic:
     add     hl, bc
 
     ; ld      de, .TestDrawBg
-    ld      de, groundTargetDestroyed
+    ld      de, GroundTargetDestroyed
     call    Copy16x16ImageFromRAMToVRAM
 
     jp      .groundTargetReset
