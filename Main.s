@@ -120,9 +120,10 @@ Execute:
 
 ; testing ConvertMsx2SpritesToSc11
 
-                ld hl, SmallFont_Char_0
-                ld de, ConvertMsx2SpritesToSc11_Output
-                call   ConvertMsx2SpritesToSc11
+                ld      hl, SmallFont_Patterns
+                ld      ix, SmallFont_Colors
+                ld      de, ConvertMsx2SpritesToSc11_Output
+                call    ConvertMsx2SpritesToSc11
 
                 ; ld      a, 0000 0000 b
                 ; ld      hl, NAMTBL
@@ -135,11 +136,20 @@ Execute:
                 ld      de, ConvertMsx2SpritesToSc11_Output
                 ld      hl, NAMTBL
                 call    Copy16x16ImageFromRAMToVRAM
+                ;
 
-            .testLoop:
-                jp .testLoop
-; ConvertMsx2SpritesToSc11_TestData:
-;     db 1100 0011 b
+                ld      hl, SmallFont_Patterns + 64
+                ld      ix, SmallFont_Colors
+                ld      de, ConvertMsx2SpritesToSc11_Output
+                call    ConvertMsx2SpritesToSc11
+
+                ld      de, ConvertMsx2SpritesToSc11_Output
+                ld      hl, NAMTBL + 8
+                call    Copy16x16ImageFromRAMToVRAM
+
+
+            ; .testLoop:
+            ;     jp .testLoop
 
 ; --------- 
 

@@ -971,7 +971,8 @@ Copy16x16ImageFromRAMToVRAM:
 
 ; Convert MSX2 sprites (or-color) to SC 11 format to be plotted on screen
 ; Input:
-;   HL: pointer to sprite on RAM (32 bytes for pattern 0, 32 bytes for pattern 1, 16 bytes for color 0, 16 bytes for color 1)
+;   HL: pointer to sprite patterns on RAM (32 bytes for pattern 0, 32 bytes for pattern 1)
+;   IX: pointer to sprite colors on RAM (16 bytes for color 0, 16 bytes for color 1)
 ;   DE: destiny addr on RAM
 ConvertMsx2SpritesToSc11:
 
@@ -990,14 +991,10 @@ ConvertMsx2SpritesToSc11:
                 ld      a, (hl)
                 ld      (Pattern_1), a
 
-                ;ld      c, 32       ; no need to load B, as it is already 0
-                add     hl, bc
-                ld      a, (hl)
+                ld      a, (ix)
                 ld      (Color_0), a
 
-                ld      c, 16       ; no need to load B, as it is already 0
-                add     hl, bc
-                ld      a, (hl)
+                ld      a, (ix + 16)
                 ld      (Color_1), a
 
             ; destiny format:
