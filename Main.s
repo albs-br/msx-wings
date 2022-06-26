@@ -16,6 +16,7 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     INCLUDE "Include/MsxBios.s"
     INCLUDE "Include/MsxConstants.s"
     INCLUDE "Include/CommonRoutines.s"
+    INCLUDE "Include/CommonRoutines_SC11.s"
     INCLUDE "Include/ayFXReplayer.s"
 
     ; Game
@@ -118,40 +119,9 @@ Execute:
 
     call    BIOS_ENASCR
 
-; testing ConvertMsx2SpritesToSc11
-
-                ld      hl, SmallFont_Patterns
-                ld      ix, SmallFont_Colors
-                ld      de, ConvertMsx2SpritesToSc11_Output
-                call    ConvertMsx2SpritesToSc11
-
-                ; ld      a, 0000 0000 b
-                ; ld      hl, NAMTBL
-                ; call    SetVdp_Write
-                ; ld      b, 8
-                ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-                ; ld      hl, ConvertMsx2SpritesToSc11_Output
-                ; otir
-
-                ld      de, ConvertMsx2SpritesToSc11_Output
-                ld      hl, NAMTBL
-                call    Copy16x16ImageFromRAMToVRAM
-                ;
-
-                ld      hl, SmallFont_Patterns + 64
-                ld      ix, SmallFont_Colors
-                ld      de, ConvertMsx2SpritesToSc11_Output
-                call    ConvertMsx2SpritesToSc11
-
-                ld      de, ConvertMsx2SpritesToSc11_Output
-                ld      hl, NAMTBL + 8
-                call    Copy16x16ImageFromRAMToVRAM
 
 
-            ; .testLoop:
-            ;     jp .testLoop
-
-; --------- 
+    call    TestFonts_8x8   ; [debug]
 
 
 .gameLoop:
