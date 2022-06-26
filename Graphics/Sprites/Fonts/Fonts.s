@@ -8,7 +8,25 @@ TestFonts_8x8:
 
     ld      hl, SmallFont_Patterns
     ld      de, NAMTBL
-    ld      b, 23       ; number of chars
+    ld      b, 32                                   ; number of chars
+    call    TestFonts_8x8_WriteLine
+
+    ld      hl, SmallFont_Patterns + (64 * 32)      ; skip 32 chars
+    ld      de, NAMTBL + (256 * 8)                  ; skip 8 lines
+    ld      b, 3                                    ; number of chars
+    call    TestFonts_8x8_WriteLine
+
+    ret
+
+; Inputs:
+;   HL: fonts start addr on RAM
+;   DE: destiny NAMTBL addr on VRAM
+;   B: number of chars (max 32)
+TestFonts_8x8_WriteLine:
+
+    ; ld      hl, SmallFont_Patterns
+    ; ld      de, NAMTBL
+    ; ld      b, 32       ; number of chars
 
 .loop:
     push    bc
