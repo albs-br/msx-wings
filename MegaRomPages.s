@@ -1012,6 +1012,7 @@
 
 ; =========================================== Reserved for data =================================
 
+; ------------------------------------------------------------------------
 LEVEL_DATA_MEGAROM_PAGE:        equ 242
 ENEMY_DATA_MEGAROM_PAGE:        equ 242
 ENEMY_SHOT_DATA_MEGAROM_PAGE:   equ 242
@@ -1026,9 +1027,13 @@ ENEMY_SHOT_DATA_MEGAROM_PAGE:   equ 242
     INCLUDE "EnemyData/EnemyShotData.s"
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
+; ------------------------------------------------------------------------
+
+FONTS_DATA_MEGAROM_PAGE:        equ 243
+
 ; ------- Page 243
 	org	0x8000, 0xBFFF
-    ;INCBIN "Graphics/Bitmaps/Level_1/level1_0.sra.new"
+    INCLUDE "Graphics/Sprites/Fonts/Fonts.s"
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
 

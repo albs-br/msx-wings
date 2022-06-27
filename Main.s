@@ -60,9 +60,11 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     
     INCLUDE "DebugMessage.s"
 
+    INCLUDE "Graphics/Sprites/Fonts/FontsTest.s"     ; moved to a MegaROM page
+
     ; Assets
     INCLUDE "Graphics/Sprites/SpriteAssets.s"
-    INCLUDE "Graphics/Sprites/Fonts/Fonts.s"
+    ; INCLUDE "Graphics/Sprites/Fonts/Fonts.s"     ; moved to a MegaROM page
     INCLUDE "Sound/Sfx/MsxWingsSfx_Bank.s"
 	INCLUDE "Graphics/Bitmaps/GroundTargetDestroyed.s"
     ; background bitmaps are on MegaRomPages.s
