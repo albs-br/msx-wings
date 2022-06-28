@@ -125,6 +125,7 @@ Execute:
 
     call    TestFonts_8x8   ; [debug]
     call    TestFonts_8x16   ; [debug]
+    call    TestFonts_16x16   ; [debug]
 
 
 .gameLoop:

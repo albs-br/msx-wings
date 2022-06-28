@@ -38,6 +38,24 @@ TestFonts_8x16:
     ld      b, 32                                   ; number of chars
     call    TestFonts_8x8_WriteLine
 
+    ld      hl, MediumFont_Patterns + (64 * 32)     ; skip 32 chars
+    ld      de, NAMTBL + (256 * 48)                 ; skip 48 lines
+    ld      b, 15                                   ; number of chars
+    call    TestFonts_8x8_WriteLine
+
+    ret
+
+TestFonts_16x16:
+
+    ; set MegaROM page for Fonts data
+    ld      a, FONTS_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
+    ld      hl, LargeFont_Patterns
+    ld      de, NAMTBL + (256 * 64)                 ; skip 48 lines
+    ld      b, 16                                   ; number of chars
+    call    TestFonts_8x8_WriteLine
+
     ret
 
 ; Inputs:
@@ -45,10 +63,6 @@ TestFonts_8x16:
 ;   DE: destiny NAMTBL addr on VRAM
 ;   B: number of chars (max 32)
 TestFonts_8x8_WriteLine:
-
-    ; ld      hl, SmallFont_Patterns
-    ; ld      de, NAMTBL
-    ; ld      b, 32       ; number of chars
 
 .loop:
     push    bc
@@ -70,7 +84,10 @@ TestFonts_8x8_WriteLine:
                 ;ld      hl, NAMTBL
                 call    Copy16x16ImageFromRAMToVRAM
             pop     hl
+            
             ld      bc, 8      ; next char locantion on screen (equal width of the font)
+            ;ld      b, ixh ; TODO
+            
             add     hl, bc
             ex      de, hl
 
