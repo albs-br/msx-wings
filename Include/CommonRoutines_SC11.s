@@ -76,16 +76,17 @@ Copy16x16ImageFromRAMToVRAM:
 ;   HL: pointer to sprite patterns on RAM (32 bytes for pattern 0, 32 bytes for pattern 1)
 ;   IX: pointer to sprite colors on RAM (16 bytes for color 0, 16 bytes for color 1)
 ;   DE: destiny addr on RAM
+;   B:  font height in pixels
 ConvertMsx2SpritesToSc11:
 
     ;ld      b, 8        ; 8 lines of 8 pixels
-    ld      b, 16        ; 16 lines of 8 pixels
+    ;ld      b, 16        ; 16 lines of 8 pixels
 .outerLoop:
     push    bc
         push    hl
             push    de
                 
-            ; read patterns & colors
+                ; read patterns & colors
                 ld      a, (hl)
                 ld      (Pattern_0), a
 
@@ -100,10 +101,10 @@ ConvertMsx2SpritesToSc11:
                 ld      a, (ix + 16)
                 ld      (Color_1), a
 
-            ; destiny format:
-                ; 4 high bits: color index from palette
-                ; 4 low bits: 1000 (set pixel to RGB palette instead of YJK)
-                ; 0x00: transparent (repeat background)
+                ; destiny format:
+                ;   4 high bits: color index from palette
+                ;   4 low bits: 1000 (set pixel to RGB palette instead of YJK)
+                ;   0x00: transparent (repeat background)
 
                 ex      de, hl
                 ld      b, 8    ; number of pixels on destiny
