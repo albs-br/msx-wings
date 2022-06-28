@@ -78,7 +78,8 @@ Copy16x16ImageFromRAMToVRAM:
 ;   DE: destiny addr on RAM
 ConvertMsx2SpritesToSc11:
 
-    ld      b, 8        ; 8 lines of 8 pixels
+    ;ld      b, 8        ; 8 lines of 8 pixels
+    ld      b, 16        ; 16 lines of 8 pixels
 .outerLoop:
     push    bc
         push    hl

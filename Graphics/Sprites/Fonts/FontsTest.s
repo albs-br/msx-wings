@@ -27,6 +27,19 @@ TestFonts_8x8:
 
     ret
 
+TestFonts_8x16:
+
+    ; set MegaROM page for Fonts data
+    ld      a, FONTS_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
+    ld      hl, MediumFont_Patterns
+    ld      de, NAMTBL + (256 * 32)                 ; skip 32 lines
+    ld      b, 32                                   ; number of chars
+    call    TestFonts_8x8_WriteLine
+
+    ret
+
 ; Inputs:
 ;   HL: fonts start addr on RAM
 ;   DE: destiny NAMTBL addr on VRAM
