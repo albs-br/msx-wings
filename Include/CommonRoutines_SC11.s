@@ -206,8 +206,9 @@ ConvertMsx2SpritesToSc11:
 
     pop     bc
 
-    inc     hl      ; next line of sprite
+    inc     hl      ; next line of sprite patterns
 
+    inc     ix      ; next line of sprite colors
 
     
     dec     b
