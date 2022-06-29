@@ -123,10 +123,165 @@ Execute:
 
 
 
-    call    TestFonts_8x8   ; [debug]
-    call    TestFonts_8x16   ; [debug]
-    call    TestFonts_16x16   ; [debug]
+    ; call    TestFonts_8x8   ; [debug]
+    ; call    TestFonts_8x16   ; [debug]
+    ; call    TestFonts_16x16   ; [debug]
 
+    ; -------------------------------- test look-up table for circle movement
+
+    ; set MegaROM page for Fonts data
+    ld      a, FONTS_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
+    ; load sprite pat & colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRPAT
+    call    SetVdp_Write
+    ld      b, 32
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, LargeFont_Patterns
+    otir
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL
+    call    SetVdp_Write
+    ld      b, 16
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, LargeFont_Colors
+    otir
+
+    ; int vars
+    ld      ix, LOOKUP_TABLE_CIRCLE_MOV
+
+.circleLoop:
+    ld      hl, BIOS_JIFFY              ; (v-blank sync)
+    ld      a, (hl)
+.circleLoop_waitVBlank:
+    cp      (hl)
+    jr      z, .circleLoop_waitVBlank
+
+    ; load SPRATR buffer
+    ld      hl, SPRATR_Buffer
+    ld      a, (ix)
+    ld      (hl), a         ; y
+
+    inc     hl
+    ld      a, (ix+1)
+    ld      (hl), a         ; x
+
+
+    inc     ix              ; next addr on lookup table
+    inc     ix
+
+    ; load SPRATR table
+    ld      a, 0000 0001 b
+    ld      hl, SPRATR
+    call    SetVdp_Write
+    ; ld      b, SpriteAttrTableBuffer.size
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ;ld      bc, 0 + ((SpriteAttrTableBuffer.size * 256) + PORT_0)
+    ld      c, PORT_0
+    ld      hl, SPRATR_Buffer
+    ;otir
+    ; 4x OUTI
+    outi outi outi outi 
+
+
+    call    Wait
+
+    jp      .circleLoop
+
+LOOKUP_TABLE_CIRCLE_MOV:
+        db       0, 128
+        db       2, 120
+        db       5, 112
+        db       8, 104
+        db       12, 98
+        db       17, 91
+        db       22, 85
+        db       27, 80
+        db       33, 75
+        db       39, 71
+        db       46, 68
+        db       52, 66
+        db       58, 63
+        db       65, 62
+        db       72, 61
+        db       78, 61
+        db       84, 61
+        db       90, 62
+        db       96, 64
+        db       101, 65
+        db       107, 67
+        db       112, 69
+        db       117, 72
+        db       121, 74
+        db       125, 77
+        db       129, 80
+        db       133, 84
+        db       136, 88
+        db       138, 93
+        db       140, 97
+        db       142, 102
+        db       143, 106
+        db       145, 110
+        db       145, 115
+        db       145, 119
+        db       145, 124
+        db       144, 128
+        db       143, 132
+        db       141, 136
+        db       139, 140
+        db       137, 143
+        db       136, 147
+        db       133, 150
+        db       130, 152
+        db       127, 154
+        db       124, 156
+        db       121, 158
+        db       118, 159
+        db       114, 160
+        db       111, 161
+        db       108, 162
+        db       105, 162
+        db       102, 161
+        db       99, 161
+        db       95, 160
+        db       93, 160
+        db       90, 159
+        db       87, 159
+        db       85, 158
+        db       82, 157
+        db       80, 155
+        db       77, 154
+        db       75, 152
+        db       73, 150
+        db       71, 148
+        db       69, 146
+        db       68, 144
+        db       67, 141
+        db       66, 138
+        db       65, 136
+        db       64, 133
+        db       64, 130
+        db       64, 127
+        db       64, 125
+        db       65, 122
+        db       65, 119
+        db       66, 117
+        db       67, 114
+        db       69, 112
+        db       70, 109
+        db       72, 107
+        db       74, 105
+        db       76, 103
+        db       78, 101
+        db       80, 100
+        db       83, 99
+        db       86, 98
+        db       88, 97
+        db       91, 96
+        db       94, 96
+; -------------------------------- 
 
 .gameLoop:
     ld      hl, BIOS_JIFFY              ; (v-blank sync)
