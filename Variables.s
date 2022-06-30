@@ -260,3 +260,10 @@ Color_1:               rb 1
 Bit_Pattern_0:         rb 1
 Bit_Pattern_1:         rb 1
 ConvertMsx2SpritesToSc11_Output:                rb 16*16
+
+; ---------------------------------------
+
+LevelInitAnimation_Counter:     rb 1
+LevelInitAnimation_FirstChar_LookupTable_Addr:      rw 1
+LevelInitAnimation_SecondChar_LookupTable_Addr:     rw 1
+LevelInitAnimation_ThirdChar_LookupTable_Addr:      rw 1

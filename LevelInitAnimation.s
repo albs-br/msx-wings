@@ -45,6 +45,12 @@ LevelInitAnimation:
 
     ; init vars
     ld      ix, LOOKUP_TABLE_CIRCLE_MOV
+    ld      (LevelInitAnimation_FirstChar_LookupTable_Addr), ix
+    ld      (LevelInitAnimation_SecondChar_LookupTable_Addr), ix
+    ld      (LevelInitAnimation_ThirdChar_LookupTable_Addr), ix
+    xor     a
+    ld      (LevelInitAnimation_Counter), a
+
 
 .circleLoop:
     ld      hl, BIOS_JIFFY              ; (v-blank sync)
@@ -53,48 +59,25 @@ LevelInitAnimation:
     cp      (hl)
     jr      z, .circleLoop_waitVBlank
 
-    ; load SPRATR buffer
-    ld      hl, SPRATR_Buffer
-    ld      a, (ix)
-    
-    cp      217             ; if (y == 217) reset
-    ret     z
-    ; jp      z, ResetCircleLoopTest
-    
-    ; ----------------
-    ld      (hl), a         ; y
 
-    inc     hl
-    ld      a, (ix + 1)
-    ld      (hl), a         ; x
 
-    inc     hl
-    ld      a, 4
-    ld      (hl), a         ; pattern number
+    call    .animateFirstChar
 
-    inc     hl
-    inc     hl
+    ; if(Counter >= 10) animateSecondChar
+    ld      a, (LevelInitAnimation_Counter)
+    cp      10
+    call    nc, .animateSecondChar
 
-    ; ----------------
-    ld  a, 10
-    ld      (hl), a         ; y
+    ; if(Counter >= 10) animateSecondChar
+    ld      a, (LevelInitAnimation_Counter)
+    cp      20
+    call    nc, .animateThirdChar
 
-    inc     hl
-    ;ld      a, (ix + 1)
-    ld  a, 10
-    ld      (hl), a         ; x
-
-    inc     hl
-    ld      a, 8
-    ld      (hl), a         ; pattern number
-
-    inc     hl
-    inc     hl
 
     ; ----------------
 
-    inc     ix              ; next addr on lookup table
-    inc     ix
+    ; inc     ix              ; next addr on lookup table
+    ; inc     ix
 
     ; load SPRATR table
     ld      a, 0000 0001 b
@@ -111,6 +94,14 @@ LevelInitAnimation:
 
 
     ;call    Wait
+
+
+    ld      a, (LevelInitAnimation_Counter)
+    cp      255
+    jp      z, ResetCircleLoopTest
+
+    inc     a
+    ld      (LevelInitAnimation_Counter), a
 
     jp      .circleLoop
 
@@ -150,6 +141,93 @@ LevelInitAnimation:
     ld      bc, 0 + (16 * 256) + PORT_0
     ld      hl, LargeFont_Colors
     otir
+
+    ret
+
+.animateFirstChar:
+    ; load SPRATR buffer
+    ld      hl, SPRATR_Buffer + (4 * 0)     ; (4 * number_of_sprite_position)
+    ld      ix, (LevelInitAnimation_FirstChar_LookupTable_Addr)
+    
+    ld      a, (ix)
+
+    cp      217             ; if (y == 217) ret
+    ret     z
+    
+    ; ----------------
+    ld      (hl), a         ; y
+
+    inc     hl
+    ld      a, (ix + 1)
+    ;add     16 * 0          ; 16 * char_number
+    ld      (hl), a         ; x
+
+    inc     hl
+    ld      a, 4 * 0        ; 4 * sprite_pattern_number
+    ld      (hl), a         ; pattern number
+
+
+    inc     ix              ; next position in lookup table
+    inc     ix
+    ld      (LevelInitAnimation_FirstChar_LookupTable_Addr), ix
+
+    ret
+
+.animateSecondChar:
+    ; load SPRATR buffer
+    ld      hl, SPRATR_Buffer + (4 * 1)     ; (4 * number_of_sprite_position)
+    ld      ix, (LevelInitAnimation_SecondChar_LookupTable_Addr)
+    
+    ld      a, (ix)
+
+    cp      217             ; if (y == 217) ret
+    ret     z
+    
+    ; ----------------
+    ld      (hl), a         ; y
+
+    inc     hl
+    ld      a, (ix + 1)
+    add     16 * 1          ; 16 * char_number
+    ld      (hl), a         ; x
+
+    inc     hl
+    ld      a, 4 * 1        ; 4 * sprite_pattern_number
+    ld      (hl), a         ; pattern number
+
+
+    inc     ix              ; next position in lookup table
+    inc     ix
+    ld      (LevelInitAnimation_SecondChar_LookupTable_Addr), ix
+
+    ret
+
+.animateThirdChar:
+    ; load SPRATR buffer
+    ld      hl, SPRATR_Buffer + (4 * 2)     ; (4 * number_of_sprite_position)
+    ld      ix, (LevelInitAnimation_ThirdChar_LookupTable_Addr)
+    
+    ld      a, (ix)
+
+    cp      217             ; if (y == 217) ret
+    ret     z
+    
+    ; ----------------
+    ld      (hl), a         ; y
+
+    inc     hl
+    ld      a, (ix + 1)
+    add     16 * 2          ; 16 * char_number
+    ld      (hl), a         ; x
+
+    inc     hl
+    ld      a, 4 * 2        ; 4 * sprite_pattern_number
+    ld      (hl), a         ; pattern number
+
+
+    inc     ix              ; next position in lookup table
+    inc     ix
+    ld      (LevelInitAnimation_ThirdChar_LookupTable_Addr), ix
 
     ret
 
