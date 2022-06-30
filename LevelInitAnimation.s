@@ -11,7 +11,7 @@ LARGE_FONT_CHAR_V:          equ (64 * (9 + 22))
 LevelInitAnimation:
 
     ; hide all unused sprites
-    ld      hl, SPRATR_Buffer + (4 * 3) ; (4 * number_of_first_sprite_to_be_hidden)
+    ld      hl, SPRATR_Buffer + (4 * 5) ; (4 * number_of_first_sprite_to_be_hidden)
     ld      a, 216
     ld      (hl), a
 
@@ -41,13 +41,28 @@ LevelInitAnimation:
     ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_V
     call    .loadSpritePatternsAndColors
 
+    ; load sprite for char E at position 3
+    ld      hl, SPRPAT + (32 * 3)
+    ld      de, SPRCOL + (16 * 3)
+    ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_E
+    call    .loadSpritePatternsAndColors
+
+    ; load sprite for char L at position 4
+    ld      hl, SPRPAT + (32 * 4)
+    ld      de, SPRCOL + (16 * 4)
+    ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_L
+    call    .loadSpritePatternsAndColors
+
 
 
     ; init vars
-    ld      ix, LOOKUP_TABLE_CIRCLE_MOV
-    ld      (LevelInitAnimation_FirstChar_LookupTable_Addr), ix
-    ld      (LevelInitAnimation_SecondChar_LookupTable_Addr), ix
-    ld      (LevelInitAnimation_ThirdChar_LookupTable_Addr), ix
+    ld      hl, LOOKUP_TABLE_CIRCLE_MOV
+    ld      (LevelInitAnimation_Char_1_LookupTable_Addr), hl
+    ld      (LevelInitAnimation_Char_2_LookupTable_Addr), hl
+    ld      (LevelInitAnimation_Char_3_LookupTable_Addr), hl
+    ld      (LevelInitAnimation_Char_4_LookupTable_Addr), hl
+    ld      (LevelInitAnimation_Char_5_LookupTable_Addr), hl
+    ld      (LevelInitAnimation_Char_6_LookupTable_Addr), hl
     xor     a
     ld      (LevelInitAnimation_Counter), a
 
@@ -61,23 +76,29 @@ LevelInitAnimation:
 
 
 
-    call    .animateFirstChar
+    call    .animateChar_1
 
-    ; if(Counter >= 10) animateSecondChar
+    ; if(Counter >= 10) animate_Char_2
     ld      a, (LevelInitAnimation_Counter)
     cp      10
-    call    nc, .animateSecondChar
+    call    nc, .animateChar_2
 
-    ; if(Counter >= 10) animateSecondChar
+    ; if(Counter >= 20) animate_Char_3
     ld      a, (LevelInitAnimation_Counter)
     cp      20
-    call    nc, .animateThirdChar
+    call    nc, .animateChar_3
 
+    ; if(Counter >= 30) animate_Char_4
+    ld      a, (LevelInitAnimation_Counter)
+    cp      30
+    call    nc, .animateChar_4
+
+    ; if(Counter >= 40) animate_Char_5
+    ld      a, (LevelInitAnimation_Counter)
+    cp      40
+    call    nc, .animateChar_5
 
     ; ----------------
-
-    ; inc     ix              ; next addr on lookup table
-    ; inc     ix
 
     ; load SPRATR table
     ld      a, 0000 0001 b
@@ -144,10 +165,11 @@ LevelInitAnimation:
 
     ret
 
-.animateFirstChar:
+; TODO: make routine to avoid this code repetition
+.animateChar_1:
     ; load SPRATR buffer
     ld      hl, SPRATR_Buffer + (4 * 0)     ; (4 * number_of_sprite_position)
-    ld      ix, (LevelInitAnimation_FirstChar_LookupTable_Addr)
+    ld      ix, (LevelInitAnimation_Char_1_LookupTable_Addr)
     
     ld      a, (ix)
 
@@ -169,14 +191,14 @@ LevelInitAnimation:
 
     inc     ix              ; next position in lookup table
     inc     ix
-    ld      (LevelInitAnimation_FirstChar_LookupTable_Addr), ix
+    ld      (LevelInitAnimation_Char_1_LookupTable_Addr), ix
 
     ret
 
-.animateSecondChar:
+.animateChar_2:
     ; load SPRATR buffer
     ld      hl, SPRATR_Buffer + (4 * 1)     ; (4 * number_of_sprite_position)
-    ld      ix, (LevelInitAnimation_SecondChar_LookupTable_Addr)
+    ld      ix, (LevelInitAnimation_Char_2_LookupTable_Addr)
     
     ld      a, (ix)
 
@@ -198,14 +220,14 @@ LevelInitAnimation:
 
     inc     ix              ; next position in lookup table
     inc     ix
-    ld      (LevelInitAnimation_SecondChar_LookupTable_Addr), ix
+    ld      (LevelInitAnimation_Char_2_LookupTable_Addr), ix
 
     ret
 
-.animateThirdChar:
+.animateChar_3:
     ; load SPRATR buffer
     ld      hl, SPRATR_Buffer + (4 * 2)     ; (4 * number_of_sprite_position)
-    ld      ix, (LevelInitAnimation_ThirdChar_LookupTable_Addr)
+    ld      ix, (LevelInitAnimation_Char_3_LookupTable_Addr)
     
     ld      a, (ix)
 
@@ -227,9 +249,68 @@ LevelInitAnimation:
 
     inc     ix              ; next position in lookup table
     inc     ix
-    ld      (LevelInitAnimation_ThirdChar_LookupTable_Addr), ix
+    ld      (LevelInitAnimation_Char_3_LookupTable_Addr), ix
 
     ret
+
+.animateChar_4:
+    ; load SPRATR buffer
+    ld      hl, SPRATR_Buffer + (4 * 3)     ; (4 * number_of_sprite_position)
+    ld      ix, (LevelInitAnimation_Char_4_LookupTable_Addr)
+    
+    ld      a, (ix)
+
+    cp      217             ; if (y == 217) ret
+    ret     z
+    
+    ; ----------------
+    ld      (hl), a         ; y
+
+    inc     hl
+    ld      a, (ix + 1)
+    add     16 * 3          ; 16 * char_number
+    ld      (hl), a         ; x
+
+    inc     hl
+    ld      a, 4 * 3        ; 4 * sprite_pattern_number
+    ld      (hl), a         ; pattern number
+
+
+    inc     ix              ; next position in lookup table
+    inc     ix
+    ld      (LevelInitAnimation_Char_4_LookupTable_Addr), ix
+
+    ret
+
+.animateChar_5:
+    ; load SPRATR buffer
+    ld      hl, SPRATR_Buffer + (4 * 4)     ; (4 * number_of_sprite_position)
+    ld      ix, (LevelInitAnimation_Char_5_LookupTable_Addr)
+    
+    ld      a, (ix)
+
+    cp      217             ; if (y == 217) ret
+    ret     z
+    
+    ; ----------------
+    ld      (hl), a         ; y
+
+    inc     hl
+    ld      a, (ix + 1)
+    add     16 * 4          ; 16 * char_number
+    ld      (hl), a         ; x
+
+    inc     hl
+    ld      a, 4 * 4        ; 4 * sprite_pattern_number
+    ld      (hl), a         ; pattern number
+
+
+    inc     ix              ; next position in lookup table
+    inc     ix
+    ld      (LevelInitAnimation_Char_5_LookupTable_Addr), ix
+
+    ret
+
 
 LOOKUP_TABLE_CIRCLE_MOV:
     db       -16, 128

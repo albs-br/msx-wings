@@ -264,6 +264,9 @@ ConvertMsx2SpritesToSc11_Output:                rb 16*16
 ; ---------------------------------------
 
 LevelInitAnimation_Counter:     rb 1
-LevelInitAnimation_FirstChar_LookupTable_Addr:      rw 1
-LevelInitAnimation_SecondChar_LookupTable_Addr:     rw 1
-LevelInitAnimation_ThirdChar_LookupTable_Addr:      rw 1
+LevelInitAnimation_Char_1_LookupTable_Addr:      rw 1
+LevelInitAnimation_Char_2_LookupTable_Addr:      rw 1
+LevelInitAnimation_Char_3_LookupTable_Addr:      rw 1
+LevelInitAnimation_Char_4_LookupTable_Addr:      rw 1
+LevelInitAnimation_Char_5_LookupTable_Addr:      rw 1
+LevelInitAnimation_Char_6_LookupTable_Addr:      rw 1
