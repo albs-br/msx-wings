@@ -131,6 +131,7 @@ Execute:
 
 ResetCircleLoopTest:
 
+    ld      a, 2
     call    LevelInitAnimation
 
     jp      ResetCircleLoopTest

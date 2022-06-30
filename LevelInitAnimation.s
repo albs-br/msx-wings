@@ -4,22 +4,45 @@ LARGE_FONT_CHAR_V:          equ (64 * (9 + 22))
 
 
 ; Input:
-;   DE: char number (x 64)
-;       0-9:  numbers
-;       10: char 'A'
-
+;   A: level number (1-n)
 LevelInitAnimation:
 
-    ; hide all unused sprites
-    ld      hl, SPRATR_Buffer + (4 * 5) ; (4 * number_of_first_sprite_to_be_hidden)
-    ld      a, 216
-    ld      (hl), a
+    push    af
+        ; hide all sprites
+        ld      de, 4
+        ld      a, 216
+        ld      hl, SPRATR_Buffer
+        ld      b, 32
+    .loop_2:
+        ld      (hl), a
+        add     hl, de
+        djnz    .loop_2
+
+        ; set MegaROM page for Fonts data
+        ld      a, FONTS_DATA_MEGAROM_PAGE
+        ld	    (Seg_P8000_SW), a
+    pop     af
 
 
 
-    ; set MegaROM page for Fonts data
-    ld      a, FONTS_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; load sprite for level number char  at position 5
+    ld      hl, LargeFont_Patterns ; + LARGE_FONT_CHAR_E
+    ld      de, 64
+    ld      b, a
+.loop_1:
+    add     hl, de
+    djnz    .loop_1
+    
+    ; IX = HL
+    ld      a, h
+    ld      ixh, a
+    ld      a, l
+    ld      ixl, a
+
+    ld      hl, SPRPAT + (32 * 5)
+    ld      de, SPRCOL + (16 * 5)
+    
+    call    .loadSpritePatternsAndColors
 
 
 
@@ -98,6 +121,10 @@ LevelInitAnimation:
     cp      40
     call    nc, .animateChar_5
 
+    ; if(Counter >= 50) animate_Char_6
+    ld      a, (LevelInitAnimation_Counter)
+    cp      50
+    call    nc, .animateChar_6
     ; ----------------
 
     ; load SPRATR table
@@ -142,6 +169,7 @@ LevelInitAnimation:
     ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
     ld      bc, 0 + (32 * 256) + PORT_0
     ;ld      hl, LargeFont_Patterns
+    ; HL = IX
     ld      a, ixh
     ld      h, a
     ld      a, ixl
@@ -189,7 +217,7 @@ LevelInitAnimation:
     ld      (hl), a         ; pattern number
 
 
-    inc     ix              ; next position in lookup table
+    inc     ix              ; next position on lookup table
     inc     ix
     ld      (LevelInitAnimation_Char_1_LookupTable_Addr), ix
 
@@ -218,7 +246,7 @@ LevelInitAnimation:
     ld      (hl), a         ; pattern number
 
 
-    inc     ix              ; next position in lookup table
+    inc     ix              ; next position on lookup table
     inc     ix
     ld      (LevelInitAnimation_Char_2_LookupTable_Addr), ix
 
@@ -247,7 +275,7 @@ LevelInitAnimation:
     ld      (hl), a         ; pattern number
 
 
-    inc     ix              ; next position in lookup table
+    inc     ix              ; next position on lookup table
     inc     ix
     ld      (LevelInitAnimation_Char_3_LookupTable_Addr), ix
 
@@ -276,7 +304,7 @@ LevelInitAnimation:
     ld      (hl), a         ; pattern number
 
 
-    inc     ix              ; next position in lookup table
+    inc     ix              ; next position on lookup table
     inc     ix
     ld      (LevelInitAnimation_Char_4_LookupTable_Addr), ix
 
@@ -305,12 +333,41 @@ LevelInitAnimation:
     ld      (hl), a         ; pattern number
 
 
-    inc     ix              ; next position in lookup table
+    inc     ix              ; next position on lookup table
     inc     ix
     ld      (LevelInitAnimation_Char_5_LookupTable_Addr), ix
 
     ret
 
+.animateChar_6:
+    ; load SPRATR buffer
+    ld      hl, SPRATR_Buffer + (4 * 5)     ; (4 * number_of_sprite_position)
+    ld      ix, (LevelInitAnimation_Char_6_LookupTable_Addr)
+    
+    ld      a, (ix)
+
+    cp      217             ; if (y == 217) ret
+    ret     z
+    
+    ; ----------------
+    ld      (hl), a         ; y
+
+    inc     hl
+    ld      a, (ix + 1)
+    add     16 * 5          ; 16 * char_number
+    add     16              ; add one space
+    ld      (hl), a         ; x
+
+    inc     hl
+    ld      a, 4 * 5        ; 4 * sprite_pattern_number
+    ld      (hl), a         ; pattern number
+
+
+    inc     ix              ; next position on lookup table
+    inc     ix
+    ld      (LevelInitAnimation_Char_6_LookupTable_Addr), ix
+
+    ret
 
 LOOKUP_TABLE_CIRCLE_MOV:
     db       -16, 128
