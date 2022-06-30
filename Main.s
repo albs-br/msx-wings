@@ -57,6 +57,8 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     ; INCLUDE "EnemyData/EnemyData_1.s"     ; moved to a MegaROM page
     ; INCLUDE "EnemyData/EnemyShotData.s"     ; moved to a MegaROM page
     INCLUDE "Sound/Sfx/PlaySfx.s"
+
+    INCLUDE "LevelInitAnimation.s"
     
     INCLUDE "DebugMessage.s"
 
@@ -127,135 +129,11 @@ Execute:
     ; call    TestFonts_8x16   ; [debug]
     ; call    TestFonts_16x16   ; [debug]
 
-    ; -------------------------------- test look-up table for circle movement
+ResetCircleLoopTest:
 
-    ; set MegaROM page for Fonts data
-    ld      a, FONTS_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    call    LevelInitAnimation
 
-    ; load sprite pat & colors
-    ld      a, 0000 0001 b
-    ld      hl, SPRPAT
-    call    SetVdp_Write
-    ; ld      b, 32
-    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      bc, 0 + (32*256) + PORT_0
-    ld      hl, LargeFont_Patterns
-    otir
-    ld      a, 0000 0001 b
-    ld      hl, SPRCOL
-    call    SetVdp_Write
-    ; ld      b, 16
-    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      bc, 0 + (16*256) + PORT_0
-    ld      hl, LargeFont_Colors
-    otir
-
-    ; int vars
-    ld      ix, LOOKUP_TABLE_CIRCLE_MOV
-
-.circleLoop:
-    ld      hl, BIOS_JIFFY              ; (v-blank sync)
-    ld      a, (hl)
-.circleLoop_waitVBlank:
-    cp      (hl)
-    jr      z, .circleLoop_waitVBlank
-
-    ; load SPRATR buffer
-    ld      hl, SPRATR_Buffer
-    ld      a, (ix)
-    ld      (hl), a         ; y
-
-    inc     hl
-    ld      a, (ix+1)
-    ld      (hl), a         ; x
-
-
-    inc     ix              ; next addr on lookup table
-    inc     ix
-
-    ; load SPRATR table
-    ld      a, 0000 0001 b
-    ld      hl, SPRATR
-    call    SetVdp_Write
-    ; ld      b, SpriteAttrTableBuffer.size
-    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ;ld      bc, 0 + ((SpriteAttrTableBuffer.size * 256) + PORT_0)
-    ld      c, PORT_0
-    ld      hl, SPRATR_Buffer
-    ;otir
-    ; 4x OUTI
-    outi outi outi outi 
-
-
-    ;call    Wait
-
-    jp      .circleLoop
-
-LOOKUP_TABLE_CIRCLE_MOV:
-        db       0, 128
-        db       0, 120
-        db       0, 112
-        db       0, 104
-        db       4, 98
-        db       9, 91
-        db       14, 85
-        db       19, 80
-        db       25, 75
-        db       31, 71
-        db       38, 68
-        db       44, 66
-        db       50, 63
-        db       57, 62
-        db       64, 61
-        db       70, 61
-        db       76, 61
-        db       82, 62
-        db       88, 64
-        db       96, 65
-        db       103, 69
-        db       110, 72
-        db       116, 76
-        db       121, 80
-        db       125, 86
-        db       130, 92
-        db       133, 98
-        db       134, 104
-        db       136, 111
-        db       137, 117
-        db       137, 123
-        db       135, 129
-        db       134, 134
-        db       131, 140
-        db       129, 144
-        db       125, 148
-        db       121, 152
-        db       117, 155
-        db       112, 157
-        db       108, 159
-        db       104, 160
-        db       99, 161
-        db       95, 160
-        db       91, 160
-        db       87, 160
-        db       82, 159
-        db       77, 158
-        db       72, 155
-        db       67, 152
-        db       63, 148
-        db       60, 144
-        db       58, 138
-        db       56, 133
-        db       56, 127
-        db       57, 122
-        db       58, 117
-        db       61, 112
-        db       64, 107
-        db       68, 103
-        db       72, 100
-        db       78, 98
-        db       83, 96
-; -------------------------------- 
+    jp      ResetCircleLoopTest
 
 .gameLoop:
     ld      hl, BIOS_JIFFY              ; (v-blank sync)
