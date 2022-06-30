@@ -137,15 +137,17 @@ Execute:
     ld      a, 0000 0001 b
     ld      hl, SPRPAT
     call    SetVdp_Write
-    ld      b, 32
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      b, 32
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      bc, 0 + (32*256) + PORT_0
     ld      hl, LargeFont_Patterns
     otir
     ld      a, 0000 0001 b
     ld      hl, SPRCOL
     call    SetVdp_Write
-    ld      b, 16
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      b, 16
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      bc, 0 + (16*256) + PORT_0
     ld      hl, LargeFont_Colors
     otir
 
@@ -186,101 +188,73 @@ Execute:
     outi outi outi outi 
 
 
-    call    Wait
+    ;call    Wait
 
     jp      .circleLoop
 
 LOOKUP_TABLE_CIRCLE_MOV:
         db       0, 128
-        db       2, 120
-        db       5, 112
-        db       8, 104
-        db       12, 98
-        db       17, 91
-        db       22, 85
-        db       27, 80
-        db       33, 75
-        db       39, 71
-        db       46, 68
-        db       52, 66
-        db       58, 63
-        db       65, 62
-        db       72, 61
-        db       78, 61
-        db       84, 61
-        db       90, 62
-        db       96, 64
-        db       101, 65
-        db       107, 67
-        db       112, 69
-        db       117, 72
-        db       121, 74
-        db       125, 77
-        db       129, 80
-        db       133, 84
-        db       136, 88
-        db       138, 93
-        db       140, 97
-        db       142, 102
-        db       143, 106
-        db       145, 110
-        db       145, 115
-        db       145, 119
-        db       145, 124
-        db       144, 128
-        db       143, 132
-        db       141, 136
-        db       139, 140
-        db       137, 143
-        db       136, 147
-        db       133, 150
-        db       130, 152
-        db       127, 154
-        db       124, 156
-        db       121, 158
-        db       118, 159
-        db       114, 160
-        db       111, 161
-        db       108, 162
-        db       105, 162
-        db       102, 161
+        db       0, 120
+        db       0, 112
+        db       0, 104
+        db       4, 98
+        db       9, 91
+        db       14, 85
+        db       19, 80
+        db       25, 75
+        db       31, 71
+        db       38, 68
+        db       44, 66
+        db       50, 63
+        db       57, 62
+        db       64, 61
+        db       70, 61
+        db       76, 61
+        db       82, 62
+        db       88, 64
+        db       96, 65
+        db       103, 69
+        db       110, 72
+        db       116, 76
+        db       121, 80
+        db       125, 86
+        db       130, 92
+        db       133, 98
+        db       134, 104
+        db       136, 111
+        db       137, 117
+        db       137, 123
+        db       135, 129
+        db       134, 134
+        db       131, 140
+        db       129, 144
+        db       125, 148
+        db       121, 152
+        db       117, 155
+        db       112, 157
+        db       108, 159
+        db       104, 160
         db       99, 161
         db       95, 160
-        db       93, 160
-        db       90, 159
-        db       87, 159
-        db       85, 158
-        db       82, 157
-        db       80, 155
-        db       77, 154
-        db       75, 152
-        db       73, 150
-        db       71, 148
-        db       69, 146
-        db       68, 144
-        db       67, 141
-        db       66, 138
-        db       65, 136
-        db       64, 133
-        db       64, 130
-        db       64, 127
-        db       64, 125
-        db       65, 122
-        db       65, 119
-        db       66, 117
-        db       67, 114
-        db       69, 112
-        db       70, 109
-        db       72, 107
-        db       74, 105
-        db       76, 103
-        db       78, 101
-        db       80, 100
-        db       83, 99
-        db       86, 98
-        db       88, 97
-        db       91, 96
-        db       94, 96
+        db       91, 160
+        db       87, 160
+        db       82, 159
+        db       77, 158
+        db       72, 155
+        db       67, 152
+        db       63, 148
+        db       60, 144
+        db       58, 138
+        db       56, 133
+        db       56, 127
+        db       57, 122
+        db       58, 117
+        db       61, 112
+        db       64, 107
+        db       68, 103
+        db       72, 100
+        db       78, 98
+        db       83, 96
 ; -------------------------------- 
 
 .gameLoop:
