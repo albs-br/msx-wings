@@ -146,7 +146,8 @@ LevelInitAnimation:
 
     ld      a, (LevelInitAnimation_Counter)
     cp      255
-    jp      z, ResetCircleLoopTest
+    ;jp      z, DEBUG_ResetCircleLoopTest
+    ret     z
 
     inc     a
     ld      (LevelInitAnimation_Counter), a
@@ -370,67 +371,67 @@ LevelInitAnimation:
     ret
 
 LOOKUP_TABLE_CIRCLE_MOV:
-        db       -16, 104
-        db       -14, 95
-        db       -10, 87
-        db       -6, 79
-        db       -1, 72
-        db       4, 65
-        db       9, 58
-        db       16, 54
-        db       22, 49
-        db       29, 45
-        db       35, 41
-        db       42, 38
-        db       49, 37
-        db       56, 36
-        db       63, 35
-        db       70, 35
-        db       76, 37
-        db       82, 38
-        db       88, 40
-        db       96, 41
-        db       103, 45
-        db       110, 48
-        db       116, 52
-        db       121, 56
-        db       125, 62
-        db       130, 68
-        db       133, 74
-        db       134, 80
-        db       136, 87
-        db       137, 93
-        db       137, 99
-        db       135, 105
-        db       134, 110
-        db       131, 116
-        db       129, 120
-        db       125, 124
-        db       121, 128
-        db       117, 131
-        db       112, 133
-        db       108, 135
-        db       104, 136
-        db       99, 137
-        db       95, 136
-        db       91, 136
-        db       87, 136
-        db       82, 135
-        db       77, 134
-        db       72, 131
-        db       67, 128
-        db       63, 124
-        db       60, 120
-        db       58, 114
-        db       56, 109
-        db       56, 103
-        db       57, 98
-        db       58, 93
-        db       61, 88
-        db       64, 83
-        db       68, 79
-        db       72, 76
-        db       78, 74
-        db       83, 72        
+    db       -16, 104
+    db       -14, 95
+    db       -10, 87
+    db       -6, 79
+    db       -1, 72
+    db       4, 65
+    db       9, 58
+    db       16, 54
+    db       22, 49
+    db       29, 45
+    db       35, 41
+    db       42, 38
+    db       49, 37
+    db       56, 36
+    db       63, 35
+    db       70, 35
+    db       76, 37
+    db       82, 38
+    db       88, 40
+    db       96, 41
+    db       103, 45
+    db       110, 48
+    db       116, 52
+    db       121, 56
+    db       125, 62
+    db       130, 68
+    db       133, 74
+    db       134, 80
+    db       136, 87
+    db       137, 93
+    db       137, 99
+    db       135, 105
+    db       134, 110
+    db       131, 116
+    db       129, 120
+    db       125, 124
+    db       121, 128
+    db       117, 131
+    db       112, 133
+    db       108, 135
+    db       104, 136
+    db       99, 137
+    db       95, 136
+    db       91, 136
+    db       87, 136
+    db       82, 135
+    db       77, 134
+    db       72, 131
+    db       67, 128
+    db       63, 124
+    db       60, 120
+    db       58, 114
+    db       56, 109
+    db       56, 103
+    db       57, 98
+    db       58, 93
+    db       61, 88
+    db       64, 83
+    db       68, 79
+    db       72, 76
+    db       78, 74
+    db       83, 72        
 
     db       217        ; end of data

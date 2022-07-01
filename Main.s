@@ -116,7 +116,7 @@ Execute:
     call    ayFX_SETUP
 
 
-    ld      a, 1                        ; level number (1-8)
+    ld      a, 3                        ; level number (1-8)
     ld      (CurrentLevelNumber), a
     call    LoadLevel
 
@@ -129,12 +129,12 @@ Execute:
     ; call    TestFonts_8x16   ; [debug]
     ; call    TestFonts_16x16   ; [debug]
 
-ResetCircleLoopTest:
+DEBUG_ResetCircleLoopTest:
 
-    ld      a, 2
+    ld      a, 9 ; debug
     call    LevelInitAnimation
 
-    jp      ResetCircleLoopTest
+    jp      DEBUG_ResetCircleLoopTest
 
 .gameLoop:
     ld      hl, BIOS_JIFFY              ; (v-blank sync)
