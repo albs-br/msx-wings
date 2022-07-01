@@ -24,7 +24,7 @@
             "command": "C:\\Program Files\\openMSX\\openmsx.exe",
                 "args": [
                     {
-                        "value": "C:\\Users\\albs_\\source\\repos\\msx-wings\\msx-wings.rom",
+                        "value": "${workspaceFolder}\\msx-wings.rom",
                         //"value": "${fileBasenameNoExtension}.rom",
                         "quoting": "strong"
                     },
@@ -47,7 +47,7 @@
                         "quoting": "escape"
                     },
                     {
-                        "value": "-script C:\\Users\\albs_\\source\\repos\\msx-wings\\msx-wings_debug.tcl",
+                        "value": "-script ${workspaceFolder}\\msx-wings_debug.tcl",
                         "quoting": "escape"
                     }
                 ],
