@@ -58,7 +58,8 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     ; INCLUDE "EnemyData/EnemyShotData.s"     ; moved to a MegaROM page
     INCLUDE "Sound/Sfx/PlaySfx.s"
 
-    INCLUDE "LevelInitAnimation.s"
+    INCLUDE "LevelTitleAnimation/LevelTitleAnimation.s"
+    INCLUDE "LevelTitleAnimation/Data.s"
     
     INCLUDE "DebugMessage.s"
 
@@ -132,7 +133,7 @@ Execute:
 DEBUG_ResetCircleLoopTest:
 
     ld      a, 9 ; debug
-    call    LevelInitAnimation
+    call    LevelTitleAnimation
 
     jp      DEBUG_ResetCircleLoopTest
 

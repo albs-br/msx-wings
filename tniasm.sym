@@ -31,7 +31,6 @@ SpritePattern_EnemyPlane_Frame_5_Patterns_0_and_1: equ 0623Eh ; last def. pass 3
 HTIMI: equ 0FD9Fh ; last def. pass 3
 BIOS_WINWID: equ 0FCA5h ; last def. pass 3
 Item_Temp_Y_Static: equ 0C0FFh ; last def. pass 3
-LevelInitAnimation.animateChar_4: equ 05BD2h ; last def. pass 3
 BIOS_H_ERRP: equ 0FEFDh ; last def. pass 3
 SpritePattern_PlayerPlane_0_and_1: equ 05E5Eh ; last def. pass 3
 EnemyShot_4_Struct: equ 0C0DBh ; last def. pass 3
@@ -111,6 +110,7 @@ LEVEL_DATA_MEGAROM_PAGE: equ 0F2h ; last def. pass 3
 GroundTarget_Init: equ 05762h ; last def. pass 3
 GroundTarget_Temp_Delta_X: equ 0C18Ah ; last def. pass 3
 BIOS_STREND: equ 0F6C6h ; last def. pass 3
+LevelTitleAnimation: equ 05A77h ; last def. pass 3
 SpritePattern_PlayerPlane_Left_Frame_0_Top: equ 05EDEh ; last def. pass 3
 BIOS_ENASLT: equ 024h ; last def. pass 3
 BIOS_H_BAKU: equ 0FEADh ; last def. pass 3
@@ -205,6 +205,7 @@ BIOS_DRWFLG: equ 0FCBBh ; last def. pass 3
 BIOS_DOT: equ 0F6B5h ; last def. pass 3
 SpriteColors_PlayerPlane_Left_Frame_0_Top: equ 0657Eh ; last def. pass 3
 BIOS_VOICCQ: equ 0FA75h ; last def. pass 3
+LevelTitleAnimation.loadSpritePatternsAndColors: equ 05B4Fh ; last def. pass 3
 ConvertMsx2SpritesToSc11.saveBit_Pattern_0: equ 04277h ; last def. pass 3
 SpriteColors_Explosion_Frames_0_to_2.size: equ 030h ; last def. pass 3
 SpritePattern_PlayerShot: equ 060DEh ; last def. pass 3
@@ -215,6 +216,7 @@ EnemyShot_3_Struct: equ 0C0D0h ; last def. pass 3
 BIOS_CYOFF: equ 0F947h ; last def. pass 3
 Enemy_Reset: equ 050B0h ; last def. pass 3
 BIOS_CXOFF: equ 0F945h ; last def. pass 3
+LevelTitleAnimation.circleLoop_waitVBlank: equ 05B03h ; last def. pass 3
 PlayerSprite.planeLeft_0: equ 04EDDh ; last def. pass 3
 PLAYER_SIDE_MOVEMENT_CENTER: equ 080h ; last def. pass 3
 Enemy_Logic.loadExplosionFrame_1: equ 05237h ; last def. pass 3
@@ -267,7 +269,6 @@ BIOS_H_IPL: equ 0FE03h ; last def. pass 3
 BIOS_PUTPNT: equ 0F3F8h ; last def. pass 3
 ColorsPlayerPlaneEngine_Frame_0: equ 04E9Ch ; last def. pass 3
 BIOS_LPTPOS: equ 0F415h ; last def. pass 3
-LevelInitAnimation.animateChar_2: equ 05B8Eh ; last def. pass 3
 BIOS_CHGMOD: equ 05Fh ; last def. pass 3
 CheckCol_Object_PlayerShot.singleShot: equ 04D48h ; last def. pass 3
 Copy16x16ImageFromRAMToVRAM: equ 041DDh ; last def. pass 3
@@ -423,7 +424,6 @@ SpritePattern_EnemyPlane_Frame_3_Patterns_0_and_1: equ 061BEh ; last def. pass 3
 BIOS_KBUF: equ 0F41Fh ; last def. pass 3
 Enemy_Logic.doInitItem: equ 051BDh ; last def. pass 3
 Item_Temp_Frame_Counter: equ 0C108h ; last def. pass 3
-LevelInitAnimation.animateChar_1: equ 05B6Eh ; last def. pass 3
 BIOS_REDCLK: equ 01F5h ; last def. pass 3
 BIOS_MUSICF: equ 0FC3Fh ; last def. pass 3
 BIOS_ENDPRG: equ 0F40Fh ; last def. pass 3
@@ -440,7 +440,6 @@ InitialSpriteAttributes.size: equ 014h ; last def. pass 3
 Player_Y_Static: equ 0C004h ; last def. pass 3
 SpriteColors_PlayerPlane_Left_Frame_1_Bottom.size: equ 020h ; last def. pass 3
 Debug_Temp_Byte: equ 0C231h ; last def. pass 3
-LevelInitAnimation.loop_2: equ 05A82h ; last def. pass 3
 SpriteColors_PlayerPlane_Right_Frame_1_Top.size: equ 020h ; last def. pass 3
 Enemy_Temp_Struct.size: equ 010h ; last def. pass 3
 BIOS_ATRBAS: equ 0F928h ; last def. pass 3
@@ -486,6 +485,7 @@ BIOS_H_EVAL: equ 0FF70h ; last def. pass 3
 BIOS_PARM1: equ 0F6E8h ; last def. pass 3
 BIOS_ONGSBF: equ 0FBD8h ; last def. pass 3
 BIOS_H_LOF: equ 0FE9Eh ; last def. pass 3
+LevelTitleAnimation.animateChar_3: equ 05BB0h ; last def. pass 3
 CheckCol_Object_PlayerShot: equ 04D2Fh ; last def. pass 3
 LevelInitAnimation_Char_4_LookupTable_Addr: equ 0C3D3h ; last def. pass 3
 PlayerShot_Init.continue_0: equ 04FE9h ; last def. pass 3
@@ -511,6 +511,7 @@ BIOS_H_MKI: equ 0FE30h ; last def. pass 3
 BIOS_H_RSLF: equ 0FE8Fh ; last def. pass 3
 BIOS_FNKSB: equ 0C9h ; last def. pass 3
 BIOS_ARYTAB: equ 0F6C4h ; last def. pass 3
+LevelTitleAnimation.animateChar_2: equ 05B8Eh ; last def. pass 3
 BYTES_PER_LINE: equ 0100h ; last def. pass 3
 BIOS_CHRGTR: equ 010h ; last def. pass 3
 Item_Logic.itemX_Equal_0: equ 05680h ; last def. pass 3
@@ -553,7 +554,6 @@ SpritePattern_PlayerPlane_2_and_3: equ 05E9Eh ; last def. pass 3
 Item_Logic.collision: equ 0564Ch ; last def. pass 3
 MSXID1: equ 02Bh ; last def. pass 3
 GroundTarget_Sprite.X: equ 0C1F3h ; last def. pass 3
-LevelInitAnimation.animateChar_5: equ 05BF4h ; last def. pass 3
 ITEM_P_LIFETIME_START_BLINK: equ 01A4h ; last def. pass 3
 SpritePattern_PlayerPlane_Left_Frame_1_Bottom: equ 05F9Eh ; last def. pass 3
 ROUT_A0.LOUT: equ 043CBh ; last def. pass 3
@@ -579,7 +579,6 @@ Temp_Addr: equ 0C213h ; last def. pass 3
 Enemy_Init.return: equ 050A3h ; last def. pass 3
 CheckCollision_8x8_16x16.y1IsLarger: equ 04184h ; last def. pass 3
 Item_0_Struct: equ 0C10Ch ; last def. pass 3
-LevelInitAnimation: equ 05A77h ; last def. pass 3
 ayFX_TONE: equ 0C229h ; last def. pass 3
 BIOS_DIMFLG: equ 0F662h ; last def. pass 3
 Item_Temp_Delta_Y: equ 0C10Bh ; last def. pass 3
@@ -616,11 +615,13 @@ BIOS_PARM2: equ 0F750h ; last def. pass 3
 BIOS_RG9SAV: equ 0FFE8h ; last def. pass 3
 CurrentAddrLineScroll: equ 0C20Eh ; last def. pass 3
 BIOS_H_SETF: equ 0FE53h ; last def. pass 3
+LevelTitleAnimation.animateChar_5: equ 05BF4h ; last def. pass 3
 ENEMY_0_SPRCOL_ADDR: equ 0F8A0h ; last def. pass 3
 BIOS_H_FINE: equ 0FF1Bh ; last def. pass 3
 BIOS_DAC: equ 0F7F6h ; last def. pass 3
 BIOS_H_MKD: equ 0FE3Ah ; last def. pass 3
 GroundTarget_Sprite.PatternNumber: equ 0C1F5h ; last def. pass 3
+LevelTitleAnimation.circleLoop: equ 05AFFh ; last def. pass 3
 Enemy_2_Struct: equ 0C054h ; last def. pass 3
 LEVEL_4_LAST_SCREEN_PAGE: equ 040h ; last def. pass 3
 Player_FramesSinceLastShot: equ 0C023h ; last def. pass 3
@@ -659,7 +660,6 @@ BIOS_H_DOGR: equ 0FEF3h ; last def. pass 3
 BIOS_MAXUPD: equ 0F3ECh ; last def. pass 3
 TestFonts_16x16: equ 05DD6h ; last def. pass 3
 Item_2_Struct: equ 0C12Ch ; last def. pass 3
-LevelInitAnimation.animateChar_3: equ 05BB0h ; last def. pass 3
 EnemyShotDeltaX_0_degrees_center: equ 09B60h ; last def. pass 3
 BIOS_PRMLN2: equ 0F74Eh ; last def. pass 3
 SpritePattern_EnemyPlane_Frame_1_Patterns_0_and_1: equ 0613Eh ; last def. pass 3
@@ -707,7 +707,6 @@ DEBUG_ResetCircleLoopTest: equ 06A16h ; last def. pass 3
 SpriteColors_PlayerPlane_Left_Frame_0_Top.size: equ 020h ; last def. pass 3
 CheckCollision_16x16_32x16.x1IsLarger: equ 0415Dh ; last def. pass 3
 LoadLevel.level_7: equ 05A1Fh ; last def. pass 3
-LevelInitAnimation.circleLoop_waitVBlank: equ 05B03h ; last def. pass 3
 BIOS_T32CGP: equ 0F3C1h ; last def. pass 3
 BIOS_H_TIMI: equ 0FD9Fh ; last def. pass 3
 BIOS_TRCFLG: equ 0F7C4h ; last def. pass 3
@@ -756,7 +755,6 @@ BIOS_CNPNTS: equ 0F936h ; last def. pass 3
 BIOS_ERAFNK: equ 0CCh ; last def. pass 3
 CheckCollision_8x8_16x16.checkVerticalCollision: equ 0417Dh ; last def. pass 3
 ENEMY_SHOT_1_SPRCOL_ADDR: equ 0F990h ; last def. pass 3
-LevelInitAnimation.circleLoop: equ 05AFFh ; last def. pass 3
 BIOS_MLTATR: equ 0F3D7h ; last def. pass 3
 BIOS_FILNAM: equ 0F866h ; last def. pass 3
 VARayFXEND: equ 0C230h ; last def. pass 3
@@ -804,6 +802,7 @@ GroundTarget_1_Struct: equ 0C19Eh ; last def. pass 3
 BIOS_H_NULO: equ 0FE5Dh ; last def. pass 3
 LoadPlayerColors_Right_0: equ 04F84h ; last def. pass 3
 EnemyShot_Init.return: equ 053B1h ; last def. pass 3
+LevelTitleAnimation.animateChar_6: equ 05C16h ; last def. pass 3
 BIOS_CGPNT: equ 0F91Fh ; last def. pass 3
 InitVariablesForScroll: equ 04B2Ah ; last def. pass 3
 RandomNumber: equ 04129h ; last def. pass 3
@@ -847,6 +846,7 @@ SpriteColors_PlayerPlane_Left_Frame_1_Top.size: equ 020h ; last def. pass 3
 BIOS_CHKRAM: equ 00h ; last def. pass 3
 Item_6_Struct: equ 0C16Ch ; last def. pass 3
 BIOS_GETYPR: equ 028h ; last def. pass 3
+LevelTitleAnimation.loop_2: equ 05A82h ; last def. pass 3
 BIOS_H_KEYI: equ 0FD9Ah ; last def. pass 3
 BIOS_OUTDO: equ 018h ; last def. pass 3
 ClearVram_MSX2.loop_1: equ 040CFh ; last def. pass 3
@@ -894,6 +894,7 @@ LoadLevel.level_8: equ 05A35h ; last def. pass 3
 EXPLOSION_SPR_PAT_1_NUMBER: equ 020h ; last def. pass 3
 PlayerShot_Temp_Status: equ 0C009h ; last def. pass 3
 SpriteColors_EnemyPlane_Frame_3_Patterns_0_and_1.size: equ 020h ; last def. pass 3
+LevelTitleAnimation.loop_1: equ 05A93h ; last def. pass 3
 SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1: equ 060FEh ; last def. pass 3
 CurrentLevelLastScreen: equ 0C206h ; last def. pass 3
 Color_0: equ 0C2C8h ; last def. pass 3
@@ -996,7 +997,6 @@ PlayerShot_Temp_PatternNumber_0: equ 0C00Dh ; last def. pass 3
 LEVEL_5_FIRST_SCREEN_PAGE: equ 085h ; last def. pass 3
 BIOS_CSAVEM: equ 0F944h ; last def. pass 3
 BIOS_CODSAV: equ 0FBCCh ; last def. pass 3
-LevelInitAnimation.animateChar_6: equ 05C16h ; last def. pass 3
 BIOS_FUNACT: equ 0F7BAh ; last def. pass 3
 BIOS_H_PLAY: equ 0FFC5h ; last def. pass 3
 ConvertMsx2SpritesToSc11.setOutput_Color_0: equ 042B4h ; last def. pass 3
@@ -1034,8 +1034,6 @@ ADDR_LAST_LINE_OF_PAGE: equ 0BF00h ; last def. pass 3
 BIOS_H_FPOS: equ 0FEA8h ; last def. pass 3
 SPRATR_Buffer: equ 0C236h ; last def. pass 3
 SpritePattern_PlayerPlane_Right_Frame_0_Bottom: equ 0601Eh ; last def. pass 3
-LevelInitAnimation.loop_1: equ 05A93h ; last def. pass 3
-LevelInitAnimation.loadSpritePatternsAndColors: equ 05B4Fh ; last def. pass 3
 BIOS_RTPROG: equ 0F955h ; last def. pass 3
 BIOS_INIT32: equ 06Fh ; last def. pass 3
 BIOS_MLTCGP: equ 0F3D5h ; last def. pass 3
@@ -1049,6 +1047,7 @@ BIOS_TAPIOF: equ 0E7h ; last def. pass 3
 GroundTarget_Temp_Struct.size: equ 011h ; last def. pass 3
 ayFX_Variables.size: equ 01Ch ; last def. pass 3
 PlayerShot_Init: equ 04FC6h ; last def. pass 3
+LevelTitleAnimation.animateChar_1: equ 05B6Eh ; last def. pass 3
 BIOS_INITIO: equ 03Bh ; last def. pass 3
 Enemy_5_Struct: equ 0C084h ; last def. pass 3
 PlayerShot_Logic.shotReset: equ 0504Ah ; last def. pass 3
@@ -1060,6 +1059,7 @@ PlayerEngineAnimation.frame_1: equ 04E7Bh ; last def. pass 3
 BIOS_VOICBQ: equ 0F9F5h ; last def. pass 3
 SpriteColors_PlayerPlane_2_and_3: equ 0655Eh ; last def. pass 3
 EnemyData_0.deltaX: equ 085E0h ; last def. pass 3
+LevelTitleAnimation.animateChar_4: equ 05BD2h ; last def. pass 3
 PLANE_PLAYER_PIXELS_PER_MOV: equ 03h ; last def. pass 3
 BIOS_H_KEYC: equ 0FDCCh ; last def. pass 3
 BIOS_KEYINT: equ 038h ; last def. pass 3
