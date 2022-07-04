@@ -61,7 +61,11 @@ SPRATR:     equ 0xfa00
     ld      hl, PaletteData
     call    LoadPalette
 
+    ret
 
+
+
+LoadSpritesForGameplay:
 
 ; --------- Load sprite patterns
 

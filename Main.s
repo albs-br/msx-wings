@@ -117,7 +117,7 @@ Execute:
     call    ayFX_SETUP
 
 
-    ld      a, 3                        ; level number (1-8)
+    ld      a, 1                        ; level number (1-8)
     ld      (CurrentLevelNumber), a
     call    LoadLevel
 
@@ -130,12 +130,28 @@ Execute:
     ; call    TestFonts_8x16   ; [debug]
     ; call    TestFonts_16x16   ; [debug]
 
-DEBUG_ResetCircleLoopTest:
+; DEBUG_ResetCircleLoopTest:
 
-    ld      a, 9 ; debug
+    ld      a, 1 ; debug
     call    LevelTitleAnimation
 
-    jp      DEBUG_ResetCircleLoopTest
+    ; jp      DEBUG_ResetCircleLoopTest
+    ; call    InitVram
+    ; call    BIOS_ENASCR
+
+;     ; clear SPRATR_Buffer
+;     xor     a
+;     ld      hl, SPRATR_Buffer
+;     ld      b, 32 * 4
+; .loop_2:
+;     ld      (hl), a
+;     inc     hl
+;     djnz    .loop_2
+
+    call    LoadSpritesForGameplay
+
+
+
 
 .gameLoop:
     ld      hl, BIOS_JIFFY              ; (v-blank sync)
@@ -267,6 +283,7 @@ InitialSpriteAttributes:
 
     db      "End ROM started at 0x4000"
 
+PAGE_0x4000_size:          equ $ - 0x4000
 	ds PAGE_SIZE - ($ - 0x4000), 255	; Fill the unused area with 0xFF
 
 
