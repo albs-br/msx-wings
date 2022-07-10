@@ -1,3 +1,4 @@
+; data format: Y, X
 LOOKUP_TABLE_CIRCLE_MOV:
     db       -16, 104
     db       -14, 95

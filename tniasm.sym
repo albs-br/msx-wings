@@ -249,7 +249,7 @@ SpritePattern_EnemyShot_0_and_1: equ 062DFh ; last def. pass 3
 SpriteColors_EnemyShot_0_to_2.size: equ 030h ; last def. pass 3
 BIOS_SLTTBL: equ 0FCC5h ; last def. pass 3
 BIOS_DSCTMP: equ 0F698h ; last def. pass 3
-End: equ 06A64h ; last def. pass 3
+End: equ 06A65h ; last def. pass 3
 START_ADDR_MEGAROM_PAGE: equ 08000h ; last def. pass 3
 CheckCol_Enemy_PlayerShot: equ 0525Fh ; last def. pass 3
 BIOS_H_LOC: equ 0FE99h ; last def. pass 3
@@ -353,7 +353,7 @@ SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1.size: equ 040h ; last def. pas
 BIOS_INIGRP: equ 072h ; last def. pass 3
 BIOS_GETPNT: equ 0F3FAh ; last def. pass 3
 BIOS_H_FRET: equ 0FF9Dh ; last def. pass 3
-Execute.frameSkip: equ 06A5Fh ; last def. pass 3
+Execute.frameSkip: equ 06A60h ; last def. pass 3
 BIOS_NMI: equ 066h ; last def. pass 3
 PlayerShot_1_Struct: equ 0C015h ; last def. pass 3
 BIOS_H_CLEAR: equ 0FED0h ; last def. pass 3
@@ -582,7 +582,7 @@ ayFX_TONE: equ 0C229h ; last def. pass 3
 BIOS_DIMFLG: equ 0F662h ; last def. pass 3
 Item_Temp_Delta_Y: equ 0C10Bh ; last def. pass 3
 BIOS_H_SNGF: equ 0FF39h ; last def. pass 3
-Execute.gameLoop: equ 06A1Fh ; last def. pass 3
+Execute.gameLoop: equ 06A20h ; last def. pass 3
 BIOS_H_FRQI: equ 0FF93h ; last def. pass 3
 Enemy_Logic: equ 050C5h ; last def. pass 3
 BIOS_SETGRP: equ 07Eh ; last def. pass 3
@@ -662,7 +662,7 @@ Item_2_Struct: equ 0C12Ch ; last def. pass 3
 EnemyShotDeltaX_0_degrees_center: equ 09B60h ; last def. pass 3
 BIOS_PRMLN2: equ 0F74Eh ; last def. pass 3
 SpritePattern_EnemyPlane_Frame_1_Patterns_0_and_1: equ 0613Fh ; last def. pass 3
-InitialSpriteAttributes: equ 06A64h ; last def. pass 3
+InitialSpriteAttributes: equ 06A65h ; last def. pass 3
 BIOS_CPLOTF: equ 0F938h ; last def. pass 3
 BIOS_GRPRT: equ 089h ; last def. pass 3
 LARGE_FONT_CHAR_L: equ 0540h ; last def. pass 3
@@ -757,7 +757,7 @@ BIOS_MLTATR: equ 0F3D7h ; last def. pass 3
 BIOS_FILNAM: equ 0F866h ; last def. pass 3
 VARayFXEND: equ 0C230h ; last def. pass 3
 ayFX_POINTER: equ 0C227h ; last def. pass 3
-PAGE_0x4000_size: equ 02A91h ; last def. pass 3
+PAGE_0x4000_size: equ 02A92h ; last def. pass 3
 BIOS_QUETAB: equ 0F959h ; last def. pass 3
 BIOS_GRPACY: equ 0FCB9h ; last def. pass 3
 SpritePattern_PlayerPlane_Right_Frame_1_Bottom.size: equ 040h ; last def. pass 3
@@ -1009,7 +1009,7 @@ LargeFont_Colors: equ 0B040h ; last def. pass 3
 EnemyData_0.offset_y1: equ 087E0h ; last def. pass 3
 GroundTarget_4_Struct: equ 0C1D1h ; last def. pass 3
 BIOS_ENASCR: equ 044h ; last def. pass 3
-Execute.waitVBlank: equ 06A23h ; last def. pass 3
+Execute.waitVBlank: equ 06A24h ; last def. pass 3
 BIOS_H_ERAF: equ 0FDB8h ; last def. pass 3
 GroundTarget_Temp_Y_Static: equ 0C17Fh ; last def. pass 3
 BIOS_COMMSK: equ 0FB1Eh ; last def. pass 3

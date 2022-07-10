@@ -24,68 +24,73 @@ PaletteData:
 
 ; Center
 SpritePattern_PlayerPlane_0_and_1:
-    INCBIN "Graphics/Sprites/player_plane_top.pat"
+    INCBIN "Graphics/Sprites/PlayerPlane/player_plane_top.pat"
 .size:  equ $ - SpritePattern_PlayerPlane_0_and_1
 SpritePattern_PlayerPlane_2_and_3:
-    INCBIN "Graphics/Sprites/player_plane_bottom.pat"
+    INCBIN "Graphics/Sprites/PlayerPlane/player_plane_bottom.pat"
 .size:  equ $ - SpritePattern_PlayerPlane_2_and_3
 
 SpritePattern_PlayerPlane_Left_Frame_0_Top:
-    INCBIN "Graphics/Sprites/player_plane_left_0_top.pat"
+    INCBIN "Graphics/Sprites/PlayerPlane/player_plane_left_0_top.pat"
 .size:  equ $ - SpritePattern_PlayerPlane_Left_Frame_0_Top
 SpritePattern_PlayerPlane_Left_Frame_0_Bottom:
-    INCBIN "Graphics/Sprites/player_plane_left_0_bottom.pat"
+    INCBIN "Graphics/Sprites/PlayerPlane/player_plane_left_0_bottom.pat"
 .size:  equ $ - SpritePattern_PlayerPlane_Left_Frame_0_Bottom
 
 SpritePattern_PlayerPlane_Left_Frame_1_Top:
-    INCBIN "Graphics/Sprites/player_plane_left_1_top.pat"
+    INCBIN "Graphics/Sprites/PlayerPlane/player_plane_left_1_top.pat"
 .size:  equ $ - SpritePattern_PlayerPlane_Left_Frame_1_Top
 SpritePattern_PlayerPlane_Left_Frame_1_Bottom:
-    INCBIN "Graphics/Sprites/player_plane_left_1_bottom.pat"
+    INCBIN "Graphics/Sprites/PlayerPlane/player_plane_left_1_bottom.pat"
 .size:  equ $ - SpritePattern_PlayerPlane_Left_Frame_1_Bottom
 
 SpritePattern_PlayerPlane_Right_Frame_0_Top:
-    INCBIN "Graphics/Sprites/player_plane_right_0_top.pat"
+    INCBIN "Graphics/Sprites/PlayerPlane/player_plane_right_0_top.pat"
 .size:  equ $ - SpritePattern_PlayerPlane_Right_Frame_0_Top
 SpritePattern_PlayerPlane_Right_Frame_0_Bottom:
-    INCBIN "Graphics/Sprites/player_plane_right_0_bottom.pat"
+    INCBIN "Graphics/Sprites/PlayerPlane/player_plane_right_0_bottom.pat"
 .size:  equ $ - SpritePattern_PlayerPlane_Right_Frame_0_Bottom
 
 SpritePattern_PlayerPlane_Right_Frame_1_Top:
-    INCBIN "Graphics/Sprites/player_plane_right_1_top.pat"
+    INCBIN "Graphics/Sprites/PlayerPlane/player_plane_right_1_top.pat"
 .size:  equ $ - SpritePattern_PlayerPlane_Right_Frame_1_Top
 SpritePattern_PlayerPlane_Right_Frame_1_Bottom:
-    INCBIN "Graphics/Sprites/player_plane_right_1_bottom.pat"
+    INCBIN "Graphics/Sprites/PlayerPlane/player_plane_right_1_bottom.pat"
 .size:  equ $ - SpritePattern_PlayerPlane_Right_Frame_1_Bottom
+
 
 
 SpritePattern_PlayerShot:
     INCLUDE "Graphics/Sprites/player_shot_pattern.s"
 .size:  equ $ - SpritePattern_PlayerShot
 
+
+
 SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1:
-    INCBIN "Graphics/Sprites/enemy_plane_0.pat"
+    INCBIN "Graphics/Sprites/EnemyPlane/enemy_plane_0.pat"
 .size:  equ $ - SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1
 
 SpritePattern_EnemyPlane_Frame_1_Patterns_0_and_1:
-    INCBIN "Graphics/Sprites/enemy_plane_1.pat"
+    INCBIN "Graphics/Sprites/EnemyPlane/enemy_plane_1.pat"
 .size:  equ $ - SpritePattern_EnemyPlane_Frame_1_Patterns_0_and_1
 
 SpritePattern_EnemyPlane_Frame_2_Patterns_0_and_1:
-    INCBIN "Graphics/Sprites/enemy_plane_2.pat"
+    INCBIN "Graphics/Sprites/EnemyPlane/enemy_plane_2.pat"
 .size:  equ $ - SpritePattern_EnemyPlane_Frame_2_Patterns_0_and_1
 
 SpritePattern_EnemyPlane_Frame_3_Patterns_0_and_1:
-    INCBIN "Graphics/Sprites/enemy_plane_3.pat"
+    INCBIN "Graphics/Sprites/EnemyPlane/enemy_plane_3.pat"
 .size:  equ $ - SpritePattern_EnemyPlane_Frame_3_Patterns_0_and_1
 
 SpritePattern_EnemyPlane_Frame_4_Patterns_0_and_1:
-    INCBIN "Graphics/Sprites/enemy_plane_4.pat"
+    INCBIN "Graphics/Sprites/EnemyPlane/enemy_plane_4.pat"
 .size:  equ $ - SpritePattern_EnemyPlane_Frame_4_Patterns_0_and_1
 
 SpritePattern_EnemyPlane_Frame_5_Patterns_0_and_1:
-    INCBIN "Graphics/Sprites/enemy_plane_5.pat"
+    INCBIN "Graphics/Sprites/EnemyPlane/enemy_plane_5.pat"
 .size:  equ $ - SpritePattern_EnemyPlane_Frame_5_Patterns_0_and_1
+
+
 
 SpritePattern_Explosion_Frames_0_to_2:
     INCLUDE "Graphics/Sprites/explosion_frames_patterns.s"
@@ -101,6 +106,8 @@ SpritePattern_Item_P_Frames_0_to_7:
     INCLUDE "Graphics/Sprites/item_p_patterns.s"
 .size:  equ $ - SpritePattern_Item_P_Frames_0_to_7
 
+
+
 SpritePattern_GroundTarget_0:
     INCLUDE "Graphics/Sprites/ground_target_pattern_0.s"
 .size:  equ $ - SpritePattern_GroundTarget_0
@@ -110,73 +117,80 @@ SpritePattern_GroundTarget_0:
 
 ; Center
 SpriteColors_PlayerPlane_0_and_1:
-    INCBIN "Graphics/Sprites/player_plane_top.col"
+    INCBIN "Graphics/Sprites/PlayerPlane/player_plane_top.col"
 .size:  equ $ - SpriteColors_PlayerPlane_0_and_1
 SpriteColors_PlayerPlane_2_and_3:
-    INCBIN "Graphics/Sprites/player_plane_bottom.col"
+    INCBIN "Graphics/Sprites/PlayerPlane/player_plane_bottom.col"
 .size:  equ $ - SpriteColors_PlayerPlane_2_and_3
 
 
 SpriteColors_PlayerPlane_Left_Frame_0_Top:
-    INCBIN "Graphics/Sprites/player_plane_left_0_top.col"
+    INCBIN "Graphics/Sprites/PlayerPlane/player_plane_left_0_top.col"
 .size:  equ $ - SpriteColors_PlayerPlane_Left_Frame_0_Top
 SpriteColors_PlayerPlane_Left_Frame_0_Bottom:
-    INCBIN "Graphics/Sprites/player_plane_left_0_bottom.col"
+    INCBIN "Graphics/Sprites/PlayerPlane/player_plane_left_0_bottom.col"
 .size:  equ $ - SpriteColors_PlayerPlane_Left_Frame_0_Bottom
 
 SpriteColors_PlayerPlane_Left_Frame_1_Top:
-    INCBIN "Graphics/Sprites/player_plane_left_1_top.col"
+    INCBIN "Graphics/Sprites/PlayerPlane/player_plane_left_1_top.col"
 .size:  equ $ - SpriteColors_PlayerPlane_Left_Frame_1_Top
 SpriteColors_PlayerPlane_Left_Frame_1_Bottom:
-    INCBIN "Graphics/Sprites/player_plane_left_1_bottom.col"
+    INCBIN "Graphics/Sprites/PlayerPlane/player_plane_left_1_bottom.col"
 .size:  equ $ - SpriteColors_PlayerPlane_Left_Frame_1_Bottom
 
 SpriteColors_PlayerPlane_Right_Frame_0_Top:
-    INCBIN "Graphics/Sprites/player_plane_right_0_top.col"
+    INCBIN "Graphics/Sprites/PlayerPlane/player_plane_right_0_top.col"
 .size:  equ $ - SpriteColors_PlayerPlane_Right_Frame_0_Top
 SpriteColors_PlayerPlane_Right_Frame_0_Bottom:
-    INCBIN "Graphics/Sprites/player_plane_right_0_bottom.col"
+    INCBIN "Graphics/Sprites/PlayerPlane/player_plane_right_0_bottom.col"
 .size:  equ $ - SpriteColors_PlayerPlane_Right_Frame_0_Bottom
 
 SpriteColors_PlayerPlane_Right_Frame_1_Top:
-    INCBIN "Graphics/Sprites/player_plane_right_1_top.col"
+    INCBIN "Graphics/Sprites/PlayerPlane/player_plane_right_1_top.col"
 .size:  equ $ - SpriteColors_PlayerPlane_Right_Frame_1_Top
 SpriteColors_PlayerPlane_Right_Frame_1_Bottom:
-    INCBIN "Graphics/Sprites/player_plane_right_1_bottom.col"
+    INCBIN "Graphics/Sprites/PlayerPlane/player_plane_right_1_bottom.col"
 .size:  equ $ - SpriteColors_PlayerPlane_Right_Frame_1_Bottom
+
 
 
 SpriteColors_PlayerShot:
     INCLUDE "Graphics/Sprites/player_shot_color.s"
 .size:  equ $ - SpriteColors_PlayerShot
 
+
+
 SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1:
-    INCBIN "Graphics/Sprites/enemy_plane_0.col"
+    INCBIN "Graphics/Sprites/EnemyPlane/enemy_plane_0.col"
 .size:  equ $ - SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1
 
 SpriteColors_EnemyPlane_Frame_1_Patterns_0_and_1:
-    INCBIN "Graphics/Sprites/enemy_plane_1.col"
+    INCBIN "Graphics/Sprites/EnemyPlane/enemy_plane_1.col"
 .size:  equ $ - SpriteColors_EnemyPlane_Frame_1_Patterns_0_and_1
 
 SpriteColors_EnemyPlane_Frame_2_Patterns_0_and_1:
-    INCBIN "Graphics/Sprites/enemy_plane_2.col"
+    INCBIN "Graphics/Sprites/EnemyPlane/enemy_plane_2.col"
 .size:  equ $ - SpriteColors_EnemyPlane_Frame_2_Patterns_0_and_1
 
 SpriteColors_EnemyPlane_Frame_3_Patterns_0_and_1:
-    INCBIN "Graphics/Sprites/enemy_plane_3.col"
+    INCBIN "Graphics/Sprites/EnemyPlane/enemy_plane_3.col"
 .size:  equ $ - SpriteColors_EnemyPlane_Frame_3_Patterns_0_and_1
 
 SpriteColors_EnemyPlane_Frame_4_Patterns_0_and_1:
-    INCBIN "Graphics/Sprites/enemy_plane_4.col"
+    INCBIN "Graphics/Sprites/EnemyPlane/enemy_plane_4.col"
 .size:  equ $ - SpriteColors_EnemyPlane_Frame_4_Patterns_0_and_1
 
 SpriteColors_EnemyPlane_Frame_5_Patterns_0_and_1:
-    INCBIN "Graphics/Sprites/enemy_plane_5.col"
+    INCBIN "Graphics/Sprites/EnemyPlane/enemy_plane_5.col"
 .size:  equ $ - SpriteColors_EnemyPlane_Frame_5_Patterns_0_and_1
+
+
 
 SpriteColors_Explosion_Frames_0_to_2:
     INCLUDE "Graphics/Sprites/explosion_frames_colors.s"
 .size:  equ $ - SpriteColors_Explosion_Frames_0_to_2
+
+
 
 SpriteColors_EnemyShot_0_to_2:
     INCLUDE "Graphics/Sprites/enemy_shot_colors.s"
