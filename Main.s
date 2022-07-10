@@ -5,7 +5,7 @@ PAGE_SIZE:	    equ	0x4000	        ; 16kB
 Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 16k Mapper, same for 8k Mapper)
 
 
-DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
+;DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
 
 
 ; Compilation address
@@ -117,7 +117,7 @@ Execute:
     call    ayFX_SETUP
 
 
-    ld      a, 1                        ; level number (1-8)
+    ld      a, 3                        ; level number (1-8)
     ld      (CurrentLevelNumber), a
     call    LoadLevel
 

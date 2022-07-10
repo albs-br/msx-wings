@@ -61,7 +61,7 @@ SpritePattern_PlayerPlane_Right_Frame_1_Bottom:
 
 
 SpritePattern_PlayerShot:
-    INCLUDE "Graphics/Sprites/player_shot_pattern.s"
+    INCLUDE "Graphics/Sprites/PlayerShot/player_shot_pattern.s"
 .size:  equ $ - SpritePattern_PlayerShot
 
 
@@ -93,23 +93,25 @@ SpritePattern_EnemyPlane_Frame_5_Patterns_0_and_1:
 
 
 SpritePattern_Explosion_Frames_0_to_2:
-    INCLUDE "Graphics/Sprites/explosion_frames_patterns.s"
+    INCLUDE "Graphics/Sprites/Explosion/explosion_frames_patterns.s"
 .size:  equ $ - SpritePattern_Explosion_Frames_0_to_2
 
+
+
 SpritePattern_EnemyShot_0_and_1:
-    INCLUDE "Graphics/Sprites/enemy_shot_patterns.s"
+    INCLUDE "Graphics/Sprites/EnemyShot/enemy_shot_patterns.s"
 .size:  equ $ - SpritePattern_EnemyShot_0_and_1
 
 
 
 SpritePattern_Item_P_Frames_0_to_7:
-    INCLUDE "Graphics/Sprites/item_p_patterns.s"
+    INCLUDE "Graphics/Sprites/Item_P/item_p_patterns.s"
 .size:  equ $ - SpritePattern_Item_P_Frames_0_to_7
 
 
 
 SpritePattern_GroundTarget_0:
-    INCLUDE "Graphics/Sprites/ground_target_pattern_0.s"
+    INCLUDE "Graphics/Sprites/GroundTarget/ground_target_pattern_0.s"
 .size:  equ $ - SpritePattern_GroundTarget_0
 
 
@@ -155,7 +157,7 @@ SpriteColors_PlayerPlane_Right_Frame_1_Bottom:
 
 
 SpriteColors_PlayerShot:
-    INCLUDE "Graphics/Sprites/player_shot_color.s"
+    INCLUDE "Graphics/Sprites/PlayerShot/player_shot_color.s"
 .size:  equ $ - SpriteColors_PlayerShot
 
 
@@ -187,24 +189,24 @@ SpriteColors_EnemyPlane_Frame_5_Patterns_0_and_1:
 
 
 SpriteColors_Explosion_Frames_0_to_2:
-    INCLUDE "Graphics/Sprites/explosion_frames_colors.s"
+    INCLUDE "Graphics/Sprites/Explosion/explosion_frames_colors.s"
 .size:  equ $ - SpriteColors_Explosion_Frames_0_to_2
 
 
 
 SpriteColors_EnemyShot_0_to_2:
-    INCLUDE "Graphics/Sprites/enemy_shot_colors.s"
+    INCLUDE "Graphics/Sprites/EnemyShot/enemy_shot_colors.s"
 .size:  equ $ - SpriteColors_EnemyShot_0_to_2
 
 
 
 SpriteColors_Item_P_Frame_0:
-    INCLUDE "Graphics/Sprites/item_p_colors.s"
+    INCLUDE "Graphics/Sprites/Item_P/item_p_colors.s"
 .size:  equ $ - SpriteColors_Item_P_Frame_0
 
 
 
 SpriteColors_GroundTarget_0:
-    INCLUDE "Graphics/Sprites/ground_target_colors_0.s"
+    INCLUDE "Graphics/Sprites/GroundTarget/ground_target_colors_0.s"
 .size:  equ $ - SpriteColors_GroundTarget_0
 
