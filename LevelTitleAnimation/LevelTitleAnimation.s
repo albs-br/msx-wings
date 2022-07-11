@@ -144,8 +144,9 @@ LevelTitleAnimation:
     ;call    Wait
 
 
+    ; End level title animation
     ld      a, (LevelInitAnimation_Counter)
-    cp      255
+    cp      150 ; 255
     ;jp      z, DEBUG_ResetCircleLoopTest
     ret     z
 
