@@ -31,8 +31,6 @@ Level_1_Data:
     ; test debug trap    
     ;dw  42      db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_45_degrees_left  dw Enemy_6_Struct, ENEMY_SHOT_0_SPRCOL_ADDR, EnemyShot_0_Struct,       0
 
-    dw  100     db  GROUND_TARGET,          112   dw  0       dw GroundTarget_0_Struct, 0,                         0,       0
-
 
     dw  150     db  ENEMY_TYPE_1,           64    dw  EnemyData_2     dw Enemy_0_Struct, ENEMY_0_SPRCOL_ADDR,      0,       Item_0_Struct
     dw  151     db  ENEMY_TYPE_1,           96    dw  EnemyData_2     dw Enemy_1_Struct, ENEMY_1_SPRCOL_ADDR,      0,       0
@@ -44,6 +42,8 @@ Level_1_Data:
     dw  157     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_0_degrees_center dw Enemy_2_Struct, ENEMY_SHOT_2_SPRCOL_ADDR, EnemyShot_2_Struct,       0
     dw  158     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_0_degrees_center dw Enemy_3_Struct, ENEMY_SHOT_3_SPRCOL_ADDR, EnemyShot_3_Struct,       0
 
+
+
     dw  160     db  ENEMY_TYPE_1,           80    dw  EnemyData_2     dw Enemy_4_Struct, ENEMY_4_SPRCOL_ADDR,      0,       0
     dw  161     db  ENEMY_TYPE_1,           112   dw  EnemyData_2     dw Enemy_5_Struct, ENEMY_5_SPRCOL_ADDR,      0,       0
     dw  162     db  ENEMY_TYPE_1,           144   dw  EnemyData_2     dw Enemy_6_Struct, ENEMY_6_SPRCOL_ADDR,      0,       Item_6_Struct
@@ -52,6 +52,8 @@ Level_1_Data:
     dw  164     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right dw Enemy_5_Struct, ENEMY_SHOT_5_SPRCOL_ADDR, EnemyShot_5_Struct,       0
     dw  165     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right dw Enemy_6_Struct, ENEMY_SHOT_6_SPRCOL_ADDR, EnemyShot_6_Struct,       0
 
+
+    dw  240     db  GROUND_TARGET,          112   dw  0       dw GroundTarget_0_Struct, 0,                         0,       0
 
 
     dw  250     db  ENEMY_TYPE_1,           80    dw  EnemyData_0     dw Enemy_0_Struct, ENEMY_0_SPRCOL_ADDR,      0,       0
@@ -66,6 +68,8 @@ Level_1_Data:
     dw  258     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_0_degrees_center dw Enemy_1_Struct, ENEMY_SHOT_4_SPRCOL_ADDR, EnemyShot_4_Struct,       0
     dw  259     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_0_degrees_center dw Enemy_2_Struct, ENEMY_SHOT_5_SPRCOL_ADDR, EnemyShot_5_Struct,       Item_5_Struct
 
+
+    dw  280     db  GROUND_TARGET,          240   dw  0       dw GroundTarget_1_Struct, 0,                         0,       0
 
 
     dw  350     db  ENEMY_TYPE_1,           80    dw  EnemyData_0     dw Enemy_0_Struct, ENEMY_0_SPRCOL_ADDR,      0,       0
@@ -93,7 +97,9 @@ Level_1_Data:
     ; dw  417     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right  dw Enemy_6_Struct, ENEMY_SHOT_2_SPRCOL_ADDR, EnemyShot_2_Struct,       0
 
 
-    dw  499     db  GROUND_TARGET,          0     dw  0       dw GroundTarget_0_Struct, GROUND_TARGET_SPRCOL_ADDR, 0,       0
+    dw  440     db  GROUND_TARGET,          224   dw  0       dw GroundTarget_2_Struct, 0,                         0,       0
+
+    ;dw  499     db  GROUND_TARGET,          0     dw  0       dw GroundTarget_0_Struct, GROUND_TARGET_SPRCOL_ADDR, 0,       0
 
 
     dw  500     db  ENEMY_TYPE_1,           128   dw  EnemyData_4     dw Enemy_0_Struct, ENEMY_0_SPRCOL_ADDR,      0,       0
@@ -101,6 +107,9 @@ Level_1_Data:
 
     dw  510     db  ENEMY_TYPE_1,           128   dw  EnemyData_4     dw Enemy_1_Struct, ENEMY_1_SPRCOL_ADDR,      0,       0
     dw  515     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right  dw Enemy_1_Struct, ENEMY_SHOT_1_SPRCOL_ADDR, EnemyShot_1_Struct,       0
+
+
+
 
     dw  520     db  ENEMY_TYPE_1,           128   dw  EnemyData_4     dw Enemy_2_Struct, ENEMY_2_SPRCOL_ADDR,      0,       0
     dw  525     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right  dw Enemy_2_Struct, ENEMY_SHOT_2_SPRCOL_ADDR, EnemyShot_2_Struct,       0
