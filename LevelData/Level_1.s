@@ -52,7 +52,29 @@ Level_1_Data:
     dw  164     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right dw Enemy_5_Struct, ENEMY_SHOT_5_SPRCOL_ADDR, EnemyShot_5_Struct,       0
     dw  165     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right dw Enemy_6_Struct, ENEMY_SHOT_6_SPRCOL_ADDR, EnemyShot_6_Struct,       0
 
+    ; -------------------------------------------
+    ; ground target position rules:
 
+    ; H = height                 C = counter
+    ; |                          |    
+    ; 830px on image: counter at 0
+    ; 820px on image: counter at 40
+    ; 810px on image: counter at 80
+    ; 800px on image: counter at 120
+    ; 790px on image: counter at 160
+    ; 780px on image: counter at 200
+
+    ; 770px on image: counter at 240
+    ; 760px on image: counter at 280
+    ; 720px on image: counter at 440
+
+    ; each -10px = +40 on counter
+
+    ; formula:
+    ; C = (830 - H) * 4
+    ; -------------------------------------------
+
+    ; 770px on image: counter at 240
     dw  240     db  GROUND_TARGET,          112   dw  0       dw GroundTarget_0_Struct, 0,                         0,       0
 
 
@@ -69,6 +91,7 @@ Level_1_Data:
     dw  259     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_0_degrees_center dw Enemy_2_Struct, ENEMY_SHOT_5_SPRCOL_ADDR, EnemyShot_5_Struct,       Item_5_Struct
 
 
+    ; 760px on image: counter at 280
     dw  280     db  GROUND_TARGET,          240   dw  0       dw GroundTarget_1_Struct, 0,                         0,       0
 
 
@@ -97,6 +120,7 @@ Level_1_Data:
     ; dw  417     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right  dw Enemy_6_Struct, ENEMY_SHOT_2_SPRCOL_ADDR, EnemyShot_2_Struct,       0
 
 
+    ; 720px on image: counter at 440
     dw  440     db  GROUND_TARGET,          224   dw  0       dw GroundTarget_2_Struct, 0,                         0,       0
 
     ;dw  499     db  GROUND_TARGET,          0     dw  0       dw GroundTarget_0_Struct, GROUND_TARGET_SPRCOL_ADDR, 0,       0
