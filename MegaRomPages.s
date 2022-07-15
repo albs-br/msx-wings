@@ -1023,6 +1023,7 @@ ENEMY_SHOT_DATA_MEGAROM_PAGE:   equ 242
     INCLUDE "LevelData/Level_1.s"
     INCLUDE "LevelData/Level_2.s"
     INCLUDE "LevelData/Level_3.s"
+    INCLUDE "LevelData/Level_4.s"
     INCLUDE "EnemyData/EnemyData_1.s"
     INCLUDE "EnemyData/EnemyShotData.s"
 MEGAROM_PAGE_242_size:          equ $ - 0x8000

@@ -334,6 +334,104 @@ LoadSpritesForGameplay:
     ld      bc, SpritePattern_GroundTarget_0.size
     add     hl, bc
 
+    ; --- Enemy plane turning
+
+    ; Spr 41 and 42 patterns
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+        ld      b, SpritePattern_EnemyPlaneTurning_Frame_0_Patterns_0_and_1.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_EnemyPlaneTurning_Frame_0_Patterns_0_and_1
+        otir
+    pop     hl
+    ld      bc, SpritePattern_EnemyPlaneTurning_Frame_0_Patterns_0_and_1.size
+    add     hl, bc
+
+    ; Spr 43 and 44 patterns
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+        ld      b, SpritePattern_EnemyPlaneTurning_Frame_1_Patterns_0_and_1.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_EnemyPlaneTurning_Frame_1_Patterns_0_and_1
+        otir
+    pop     hl
+    ld      bc, SpritePattern_EnemyPlaneTurning_Frame_1_Patterns_0_and_1.size
+    add     hl, bc
+
+    ; Spr 45 and 46 patterns
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+        ld      b, SpritePattern_EnemyPlaneTurning_Frame_2_Patterns_0_and_1.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_EnemyPlaneTurning_Frame_2_Patterns_0_and_1
+        otir
+    pop     hl
+    ld      bc, SpritePattern_EnemyPlaneTurning_Frame_2_Patterns_0_and_1.size
+    add     hl, bc
+
+    ; Spr 47 and 48 patterns
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+        ld      b, SpritePattern_EnemyPlaneTurning_Frame_3_Patterns_0_and_1.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_EnemyPlaneTurning_Frame_3_Patterns_0_and_1
+        otir
+    pop     hl
+    ld      bc, SpritePattern_EnemyPlaneTurning_Frame_3_Patterns_0_and_1.size
+    add     hl, bc
+
+    ; Spr 49 and 50 patterns
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+        ld      b, SpritePattern_EnemyPlaneTurning_Frame_4_Patterns_0_and_1.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_EnemyPlaneTurning_Frame_4_Patterns_0_and_1
+        otir
+    pop     hl
+    ld      bc, SpritePattern_EnemyPlaneTurning_Frame_4_Patterns_0_and_1.size
+    add     hl, bc
+
+    ; Spr 51 and 52 patterns
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+        ld      b, SpritePattern_EnemyPlaneTurning_Frame_5_Patterns_0_and_1.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_EnemyPlaneTurning_Frame_5_Patterns_0_and_1
+        otir
+    pop     hl
+    ld      bc, SpritePattern_EnemyPlaneTurning_Frame_5_Patterns_0_and_1.size
+    add     hl, bc
+
+    ; Spr 53 and 54 patterns
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+        ld      b, SpritePattern_EnemyPlaneTurning_Frame_6_Patterns_0_and_1.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_EnemyPlaneTurning_Frame_6_Patterns_0_and_1
+        otir
+    pop     hl
+    ld      bc, SpritePattern_EnemyPlaneTurning_Frame_6_Patterns_0_and_1.size
+    add     hl, bc
+
+    ; Spr 55 and 56 patterns
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+        ld      b, SpritePattern_EnemyPlaneTurning_Frame_7_Patterns_0_and_1.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_EnemyPlaneTurning_Frame_7_Patterns_0_and_1
+        otir
+    pop     hl
+    ld      bc, SpritePattern_EnemyPlaneTurning_Frame_7_Patterns_0_and_1.size
+    add     hl, bc
+
 ; --------- Load sprite colors
 
     ; Spr 0 and 1 colors
@@ -408,7 +506,7 @@ LoadSpritesForGameplay:
     ld      hl, SpriteColors_PlayerShot
     otir
 
-    ; this will be loaded on EnemyInit
+    ; --------------- this will be loaded on EnemyInit
 ENEMY_0_SPRCOL_ADDR:        equ SPRCOL + 64 + (16 * 6) + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 0)
 ENEMY_1_SPRCOL_ADDR:        equ SPRCOL + 64 + (16 * 6) + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 1)
 ENEMY_2_SPRCOL_ADDR:        equ SPRCOL + 64 + (16 * 6) + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 2)
@@ -416,7 +514,6 @@ ENEMY_3_SPRCOL_ADDR:        equ SPRCOL + 64 + (16 * 6) + (SpriteColors_EnemyPlan
 ENEMY_4_SPRCOL_ADDR:        equ SPRCOL + 64 + (16 * 6) + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 4)
 ENEMY_5_SPRCOL_ADDR:        equ SPRCOL + 64 + (16 * 6) + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 5)
 ENEMY_6_SPRCOL_ADDR:        equ SPRCOL + 64 + (16 * 6) + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 6)
-
 
 
 ENEMY_SHOT_0_SPRCOL_ADDR:   equ ENEMY_6_SPRCOL_ADDR + SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size

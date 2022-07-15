@@ -23,6 +23,16 @@ ENEMY_FRAME_3_SPR_PAT_0_NUMBER:         equ 16 * 4
 ENEMY_FRAME_4_SPR_PAT_0_NUMBER:         equ 18 * 4
 ENEMY_FRAME_5_SPR_PAT_0_NUMBER:         equ 20 * 4
 
+ENEMY_PLANE_TURNING_FRAME_0_SPR_PAT_0_NUMBER:         equ 41 * 4
+ENEMY_PLANE_TURNING_FRAME_1_SPR_PAT_0_NUMBER:         equ 43 * 4
+ENEMY_PLANE_TURNING_FRAME_2_SPR_PAT_0_NUMBER:         equ 45 * 4
+ENEMY_PLANE_TURNING_FRAME_3_SPR_PAT_0_NUMBER:         equ 47 * 4
+ENEMY_PLANE_TURNING_FRAME_4_SPR_PAT_0_NUMBER:         equ 49 * 4
+ENEMY_PLANE_TURNING_FRAME_5_SPR_PAT_0_NUMBER:         equ 51 * 4
+ENEMY_PLANE_TURNING_FRAME_6_SPR_PAT_0_NUMBER:         equ 53 * 4
+ENEMY_PLANE_TURNING_FRAME_7_SPR_PAT_0_NUMBER:         equ 55 * 4
+
+
 EXPLOSION_SPR_PAT_0_NUMBER:             equ 7 * 4
 EXPLOSION_SPR_PAT_1_NUMBER:             equ 8 * 4
 EXPLOSION_SPR_PAT_2_NUMBER:             equ 9 * 4
@@ -48,7 +58,7 @@ ITEM_P_SPR_PAT_0_NUMBER:                         equ 38 * 4     ; 38 to 39  ; al
 
 GROUND_TARGET_PAT_0_NUMBER:                      equ 40 * 4
 
-; -------------- NEXT AVAILABLE: 41 --------------------
+; -------------- NEXT AVAILABLE: 57 --------------------
 
 EMPTY_SPR_PAT_NUMBER:                            equ 63 * 4
 
