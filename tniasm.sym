@@ -22,6 +22,7 @@ BIOS_H_CRDO: equ 0FEE9h ; last def. pass 3
 GroundTarget_Temp_Y1: equ 0C187h ; last def. pass 3
 PT3_ROUT: equ 043BEh ; last def. pass 3
 BIOS_T32PAT: equ 0F3C5h ; last def. pass 3
+test.size: equ 080h ; last def. pass 3
 ayFX_PLAY.TAKECB: equ 0433Ch ; last def. pass 3
 PlayerShot_Temp_Struct.size: equ 06h ; last def. pass 3
 ClearVram_MSX2: equ 040C3h ; last def. pass 3
@@ -154,6 +155,7 @@ BIOS_SAVEND: equ 0F87Dh ; last def. pass 3
 BIOS_RSTMP: equ 0FB03h ; last def. pass 3
 BIOS_DISINT: equ 0FFCFh ; last def. pass 3
 BIOS_ATRBYT: equ 0F3F2h ; last def. pass 3
+test: equ 09918h ; last def. pass 3
 GameLogic.loop: equ 04EA6h ; last def. pass 3
 SpriteColors_EnemyPlaneTurning_Frame_4_Patterns_0_and_1: equ 06A59h ; last def. pass 3
 ayFX_INIT.INIT_END: equ 04324h ; last def. pass 3
