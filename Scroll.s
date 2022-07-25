@@ -90,6 +90,14 @@ ExecuteScroll:
 
     ; TODO: use VDP command to gain speed
 
+
+    ; IFDEF DEBUG
+    ;     # Start profiling a section with in a,(2ch), end with out (2ch),a. ID in A.
+    ;     xor a
+    ;     in a, (2ch)
+    ; ENDIF
+
+
     ; load next line from bitmap on the last line of virtual screen (256 lines)
     ; that will be the next to be shown on top of screen
     ld	    a, (CurrentMegaROMPage)
@@ -102,6 +110,13 @@ ExecuteScroll:
     ; ld      bc, 256                             ; number of bytes
     ; ld      a, 00011100 b                       ; value
     ; call    BIOS_FILVRM                         ; Fill VRAM
+
+
+    ; IFDEF DEBUG
+    ;     # Start profiling a section with in a,(2ch), end with out (2ch),a. ID in A.
+    ;     xor a
+    ;     out (2ch), a
+    ; ENDIF
 
     ; update vars
     ld      de, (CurrentVRAMAddrLineScroll)

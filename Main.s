@@ -173,6 +173,10 @@ Execute:
 
 
 
+    ; IFDEF DEBUG
+    ;     # Start profiling a frame with in a,(2dh), end with out (2dh),a.
+    ;     in a, (2dh)
+    ; ENDIF
 
     IFDEF DEBUG
         ld 		a, 4       	            ; Border color
@@ -221,6 +225,11 @@ Execute:
         cp      b
         call    nz, .frameSkip
     ENDIF
+
+    ; IFDEF DEBUG
+    ;     # Start profiling a frame with in a,(2dh), end with out (2dh),a.
+    ;     out (2dh) ,a
+    ; ENDIF
 
     jp      .gameLoop
 

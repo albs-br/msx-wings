@@ -48,6 +48,7 @@
                     },
                     {
                         "value": "-script ${workspaceFolder}\\msx-wings_debug.tcl",
+                        //"value": "-script ${workspaceFolder}\\profiler.tcl",
                         "quoting": "escape"
                     }
                 ],
