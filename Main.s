@@ -5,7 +5,7 @@ PAGE_SIZE:	    equ	0x4000	        ; 16kB
 Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 16k Mapper, same for 8k Mapper)
 
 
-;DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
+DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
 
 
 ; Compilation address
@@ -173,10 +173,10 @@ Execute:
 
 
 
-    ; IFDEF DEBUG
-    ;     # Start profiling a frame with in a,(2dh), end with out (2dh),a.
-    ;     in a, (2dh)
-    ; ENDIF
+    IFDEF DEBUG
+        ; Start profiling a frame with in a,(2dh), end with out (2dh),a.
+        in a, (2dh)
+    ENDIF
 
     IFDEF DEBUG
         ld 		a, 4       	            ; Border color
@@ -226,10 +226,10 @@ Execute:
         call    nz, .frameSkip
     ENDIF
 
-    ; IFDEF DEBUG
-    ;     # Start profiling a frame with in a,(2dh), end with out (2dh),a.
-    ;     out (2dh) ,a
-    ; ENDIF
+    IFDEF DEBUG
+        ; Start profiling a frame with in a,(2dh), end with out (2dh),a.
+        out (2dh) ,a
+    ENDIF
 
     jp      .gameLoop
 
