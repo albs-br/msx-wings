@@ -856,8 +856,8 @@ CheckCollision_Point_16x16:
 ;   Input:  HL = pointer to 15-byte VDP command data
 ;   Output: HL = updated
 ;   Destroys: A, B, C
-DoCopy:
-    ld      a, 32
+Execute_VDP_HMMM:
+    ld      a, 32           ; number of first register
     di
     out     (PORT_1), a
     ld      a, 17 + 128
@@ -893,3 +893,14 @@ DoCopy:
     outi
     outi
     ret
+
+VDP_COMMAND_HMMC:       equ 1111 0000b	; High speed move CPU to VRAM
+VDP_COMMAND_YMMM:       equ 1110 0000b	; High speed move VRAM to VRAM, Y coordinate only
+VDP_COMMAND_HMMM:       equ 1101 0000b	; High speed move VRAM to VRAM
+VDP_COMMAND_HMMV:       equ 1100 0000b	; High speed move VDP to VRAM
+
+; Logical commands (four lower bits specifies logic operation)
+VDP_COMMAND_LMMC:       equ 1011 0000b	; Logical move CPU to VRAM
+VDP_COMMAND_LMCM:       equ 1010 0000b	; Logical move VRAM to CPU
+VDP_COMMAND_LMMM:       equ 1001 0000b	; Logical move VRAM to VRAM
+VDP_COMMAND_LMMV:       equ 1000 0000b	; Logical move VDP to VRAM

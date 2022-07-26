@@ -63,7 +63,9 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     
     INCLUDE "DebugMessage.s"
 
-    INCLUDE "Graphics/Sprites/Fonts/FontsTest.s"     ; moved to a MegaROM page
+    INCLUDE "Graphics/Sprites/Fonts/FontsTest.s"
+
+    INCLUDE "TitleScreen/TitleScreen.s"
 
     ; Assets
     INCLUDE "Graphics/Sprites/SpriteAssets.s"
@@ -115,6 +117,10 @@ Execute:
     ld      a, 200
     ld      (ayFX_VOLUME), a
     call    ayFX_SETUP
+
+
+    ;call    TitleScreen ; not sure if is the right place to call it
+
 
 
     ld      a, 4                        ; level number (1-8)

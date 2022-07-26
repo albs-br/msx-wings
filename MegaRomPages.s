@@ -1040,3 +1040,17 @@ FONTS_DATA_MEGAROM_PAGE:        equ 243
 MEGAROM_PAGE_243_size:          equ $ - 0x8000
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
+; ------------------------------------------------------------------------
+
+TITLE_SCREEN_FIRST_MEGAROM_PAGE:        equ 244
+
+; ------- Page 244
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/TitleScreen/title-screen_0.sc5.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+; ------- Page 245
+	org	0x8000, 0xBFFF
+	INCBIN "Graphics/Bitmaps/TitleScreen/title-screen_1.sc5.new"
+	ds PAGE_SIZE - ($ - 0x8000), 255
+

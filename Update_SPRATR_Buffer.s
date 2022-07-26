@@ -15,7 +15,7 @@ PLAYER_SPR_PAT_2_NUMBER:                equ 2 * 4
 PLAYER_SPR_PAT_3_NUMBER:                equ 3 * 4
 PLAYER_SHOT_SPR_PAT_NUMBER:             equ 4 * 4
 
-ENEMY_FRAME_0_SPR_PAT_0_NUMBER:         equ 5 * 4       ; offset x1: 0, offset y1: 8
+ENEMY_FRAME_0_SPR_PAT_0_NUMBER:         equ 5 * 4
 ;ENEMY_FRAME_0_SPR_PAT_1_NUMBER:         equ 6 * 4
 ENEMY_FRAME_1_SPR_PAT_0_NUMBER:         equ 12 * 4
 ENEMY_FRAME_2_SPR_PAT_0_NUMBER:         equ 14 * 4
