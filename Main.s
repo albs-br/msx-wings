@@ -119,7 +119,7 @@ Execute:
     call    ayFX_SETUP
 
 
-    ;call    TitleScreen ; not sure if is the right place to call it
+    call    TitleScreen ; not sure if is the right place to call it
 
 
 

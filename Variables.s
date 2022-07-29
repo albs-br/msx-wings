@@ -270,3 +270,11 @@ LevelInitAnimation_Char_3_LookupTable_Addr:      rw 1
 LevelInitAnimation_Char_4_LookupTable_Addr:      rw 1
 LevelInitAnimation_Char_5_LookupTable_Addr:      rw 1
 LevelInitAnimation_Char_6_LookupTable_Addr:      rw 1
+
+; ---------------------------------------
+
+VDP_HMMM_Parameters:
+   rw    2 	    ; Source X (9 bits), Source Y (10 bits)
+   rw    2 	    ; Destiny X (9 bits), Destiny Y (10 bits)
+   rw    2      ; number of cols (9 bits), number of lines (10 bits)
+   rb    3
