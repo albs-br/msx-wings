@@ -138,7 +138,7 @@ TitleScreen:
     ld      a, (VDP_HMMM_Params_Buffer.Destiny_Y)
     add     32
     cp      192
-    jp      z, .paletteAnimation
+    jp      z, .changeToGoingUp
     ld      (VDP_HMMM_Params_Buffer.Destiny_Y), a
 
     ld      a, (VDP_HMMM_Params_Buffer.Source_Y)
@@ -147,9 +147,10 @@ TitleScreen:
 
     jp      .initLoop
 
-.paletteAnimation:
+;.paletteAnimation:
 
-    ld      ix, TitleColor_0
+    ; ld      ix, TitleColor_0_First
+    ; ld      iyh, 0                      ; IYH: control direction. 0: going up; 1: going down
 
 .paletteAnimationLoop:
     ld      hl, BIOS_JIFFY              ; (v-blank sync)
@@ -159,8 +160,9 @@ TitleScreen:
     jr      z, .paletteAnimationLoop_waitVBlank
 
 
+    ; animation only at each 4 frames
     ld      a, (BIOS_JIFFY)         ; get only low byte of JIFFY
-    and     0000 0111 b
+    and     0000 0011 b
     jp      nz, .paletteAnimationLoop
 
 
@@ -174,14 +176,23 @@ TitleScreen:
     ld      a, 0x0d
     call    SetPaletteColor_FromAddress
 
+    ld      a, iyh
+    or      a
+    jp      nz, .goingDown
+
+;.goingUp:
     inc     ix
     inc     ix
 
+    ; ; HL = IX
+    ; ld      a, ixh
+    ; ld      h, a
+    ; ld      a, ixl
+    ; ld      l, a
+
     ; HL = IX
-    ld      a, ixh
-    ld      h, a
-    ld      a, ixl
-    ld      l, a
+    push    ix
+    pop     hl
 
     ; ; IX = HL
     ; ld      a, h
@@ -191,11 +202,33 @@ TitleScreen:
 
     ld      de, TitleColor_0_End
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
-    jp      z, .endAnimation
-
+    jp      z, .changeToGoingDown
 
     jp      .paletteAnimationLoop
 
+.goingDown:
+    dec     ix
+    dec     ix
+
+    ; HL = IX
+    push    ix
+    pop     hl
+
+    ld      de, TitleColor_0_First - 2
+    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    jp      z, .changeToGoingUp
+
+    jp      .paletteAnimationLoop
+
+.changeToGoingDown:
+    ld      ix, TitleColor_0_Last
+    ld      iyh, 1                      ; IYH: control direction. 0: going up; 1: going down
+    jp      .paletteAnimationLoop
+
+.changeToGoingUp:
+    ld      ix, TitleColor_0_First
+    ld      iyh, 0                      ; IYH: control direction. 0: going up; 1: going down
+    jp      .paletteAnimationLoop
 
 .endAnimation:
 
@@ -231,7 +264,7 @@ HMMM_Parameters_size: equ $ - HMMM_Parameters
 
 ;       first byte:  high nibble: red 0-7; low nibble: blue 0-7
 ;       second byte: high nibble: 0000; low nibble:  green 0-7
-TitleColor_0:
+TitleColor_0_First:
     db      0x77, 0x07
     db      0x66, 0x06
     db      0x55, 0x05
@@ -239,5 +272,6 @@ TitleColor_0:
     db      0x33, 0x03
     db      0x22, 0x02
     db      0x11, 0x01
+TitleColor_0_Last:
     db      0x00, 0x00
 TitleColor_0_End:
