@@ -8,9 +8,9 @@ DebugMessage:
 
     push    hl
         ; define screen colors
-        ld 		a, 15      	            ; Foregoung color
+        ld 		a, 15      	            ; Foreground color
         ld 		(BIOS_FORCLR), a    
-        ld 		a, 1  		            ; Backgroung color
+        ld 		a, 1  		            ; Background color
         ld 		(BIOS_BAKCLR), a     
         ld 		a, 1      	            ; Border color
         ld 		(BIOS_BDRCLR), a    

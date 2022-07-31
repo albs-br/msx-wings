@@ -273,8 +273,12 @@ LevelInitAnimation_Char_6_LookupTable_Addr:      rw 1
 
 ; ---------------------------------------
 
-VDP_HMMM_Parameters:
-   rw    2 	    ; Source X (9 bits), Source Y (10 bits)
-   rw    2 	    ; Destiny X (9 bits), Destiny Y (10 bits)
-   rw    2      ; number of cols (9 bits), number of lines (10 bits)
-   rb    3
+VDP_HMMM_Params_Buffer:
+.Source_X:   rw    1 	    ; Source X (9 bits)
+.Source_Y:   rw    1 	    ; Source Y (10 bits)
+.Destiny_X:  rw    1 	    ; Destiny X (9 bits)
+.Destiny_Y:  rw    1 	    ; Destiny Y (10 bits)
+.Cols:       rw    1        ; number of cols (9 bits)
+.Lines:      rw    1        ; number of lines (10 bits)
+.NotUsed:    rb    2
+.Command:    rb    1
