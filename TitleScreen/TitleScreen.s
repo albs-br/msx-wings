@@ -138,7 +138,7 @@ TitleScreen:
     ld      a, (VDP_HMMM_Params_Buffer.Destiny_Y)
     add     32
     cp      192
-    jp      z, .endAnimation
+    jp      z, .paletteAnimation
     ld      (VDP_HMMM_Params_Buffer.Destiny_Y), a
 
     ld      a, (VDP_HMMM_Params_Buffer.Source_Y)
@@ -146,6 +146,56 @@ TitleScreen:
     ld      (VDP_HMMM_Params_Buffer.Source_Y), a
 
     jp      .initLoop
+
+.paletteAnimation:
+
+    ld      ix, TitleColor_0
+
+.paletteAnimationLoop:
+    ld      hl, BIOS_JIFFY              ; (v-blank sync)
+    ld      a, (hl)
+.paletteAnimationLoop_waitVBlank:
+    cp      (hl)
+    jr      z, .paletteAnimationLoop_waitVBlank
+
+
+    ld      a, (BIOS_JIFFY)         ; get only low byte of JIFFY
+    and     0000 0111 b
+    jp      nz, .paletteAnimationLoop
+
+
+    ; HL = IX
+    ld      a, ixh
+    ld      h, a
+    ld      a, ixl
+    ld      l, a
+
+    ;ld      a, 0x06
+    ld      a, 0x0d
+    call    SetPaletteColor_FromAddress
+
+    inc     ix
+    inc     ix
+
+    ; HL = IX
+    ld      a, ixh
+    ld      h, a
+    ld      a, ixl
+    ld      l, a
+
+    ; ; IX = HL
+    ; ld      a, h
+    ; ld      ixh, a
+    ; ld      a, l
+    ; ld      ixl, a
+
+    ld      de, TitleColor_0_End
+    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    jp      z, .endAnimation
+
+
+    jp      .paletteAnimationLoop
+
 
 .endAnimation:
 
@@ -171,8 +221,23 @@ HMMM_Parameters:
 .Command:    db    VDP_COMMAND_HMMM
 HMMM_Parameters_size: equ $ - HMMM_Parameters
 
-
 ;    dw    0, 256 	; Source X (9 bits), Source Y (10 bits)
 ;    dw    0, 0 	    ; Destiny X (9 bits), Destiny Y (10 bits)
 ;    dw    256, 32   ; number of cols (9 bits), number of lines (10 bits)
 ;    db    0, 0, VDP_COMMAND_HMMM
+
+
+
+
+;       first byte:  high nibble: red 0-7; low nibble: blue 0-7
+;       second byte: high nibble: 0000; low nibble:  green 0-7
+TitleColor_0:
+    db      0x77, 0x07
+    db      0x66, 0x06
+    db      0x55, 0x05
+    db      0x44, 0x04
+    db      0x33, 0x03
+    db      0x22, 0x02
+    db      0x11, 0x01
+    db      0x00, 0x00
+TitleColor_0_End:

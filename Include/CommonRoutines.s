@@ -24,16 +24,40 @@ ClearRam:
 SetPaletteColor:
     push    bc
         ; set palette register number in register R#16 (Color palette address pointer)
-        ld      b, a        ; data
-        ld      c, 16       ; register #
+        ld      b, a             ; data
+        ld      c, 16            ; register #
         call    BIOS_WRTVDP
-        ld      c, 0x9a          ; v9938 port #2
+        ld      c, PORT_2        ; v9938 port #2
     pop     de
 
     ld      a, d                 ; data 1 (red 0-7; blue 0-7)
     di
     out     (c), a
     ld      a, e                 ; data 2 (0000; green 0-7)
+    ei
+    out     (c), a
+
+    ret
+
+
+
+; Input:
+;   A: Color number
+;   HL: address of color palette:
+;       first byte:  high nibble: red 0-7; low nibble: blue 0-7
+;       second byte: high nibble: 0000; low nibble:  green 0-7
+SetPaletteColor_FromAddress:
+    ; set palette register number in register R#16 (Color palette address pointer)
+    ld      b, a                 ; data
+    ld      c, 16                ; register #
+    call    BIOS_WRTVDP
+    ld      c, PORT_2            ; v9938 port #2
+
+    ld      a, (hl)              ; data 1 (red 0-7; blue 0-7)
+    di
+    out     (c), a
+    inc     hl
+    ld      a, (hl)              ; data 2 (0000; green 0-7)
     ei
     out     (c), a
 
