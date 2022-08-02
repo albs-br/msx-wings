@@ -34,7 +34,6 @@ TitleScreen:
     ; out     (c), a
 
 
-    ; load palette
 
     ; --------------- load title screen (first 16kb) on the second page (not visible)
     xor     a           	; set vram write base address
@@ -85,6 +84,17 @@ TitleScreen:
     ld      de, VDP_HMMM_Params_Buffer
     ld      bc, HMMM_Parameters_size
     ldir
+
+
+    ; load palette
+    ld      hl, PaletteData
+    call    LoadPalette
+
+
+    ; ; test
+    ; ld      hl, TitleColor_0_First + 10
+    ; ld      a, 0x0d
+    ; call    SetPaletteColor_FromAddress
 
 
 .initLoop:
@@ -162,7 +172,7 @@ TitleScreen:
 
     ; animation only at each 4 frames
     ld      a, (BIOS_JIFFY)         ; get only low byte of JIFFY
-    and     0000 0011 b
+    and     0000 0111 b
     jp      nz, .paletteAnimationLoop
 
 
@@ -172,8 +182,15 @@ TitleScreen:
     ld      a, ixl
     ld      l, a
 
-    ;ld      a, 0x06
-    ld      a, 0x0d
+    push    hl
+        ;ld      a, 0x06
+        ld      a, 0x0d
+        call    SetPaletteColor_FromAddress
+    pop     hl
+
+    ld      de, TitleColor_0_Size
+    add     hl, de
+    ld      a, 0x06
     call    SetPaletteColor_FromAddress
 
     ld      a, iyh
@@ -275,3 +292,16 @@ TitleColor_0_First:
 TitleColor_0_Last:
     db      0x00, 0x00
 TitleColor_0_End:
+TitleColor_0_Size: equ $ - TitleColor_0_First
+
+TitleColor_1_First:
+    db      0x00, 0x00
+    db      0x11, 0x01
+    db      0x22, 0x02
+    db      0x33, 0x03
+    db      0x44, 0x04
+    db      0x55, 0x05
+    db      0x66, 0x06
+TitleColor_1_Last:
+    db      0x77, 0x07
+TitleColor_1_End:
