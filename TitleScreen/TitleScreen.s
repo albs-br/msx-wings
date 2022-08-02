@@ -238,11 +238,23 @@ TitleScreen:
     jp      .paletteAnimationLoop
 
 .changeToGoingDown:
+
+    ; Screen adjust to the right
+    ld      b, 8             ; data
+    ld      c, 18            ; register #
+    call    BIOS_WRTVDP
+
     ld      ix, TitleColor_0_Last
     ld      iyh, 1                      ; IYH: control direction. 0: going up; 1: going down
     jp      .paletteAnimationLoop
 
 .changeToGoingUp:
+
+    ; Screen adjust to the left
+    ld      b, 7             ; data
+    ld      c, 18            ; register #
+    call    BIOS_WRTVDP
+
     ld      ix, TitleColor_0_First
     ld      iyh, 0                      ; IYH: control direction. 0: going up; 1: going down
     jp      .paletteAnimationLoop
