@@ -282,3 +282,7 @@ VDP_HMMM_Params_Buffer:
 .Lines:      rw    1        ; number of lines (10 bits)
 .NotUsed:    rb    2
 .Command:    rb    1
+
+; ----------------------------------------
+
+Title_Counter:  rb 1

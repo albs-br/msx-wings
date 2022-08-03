@@ -34,6 +34,11 @@ TitleScreen:
     ; out     (c), a
 
 
+    ; init vars
+    xor     a
+    ld      (Title_Counter), a
+
+
 
     ; --------------- load title screen (first 16kb) on the second page (not visible)
     xor     a           	; set vram write base address
@@ -148,7 +153,8 @@ TitleScreen:
     ld      a, (VDP_HMMM_Params_Buffer.Destiny_Y)
     add     32
     cp      192
-    jp      z, .changeToGoingUp
+    ; jp      z, .changeToGoingUp
+    jp      z, .screenAdjustAnimationLoop
     ld      (VDP_HMMM_Params_Buffer.Destiny_Y), a
 
     ld      a, (VDP_HMMM_Params_Buffer.Source_Y)
@@ -161,6 +167,43 @@ TitleScreen:
 
     ; ld      ix, TitleColor_0_First
     ; ld      iyh, 0                      ; IYH: control direction. 0: going up; 1: going down
+
+
+
+.screenAdjustAnimationLoop:
+    ld      hl, BIOS_JIFFY              ; (v-blank sync)
+    ld      a, (hl)
+.screenAdjustAnimationLoop_waitVBlank:
+    cp      (hl)
+    jr      z, .screenAdjustAnimationLoop_waitVBlank
+
+    ld      a, (Title_Counter)
+    inc     a
+    ld      (Title_Counter), a
+    cp      128
+    jp      z, .changeToGoingUp
+
+    ; switch between left and right adjust
+    ld      a, (BIOS_JIFFY)         ; get only low byte of JIFFY
+    and     0000 0001 b
+    jp      nz, .scrLeft
+
+    ; Screen adjust to the right
+    ld      b, 15            ; (7-1: left; 15-8: right; 0: center)
+    ld      c, 18            ; register #
+    call    BIOS_WRTVDP
+
+    jp      .screenAdjustAnimationLoop
+
+.scrLeft:
+    ; Screen adjust to the left
+    ld      b, 1             ; (7-1: left; 15-8: right; 0: center)
+    ld      c, 18            ; register #
+    call    BIOS_WRTVDP
+
+    jp      .screenAdjustAnimationLoop
+
+
 
 .paletteAnimationLoop:
     ld      hl, BIOS_JIFFY              ; (v-blank sync)
@@ -238,23 +281,11 @@ TitleScreen:
     jp      .paletteAnimationLoop
 
 .changeToGoingDown:
-
-    ; Screen adjust to the right
-    ld      b, 8             ; data
-    ld      c, 18            ; register #
-    call    BIOS_WRTVDP
-
     ld      ix, TitleColor_0_Last
     ld      iyh, 1                      ; IYH: control direction. 0: going up; 1: going down
     jp      .paletteAnimationLoop
 
 .changeToGoingUp:
-
-    ; Screen adjust to the left
-    ld      b, 7             ; data
-    ld      c, 18            ; register #
-    call    BIOS_WRTVDP
-
     ld      ix, TitleColor_0_First
     ld      iyh, 0                      ; IYH: control direction. 0: going up; 1: going down
     jp      .paletteAnimationLoop
