@@ -314,7 +314,7 @@ TitleScreen:
     inc     a
     ld      (Title_Counter), a
     cp      3
-    jp      z, $ ; .initloopRoundPalette
+    jp      z, InitloopRoundPalette
 
     ld      ix, TitleColor_0_Last
     ld      iyh, 1                      ; IYH: control direction. 0: going up; 1: going down
@@ -340,62 +340,57 @@ TitleScreen:
     inc     (hl)
     ret
 
-; ; --------------------------------------------------------------------
-; .initLoopRoundPalette:
+; --------------------------------------------------------------------
+; --------- Loop palette
+InitLoopRoundPalette:
+    ld	    hl, Title_PaletteData
 
-;     ; --------- Loop palette
+.init:
+    call    Wait_Vblank
 
-;     ld      hl, Title_PaletteData
+    ld	    ixl, 0			; counter
 
-; .next_10:
+    push    hl
 
-;     push    hl
-;         ld	    ixl, 0			; counter
+.loop:
+    
+    ld	    b, (hl)
+    inc	    hl
+    ld	    c, (hl)
+    inc	    hl
+    ld	    a, ixl
 
-; .loop_10:
+    cp	    16
+    jp	    z, .next
 
-;         push    hl
-; ;.roundPaletteLoop:
-;             ld      hl, BIOS_JIFFY              ; (v-blank sync)
-;             ld      a, (hl)
-; ;            add     4
-; .roundPaletteLoop_waitVBlank:
-;             cp      (hl)
-;             jr      z, .roundPaletteLoop_waitVBlank
-;         pop     hl
+    inc	    ixl
+    ;push    ix
+        push	    hl
+            ; ld      a, 6
+            ; ld      bc, 0x7707
+            call	SetPaletteColor
+        pop	    hl
+    ;pop     ix
 
-;         ld	    b, (hl)
-;         inc	    hl
-;         ld	    c, (hl)
-;         inc	    hl
-;         ld	    a, ixl
+    ld	    de, Title_PaletteData_End
+    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    jp	    nz, .loop
 
-;         cp	    16
-;         jp	    .initLoopRoundPalette
+    ld	    hl, Title_PaletteData
+    jp	    .loop
 
-;         inc	    ixl
+.next:
+    ; call    BIOS_BEEP
 
-;         push	    hl
-;             call	    SetPaletteColor
-;         pop	    hl
+    pop     hl
 
-;         ld	    de, Title_PaletteData_End
-;         call	BIOS_DCOMPR
-;         jp	    nz, .loop_10
+    inc     hl
+    inc     hl
 
-;         ld	    hl, Title_PaletteData
-;         jp	    .loop_10
-
-;     pop     hl
-
-;     inc     hl  ; next color
-;     inc     hl
-
-;     ld	    de, Title_PaletteData_End
-;     call	BIOS_DCOMPR
-;     jp	    z, .initloopRoundPalette
-
-;     jp      .next_10
+    ld	    de, Title_PaletteData_End
+    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    jp	    nz, .init
+    jp      InitLoopRoundPalette
 
 HMMM_Parameters:
 .Source_X:   dw    0 	    ; Source X (9 bits)
@@ -405,7 +400,7 @@ HMMM_Parameters:
 .Cols:       dw    256      ; number of cols (9 bits)
 .Lines:      dw    32       ; number of lines (10 bits)
 .NotUsed:    db    0
-.Options:    db    0        ; select destination memory and direction from base coordinate
+.Options:    db    0000 0000 b  ; select destination memory and direction from base coordinate
 .Command:    db    VDP_COMMAND_HMMM
 HMMM_Parameters_size: equ $ - HMMM_Parameters
 

@@ -145,7 +145,7 @@ Wait_B_Vblanks:
 
 	ret
 
-Wait:
+Wait_15_Vblanks:
 	ld		c, 15
 
 	.loop:
@@ -158,6 +158,19 @@ Wait:
 
 	dec		c
 	jp		nz, .loop
+
+    ret
+
+Wait_Vblank:
+.loop:
+    ld      a, (BIOS_JIFFY)
+    ld      b, a
+.waitVBlank:
+    ld      a, (BIOS_JIFFY)
+    cp      b
+    jp      z, .waitVBlank
+
+    ret
 
 ;
 ; Set VDP address counter to write from address AHL (17-bit)
