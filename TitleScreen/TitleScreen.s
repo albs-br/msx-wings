@@ -7,9 +7,9 @@ TitleScreen:
 
     ld 		a, 1      	            ; Foreground color
     ld 		(BIOS_FORCLR), a    
-    ld 		a, 5  		            ; Background color
+    ld 		a, 1  		            ; Background color
     ld 		(BIOS_BAKCLR), a     
-    ld 		a, 15      	            ; Border color
+    ld 		a, 1      	            ; Border color
     ld 		(BIOS_BDRCLR), a    
     call 	BIOS_CHGCLR        		; Change Screen Color
 
@@ -22,7 +22,7 @@ TitleScreen:
 
     call    Set192Lines
 
-    call    SetColor0ToTransparent
+    call    SetColor0ToNonTransparent
 
     call    DisableSprites
 
@@ -38,6 +38,20 @@ TitleScreen:
     ; init vars
     xor     a
     ld      (Title_Counter), a
+
+    ; --------------- fill screen with color 1
+    xor     a           	; set vram write base address
+    ld      hl, 0x0000     	;  to 1st byte of page 1...
+    call    SetVDP_Write
+    ld      c, PORT_0
+    ld      d, 96               ; 96 x 256 = all 256x192 pixels of screen 5
+    ld      b, 0                ; 
+    ld      a, 0x11
+.loop_2:
+    out     (c), a
+    djnz    .loop_2
+    dec     d
+    jp      nz, .loop_2
 
 
 
@@ -201,6 +215,11 @@ TitleScreen:
     ld      b, 0             ; (7-1: left; 15-8: right; 0: center)
     ld      c, 18            ; register #
     call    BIOS_WRTVDP
+
+    ; reset counter
+    xor     a
+    ld      (Title_Counter), a
+
     jp      .changeToGoingUp
 
 .scrLeft:
@@ -289,6 +308,14 @@ TitleScreen:
     jp      .paletteAnimationLoop
 
 .changeToGoingDown:
+
+    ; if (counter == 3) endAnimation
+    ld      a, (Title_Counter)
+    inc     a
+    ld      (Title_Counter), a
+    cp      3
+    jp      z, $ ; .initloopRoundPalette
+
     ld      ix, TitleColor_0_Last
     ld      iyh, 1                      ; IYH: control direction. 0: going up; 1: going down
     jp      .paletteAnimationLoop
@@ -313,6 +340,62 @@ TitleScreen:
     inc     (hl)
     ret
 
+; ; --------------------------------------------------------------------
+; .initLoopRoundPalette:
+
+;     ; --------- Loop palette
+
+;     ld      hl, Title_PaletteData
+
+; .next_10:
+
+;     push    hl
+;         ld	    ixl, 0			; counter
+
+; .loop_10:
+
+;         push    hl
+; ;.roundPaletteLoop:
+;             ld      hl, BIOS_JIFFY              ; (v-blank sync)
+;             ld      a, (hl)
+; ;            add     4
+; .roundPaletteLoop_waitVBlank:
+;             cp      (hl)
+;             jr      z, .roundPaletteLoop_waitVBlank
+;         pop     hl
+
+;         ld	    b, (hl)
+;         inc	    hl
+;         ld	    c, (hl)
+;         inc	    hl
+;         ld	    a, ixl
+
+;         cp	    16
+;         jp	    .initLoopRoundPalette
+
+;         inc	    ixl
+
+;         push	    hl
+;             call	    SetPaletteColor
+;         pop	    hl
+
+;         ld	    de, Title_PaletteData_End
+;         call	BIOS_DCOMPR
+;         jp	    nz, .loop_10
+
+;         ld	    hl, Title_PaletteData
+;         jp	    .loop_10
+
+;     pop     hl
+
+;     inc     hl  ; next color
+;     inc     hl
+
+;     ld	    de, Title_PaletteData_End
+;     call	BIOS_DCOMPR
+;     jp	    z, .initloopRoundPalette
+
+;     jp      .next_10
 
 HMMM_Parameters:
 .Source_X:   dw    0 	    ; Source X (9 bits)
@@ -364,7 +447,7 @@ TitleColor_1_End:
 
 Title_PaletteData:
     ;  data 1 (red 0-7; blue 0-7); data 2 (0000; green 0-7)
-    db 0x00, 0x00 ; Color index 0
+    db 0x77, 0x07 ; Color index 0
     db 0x00, 0x00 ; Color index 1
     db 0x10, 0x00 ; Color index 2
     db 0x20, 0x00 ; Color index 3
@@ -384,3 +467,4 @@ Title_PaletteData:
     
     db 0x55, 0x05 ; Color index 14 (0xe)
     db 0x44, 0x04 ; Color index 15 (0xf)
+Title_PaletteData_End:
