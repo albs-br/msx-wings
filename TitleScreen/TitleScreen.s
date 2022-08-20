@@ -5,14 +5,13 @@ TitleScreen:
     call    BIOS_CHGMOD
 
 
-    ; ; debug:
-    ; ld 		a, 1      	            ; Foreground color
-    ; ld 		(BIOS_FORCLR), a    
-    ; ld 		a, 5  		            ; Background color
-    ; ld 		(BIOS_BAKCLR), a     
-    ; ld 		a, 15      	            ; Border color
-    ; ld 		(BIOS_BDRCLR), a    
-    ; call 	BIOS_CHGCLR        		; Change Screen Color
+    ld 		a, 1      	            ; Foreground color
+    ld 		(BIOS_FORCLR), a    
+    ld 		a, 5  		            ; Background color
+    ld 		(BIOS_BAKCLR), a     
+    ld 		a, 15      	            ; Border color
+    ld 		(BIOS_BDRCLR), a    
+    call 	BIOS_CHGCLR        		; Change Screen Color
 
 
     call    BIOS_DISSCR
@@ -24,6 +23,8 @@ TitleScreen:
     call    Set192Lines
 
     call    SetColor0ToTransparent
+
+    call    DisableSprites
 
     ; ; test - write pixel at 0, 0
     ; ld      a, 0000 0000 b
@@ -92,7 +93,7 @@ TitleScreen:
 
 
     ; load palette
-    ld      hl, PaletteData
+    ld      hl, Title_PaletteData
     call    LoadPalette
 
 
@@ -181,7 +182,7 @@ TitleScreen:
     inc     a
     ld      (Title_Counter), a
     cp      128
-    jp      z, .changeToGoingUp
+    jp      z, .exitScreenAdjustAnimationLoop
 
     ; switch between left and right adjust
     ld      a, (BIOS_JIFFY)         ; get only low byte of JIFFY
@@ -194,6 +195,13 @@ TitleScreen:
     call    BIOS_WRTVDP
 
     jp      .screenAdjustAnimationLoop
+
+.exitScreenAdjustAnimationLoop:
+    ; Screen adjust to center
+    ld      b, 0             ; (7-1: left; 15-8: right; 0: center)
+    ld      c, 18            ; register #
+    call    BIOS_WRTVDP
+    jp      .changeToGoingUp
 
 .scrLeft:
     ; Screen adjust to the left
@@ -292,6 +300,9 @@ TitleScreen:
 
 .endAnimation:
 
+    call    EnableSprites
+
+
 .testLoop:
     jp .testLoop
 
@@ -310,7 +321,8 @@ HMMM_Parameters:
 .Destiny_Y:  dw    0 	    ; Destiny Y (10 bits)
 .Cols:       dw    256      ; number of cols (9 bits)
 .Lines:      dw    32       ; number of lines (10 bits)
-.NotUsed:    db    0, 0
+.NotUsed:    db    0
+.Options:    db    0        ; select destination memory and direction from base coordinate
 .Command:    db    VDP_COMMAND_HMMM
 HMMM_Parameters_size: equ $ - HMMM_Parameters
 
@@ -348,3 +360,27 @@ TitleColor_1_First:
 TitleColor_1_Last:
     db      0x77, 0x07
 TitleColor_1_End:
+
+
+Title_PaletteData:
+    ;  data 1 (red 0-7; blue 0-7); data 2 (0000; green 0-7)
+    db 0x00, 0x00 ; Color index 0
+    db 0x00, 0x00 ; Color index 1
+    db 0x10, 0x00 ; Color index 2
+    db 0x20, 0x00 ; Color index 3
+    db 0x30, 0x00 ; Color index 4
+    db 0x40, 0x00 ; Color index 5
+    
+    db 0x00, 0x00 ; Color index 6
+    
+    db 0x60, 0x00 ; Color index 7
+    db 0x70, 0x00 ; Color index 8
+    db 0x11, 0x01 ; Color index 9
+    db 0x22, 0x02 ; Color index 10 (0xa)
+    db 0x33, 0x03 ; Color index 11 (0xb)
+    db 0x77, 0x07 ; Color index 12 (0xc)
+    
+    db 0x77, 0x07 ; Color index 13 (0xd)
+    
+    db 0x55, 0x05 ; Color index 14 (0xe)
+    db 0x44, 0x04 ; Color index 15 (0xf)

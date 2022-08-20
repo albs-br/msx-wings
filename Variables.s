@@ -280,7 +280,8 @@ VDP_HMMM_Params_Buffer:
 .Destiny_Y:  rw    1 	    ; Destiny Y (10 bits)
 .Cols:       rw    1        ; number of cols (9 bits)
 .Lines:      rw    1        ; number of lines (10 bits)
-.NotUsed:    rb    2
+.NotUsed:    rb    1
+.Options:    rb    1        ; select destination memory and direction from base coordinate
 .Command:    rb    1
 
 ; ----------------------------------------

@@ -50,11 +50,18 @@ InitVram:
     ld      c, 6            ; register #
     call    BIOS_WRTVDP
 
+
+; -------------------------- VRAM mapping (screen 11)
+
+; first page (0x00000 to 0x0ffff):
 NAMTBL:     equ 0x0000
+
+; second page (0x10000 to 0x1ffff):
 SPRPAT:     equ 0xf000 ; actually 0x1f000, but 17 bits address are not accepted
 SPRCOL:     equ 0xf800
 SPRATR:     equ 0xfa00
 
+; --------------------------
 
 
 

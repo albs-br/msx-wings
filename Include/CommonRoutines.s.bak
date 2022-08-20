@@ -326,12 +326,7 @@ Screen11:
     ; it's needed to set screen 8 and change the YJK and YAE bits of R#25 manually
     ld      a, 8
     call    BIOS_CHGMOD
-
-    ld      a, (REG25SAV)
-    or      0001 1000 b
-    ld      (REG25SAV), a   ; MSX 2+ VDP registers aren't guaranted to be saved by BIOS_WRTVDP routine
-    ld      b, a
-    ;ld      b, 0001 1000 b  ; data
+    ld      b, 0001 1000 b  ; data
     ld      c, 25            ; register #
     call    BIOS_WRTVDP
 	ret
@@ -357,19 +352,6 @@ Set192Lines:
     ld      c, 9            ; register #
     call    BIOS_WRTVDP
 	ret
-
-SetColor0ToNonTransparent:
-    ; Das 16 cores da paleta, a cor 0 é transparente, ou seja, não pode
-    ; ser definida uma cor para ela e qualquer objeto desenhado com ela não
-    ; será visto. Entretanto, setando o bit 5 de R#8, a função de transparente
-    ; será desativada e a cor 0 poderá ser definida por P#0.    
-    ; set color 0 to non transparent
-    ld      a, (REG8SAV)
-    or      0010 0000 b
-    ld      b, 0010 1000 b  ; data
-    ld      c, 0x08         ; register #
-    call    BIOS_WRTVDP
-    ret
 
 SetColor0ToTransparent:
     ; set color 0 to transparent
