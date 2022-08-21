@@ -1053,6 +1053,6 @@ TITLE_SCREEN_FIRST_MEGAROM_PAGE:        equ 244
 ; ------- Page 245
     ; bottom 64 lines
 	org	0x8000, 0xBFFF
-	INCBIN "Graphics/Bitmaps/TitleScreen/title-screen_1.sc5.old" ; TODO: fix here
+	INCBIN "Graphics/Bitmaps/TitleScreen/title-screen_1.sc5.new"
 	ds PAGE_SIZE - ($ - 0x8000), 255
 

@@ -122,11 +122,6 @@ TitleScreen:
     ld      (VDP_HMMM_Params_Buffer.Destiny_X), a
 
 .titleAnimationLoop:
-;     ld      hl, BIOS_JIFFY              ; (v-blank sync)
-;     ld      a, (hl)
-; .titleAnimationLoop_waitVBlank:
-;     cp      (hl)
-;     jr      z, .titleAnimationLoop_waitVBlank
     call    Wait_Vblank
 
 
@@ -232,11 +227,7 @@ TitleScreen:
 ; -------------------- animation fading in and out from/to black and white
 
 .paletteAnimationLoop:
-    ld      hl, BIOS_JIFFY              ; (v-blank sync)
-    ld      a, (hl)
-.paletteAnimationLoop_waitVBlank:
-    cp      (hl)
-    jr      z, .paletteAnimationLoop_waitVBlank
+    call    Wait_Vblank
 
 
     ; animation only at each 4 frames
@@ -252,15 +243,34 @@ TitleScreen:
     ld      l, a
 
     push    hl
-        ;ld      a, 0x06
-        ld      a, 0x0d
+        
+        ; push    hl
+        ;     ld      a, 0x06
+        ;     call    SetPaletteColor_FromAddress
+        ; pop     hl
+
+        ld      a, 0x00
         call    SetPaletteColor_FromAddress
+
     pop     hl
 
     ld      de, TitleColor_0_Size
     add     hl, de
-    ld      a, 0x06
-    call    SetPaletteColor_FromAddress
+
+
+    ; set this color to color indexes 1 to 14
+    ld      a, 1
+.loop_3:
+    push    af
+        push    hl
+            call    SetPaletteColor_FromAddress
+        pop     hl
+    pop     af
+    inc     a
+    cp      15
+    jp      nz, .loop_3
+
+
 
     ld      a, iyh
     or      a
@@ -312,8 +322,8 @@ TitleScreen:
     ld      a, (Title_Counter)
     inc     a
     ld      (Title_Counter), a
-    cp      3
-    jp      z, InitloopRoundPalette
+    cp      2
+    jp      z, .endAnimation
 
     ld      ix, TitleColor_0_Last
     ld      iyh, 1                      ; IYH: control direction. 0: going up; 1: going down
@@ -324,8 +334,14 @@ TitleScreen:
     ld      iyh, 0                      ; IYH: control direction. 0: going up; 1: going down
     jp      .paletteAnimationLoop
 
-; .endAnimation:
-;     call    EnableSprites
+.endAnimation:
+    ld      hl, 0
+    ld      (Title_Counter), hl
+
+    call    EnableSprites
+
+    jp      InitloopRoundPalette
+
 
 
 ; .testLoop:
