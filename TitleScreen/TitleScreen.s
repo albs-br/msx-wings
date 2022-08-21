@@ -343,12 +343,12 @@ TitleScreen:
 ; --------------------------------------------------------------------
 ; --------- Loop palette
 InitLoopRoundPalette:
-    ld	    hl, Title_PaletteData
+    ld	    hl, Title_PaletteData_1
 
 .init:
     call    Wait_Vblank
 
-    ld	    ixl, 0			; counter
+    ld	    ixl, 2			; counter
 
     push    hl
 
@@ -376,7 +376,7 @@ InitLoopRoundPalette:
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     jp	    nz, .loop
 
-    ld	    hl, Title_PaletteData
+    ld	    hl, Title_PaletteData_1
     jp	    .loop
 
 .next:
@@ -444,6 +444,7 @@ Title_PaletteData:
     ;  data 1 (red 0-7; blue 0-7); data 2 (0000; green 0-7)
     db 0x77, 0x07 ; Color index 0
     db 0x00, 0x00 ; Color index 1
+Title_PaletteData_1:
     db 0x10, 0x00 ; Color index 2
     db 0x20, 0x00 ; Color index 3
     db 0x30, 0x00 ; Color index 4

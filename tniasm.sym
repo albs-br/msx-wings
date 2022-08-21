@@ -317,6 +317,7 @@ BIOS_H_INDS: equ 0FE8Ah ; last def. pass 3
 HMMM_Parameters.Destiny_Y: equ 06103h ; last def. pass 3
 BIOS_H_FORM: equ 0FFACh ; last def. pass 3
 Player_X: equ 0C002h ; last def. pass 3
+Title_PaletteData_1: equ 06130h ; last def. pass 3
 Enemy_Temp_ItemStruct_Addr: equ 0C032h ; last def. pass 3
 BIOS_EXPTBL: equ 0FCC1h ; last def. pass 3
 LoadLevel.level_1: equ 05A8Dh ; last def. pass 3
