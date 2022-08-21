@@ -346,11 +346,11 @@ InitLoopRoundPalette:
     inc     hl
     ld      (Title_Counter), hl
 
-    ld      de, 25
+    ld      de, 10
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     jp      z, .setColor_0_Black
 
-    ld      de, 50
+    ld      de, 20
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     jp      z, .setColor_0_White
 
@@ -360,6 +360,9 @@ InitLoopRoundPalette:
     xor     a
     ld      bc, 0x0000
     call    SetPaletteColor
+
+    call    BorderWhiteAndLeftAdjustFor5Frames
+
     jp      .continue
 
 .setColor_0_White:
@@ -369,6 +372,8 @@ InitLoopRoundPalette:
 
     ld      hl, 0
     ld      (Title_Counter), hl
+
+    call    BorderWhiteAndLeftAdjustFor5Frames
 
     ;jp      .continue
 
@@ -417,6 +422,36 @@ InitLoopRoundPalette:
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     jp	    nz, .init
     jp      InitLoopRoundPalette
+
+
+
+BorderWhiteAndLeftAdjustFor5Frames:
+    ; set border white
+    ld      a, 15
+    ld      bc, 0x7707
+    call    SetPaletteColor
+
+    ; Screen adjust to the left
+    ld      b, 7             ; (7-1: left; 15-8: right; 0: center)
+    ld      c, 18            ; register #
+    call    BIOS_WRTVDP
+
+    ; wait 5 frames
+    ld      b, 5
+    call    Wait_B_Vblanks
+    
+    ; set border back to black
+    ld      a, 15
+    ld      bc, 0x0000
+    call    SetPaletteColor
+
+    ; Screen adjust to center
+    ld      b, 0             ; (7-1: left; 15-8: right; 0: center)
+    ld      c, 18            ; register #
+    call    BIOS_WRTVDP
+
+    ret
+
 
 HMMM_Parameters:
 .Source_X:   dw    0 	    ; Source X (9 bits)
