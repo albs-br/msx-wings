@@ -62,6 +62,7 @@ ram_watch   add     0xc3cc      -type byte       -desc LevelInitAnimation_Counte
 #ram_watch   add     0xc01f      -type word      -desc NextShot_Struct_Addr       -format hex
 ram_watch   add     0xC234      -type byte      -desc FramesSkipped            -format dec
 
+ram_watch   add     0xC3e8      -type word      -desc Title_Counter            -format dec
 
 
 

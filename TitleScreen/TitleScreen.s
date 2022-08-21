@@ -5,11 +5,11 @@ TitleScreen:
     call    BIOS_CHGMOD
 
 
-    ld 		a, 1      	            ; Foreground color
+    ld 		a, 15      	            ; Foreground color
     ld 		(BIOS_FORCLR), a    
-    ld 		a, 1  		            ; Background color
+    ld 		a, 15  		            ; Background color
     ld 		(BIOS_BAKCLR), a     
-    ld 		a, 1      	            ; Border color
+    ld 		a, 15      	            ; Border color
     ld 		(BIOS_BDRCLR), a    
     call 	BIOS_CHGCLR        		; Change Screen Color
 
@@ -97,7 +97,7 @@ TitleScreen:
 
     call    BIOS_ENASCR
 
-    ; -------------------- animation
+; -------------------- animation title entering screen from right border
 
     ; copy from initial HMMM parameters to buffer
     ld      hl, HMMM_Parameters
@@ -122,16 +122,16 @@ TitleScreen:
     ld      (VDP_HMMM_Params_Buffer.Destiny_X), a
 
 .titleAnimationLoop:
-    ld      hl, BIOS_JIFFY              ; (v-blank sync)
-    ld      a, (hl)
-.titleAnimationLoop_waitVBlank:
-    cp      (hl)
-    jr      z, .titleAnimationLoop_waitVBlank
-
+;     ld      hl, BIOS_JIFFY              ; (v-blank sync)
+;     ld      a, (hl)
+; .titleAnimationLoop_waitVBlank:
+;     cp      (hl)
+;     jr      z, .titleAnimationLoop_waitVBlank
+    call    Wait_Vblank
 
 
     ; Save Jiffy to check if previous frame ended
-    ld      a, (hl)
+    ld      a, (BIOS_JIFFY)
     ld      (CurrentJiffy), a
 
 
@@ -183,14 +183,12 @@ TitleScreen:
     ; ld      ix, TitleColor_0_First
     ; ld      iyh, 0                      ; IYH: control direction. 0: going up; 1: going down
 
+; -------------------- animation screen shaking left and right
 
 
 .screenAdjustAnimationLoop:
-    ld      hl, BIOS_JIFFY              ; (v-blank sync)
-    ld      a, (hl)
-.screenAdjustAnimationLoop_waitVBlank:
-    cp      (hl)
-    jr      z, .screenAdjustAnimationLoop_waitVBlank
+    call    Wait_Vblank
+
 
     ld      a, (Title_Counter)
     inc     a
@@ -231,6 +229,7 @@ TitleScreen:
     jp      .screenAdjustAnimationLoop
 
 
+; -------------------- animation fading in and out from/to black and white
 
 .paletteAnimationLoop:
     ld      hl, BIOS_JIFFY              ; (v-blank sync)
@@ -325,30 +324,61 @@ TitleScreen:
     ld      iyh, 0                      ; IYH: control direction. 0: going up; 1: going down
     jp      .paletteAnimationLoop
 
-.endAnimation:
+; .endAnimation:
+;     call    EnableSprites
 
-    call    EnableSprites
 
+; .testLoop:
+;     jp .testLoop
 
-.testLoop:
-    jp .testLoop
-
-    ret
+;     ret
 
 .frameSkip:
     ld      hl, FramesSkipped
     inc     (hl)
     ret
 
-; --------------------------------------------------------------------
-; --------- Loop palette
+; -------------------- animation looping round palette
+
 InitLoopRoundPalette:
+
+    ld      hl, (Title_Counter)
+    inc     hl
+    ld      (Title_Counter), hl
+
+    ld      de, 25
+    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    jp      z, .setColor_0_Black
+
+    ld      de, 50
+    call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
+    jp      z, .setColor_0_White
+
+    jp      .continue
+
+.setColor_0_Black:
+    xor     a
+    ld      bc, 0x0000
+    call    SetPaletteColor
+    jp      .continue
+
+.setColor_0_White:
+    xor     a
+    ld      bc, 0x7707
+    call    SetPaletteColor
+
+    ld      hl, 0
+    ld      (Title_Counter), hl
+
+    ;jp      .continue
+
+.continue:
     ld	    hl, Title_PaletteData_1
 
 .init:
     call    Wait_Vblank
 
-    ld	    ixl, 2			; counter
+    ld	    ixl, 1			; first color index
 
     push    hl
 
@@ -360,19 +390,15 @@ InitLoopRoundPalette:
     inc	    hl
     ld	    a, ixl
 
-    cp	    16
+    cp	    14 + 1          ; last color index + 1
     jp	    z, .next
 
     inc	    ixl
-    ;push    ix
-        push	    hl
-            ; ld      a, 6
-            ; ld      bc, 0x7707
-            call	SetPaletteColor
-        pop	    hl
-    ;pop     ix
+    push	    hl
+        call	SetPaletteColor
+    pop	    hl
 
-    ld	    de, Title_PaletteData_End
+    ld	    de, Title_PaletteData_End_1
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     jp	    nz, .loop
 
@@ -387,7 +413,7 @@ InitLoopRoundPalette:
     inc     hl
     inc     hl
 
-    ld	    de, Title_PaletteData_End
+    ld	    de, Title_PaletteData_End_1
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     jp	    nz, .init
     jp      InitLoopRoundPalette
@@ -443,24 +469,40 @@ TitleColor_1_End:
 Title_PaletteData:
     ;  data 1 (red 0-7; blue 0-7); data 2 (0000; green 0-7)
     db 0x77, 0x07 ; Color index 0
-    db 0x00, 0x00 ; Color index 1
 Title_PaletteData_1:
-    db 0x10, 0x00 ; Color index 2
-    db 0x20, 0x00 ; Color index 3
-    db 0x30, 0x00 ; Color index 4
-    db 0x40, 0x00 ; Color index 5
+    db 0x00, 0x00 ; Color index 1
+    db 0x11, 0x01 ; Color index 2
+    db 0x11, 0x01 ; Color index 3
+    db 0x22, 0x02 ; Color index 4
+    db 0x22, 0x02 ; Color index 5
+    db 0x33, 0x03 ; Color index 6
+    db 0x33, 0x03 ; Color index 7
+    db 0x44, 0x04 ; Color index 8
+    db 0x44, 0x04 ; Color index 9
+    db 0x55, 0x05 ; Color index 10 (0xa)
+    db 0x55, 0x05 ; Color index 11 (0xb)
+    db 0x66, 0x06 ; Color index 12 (0xc)
+    db 0x66, 0x06 ; Color index 13 (0xd)
+    db 0x77, 0x07 ; Color index 14 (0xe)
+Title_PaletteData_End_1:
+    db 0x00, 0x00 ; Color index 15 (0xf)
+
+    ; db 0x10, 0x00 ; Color index 2
+    ; db 0x20, 0x00 ; Color index 3
+    ; db 0x30, 0x00 ; Color index 4
+    ; db 0x40, 0x00 ; Color index 5
     
-    db 0x00, 0x00 ; Color index 6
+    ; db 0x00, 0x00 ; Color index 6
     
-    db 0x60, 0x00 ; Color index 7
-    db 0x70, 0x00 ; Color index 8
-    db 0x11, 0x01 ; Color index 9
-    db 0x22, 0x02 ; Color index 10 (0xa)
-    db 0x33, 0x03 ; Color index 11 (0xb)
-    db 0x77, 0x07 ; Color index 12 (0xc)
+    ; db 0x60, 0x00 ; Color index 7
+    ; db 0x70, 0x00 ; Color index 8
+    ; db 0x11, 0x01 ; Color index 9
+    ; db 0x22, 0x02 ; Color index 10 (0xa)
+    ; db 0x33, 0x03 ; Color index 11 (0xb)
+    ; db 0x77, 0x07 ; Color index 12 (0xc)
     
-    db 0x77, 0x07 ; Color index 13 (0xd)
+    ; db 0x77, 0x07 ; Color index 13 (0xd)
     
-    db 0x55, 0x05 ; Color index 14 (0xe)
-    db 0x44, 0x04 ; Color index 15 (0xf)
+    ; db 0x55, 0x05 ; Color index 14 (0xe)
+    ; db 0x44, 0x04 ; Color index 15 (0xf)
 Title_PaletteData_End:
