@@ -356,7 +356,52 @@ TitleScreen:
 
 ; -------------------- animation looping round palette
 
+LINE_INTERRUPT_NUMBER: equ 96
+
+
 InitLoopRoundPalette:
+
+    ; ; Init line interrupt variables
+    ; xor  	a
+    ; ld  	(Flag_LineInterrupt), a
+    ; ld  	(Counter_LineInterrupt), a
+
+    ; call    BIOS_DISSCR
+
+    ; ; ------------------------ setup line interrupt -----------------------------
+
+    ; di
+
+    
+    ; ; override HKEYI hook
+    ; ld 		a, 0xc3    ; 0xc3 is the opcode for "jp", so this sets "jp LineInterruptHook" as the interrupt code
+    ; ld 		(HKEYI), a
+    ; ld 		hl, LineInterruptHook
+    ; ld 		(HKEYI + 1), hl
+
+    
+    ; ; enable line interrupts
+    ; ld  	a, (REG0SAV)
+    ; or  	16
+    ; ld  	b, a		; data to write
+    ; ld  	c, 0		; register number
+    ; call  	WRTVDP_without_DI_EI		; Write B value to C register
+
+
+
+    ; ; set the interrupt to happen on line n
+    ; ld  	b, LINE_INTERRUPT_NUMBER - 1 - 3		; data to write
+    ; ld  	c, 19		; register number
+    ; call  	WRTVDP_without_DI_EI		; Write B value to C register
+
+
+    ; ei
+
+    ; ; --------------------------------------------------------------------------
+
+    ; call    BIOS_ENASCR
+
+.loopRoundPalette:
 
     ld      a, (Title_Counter)
     inc     a
@@ -436,9 +481,14 @@ InitLoopRoundPalette:
     ld	    de, Title_PaletteData_End_1
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
     jp	    nz, .init
-    jp      InitLoopRoundPalette
+    jp      .loopRoundPalette
 
 BorderWhiteAndLeftAdjustFor5Frames:
+
+    ; ; disable line interrupt routine
+    ; ld      a, 1
+    ; ld  	(Flag_LineInterrupt), a
+
     ; set border white
     ld      a, 15
     ld      bc, 0x7707
@@ -463,4 +513,91 @@ BorderWhiteAndLeftAdjustFor5Frames:
     ld      c, 18            ; register #
     call    BIOS_WRTVDP
 
+    ; ; re-enable line interrupt routine
+    ; xor     a
+    ; ld  	(Flag_LineInterrupt), a
+
+    ret
+
+;-------------------
+LineInterruptHook:
+
+            ; Interrupt routine (adapted from https://www.msx.org/forum/development/msx-development/how-line-interrupts-basic#comment-431760)
+            ; Make sure that the example interrupt handler does not end up
+            ; to infinite loop in case of nested interrupts
+            ; if (Flag_LineInterrupt == 0) { 
+            ;     Flag_LineInterrupt = 1; 
+            ;     execute();
+            ;     Flag_LineInterrupt = 0;
+            ;     Counter_LineInterrupt = 0;
+            ; }
+            ; else {
+            ;     Counter_LineInterrupt++;
+            ;     if (Counter_LineInterrupt == 100) {
+            ;         Flag_LineInterrupt = 0;
+            ;         Counter_LineInterrupt = 0;
+            ;     }
+            ; }
+            ld  	a, (Flag_LineInterrupt)
+            or  	a
+            jp  	nz, .else
+; .then:
+            inc     a ; ld a, 1 ; as A is always 0 here, inc a is the same as ld a, 1
+            ld  	(Flag_LineInterrupt), a
+            call  	.execute
+
+            ; xor  	a
+            ; ld  	(Flag_LineInterrupt), a
+            ; ld  	(Counter_LineInterrupt), a
+            ld      hl, 0
+            ld      (Flag_LineInterrupt), hl ; as these two vars are on sequential addresses, this clear both
+
+            ret     ;jp      .return
+.else:
+            ; Counter++
+            ld  	hl, Counter_LineInterrupt
+            inc		(hl)
+            
+			; if (Counter == 100) { Counter = 0; Flag = 0 }
+            ld  	a, (hl)
+            cp  	100
+            ret  	nz
+            ; jp      nz, .return
+
+			; xor  	a
+            ; ld  	(Counter_LineInterrupt), a
+            ; ld  	(Flag_LineInterrupt), a
+            ld      hl, 0
+            ld      (Flag_LineInterrupt), hl ; as these two vars are on sequential addresses, this clear both
+
+            ret     ;jp      .return
+
+.execute:
+    ; if (VDP(-1) and 1) == 1) ; check if is this a line interrupt
+    ld  	b, 1
+    call 	ReadStatusReg
+    
+    ld  	a, 0000 0001 b
+    and  	b
+    
+    ; Code to run on Vblank:
+    jp      z, VBlankRoutine
+
+    ; Code to run on line interrupt:
+    jp   	LineInterruptRoutine
+
+; ------------
+
+VBlankRoutine:
+    ; set color 0 black
+    ld      a, 0
+    ld      bc, 0x0000
+    call    SetPaletteColor_Without_DI_EI
+    ret
+
+LineInterruptRoutine:
+    ; set color 0 white
+    ld      a, 0
+    ld      bc, 0x7707
+    call    SetPaletteColor_Without_DI_EI
     ret
