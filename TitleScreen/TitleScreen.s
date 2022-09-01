@@ -361,47 +361,54 @@ LINE_INTERRUPT_NUMBER: equ 96
 
 InitLoopRoundPalette:
 
-    ; ; Init line interrupt variables
-    ; xor  	a
-    ; ld  	(Flag_LineInterrupt), a
-    ; ld  	(Counter_LineInterrupt), a
+    ; Init line interrupt variables
+    xor  	a
+    ld  	(Flag_LineInterrupt), a
+    ld  	(Counter_LineInterrupt), a
 
-    ; call    BIOS_DISSCR
+    call    BIOS_DISSCR
 
-    ; ; ------------------------ setup line interrupt -----------------------------
+    ; ------------------------ setup line interrupt -----------------------------
 
-    ; di
-
-    
-    ; ; override HKEYI hook
-    ; ld 		a, 0xc3    ; 0xc3 is the opcode for "jp", so this sets "jp LineInterruptHook" as the interrupt code
-    ; ld 		(HKEYI), a
-    ; ld 		hl, LineInterruptHook
-    ; ld 		(HKEYI + 1), hl
+    di
 
     
-    ; ; enable line interrupts
-    ; ld  	a, (REG0SAV)
-    ; or  	16
-    ; ld  	b, a		; data to write
-    ; ld  	c, 0		; register number
-    ; call  	WRTVDP_without_DI_EI		; Write B value to C register
+    ; override HKEYI hook
+    ld 		a, 0xc3    ; 0xc3 is the opcode for "jp", so this sets "jp LineInterruptHook" as the interrupt code
+    ld 		(HKEYI), a
+    ld 		hl, LineInterruptHook
+    ld 		(HKEYI + 1), hl
+
+    
+    ; enable line interrupts
+    ld  	a, (REG0SAV)
+    or  	16
+    ld  	b, a		; data to write
+    ld  	c, 0		; register number
+    call  	WRTVDP_without_DI_EI		; Write B value to C register
 
 
 
-    ; ; set the interrupt to happen on line n
-    ; ld  	b, LINE_INTERRUPT_NUMBER - 1 - 3		; data to write
-    ; ld  	c, 19		; register number
-    ; call  	WRTVDP_without_DI_EI		; Write B value to C register
+    ; set the interrupt to happen on line n
+    ld  	b, LINE_INTERRUPT_NUMBER - 1 - 3		; data to write
+    ld  	c, 19		; register number
+    call  	WRTVDP_without_DI_EI		; Write B value to C register
 
 
-    ; ei
+    ei
 
-    ; ; --------------------------------------------------------------------------
+    ; --------------------------------------------------------------------------
 
-    ; call    BIOS_ENASCR
+    call    BIOS_ENASCR
 
 .loopRoundPalette:
+
+    ; read space bar
+    ld      a, 8                    ; 8th line
+    call    SNSMAT_NO_DI_EI         ; Read Data Of Specified Line From Keyboard Matrix
+    bit     0, a                    ; 0th bit (space bar)
+    ret     z
+
 
     ld      a, (Title_Counter)
     inc     a
@@ -521,6 +528,11 @@ BorderWhiteAndLeftAdjustFor5Frames:
 
 ;-------------------
 LineInterruptHook:
+
+; Tricks BIOS' KEYINT to skip keyboard scan, TRGFLG, OLDKEY/NEWKEY, ON STRIG...
+	xor	a
+	ld	[BIOS_SCNCNT], a
+	ld	[BIOS_INTCNT], a
 
             ; Interrupt routine (adapted from https://www.msx.org/forum/development/msx-development/how-line-interrupts-basic#comment-431760)
             ; Make sure that the example interrupt handler does not end up

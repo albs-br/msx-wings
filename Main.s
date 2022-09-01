@@ -85,6 +85,19 @@ Execute:
     ld      sp, (BIOS_HIMEM)    ; init SP
 
 
+    call    EnableRomPage2
+
+
+	; enable page 1
+    ld	    a, 1
+	ld	    (Seg_P8000_SW), a
+
+
+
+    call    TitleScreen
+
+
+
     ; install the interrupt routine
 	di
 	ld	    a, 0xc3 ; opcode for "JP nn"
@@ -94,12 +107,11 @@ Execute:
 	ei
 
 
-    call    EnableRomPage2
 
 
-	; enable page 1
-    ld	    a, 1
-	ld	    (Seg_P8000_SW), a
+
+
+
 
 
     call    InitVram
@@ -120,11 +132,10 @@ Execute:
     call    ayFX_SETUP
 
 
-    call    TitleScreen ; not sure if is the right place to call it
 
 
 
-    ld      a, 4                        ; level number (1-8)
+    ld      a, 1                        ; level number (1-8)
     ld      (CurrentLevelNumber), a
     call    LoadLevel
 
