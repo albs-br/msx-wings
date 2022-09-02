@@ -286,7 +286,9 @@ VDP_HMMM_Params_Buffer:
 
 ; ----------------------------------------
 
-Title_Counter:  rb 1
+TitleScreen_Counter:  rb 1
+
+TitleScreen_SpaceBarPressed:   rb 1
 
 ; vars for line interrupt routine:
 Flag_LineInterrupt:	    rb 1        ; these two vars MUST be on sequential addresses 

@@ -37,7 +37,8 @@ TitleScreen:
 
     ; init vars
     xor     a
-    ld      (Title_Counter), a
+    ld      (TitleScreen_Counter), a
+    ld      (TitleScreen_SpaceBarPressed), a
 
     ; --------------- fill screen with color 1
     xor     a           	; set vram write base address
@@ -185,9 +186,9 @@ TitleScreen:
     call    Wait_Vblank
 
 
-    ld      a, (Title_Counter)
+    ld      a, (TitleScreen_Counter)
     inc     a
-    ld      (Title_Counter), a
+    ld      (TitleScreen_Counter), a
     cp      128
     jp      z, .exitScreenAdjustAnimationLoop
 
@@ -211,7 +212,7 @@ TitleScreen:
 
     ; reset counter
     xor     a
-    ld      (Title_Counter), a
+    ld      (TitleScreen_Counter), a
 
     jp      .changeToGoingUp
 
@@ -319,9 +320,9 @@ TitleScreen:
 .changeToGoingDown:
 
     ; if (counter == 3) endAnimation
-    ld      a, (Title_Counter)
+    ld      a, (TitleScreen_Counter)
     inc     a
-    ld      (Title_Counter), a
+    ld      (TitleScreen_Counter), a
     cp      2
     jp      z, .endAnimation
 
@@ -336,7 +337,7 @@ TitleScreen:
 
 .endAnimation:
     xor     a
-    ld      (Title_Counter), a
+    ld      (TitleScreen_Counter), a
 
     call    EnableSprites
 
@@ -403,16 +404,15 @@ InitLoopRoundPalette:
 
 .loopRoundPalette:
 
-    ; read space bar
-    ld      a, 8                    ; 8th line
-    call    SNSMAT_NO_DI_EI         ; Read Data Of Specified Line From Keyboard Matrix
-    bit     0, a                    ; 0th bit (space bar)
-    ret     z
+    call    ReadSpaceBar
 
+    ld      a, (TitleScreen_SpaceBarPressed)
+    or      a
+    ret     nz
 
-    ld      a, (Title_Counter)
+    ld      a, (TitleScreen_Counter)
     inc     a
-    ld      (Title_Counter), a
+    ld      (TitleScreen_Counter), a
 
     cp      10
     jp      z, .setColor_0_White
@@ -429,7 +429,7 @@ InitLoopRoundPalette:
 
     ; reset counter
     xor     a
-    ld      (Title_Counter), a
+    ld      (TitleScreen_Counter), a
 
     call    BorderWhiteAndLeftAdjustFor5Frames
 
@@ -508,7 +508,17 @@ BorderWhiteAndLeftAdjustFor5Frames:
 
     ; wait 5 frames
     ld      b, 5
-    call    Wait_B_Vblanks
+.loop:
+        ld      a, (BIOS_JIFFY)
+        ld      c, a
+    .waitVBlank:
+        ld      a, (BIOS_JIFFY)
+        cp      c
+        jp      z, .waitVBlank
+
+    call    ReadSpaceBar
+
+    djnz    .loop
     
     ; set border back to black
     ld      a, 15
@@ -524,6 +534,18 @@ BorderWhiteAndLeftAdjustFor5Frames:
     ; xor     a
     ; ld  	(Flag_LineInterrupt), a
 
+    ret
+
+ReadSpaceBar:
+    ; read space bar
+    ld      a, 8                    ; 8th line
+    call    SNSMAT_NO_DI_EI         ; Read Data Of Specified Line From Keyboard Matrix
+    bit     0, a                    ; 0th bit (space bar)
+   
+    ret     nz
+
+    ld      a, 1
+    ld      (TitleScreen_SpaceBarPressed), a
     ret
 
 ;-------------------
