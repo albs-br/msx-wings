@@ -298,4 +298,6 @@ Counter_LineInterrupt:	rb 1        ; this var MUST be imediately after Flag_Line
 Color_0_A:              rw 1
 Color_0_B:              rw 1
 
+LineNumberScreenSplit:  rb 1
+
 ; ----------------------------------------

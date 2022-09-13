@@ -40,10 +40,15 @@ TitleScreen:
     ld      (TitleScreen_Counter), a
     ld      (TitleScreen_SpaceBarPressed), a
 
+    ld      a, LINE_INTERRUPT_NUMBER
+    ld      (LineNumberScreenSplit), a
+    
+
     ld      hl, 0x0000
     ld      (Color_0_A), hl
     ld      hl, 0x7707
     ld      (Color_0_B), hl
+
 
     ; --------------- fill screen with color 1
     xor     a           	; set vram write base address
@@ -395,10 +400,10 @@ InitLoopRoundPalette:
 
 
 
-    ; set the interrupt to happen on line n
-    ld  	b, LINE_INTERRUPT_NUMBER - 1 - 3		; data to write
-    ld  	c, 19		; register number
-    call  	WRTVDP_without_DI_EI		; Write B value to C register
+    ;ld  	b, LINE_INTERRUPT_NUMBER - 1 - 3		; data to write
+    ld      a, (LineNumberScreenSplit)
+    ld      b, a
+    call    SetInteruptLineNumber
 
 
     ei
@@ -651,4 +656,13 @@ LineInterruptRoutine:
     ;ld      bc, 0x7707
     ld      bc, (Color_0_B)
     call    SetPaletteColor_Without_DI_EI
+    ret
+
+
+SetInteruptLineNumber:
+    ; set the interrupt to happen on line n
+    ;ld  	b, LINE_INTERRUPT_NUMBER - 1 - 3		; data to write
+    ld  	c, 19		; register number
+    call  	WRTVDP_without_DI_EI		; Write B value to C register
+
     ret
