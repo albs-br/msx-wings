@@ -40,6 +40,11 @@ TitleScreen:
     ld      (TitleScreen_Counter), a
     ld      (TitleScreen_SpaceBarPressed), a
 
+    ld      hl, 0x0000
+    ld      (Color_0_A), hl
+    ld      hl, 0x7707
+    ld      (Color_0_B), hl
+
     ; --------------- fill screen with color 1
     xor     a           	; set vram write base address
     ld      hl, 0x0000     	;  to 1st byte of page 1...
@@ -425,7 +430,11 @@ InitLoopRoundPalette:
 .setColor_0_Black:
     xor     a
     ld      bc, 0x0000
+    ld      (Color_0_A), bc
     call    SetPaletteColor
+
+    ld      hl, 0x7707
+    ld      (Color_0_B), hl
 
     ; reset counter
     xor     a
@@ -438,7 +447,11 @@ InitLoopRoundPalette:
 .setColor_0_White:
     xor     a
     ld      bc, 0x7707
+    ld      (Color_0_A), bc
     call    SetPaletteColor
+
+    ld      hl, 0x0000
+    ld      (Color_0_B), hl
 
     call    BorderWhiteAndLeftAdjustFor5Frames
 
@@ -625,13 +638,17 @@ LineInterruptHook:
 VBlankRoutine:
     ; set color 0 black
     ld      a, 0
-    ld      bc, 0x0000
+    ;ld      bc, 0x0000
+    ld      bc, (Color_0_A)
     call    SetPaletteColor_Without_DI_EI
+
+
     ret
 
 LineInterruptRoutine:
     ; set color 0 white
     ld      a, 0
-    ld      bc, 0x7707
+    ;ld      bc, 0x7707
+    ld      bc, (Color_0_B)
     call    SetPaletteColor_Without_DI_EI
     ret

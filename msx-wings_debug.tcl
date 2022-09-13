@@ -67,6 +67,11 @@ ram_watch   add     0xC3e8      -type word      -desc Title_Counter            -
 ram_watch   add     0xC3ea      -type byte      -desc Counter_LineInterrupt            -format dec
 ram_watch   add     0xC3e9      -type byte      -desc Flag_LineInterrupt            -format dec
 
+ram_watch   add     0xC3ec      -type word      -desc Color_0_A            -format hex
+ram_watch   add     0xC3ee      -type word      -desc Color_0_B            -format hex
+
+
+
 
 
 

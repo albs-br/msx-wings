@@ -294,4 +294,8 @@ TitleScreen_SpaceBarPressed:   rb 1
 Flag_LineInterrupt:	    rb 1        ; these two vars MUST be on sequential addresses 
 Counter_LineInterrupt:	rb 1        ; this var MUST be imediately after Flag_LineInterrupt
 
+
+Color_0_A:              rw 1
+Color_0_B:              rw 1
+
 ; ----------------------------------------
