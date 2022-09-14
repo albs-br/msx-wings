@@ -379,36 +379,37 @@ InitLoopRoundPalette:
 
     call    BIOS_DISSCR
 
-    ; ------------------------ setup line interrupt -----------------------------
+    ; ; ------------------------ setup line interrupt -----------------------------
 
-    di
-
-    
-    ; override HKEYI hook
-    ld 		a, 0xc3    ; 0xc3 is the opcode for "jp", so this sets "jp LineInterruptHook" as the interrupt code
-    ld 		(HKEYI), a
-    ld 		hl, LineInterruptHook
-    ld 		(HKEYI + 1), hl
+    ; di
 
     
-    ; enable line interrupts
-    ld  	a, (REG0SAV)
-    or  	16
-    ld  	b, a		; data to write
-    ld  	c, 0		; register number
-    call  	WRTVDP_without_DI_EI		; Write B value to C register
+    ; ; override HKEYI hook
+    ; ld 		a, 0xc3    ; 0xc3 is the opcode for "jp", so this sets "jp LineInterruptHook" as the interrupt code
+    ; ld 		(HKEYI), a
+    ; ld 		hl, LineInterruptHook
+    ; ld 		(HKEYI + 1), hl
+
+    
+    ; ; enable line interrupts
+    ; ld  	a, (REG0SAV)
+    ; or  	16
+    ; ld  	b, a		; data to write
+    ; ld  	c, 0		; register number
+    ; call  	WRTVDP_without_DI_EI		; Write B value to C register
 
 
 
-    ;ld  	b, LINE_INTERRUPT_NUMBER - 1 - 3		; data to write
-    ld      a, (LineNumberScreenSplit)
-    ld      b, a
-    call    SetInteruptLineNumber
+    ; ;ld  	b, LINE_INTERRUPT_NUMBER - 1 - 3		; data to write
+    ; ld      a, (LineNumberScreenSplit)
+    ; sub     4       ; equivalent to LINE_INTERRUPT_NUMBER - 1 - 3
+    ; ld      b, a
+    ; call    SetInteruptLineNumber
 
 
-    ei
+    ; ei
 
-    ; --------------------------------------------------------------------------
+    ; ; --------------------------------------------------------------------------
 
     call    BIOS_ENASCR
 
@@ -419,6 +420,18 @@ InitLoopRoundPalette:
     ld      a, (TitleScreen_SpaceBarPressed)
     or      a
     ret     nz
+
+    ; ; LineNumberScreenSplit++
+    ; ld      hl, LineNumberScreenSplit
+    ; inc     (hl)
+
+    ld      a, (LineNumberScreenSplit)
+    inc     a ; sub     16
+    ld      (LineNumberScreenSplit), a
+    sub     4       ; equivalent to LINE_INTERRUPT_NUMBER - 1 - 3
+    ld      b, a
+    call    SetInteruptLineNumber
+
 
     ld      a, (TitleScreen_Counter)
     inc     a
