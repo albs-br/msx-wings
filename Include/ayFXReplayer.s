@@ -140,7 +140,15 @@ ayFX_PLAY:	; --- PLAY A FRAME OF AN ayFX STREAM ---
 		ld	a,(hl)				; a:=New noise
 		inc	hl				; Increment pointer
 		cp	$20				; If it's an illegal value of noise (used to mark end of stream)...
-		jp	z,ayFX_END			; ...jump to ayFX_END
+		
+        ;jp	z,ayFX_END			; ...jump to ayFX_END
+
+		jr		nz, .CONTINUE
+		; ld		hl, (_ayFX_Finish)
+		; jp		(hl)
+        jp      AYFX_MUTE
+.CONTINUE:
+
 		ld	(ayFX_NOISE),a			; ayFX noise updated
 .SETPOINTER:	; --- Update ayFX pointer ---
 		ld	(ayFX_POINTER),hl		; Update ayFX stream pointer
@@ -251,3 +259,33 @@ ROUT_A0:	; --- FIXES BITS 6 AND 7 OF MIXER ---
 		OUT (C),A
 		RET
 
+
+
+; ---------------------------------------
+; modified to fix bug of sound tone keeping playing:
+; check: https://www.msx.org/forum/msx-talk/development/ayfx-replayer-leaving-a-tiny-sound-after-play-a-sfx
+
+; Stop the sound playback and mute the channel
+AYFX_MUTE:
+    ; --- End of an ayFX stream ---
+    ld		a, 255				; Lowest ayFX priority
+    ld		(ayFX_PRIORITY), a	; Priority saved (not playing ayFX stream)
+
+    ; Silence the current ayFX channel
+    ld		hl, ayFX_CHANNEL	; Next ayFX playing channel
+    ld		b, (hl)				; Channel counter
+    xor		a
+.StopCheck1:
+    ; If playing channel was 1, silence channel C
+    djnz	.StopCheck2			; Decrement and jump if channel was not 1
+    ld		(AYREGS + 10), a		; Volume copied in to AYREGS (channel C volume)
+    ret
+.StopCheck2:
+    ; If playing channel was 2, silence channel B
+    djnz	.StopCheck3			; Decrement and jump if channel was not 2
+    ld		(AYREGS + 9), a		; Volume copied in to AYREGS (channel B volume)
+    ret
+.StopCheck3:
+    ; If playing channel was 3, silence channel A
+    ld		(AYREGS + 8), a		; Volume copied in to AYREGS (channel A volume)
+    ret

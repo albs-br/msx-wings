@@ -63,6 +63,7 @@ GROUND_TARGET_PAT_0_NUMBER:                      equ 40 * 4
 EMPTY_SPR_PAT_NUMBER:                            equ 63 * 4
 
 Update_SPRATR_Buffer:
+    ; TODO: put this buffer table aligned so you can INC only L, saving cycles
     ld      hl, SPRATR_Buffer
 
 
