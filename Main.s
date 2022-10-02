@@ -94,7 +94,7 @@ Execute:
 
 
 
-    call    TitleScreen
+    ;call    TitleScreen ; debug
 
 
 
@@ -220,10 +220,17 @@ Execute:
 
     call    GameLogic
 
-    call    Update_SPRATR_Buffer
+    ; --------------------------------------
 
-    call    BlitSPRATR
+    ; old
+    ;call    Update_SPRATR_Buffer ; 3791 cycles
+    ;call    BlitSPRATR           ; 2360 cycles
+    ;                             = 6151 cycles
 
+    ; new
+    call    Update_SPRATR ; 3766 cycles (2385 cycles saved)
+
+    ; --------------------------------------
 
 
     IFDEF DEBUG

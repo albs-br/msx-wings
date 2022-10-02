@@ -237,7 +237,7 @@ CurrentJiffy:                    rb 1
 
 ; ---------------------------------------
 
-
+; TODO: put this buffer table aligned so you can INC only L, saving (128 * 2 = 256) cycles
 SPRATR_Buffer:      rb 32 * 4
 .size:  equ $ - SPRATR_Buffer
 

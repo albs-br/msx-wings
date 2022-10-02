@@ -127,14 +127,14 @@ LevelTitleAnimation:
     call    nc, .animateChar_6
     ; ----------------
 
-    ; load SPRATR table
+    ; load SPRATR table (only 8 first positions)
     ld      a, 0000 0001 b
     ld      hl, SPRATR
     call    SetVdp_Write
     ; ld      b, SpriteAttrTableBuffer.size
     ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
     ;ld      bc, 0 + ((SpriteAttrTableBuffer.size * 256) + PORT_0)
-    ld      bc, 0 + (32 * 256) + PORT_0
+    ld      bc, 0 + ((8 * 4) * 256) + PORT_0
     ld      hl, SPRATR_Buffer
     otir
     ; ; 4x OUTI
