@@ -64,11 +64,11 @@ ram_watch   add     0xC234      -type byte      -desc FramesSkipped            -
 
 ram_watch   add     0xC3e8      -type word      -desc Title_Counter            -format dec
 
-ram_watch   add     0xC3ea      -type byte      -desc Counter_LineInterrupt            -format dec
-ram_watch   add     0xC3e9      -type byte      -desc Flag_LineInterrupt            -format dec
+#ram_watch   add     0xC3ea      -type byte      -desc Counter_LineInterrupt            -format dec
+#ram_watch   add     0xC3e9      -type byte      -desc Flag_LineInterrupt            -format dec
 
-ram_watch   add     0xC3ec      -type word      -desc Color_0_A            -format hex
-ram_watch   add     0xC3ee      -type word      -desc Color_0_B            -format hex
+#ram_watch   add     0xC3ec      -type word      -desc Color_0_A            -format hex
+#ram_watch   add     0xC3ee      -type word      -desc Color_0_B            -format hex
 
 
 
@@ -93,4 +93,4 @@ ram_watch   add     0xC3ee      -type word      -desc Color_0_B            -form
 
 #ram_watch   add     0xc026      -type byte      -desc En1_Status            -format dec
 
-#ram_watch   add     0xC119      -type byte      -desc FramesSkipped     -format dec
+

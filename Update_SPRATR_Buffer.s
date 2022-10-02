@@ -85,7 +85,7 @@ Update_SPRATR:
     ;ld      (hl), a
     out     (PORT_0), a
     
-    ; TODO: use OUT's directly, instead of a buffer (saves 18 + 8 + 7 - 12 = 21 cycles per byte, 128 * 21 = 2688 cycles total)
+    ; use OUT's directly, instead of a buffer (saves 18 + 8 + 7 - 12 = 21 cycles per byte, 128 * 21 = 2688 cycles total)
     ; saves:
     ;   outi (18 cycles) on UpdateBuffer routine
     ;   ld (hl), a (8 cycles) here
