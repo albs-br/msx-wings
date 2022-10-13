@@ -25,7 +25,7 @@ LevelTitleAnimation:
 
 
 
-    ; load sprite for level number char  at position 5
+    ; load sprite for level number char at position 5
     ld      hl, LargeFont_Patterns ; + LARGE_FONT_CHAR_E
     ld      de, 64
     ld      b, a
@@ -125,15 +125,25 @@ LevelTitleAnimation:
     ld      a, (LevelInitAnimation_Counter)
     cp      50
     call    nc, .animateChar_6
+
+    ; ----------------
+
+    ; ; if(Counter >= 60)
+    ; ld      a, (LevelInitAnimation_Counter)
+    ; cp      60
+    ; call    nc, .animateShineChars
+
+    ; if(Counter >= n)
+    ld      a, (LevelInitAnimation_Counter)
+    cp      220
+    call    nc, .animateEndingChars
+
     ; ----------------
 
     ; load SPRATR table (only 8 first positions)
     ld      a, 0000 0001 b
     ld      hl, SPRATR
     call    SetVdp_Write
-    ; ld      b, SpriteAttrTableBuffer.size
-    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ;ld      bc, 0 + ((SpriteAttrTableBuffer.size * 256) + PORT_0)
     ld      bc, 0 + ((8 * 4) * 256) + PORT_0
     ld      hl, SPRATR_Buffer
     otir
@@ -146,16 +156,27 @@ LevelTitleAnimation:
 
     ; End level title animation
     ld      a, (LevelInitAnimation_Counter)
-    cp      150 ; 255
+    cp      255 ; 255
     ;jp      z, DEBUG_ResetCircleLoopTest
-    ret     z
+    ;ret     z
+    jp      z, .exit
 
     inc     a
     ld      (LevelInitAnimation_Counter), a
 
     jp      .circleLoop
 
+.exit:
+    ; set Y of first sprite to 216, hiding all sprites
+    ld      a, 0000 0001 b
+    ld      hl, SPRATR
+    call    SetVdp_Write
+
+    ld      a, 216  ; Y value that hides the sprite and all sprites after
+    out     (PORT_0), a
+
     ret
+
 
 ; Input:
 ;   HL: SPRPAT addr
@@ -368,5 +389,38 @@ LevelTitleAnimation:
     inc     ix              ; next position on lookup table
     inc     ix
     ld      (LevelInitAnimation_Char_6_LookupTable_Addr), ix
+
+    ret
+
+.animateShineChars:
+
+    ; load 2x with lines in each char pattern used on title
+    ret
+
+.animateEndingChars:
+
+    ; move each char X position to screen center
+    ld      de, 4
+    ld      hl, SPRATR_Buffer + 1 ; X of first sprite
+    ld      b, 8
+.loop_animateEndingChars:
+    ld      a, (hl)
+
+    cp      0 + (128) - 8   ; middle of screen
+    jp      z, .next_animateEndingChars
+
+    jp      c, .inc_X
+
+;.dec_X:
+    sub 2; dec     a
+    jp      .next_animateEndingChars
+
+.inc_X:
+    add 2; inc     a
+
+.next_animateEndingChars:
+    ld      (hl), a
+    add     hl, de
+    djnz    .loop_animateEndingChars
 
     ret
