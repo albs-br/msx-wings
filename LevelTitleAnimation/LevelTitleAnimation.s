@@ -88,6 +88,7 @@ LevelTitleAnimation:
     ld      (LevelInitAnimation_Char_6_LookupTable_Addr), hl
     xor     a
     ld      (LevelInitAnimation_Counter), a
+    ld      (LevelInitAnimation_Counter_1), a
 
 
 .circleLoop:
@@ -128,15 +129,15 @@ LevelTitleAnimation:
 
     ; ----------------
 
-    ; ; if(Counter >= 60)
+    ; ; if(Counter >= n)
     ; ld      a, (LevelInitAnimation_Counter)
-    ; cp      60
+    ; cp      220
     ; call    nc, .animateShineChars
 
-    ; if(Counter >= n)
-    ld      a, (LevelInitAnimation_Counter)
-    cp      220
-    call    nc, .animateEndingChars
+    ; ; if(Counter >= n)
+    ; ld      a, (LevelInitAnimation_Counter)
+    ; cp      220
+    ; call    nc, .animateEndingChars
 
     ; ----------------
 
@@ -215,6 +216,10 @@ LevelTitleAnimation:
     otir
 
     ret
+
+
+
+
 
 ; TODO: make routine to avoid this code repetition
 .animateChar_1:
@@ -392,35 +397,71 @@ LevelTitleAnimation:
 
     ret
 
-.animateShineChars:
+; .animateShineChars:
 
-    ; load 2x with lines in each char pattern used on title
-    ret
+;     ld      bc, (LevelInitAnimation_Counter_1)
 
-.animateEndingChars:
+;     ; load 3x lines in each char pattern used on title
+;     ; load sprite for char L at position 0
+;     ld      hl, SPRCOL
+;     add     hl, bc
+;     call    .loadLinesOnSpriteColors
 
-    ; move each char X position to screen center
-    ld      de, 4
-    ld      hl, SPRATR_Buffer + 1 ; X of first sprite
-    ld      b, 8
-.loop_animateEndingChars:
-    ld      a, (hl)
+;     ; LevelInitAnimation_Counter_1 ++
+;     ld      hl, LevelInitAnimation_Counter_1
+;     inc     (hl)
 
-    cp      0 + (128) - 8   ; middle of screen
-    jp      z, .next_animateEndingChars
+;     ret
 
-    jp      c, .inc_X
+; .animateEndingChars:
 
-;.dec_X:
-    sub 2; dec     a
-    jp      .next_animateEndingChars
+;     ; move each char X position to screen center
+;     ld      de, 4
+;     ld      hl, SPRATR_Buffer + 1 ; X of first sprite
+;     ld      b, 8
+; .loop_animateEndingChars:
+;     ld      a, (hl)
 
-.inc_X:
-    add 2; inc     a
+;     cp      0 + (128) - 8   ; middle of screen
+;     jp      z, .next_animateEndingChars
 
-.next_animateEndingChars:
-    ld      (hl), a
-    add     hl, de
-    djnz    .loop_animateEndingChars
+;     jp      c, .inc_X
 
-    ret
+; ;.dec_X:
+;     sub 2; dec     a
+;     jp      .next_animateEndingChars
+
+; .inc_X:
+;     add 2; inc     a
+
+; .next_animateEndingChars:
+;     ld      (hl), a
+;     add     hl, de
+;     djnz    .loop_animateEndingChars
+
+;     ret
+
+; ; Input:
+; ;   HL: SPRCOL addr
+; ;   IX: source sprite pattern addr on RAM
+; .loadLinesOnSpriteColors:
+
+;     ; load sprite colors
+;     ld      a, 0000 0001 b
+;     ;ld      hl, SPRCOL
+;     call    SetVdp_Write
+;     ld      bc, 0 + (3 * 256) + PORT_0
+;     ld      hl, .fontShineColors
+;     otir
+
+;     ret
+
+; .fontShineColors:
+; 	db	0x05    ; blue
+; 	db	0x05
+; 	db	0x0f    ; medium gray
+; 	db	0x0f
+; 	db	0x09    ; light blue
+; 	db	0x09
+; 	db	0x0d    ; white
+; 	db	0x0d

@@ -270,6 +270,7 @@ LevelInitAnimation_Char_3_LookupTable_Addr:      rw 1
 LevelInitAnimation_Char_4_LookupTable_Addr:      rw 1
 LevelInitAnimation_Char_5_LookupTable_Addr:      rw 1
 LevelInitAnimation_Char_6_LookupTable_Addr:      rw 1
+LevelInitAnimation_Counter_1:     rb 1
 
 ; ---------------------------------------
 
