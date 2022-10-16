@@ -54,7 +54,7 @@ ram_watch   add     0xc3cc      -type byte       -desc LevelInitAnimation_Counte
 
 #ram_watch   add      0xC0F4      -type byte      -desc Item_Temp_Y_Static       -format dec
 
-#ram_watch   add     0xC0F4      -type byte      -desc VerticalScroll       -format dec
+ram_watch   add     0xC20c      -type byte      -desc VerticalScroll       -format dec
 
 #ram_watch   add     0xc007      -type byte      -desc PShot_0_Status       -format dec
 #ram_watch   add     0xc009      -type byte      -desc PShot_0_Y            -format dec

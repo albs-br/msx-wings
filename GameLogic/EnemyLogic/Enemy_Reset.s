@@ -9,7 +9,9 @@ Enemy_Reset:
     ld      (hl), a     ; X
 
     inc     hl
-    ld      a, 192      ; place sprite off screen
+    ;ld      a, 192      ; place sprite off screen
+    ld      a, (VerticalScroll)     ; place sprite off screen
+    add     192
     ld      (hl), a     ; Y
 
     inc     hl
