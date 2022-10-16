@@ -264,6 +264,10 @@ AdjustSprites_Y:
     ld      hl, Item_6_Struct + 2
     call    .adjustSprite
 
+
+    ld      hl, GroundTarget_Sprite.Y
+    call    .adjustSprite
+
     ret
 
 .adjustSprite:

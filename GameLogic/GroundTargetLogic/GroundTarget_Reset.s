@@ -9,7 +9,8 @@ GroundTarget_Reset:
     ld      (hl), a     ; X
 
     inc     hl
-    ;ld      (hl), a     ; Y
+    ld      a, 192      ; place sprite off screen
+    ld      (hl), a     ; Y
 
     inc     hl
     ld      a, 192
@@ -32,7 +33,7 @@ GroundTarget_Reset:
     xor     a
     ld      (GroundTarget_Sprite.X), a
 
-    ;ld      a, ???
+    ld      a, 192      ; place sprite off screen
     ld      (GroundTarget_Sprite.Y), a
 
     ld      a, EMPTY_SPR_PAT_NUMBER

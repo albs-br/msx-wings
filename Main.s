@@ -94,7 +94,7 @@ Execute:
 
 
 
-    ;call    TitleScreen ; debug
+    call    TitleScreen ; debug
 
 
 
