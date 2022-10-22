@@ -20,9 +20,9 @@ CheckCol_Object_PlayerShot:
             ld      a, (hl)    ; player shot Y static
             ld      e, a
             
-            ; if (Player_Shot_Type == PLAYER_SHOT_DOUBLE) CheckCollision_16x16_32x16 else CheckCollision_16x16_16x16
-            ld      a, (Player_Shot_Type)
-            cp      PLAYER_SHOT_DOUBLE
+            ; if (Player_Shot_Width == PLAYER_SHOT_DOUBLE) CheckCollision_16x16_32x16 else CheckCollision_16x16_16x16
+            ld      a, (Player_Shot_Width)
+            cp      PLAYER_SHOT_WIDTH_DOUBLE
             jp      nz, .singleShot
             call    CheckCollision_16x16_32x16
             jp      .continue

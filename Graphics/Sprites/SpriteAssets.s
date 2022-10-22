@@ -62,9 +62,13 @@ SpritePattern_PlayerPlane_Right_Frame_1_Bottom:
 
 
 ; Player shot
-SpritePattern_PlayerShot:
-    INCLUDE "Graphics/Sprites/PlayerShot/player_shot_pattern.s"
-.size:  equ $ - SpritePattern_PlayerShot
+SpritePattern_PlayerShot_Thin:
+    INCLUDE "Graphics/Sprites/PlayerShot/player_shot_pattern_thin.s"
+.size:  equ $ - SpritePattern_PlayerShot_Thin
+
+SpritePattern_PlayerShot_Wide:
+    INCLUDE "Graphics/Sprites/PlayerShot/player_shot_pattern_wide.s"
+.size:  equ $ - SpritePattern_PlayerShot_Wide
 
 
 

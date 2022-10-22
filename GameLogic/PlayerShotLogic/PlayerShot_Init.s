@@ -31,8 +31,8 @@ PlayerShot_Init:
 
     inc     hl
     ; check if double shot is enabled
-    ld      a, (Player_Shot_Type)
-    cp      PLAYER_SHOT_DOUBLE
+    ld      a, (Player_Shot_Width)
+    cp      PLAYER_SHOT_WIDTH_DOUBLE
     ld      a, (Player_X)
     jp      nz, .continue_0
 
@@ -59,8 +59,8 @@ PlayerShot_Init:
     ld      (hl), a     ; pattern number 0
 
     ; check if double shot is enabled
-    ld      a, (Player_Shot_Type)
-    cp      PLAYER_SHOT_DOUBLE
+    ld      a, (Player_Shot_Width)
+    cp      PLAYER_SHOT_WIDTH_DOUBLE
     jp      nz, .continue_1
 
     inc     hl

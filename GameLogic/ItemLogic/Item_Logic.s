@@ -157,8 +157,8 @@ Item_Logic:
     .collision:
 
         ; improve player shot
-        ld      a, PLAYER_SHOT_DOUBLE
-        ld      (Player_Shot_Type), a
+        ld      a, PLAYER_SHOT_WIDTH_DOUBLE
+        ld      (Player_Shot_Width), a
 
         ;ld      a, 100             ; volume
         ld      a, SFX_GET_ITEM     ; number of sfx in the bank

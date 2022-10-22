@@ -94,7 +94,7 @@ Execute:
 
 
 
-    call    TitleScreen ; debug
+    ;call    TitleScreen ; debug
 
 
 
@@ -135,7 +135,7 @@ Execute:
 
 
 
-    ld      a, 4                        ; level number (1-8)
+    ld      a, 1                        ; level number (1-8)
     ld      (CurrentLevelNumber), a
     call    LoadLevel
 

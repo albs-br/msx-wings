@@ -117,12 +117,12 @@ LoadSpritesForGameplay:
         ld      a, 0000 0001 b
         ;ld      hl, SPRPAT + 128
         call    SetVdp_Write
-        ld      b, SpritePattern_PlayerShot.size
+        ld      b, SpritePattern_PlayerShot_Thin.size
         ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-        ld      hl, SpritePattern_PlayerShot
+        ld      hl, SpritePattern_PlayerShot_Thin
         otir
     pop     hl
-    ld      bc, SpritePattern_PlayerShot.size
+    ld      bc, SpritePattern_PlayerShot_Thin.size
     add     hl, bc
 
     ; Spr 5 and 6 patterns
