@@ -40,8 +40,8 @@ TitleScreen:
     ld      (TitleScreen_Counter), a
     ld      (TitleScreen_SpaceBarPressed), a
 
-    ld      a, LINE_INTERRUPT_NUMBER
-    ld      (LineNumberScreenSplit), a
+    ; ld      a, LINE_INTERRUPT_NUMBER
+    ; ld      (LineNumberScreenSplit), a
     
 
     ld      hl, 0x0000
@@ -425,12 +425,12 @@ InitLoopRoundPalette:
     ; ld      hl, LineNumberScreenSplit
     ; inc     (hl)
 
-    ld      a, (LineNumberScreenSplit)
-    inc     a ; sub     16
-    ld      (LineNumberScreenSplit), a
-    sub     4       ; equivalent to LINE_INTERRUPT_NUMBER - 1 - 3
-    ld      b, a
-    call    SetInteruptLineNumber
+    ; ld      a, (LineNumberScreenSplit)
+    ; inc     a ; sub     16
+    ; ld      (LineNumberScreenSplit), a
+    ; sub     4       ; equivalent to LINE_INTERRUPT_NUMBER - 1 - 3
+    ; ld      b, a
+    ; call    SetInteruptLineNumber
 
 
     ld      a, (TitleScreen_Counter)
@@ -543,11 +543,17 @@ BorderWhiteAndLeftAdjustFor5Frames:
         ld      a, (BIOS_JIFFY)
         ld      c, a
     .waitVBlank:
+        call    ReadSpaceBar
+
         ld      a, (BIOS_JIFFY)
         cp      c
         jp      z, .waitVBlank
 
-    call    ReadSpaceBar
+    ;call    ReadSpaceBar
+
+    ld      a, (TitleScreen_SpaceBarPressed)
+    or      a
+    ret     nz
 
     djnz    .loop
     
@@ -568,15 +574,19 @@ BorderWhiteAndLeftAdjustFor5Frames:
     ret
 
 ReadSpaceBar:
-    ; read space bar
-    ld      a, 8                    ; 8th line
-    call    SNSMAT_NO_DI_EI         ; Read Data Of Specified Line From Keyboard Matrix
-    bit     0, a                    ; 0th bit (space bar)
-   
-    ret     nz
+    push    bc
+        ; read space bar
+        ld      a, 8                    ; 8th line
+        call    SNSMAT_NO_DI_EI         ; Read Data Of Specified Line From Keyboard Matrix
+        bit     0, a                    ; 0th bit (space bar)
+    
+        jp      nz, .return
 
-    ld      a, 1
-    ld      (TitleScreen_SpaceBarPressed), a
+        ld      a, 1
+        ld      (TitleScreen_SpaceBarPressed), a
+
+.return:
+    pop     bc
     ret
 
 ;-------------------

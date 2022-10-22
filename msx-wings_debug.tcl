@@ -9,6 +9,11 @@ ram_watch   add     0xC208      -type word       -desc LevelCounter      -format
 
 ram_watch   add     0xc3cd      -type byte       -desc LevelInitAnimation_Counter      -format dec
 
+ram_watch   add     0xc3eb      -type byte       -desc T_SpaceBarPressed      -format dec
+
+
+
+
 #ram_watch   add     0xC190      -type byte       -desc GT0_Y_Static      -format dec
 
 # ram_watch   add     0xC201      -type byte       -desc Screen_Y_Origin      -format dec
