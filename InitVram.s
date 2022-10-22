@@ -662,9 +662,12 @@ LoadPlayerShotPattern:
         call    SetVdp_Write
     pop     hl
 
-    ld      b, SpritePattern_PlayerShot_Thin.size
+    ;ld      b, SpritePattern_PlayerShot_Thin.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ;ld      bc, 0 + (SpritePattern_PlayerShot_Thin.size * 256) + PORT_0
     ;ld      hl, SpritePattern_PlayerShot_Thin
-    otir
+    ;otir
+    ; 32x OUTI
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
     ret

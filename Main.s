@@ -22,8 +22,8 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     ; Game
     INCLUDE "HTIMI_Hook.s"
     INCLUDE "InitVram.s"
-    INCLUDE "Update_SPRATR_Buffer.s"
-    INCLUDE "BlitSPRATR.s"
+    INCLUDE "Update_SPRATR.s"
+    ;INCLUDE "BlitSPRATR.s"
     INCLUDE "InitVariables.s"
     INCLUDE "Scroll.s"
     INCLUDE "ReadInput.s"
