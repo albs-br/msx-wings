@@ -156,10 +156,47 @@ Item_Logic:
 
     .collision:
 
-        ; improve player shot
+        ; --------------- improve player shot
+        
+        ; if(Player_Shot_Level == PLAYER_SHOT_LEVEL_3) do nothing
+        ld      a, (Player_Shot_Level)
+        cp      PLAYER_SHOT_LEVEL_3
+        jp      z, .playGetItemSfx
+
+        ; Player_Shot_Level++
+        inc     a
+        ld      (Player_Shot_Level), a
+
+        ; if(Player_Shot_Level >= PLAYER_SHOT_LEVEL_2) Set_double_width
+        cp      PLAYER_SHOT_LEVEL_2
+        jp      c, .not_set_double_width
+
         ld      a, PLAYER_SHOT_WIDTH_DOUBLE
         ld      (Player_Shot_Width), a
+    .not_set_double_width:        
 
+        
+        ; Player_Shot_Level is never = 0 here
+
+        ; if(Player_Shot_Level == PLAYER_SHOT_LEVEL_2) {
+        ;   Set_Player_Shot_Pattern_Thin
+        ; }
+        ; else {
+        ;   Set_Player_Shot_Pattern_Fat
+        ; }
+        ld      a, (Player_Shot_Level)
+        cp      PLAYER_SHOT_LEVEL_2
+        jp      nz, .set_Player_Shot_Pattern_Fat
+
+        ld      hl, SpritePattern_PlayerShot_Thin
+        call    LoadPlayerShotPattern
+        jp      .playGetItemSfx
+
+    .set_Player_Shot_Pattern_Fat:
+        ld      hl, SpritePattern_PlayerShot_Fat
+        call    LoadPlayerShotPattern
+
+    .playGetItemSfx:
         ;ld      a, 100             ; volume
         ld      a, SFX_GET_ITEM     ; number of sfx in the bank
         ld      c, 15               ; sound priority

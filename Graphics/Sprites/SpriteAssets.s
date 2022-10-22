@@ -66,9 +66,9 @@ SpritePattern_PlayerShot_Thin:
     INCLUDE "Graphics/Sprites/PlayerShot/player_shot_pattern_thin.s"
 .size:  equ $ - SpritePattern_PlayerShot_Thin
 
-SpritePattern_PlayerShot_Wide:
-    INCLUDE "Graphics/Sprites/PlayerShot/player_shot_pattern_wide.s"
-.size:  equ $ - SpritePattern_PlayerShot_Wide
+SpritePattern_PlayerShot_Fat:
+    INCLUDE "Graphics/Sprites/PlayerShot/player_shot_pattern_fat.s"
+.size:  equ $ - SpritePattern_PlayerShot_Fat
 
 
 

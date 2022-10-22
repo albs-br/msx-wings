@@ -1,6 +1,11 @@
 PLAYER_INITIAL_X:               equ 128 - (PLANE_PLAYER_WIDTH/2)
 PLAYER_INITIAL_Y:               equ 192 - 32
 
+PLAYER_SHOT_LEVEL_0:            equ 0   ; single width; thin pattern
+PLAYER_SHOT_LEVEL_1:            equ 1   ; single width; fat pattern
+PLAYER_SHOT_LEVEL_2:            equ 2   ; double width; thin pattern
+PLAYER_SHOT_LEVEL_3:            equ 3   ; double width; fat pattern
+
 PLAYER_SHOT_WIDTH_SINGLE:       equ 0
 PLAYER_SHOT_WIDTH_DOUBLE:       equ 1
 
@@ -20,6 +25,9 @@ InitVariables:
     ld      a, PLAYER_INITIAL_Y
     ld      (Player_Y), a
     ld      (Player_Y_Static), a
+
+    ld      a, 0
+    ld      (Player_Shot_Level), a
 
     ld      a, PLAYER_SHOT_WIDTH_SINGLE
     ld      (Player_Shot_Width), a

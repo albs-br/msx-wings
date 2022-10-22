@@ -114,13 +114,16 @@ LoadSpritesForGameplay:
 
     ; Spr 4 patterns
     push    hl
-        ld      a, 0000 0001 b
-        ;ld      hl, SPRPAT + 128
-        call    SetVdp_Write
-        ld      b, SpritePattern_PlayerShot_Thin.size
-        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ; ld      a, 0000 0001 b
+        ; ;ld      hl, SPRPAT + 128
+        ; call    SetVdp_Write
+        ; ld      b, SpritePattern_PlayerShot_Thin.size
+        ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ; ld      hl, SpritePattern_PlayerShot_Thin
+        ; otir
+
         ld      hl, SpritePattern_PlayerShot_Thin
-        otir
+        call    LoadPlayerShotPattern
     pop     hl
     ld      bc, SpritePattern_PlayerShot_Thin.size
     add     hl, bc
@@ -651,3 +654,17 @@ GROUND_TARGET_SPRCOL_ADDR:  equ SPRCOL + (16 * 31)
 ;     ;ex      de, hl
 
 ;     ret
+
+LoadPlayerShotPattern:
+    push    hl
+        ld      a, 0000 0001 b
+        ld      hl, SPRPAT + 128
+        call    SetVdp_Write
+    pop     hl
+
+    ld      b, SpritePattern_PlayerShot_Thin.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ;ld      hl, SpritePattern_PlayerShot_Thin
+    otir
+
+    ret

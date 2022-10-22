@@ -6,9 +6,10 @@ Player_X:                           rb 1
 Player_Y:                           rb 1
 Player_Y_Static:                    rb 1 ; y coord ignoring scroll
 
+Player_Shot_Level:                  rb 1
 Player_Shot_Width:                  rb 1
 
-Player_SideMovementCounter:         rb 1 ; 128: center, < 128: left 128 0: right
+Player_SideMovementCounter:         rb 1 ; 128: center, < 128: left, > 128: right
 Player_SpritePatternNumber:         rb 1
 
 Player_Spr3_Offset_X:               rb 1
