@@ -1,6 +1,6 @@
 ; Inputs:
 ;   A: number of sfx in the bank
-;   C: sound priority (0-15) of sample
+;   C: sound priority (0-15) of sample. 0: min, 15: max
 PlaySfx:
     ; ld      hl, MsxWingsSfx_Bank
     ; ;ld      a, 200

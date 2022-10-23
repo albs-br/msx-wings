@@ -143,3 +143,18 @@ TestFonts_WriteLine:
     djnz    .loop
 
     ret
+
+DrawString:
+    ; set MegaROM page for Fonts data
+    ld      a, FONTS_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
+    ld      hl, SmallFont_Patterns
+    ld      iy, SmallFont_Colors
+    ld      de, NAMTBL
+    ld      b, 8                                   ; number of chars
+    ld      ixh, 8                                  ; font width in pixels
+    ld      ixl, 8                                  ; font height in pixels
+    call    TestFonts_WriteLine
+
+    ret

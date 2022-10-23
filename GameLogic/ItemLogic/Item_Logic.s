@@ -199,7 +199,7 @@ Item_Logic:
     .playGetItemSfx:
         ;ld      a, 100             ; volume
         ld      a, SFX_GET_ITEM     ; number of sfx in the bank
-        ld      c, 15               ; sound priority
+        ld      c, 1                ; sound priority
         call    PlaySfx
 
     .resetItem:

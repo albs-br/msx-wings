@@ -1,3 +1,10 @@
+SC5_NAMTBL:     equ 0x0000
+
+SC5_SPRATR:     equ 0x07600
+SC5_SPRCOL:     equ SC5_SPRATR - 512
+SC5_SPRPAT:     equ 0x7800
+
+
 TitleScreen:
 
     ; change to screen 5
@@ -24,7 +31,7 @@ TitleScreen:
 
     call    SetColor0ToNonTransparent
 
-    call    DisableSprites
+    ;call    DisableSprites
 
     ; ; test - write pixel at 0, 0
     ; ld      a, 0000 0000 b
@@ -367,8 +374,28 @@ TitleScreen:
 
 ; -------------------- animation looping round palette
 
-LINE_INTERRUPT_NUMBER: equ 96
+;LINE_INTERRUPT_NUMBER: equ 96
 
+TITLE_FONT_ATR_TEST:
+    db 160, 120, 0, 0
+
+TITLE_FONT_COLORS_TEST:
+    db 0x01
+    db 0x01
+    db 0x01
+    db 0x01
+    db 0x01
+    db 0x01
+    db 0x01
+    db 0x01
+    db 0x01
+    db 0x01
+    db 0x01
+    db 0x01
+    db 0x01
+    db 0x01
+    db 0x01
+    db 0x01
 
 InitLoopRoundPalette:
 
@@ -378,6 +405,44 @@ InitLoopRoundPalette:
     ld  	(Counter_LineInterrupt), a
 
     call    BIOS_DISSCR
+
+    
+    
+    ; ----------------- load 'PRESS FIRE' sprites
+
+    call    BIOS_BEEP
+
+    ; set MegaROM page for Fonts data
+    ld      a, FONTS_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
+    ; load sprite pattern
+    ld      a, 0000 0000 b
+    ld      hl, SC5_SPRPAT
+    call    SetVdp_Write
+    ld      b, 32 ; SpritePattern_PlayerPlane_0_and_1.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ;ld      hl, SpritePattern_PlayerPlane_0_and_1
+    ld      hl, LargeFont_Patterns
+    otir
+
+    ; load sprite colors
+    ld      a, 0000 0000 b
+    ld      hl, SC5_SPRCOL
+    call    SetVdp_Write
+    ld      b, 16 ; SpriteColors_PlayerPlane_0_and_1.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, TITLE_FONT_COLORS_TEST ; LargeFont_Colors
+    otir
+
+    ; load sprite atributes
+    ld      a, 0000 0000 b
+    ld      hl, SC5_SPRATR
+    call    SetVdp_Write
+    ld      b, 4 ; SpriteColors_PlayerPlane_0_and_1.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, TITLE_FONT_ATR_TEST
+    otir
 
     ; ; ------------------------ setup line interrupt -----------------------------
 
@@ -589,103 +654,103 @@ ReadSpaceBar:
     pop     bc
     ret
 
-;-------------------
-LineInterruptHook:
+; ;-------------------
+; LineInterruptHook:
 
-; Tricks BIOS' KEYINT to skip keyboard scan, TRGFLG, OLDKEY/NEWKEY, ON STRIG...
-	xor	a
-	ld	[BIOS_SCNCNT], a
-	ld	[BIOS_INTCNT], a
+; ; Tricks BIOS' KEYINT to skip keyboard scan, TRGFLG, OLDKEY/NEWKEY, ON STRIG...
+; 	xor	a
+; 	ld	[BIOS_SCNCNT], a
+; 	ld	[BIOS_INTCNT], a
 
-            ; Interrupt routine (adapted from https://www.msx.org/forum/development/msx-development/how-line-interrupts-basic#comment-431760)
-            ; Make sure that the example interrupt handler does not end up
-            ; to infinite loop in case of nested interrupts
-            ; if (Flag_LineInterrupt == 0) { 
-            ;     Flag_LineInterrupt = 1; 
-            ;     execute();
-            ;     Flag_LineInterrupt = 0;
-            ;     Counter_LineInterrupt = 0;
-            ; }
-            ; else {
-            ;     Counter_LineInterrupt++;
-            ;     if (Counter_LineInterrupt == 100) {
-            ;         Flag_LineInterrupt = 0;
-            ;         Counter_LineInterrupt = 0;
-            ;     }
-            ; }
-            ld  	a, (Flag_LineInterrupt)
-            or  	a
-            jp  	nz, .else
-; .then:
-            inc     a ; ld a, 1 ; as A is always 0 here, inc a is the same as ld a, 1
-            ld  	(Flag_LineInterrupt), a
-            call  	.execute
+;             ; Interrupt routine (adapted from https://www.msx.org/forum/development/msx-development/how-line-interrupts-basic#comment-431760)
+;             ; Make sure that the example interrupt handler does not end up
+;             ; to infinite loop in case of nested interrupts
+;             ; if (Flag_LineInterrupt == 0) { 
+;             ;     Flag_LineInterrupt = 1; 
+;             ;     execute();
+;             ;     Flag_LineInterrupt = 0;
+;             ;     Counter_LineInterrupt = 0;
+;             ; }
+;             ; else {
+;             ;     Counter_LineInterrupt++;
+;             ;     if (Counter_LineInterrupt == 100) {
+;             ;         Flag_LineInterrupt = 0;
+;             ;         Counter_LineInterrupt = 0;
+;             ;     }
+;             ; }
+;             ld  	a, (Flag_LineInterrupt)
+;             or  	a
+;             jp  	nz, .else
+; ; .then:
+;             inc     a ; ld a, 1 ; as A is always 0 here, inc a is the same as ld a, 1
+;             ld  	(Flag_LineInterrupt), a
+;             call  	.execute
 
-            ; xor  	a
-            ; ld  	(Flag_LineInterrupt), a
-            ; ld  	(Counter_LineInterrupt), a
-            ld      hl, 0
-            ld      (Flag_LineInterrupt), hl ; as these two vars are on sequential addresses, this clear both
+;             ; xor  	a
+;             ; ld  	(Flag_LineInterrupt), a
+;             ; ld  	(Counter_LineInterrupt), a
+;             ld      hl, 0
+;             ld      (Flag_LineInterrupt), hl ; as these two vars are on sequential addresses, this clear both
 
-            ret     ;jp      .return
-.else:
-            ; Counter++
-            ld  	hl, Counter_LineInterrupt
-            inc		(hl)
+;             ret     ;jp      .return
+; .else:
+;             ; Counter++
+;             ld  	hl, Counter_LineInterrupt
+;             inc		(hl)
             
-			; if (Counter == 100) { Counter = 0; Flag = 0 }
-            ld  	a, (hl)
-            cp  	100
-            ret  	nz
-            ; jp      nz, .return
+; 			; if (Counter == 100) { Counter = 0; Flag = 0 }
+;             ld  	a, (hl)
+;             cp  	100
+;             ret  	nz
+;             ; jp      nz, .return
 
-			; xor  	a
-            ; ld  	(Counter_LineInterrupt), a
-            ; ld  	(Flag_LineInterrupt), a
-            ld      hl, 0
-            ld      (Flag_LineInterrupt), hl ; as these two vars are on sequential addresses, this clear both
+; 			; xor  	a
+;             ; ld  	(Counter_LineInterrupt), a
+;             ; ld  	(Flag_LineInterrupt), a
+;             ld      hl, 0
+;             ld      (Flag_LineInterrupt), hl ; as these two vars are on sequential addresses, this clear both
 
-            ret     ;jp      .return
+;             ret     ;jp      .return
 
-.execute:
-    ; if (VDP(-1) and 1) == 1) ; check if is this a line interrupt
-    ld  	b, 1
-    call 	ReadStatusReg
+; .execute:
+;     ; if (VDP(-1) and 1) == 1) ; check if is this a line interrupt
+;     ld  	b, 1
+;     call 	ReadStatusReg
     
-    ld  	a, 0000 0001 b
-    and  	b
+;     ld  	a, 0000 0001 b
+;     and  	b
     
-    ; Code to run on Vblank:
-    jp      z, VBlankRoutine
+;     ; Code to run on Vblank:
+;     jp      z, VBlankRoutine
 
-    ; Code to run on line interrupt:
-    jp   	LineInterruptRoutine
+;     ; Code to run on line interrupt:
+;     jp   	LineInterruptRoutine
 
-; ------------
+; ; ------------
 
-VBlankRoutine:
-    ; set color 0 black
-    ld      a, 0
-    ;ld      bc, 0x0000
-    ld      bc, (Color_0_A)
-    call    SetPaletteColor_Without_DI_EI
-
-
-    ret
-
-LineInterruptRoutine:
-    ; set color 0 white
-    ld      a, 0
-    ;ld      bc, 0x7707
-    ld      bc, (Color_0_B)
-    call    SetPaletteColor_Without_DI_EI
-    ret
+; VBlankRoutine:
+;     ; set color 0 black
+;     ld      a, 0
+;     ;ld      bc, 0x0000
+;     ld      bc, (Color_0_A)
+;     call    SetPaletteColor_Without_DI_EI
 
 
-SetInteruptLineNumber:
-    ; set the interrupt to happen on line n
-    ;ld  	b, LINE_INTERRUPT_NUMBER - 1 - 3		; data to write
-    ld  	c, 19		; register number
-    call  	WRTVDP_without_DI_EI		; Write B value to C register
+;     ret
 
-    ret
+; LineInterruptRoutine:
+;     ; set color 0 white
+;     ld      a, 0
+;     ;ld      bc, 0x7707
+;     ld      bc, (Color_0_B)
+;     call    SetPaletteColor_Without_DI_EI
+;     ret
+
+
+; SetInteruptLineNumber:
+;     ; set the interrupt to happen on line n
+;     ;ld  	b, LINE_INTERRUPT_NUMBER - 1 - 3		; data to write
+;     ld  	c, 19		; register number
+;     call  	WRTVDP_without_DI_EI		; Write B value to C register
+
+;     ret
