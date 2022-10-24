@@ -116,6 +116,59 @@ GroundTarget_Logic:
     ld      de, GroundTargetDestroyed
     call    Copy16x16ImageFromRAMToVRAM
 
+
+    ; ----------- test: draw $ char over the ground target destroyed
+
+    ; TODO: move this to InitVRAM
+    ; set origin bitmap
+    ld      hl, 0x0000     	;  VRAM destiny addr (lower 16 bits)
+    ;ld      de, GroundTargetDestroyed_Dollar_0  ; ROM source addr
+    ld      de, GroundTargetDestroyed_Dollar_1  ; ROM source addr
+    ld      b, 8 ; number of lines
+.loop:
+    push    bc
+        ld      a, 1           	; set vram write base address (high bit)
+        push    hl
+            call    SetVDP_Write
+            ld      c, PORT_0
+            ;ld      hl, GroundTargetDestroyed_Dollar_0
+            ex      de, hl
+                outi outi outi outi outi outi ; number of cols
+
+            ;ex      de, hl
+                ;ld      bc, 6 ; next bitmap line
+                ;add     hl, bc
+            ex      de, hl
+
+        pop     hl
+        ld      bc, 256 ; next screen line
+        add     hl, bc
+    pop     bc
+    djnz    .loop
+
+
+
+    ; copy from initial HMMM parameters to buffer
+    ld      hl, GroundTarget_HMMM_Parameters
+    ld      de, VDP_HMMM_Params_Buffer
+    ld      bc, HMMM_Parameters_size
+    ldir
+
+    ; set destiny x and y
+    ld      a, (GroundTarget_Temp_X)
+    add     5
+    ld      (VDP_HMMM_Params_Buffer.Destiny_X), a
+
+    ld      a, (GroundTarget_Temp_Y)
+    add     4
+    ld      (VDP_HMMM_Params_Buffer.Destiny_Y), a
+
+
+    ld      hl, VDP_HMMM_Params_Buffer
+    call    Execute_VDP_HMMM
+
+; ----------- 
+
     jp      .groundTargetReset
 
 ; .TestDrawBg:
@@ -274,3 +327,16 @@ CheckCol_GroundTarget_PlayerShot:
 
     ret
 
+
+; HMMM params for the $ char
+GroundTarget_HMMM_Parameters:
+.Source_X:   dw    0 	    ; Source X (9 bits)
+.Source_Y:   dw    256 	    ; Source Y (10 bits)
+.Destiny_X:  dw    0 	    ; Destiny X (9 bits)
+.Destiny_Y:  dw    0 	    ; Destiny Y (10 bits)
+.Cols:       dw    6        ; number of cols (9 bits)
+.Lines:      dw    8        ; number of lines (10 bits)
+.NotUsed:    db    0
+.Options:    db    0000 0000 b  ; select destination memory and direction from base coordinate
+.Command:    db    VDP_COMMAND_HMMM
+GroundTarget_HMMM_Parameters_size: equ $ - GroundTarget_HMMM_Parameters

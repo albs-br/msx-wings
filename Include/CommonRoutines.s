@@ -968,6 +968,7 @@ CheckCollision_Point_16x16:
 ;   Input:  HL = pointer to 15-byte VDP command data
 ;   Output: HL = updated
 ;   Destroys: A, B, C
+Execute_VDP_LMMM:
 Execute_VDP_HMMM:
     ld      a, 32           ; number of first register
     di
@@ -1006,16 +1007,118 @@ Execute_VDP_HMMM:
     outi
     ret
 
-VDP_COMMAND_HMMC:       equ 1111 0000b	; High speed move CPU to VRAM
-VDP_COMMAND_YMMM:       equ 1110 0000b	; High speed move VRAM to VRAM, Y coordinate only
-VDP_COMMAND_HMMM:       equ 1101 0000b	; High speed move VRAM to VRAM
-VDP_COMMAND_HMMV:       equ 1100 0000b	; High speed move VDP to VRAM
+;   Input:  HL = pointer to 11-byte VDP command data
+;   Output: HL = updated
+;   Destroys: A, B, C
+
+Execute_VDP_PSET:
+Execute_VDP_LINE:
+Execute_VDP_HMMV:
+    ld      a, 36           ; number of first register
+    di
+    out     (PORT_1), a
+    ld      a, 17 + 128
+    out     (PORT_1), a
+    ld      c, 0x9B
+.vdpReady:
+    ld      a, 2
+    di
+    out     (PORT_1), a     ; select s#2
+    ld      a, 15 + 128
+    out     (PORT_1), a
+    in      a, (PORT_1)
+    rra
+    ld      a, 0          ; back to s#0, enable ints
+    out     (PORT_1), a
+    ld      a, 15 + 128
+    ei
+    out     (PORT_1), a     ; loop if vdp not ready (CE)
+    jp      c, .vdpReady
+    outi            ; 11x OUTI
+    outi            ; (faster than OTIR)
+    outi
+    outi
+    outi
+    outi
+    outi
+    outi
+    outi
+    outi
+    outi
+    ret
+
+
+;   Input:  HL = pointer to 13-byte VDP command data
+;   Output: HL = updated
+;   Destroys: A, B, C
+Execute_VDP_YMMM:
+    ld      a, 34           ; number of first register
+    di
+    out     (PORT_1), a
+    ld      a, 17 + 128
+    out     (PORT_1), a
+    ld      c, 0x9B
+.vdpReady:
+    ld      a, 2
+    di
+    out     (PORT_1), a     ; select s#2
+    ld      a, 15 + 128
+    out     (PORT_1), a
+    in      a, (PORT_1)
+    rra
+    ld      a, 0          ; back to s#0, enable ints
+    out     (PORT_1), a
+    ld      a, 15 + 128
+    ei
+    out     (PORT_1), a     ; loop if vdp not ready (CE)
+    jp      c, .vdpReady
+    outi            ; 13x OUTI
+    outi            ; (faster than OTIR)
+    outi
+    outi
+    outi
+    outi
+    outi
+    outi
+    outi
+    outi
+    outi
+    outi
+    outi
+    ret
+
+VDP_COMMAND_HMMC:       equ 1111 0000 b	; High speed move CPU to VRAM (copies data from your ram to the vram)
+VDP_COMMAND_YMMM:       equ 1110 0000 b	; High speed move VRAM to VRAM, Y coordinate only
+VDP_COMMAND_HMMM:       equ 1101 0000 b	; High speed move VRAM to VRAM
+VDP_COMMAND_HMMV:       equ 1100 0000 b	; High speed move VDP to VRAM (fills an area with one single color)
 
 ; Logical commands (four lower bits specifies logic operation)
-VDP_COMMAND_LMMC:       equ 1011 0000b	; Logical move CPU to VRAM
-VDP_COMMAND_LMCM:       equ 1010 0000b	; Logical move VRAM to CPU
-VDP_COMMAND_LMMM:       equ 1001 0000b	; Logical move VRAM to VRAM
-VDP_COMMAND_LMMV:       equ 1000 0000b	; Logical move VDP to VRAM
+VDP_COMMAND_LMMC:       equ 1011 0000 b	; Logical move CPU to VRAM (copies data from your ram to the vram)
+VDP_COMMAND_LMCM:       equ 1010 0000 b	; Logical move VRAM to CPU
+VDP_COMMAND_LMMM:       equ 1001 0000 b	; Logical move VRAM to VRAM
+VDP_COMMAND_LMMV:       equ 1000 0000 b	; Logical move VDP to VRAM (fills an area with one single color)
+
+VDP_COMMAND_LINE:       equ 0111 0000 b
+VDP_COMMAND_SRCH:       equ 0110 0000 b
+VDP_COMMAND_PSET:       equ 0101 0000 b
+VDP_COMMAND_POINT:      equ 0100 0000 b
+
+VDP_COMMAND_STOP:       equ 0000 0000 b
+
+
+; Logical operations:
+VDP_LOGIC_OPERATION_IMP:    equ 0000 b
+VDP_LOGIC_OPERATION_AND:    equ 0001 b
+VDP_LOGIC_OPERATION_OR:     equ 0010 b
+VDP_LOGIC_OPERATION_XOR:    equ 0011 b
+VDP_LOGIC_OPERATION_NOT:    equ 0100 b
+
+VDP_LOGIC_OPERATION_TIMP:   equ 1000 b
+VDP_LOGIC_OPERATION_TAND:   equ 1001 b
+VDP_LOGIC_OPERATION_TOR:    equ 1010 b
+VDP_LOGIC_OPERATION_TXOR:   equ 1011 b
+VDP_LOGIC_OPERATION_TNOT:   equ 1100 b
+
 
 
 
