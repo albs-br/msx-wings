@@ -126,6 +126,10 @@ GroundTarget_Logic:
     ld      bc, HMMM_Parameters_size
     ldir
 
+    ; set source x
+    ld      a, 0 ; 6 ; 12 ; 18
+    ld      (VDP_HMMM_Params_Buffer.Source_X), a
+
     ; set destiny x and y
     ld      a, (GroundTarget_Temp_X)
     add     5

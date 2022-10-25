@@ -645,7 +645,7 @@ Load_6x8_BitmapFromRAMToVRAM:
     ld      b, 8 ; number of lines
 .loop:
     push    bc
-        ld      a, 1           	; set vram write base address (high bit)
+        ld      a, 0000 0001 b           	; set vram write base address (high bit)
         push    hl
             call    SetVDP_Write
             ld      c, PORT_0
