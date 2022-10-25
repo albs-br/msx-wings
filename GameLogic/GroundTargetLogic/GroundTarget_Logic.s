@@ -119,34 +119,6 @@ GroundTarget_Logic:
 
     ; ----------- test: draw $ char over the ground target destroyed
 
-    ; TODO: move this to InitVRAM
-    ; set origin bitmap
-    ld      hl, 0x0000     	;  VRAM destiny addr (lower 16 bits)
-    ;ld      de, GroundTargetDestroyed_Dollar_0  ; ROM source addr
-    ld      de, GroundTargetDestroyed_Dollar_1  ; ROM source addr
-    ld      b, 8 ; number of lines
-.loop:
-    push    bc
-        ld      a, 1           	; set vram write base address (high bit)
-        push    hl
-            call    SetVDP_Write
-            ld      c, PORT_0
-            ;ld      hl, GroundTargetDestroyed_Dollar_0
-            ex      de, hl
-                outi outi outi outi outi outi ; number of cols
-
-            ;ex      de, hl
-                ;ld      bc, 6 ; next bitmap line
-                ;add     hl, bc
-            ex      de, hl
-
-        pop     hl
-        ld      bc, 256 ; next screen line
-        add     hl, bc
-    pop     bc
-    djnz    .loop
-
-
 
     ; copy from initial HMMM parameters to buffer
     ld      hl, GroundTarget_HMMM_Parameters

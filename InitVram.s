@@ -618,9 +618,45 @@ GROUND_TARGET_SPRCOL_ADDR:  equ SPRCOL + (16 * 31)
 
     ;call    BIOS_ENASCR
 
+; --------------------------
+
+    ; load $ char bitmaps on second page, to be used by HMMM command
+
+    ld      hl, GROUND_TARGET_DESTROYED_DOLLAR_0_VRAM_ADDR  ; VRAM destiny addr (lower 16 bits)
+    ld      de, GroundTargetDestroyed_Dollar_0              ; ROM source addr
+    call    Load_6x8_BitmapFromRAMToVRAM
+
+    ld      hl, GROUND_TARGET_DESTROYED_DOLLAR_1_VRAM_ADDR  ; VRAM destiny addr (lower 16 bits)
+    ld      de, GroundTargetDestroyed_Dollar_1              ; ROM source addr
+    call    Load_6x8_BitmapFromRAMToVRAM
+
+    ; TODO: put other frames here
+
+    ret
 
 
+GROUND_TARGET_DESTROYED_DOLLAR_0_VRAM_ADDR:     equ 0x0000 + (6 * 0)
+GROUND_TARGET_DESTROYED_DOLLAR_1_VRAM_ADDR:     equ 0x0000 + (6 * 1)
 
+; Inputs:
+;   HL: VRAM destiny addr (lower 16 bits)
+;   DE: ROM source addr
+Load_6x8_BitmapFromRAMToVRAM:
+    ld      b, 8 ; number of lines
+.loop:
+    push    bc
+        ld      a, 1           	; set vram write base address (high bit)
+        push    hl
+            call    SetVDP_Write
+            ld      c, PORT_0
+            ex      de, hl
+                outi outi outi outi outi outi ; number of cols
+            ex      de, hl
+        pop     hl
+        ld      bc, 256 ; next screen line
+        add     hl, bc
+    pop     bc
+    djnz    .loop
     ret
 
 ;TEST_1:     db 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08
