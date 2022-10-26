@@ -622,21 +622,29 @@ GROUND_TARGET_SPRCOL_ADDR:  equ SPRCOL + (16 * 31)
 
     ; load $ char bitmaps on second page, to be used by HMMM command
 
-    ld      hl, GROUND_TARGET_DESTROYED_DOLLAR_0_VRAM_ADDR  ; VRAM destiny addr (lower 16 bits)
     ld      de, GroundTargetDestroyed_Dollar_0              ; ROM source addr
+    ld      hl, GROUND_TARGET_DESTROYED_DOLLAR_0_VRAM_ADDR  ; VRAM destiny addr (lower 16 bits)
     call    Load_6x8_BitmapFromRAMToVRAM
 
-    ld      hl, GROUND_TARGET_DESTROYED_DOLLAR_1_VRAM_ADDR  ; VRAM destiny addr (lower 16 bits)
     ld      de, GroundTargetDestroyed_Dollar_1              ; ROM source addr
+    ld      hl, GROUND_TARGET_DESTROYED_DOLLAR_1_VRAM_ADDR  ; VRAM destiny addr (lower 16 bits)
     call    Load_6x8_BitmapFromRAMToVRAM
 
-    ; TODO: put other frames here
+    ld      de, GroundTargetDestroyed_Dollar_2              ; ROM source addr
+    ld      hl, GROUND_TARGET_DESTROYED_DOLLAR_2_VRAM_ADDR  ; VRAM destiny addr (lower 16 bits)
+    call    Load_6x8_BitmapFromRAMToVRAM
+
+    ld      de, GroundTargetDestroyed_Dollar_3              ; ROM source addr
+    ld      hl, GROUND_TARGET_DESTROYED_DOLLAR_3_VRAM_ADDR  ; VRAM destiny addr (lower 16 bits)
+    call    Load_6x8_BitmapFromRAMToVRAM
 
     ret
 
 
 GROUND_TARGET_DESTROYED_DOLLAR_0_VRAM_ADDR:     equ 0x0000 + (6 * 0)
 GROUND_TARGET_DESTROYED_DOLLAR_1_VRAM_ADDR:     equ 0x0000 + (6 * 1)
+GROUND_TARGET_DESTROYED_DOLLAR_2_VRAM_ADDR:     equ 0x0000 + (6 * 2)
+GROUND_TARGET_DESTROYED_DOLLAR_3_VRAM_ADDR:     equ 0x0000 + (6 * 3)
 
 ; Inputs:
 ;   HL: VRAM destiny addr (lower 16 bits)

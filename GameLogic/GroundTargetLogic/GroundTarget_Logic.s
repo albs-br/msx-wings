@@ -119,18 +119,23 @@ GroundTarget_Logic:
 
     ; ----------- test: draw $ char over the ground target destroyed
 
-
+    ; TODO: move to InitVariables
     ; copy from initial HMMM parameters to buffer
     ld      hl, GroundTarget_HMMM_Parameters
     ld      de, VDP_HMMM_Params_Buffer
-    ld      bc, HMMM_Parameters_size
-    ldir
+    ;ld      bc, HMMM_Parameters_size
+    ;ldir
+    ;HMMM_Parameters_size: equ 0Fh ; last def. pass 3
+    ; 15x LDI
+    ldi ldi ldi ldi ldi ldi ldi ldi 
+    ldi ldi ldi ldi ldi ldi ldi
 
     ; set source x
     ld      a, 0 ; 6 ; 12 ; 18
     ld      (VDP_HMMM_Params_Buffer.Source_X), a
 
     ; set destiny x and y
+    ; will be positioned at +5, +4 relative to ground target destroyed bitmap
     ld      a, (GroundTarget_Temp_X)
     add     5
     ld      (VDP_HMMM_Params_Buffer.Destiny_X), a
