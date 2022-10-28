@@ -135,6 +135,7 @@ GroundTarget_Temp_Frame_Counter:           rw 1     ; not used (yet)
 GroundTarget_Temp_Delta_X:                 rb 1     ; not used
 GroundTarget_Temp_Delta_Y:                 rb 1     ; not used
 GroundTarget_Temp_Health:                  rb 1     ; initialized at 10, dec at each shot received; 0 is dead
+GroundTarget_Temp_Has_Item:                rb 1     ; 0: no item; 1: item
 GroundTarget_Temp_Struct.size:        equ $ - GroundTarget_Temp_Struct
 
 

@@ -42,6 +42,9 @@ GroundTarget_Init:
     ld      a, 10
     ld      (GroundTarget_Temp_Health), a
 
+    ld      a, (LevelData_Temp_ExtraData_Addr)
+    ld      (GroundTarget_Temp_Has_Item), a
+
 
     ; Load ground target colors
     ld      a, 0000 0001 b

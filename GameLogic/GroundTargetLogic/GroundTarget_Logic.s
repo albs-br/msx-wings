@@ -119,6 +119,10 @@ GroundTarget_Logic:
 
     ; ----------- test: draw $ char over the ground target destroyed
 
+    ld      a, (GroundTarget_Temp_Has_Item)
+    or      a
+    jp      z, .dontHaveItem
+
     ; TODO: move to InitVariables
     ; copy from initial HMMM parameters to buffer
     ld      hl, GroundTarget_HMMM_Parameters
@@ -147,6 +151,8 @@ GroundTarget_Logic:
 
     ld      hl, VDP_HMMM_Params_Buffer
     call    Execute_VDP_HMMM
+
+.dontHaveItem:
 
 ; ----------- 
 
