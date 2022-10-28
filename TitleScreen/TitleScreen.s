@@ -410,27 +410,34 @@ InitLoopRoundPalette:
     
     ; ----------------- load 'PRESS FIRE' sprites
 
-    call    BIOS_BEEP
+    ;call    BIOS_BEEP ; debug
 
     ; set MegaROM page for Fonts data
     ld      a, FONTS_DATA_MEGAROM_PAGE
     ld	    (Seg_P8000_SW), a
 
+
+
     ; load sprite pattern
     ld      a, 0000 0000 b
     ld      hl, SC5_SPRPAT
     call    SetVdp_Write
+
+    ld      hl, LargeFont_Patterns
+    ; ld      a, 'A' ; 65
+    ; call    GetLargeFont_PatternAddr
+
     ld      b, 32 ; SpritePattern_PlayerPlane_0_and_1.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ;ld      hl, SpritePattern_PlayerPlane_0_and_1
-    ld      hl, LargeFont_Patterns
     otir
+
+
 
     ; load sprite colors
     ld      a, 0000 0000 b
     ld      hl, SC5_SPRCOL
     call    SetVdp_Write
-    ld      b, 16 ; SpriteColors_PlayerPlane_0_and_1.size
+    ld      b, 0 + (16 * 1) ; SpriteColors_PlayerPlane_0_and_1.size
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
     ld      hl, TITLE_FONT_COLORS_TEST ; LargeFont_Colors
     otir

@@ -158,3 +158,28 @@ DrawString:
     call    TestFonts_WriteLine
 
     ret
+
+;LARGE_FONT_CHAR_A:          equ (64 * (9 + 1)) ; = 640
+;LARGE_FONT_CHAR_B:          equ (64 * (9 + 2)) ; = 704
+; ...
+;LARGE_FONT_CHAR_E:          equ (64 * (9 + 5))
+
+; Inputs:
+;   A: ascii code ('A'-'Z')
+; Output:
+;   HL: ROM addr of font pattern (2x 16x16 sprite patterns)
+GetLargeFont_PatternAddr:
+    sub     65 - 55 ; 65 = ASCII code for 'A'
+    ld      b, a
+
+    ld      hl, LargeFont_Patterns
+
+    ; HL = HL + (64 * B)
+    ld      de, 64
+.loop:
+    add     hl, de
+    djnz    .loop
+
+    ret
+
+;   ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_E
