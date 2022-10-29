@@ -159,7 +159,7 @@ DrawString:
 
     ret
 
-;LARGE_FONT_CHAR_A:          equ (64 * (9 + 1)) ; = 640
+LARGE_FONT_CHAR_A:          equ (64 * (9 + 1)) ; = 640
 ;LARGE_FONT_CHAR_B:          equ (64 * (9 + 2)) ; = 704
 ; ...
 ;LARGE_FONT_CHAR_E:          equ (64 * (9 + 5))
@@ -169,7 +169,7 @@ DrawString:
 ; Output:
 ;   HL: ROM addr of font pattern (2x 16x16 sprite patterns)
 GetLargeFont_PatternAddr:
-    sub     65 - 55 ; 65 = ASCII code for 'A'
+    sub     65 - 10 ; 65 = ASCII code for 'A'
     ld      b, a
 
     ld      hl, LargeFont_Patterns
