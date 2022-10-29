@@ -204,9 +204,12 @@ SpriteColors_PlayerPlane_Right_Frame_1_Bottom:
 
 
 ; Player shot
-SpriteColors_PlayerShot:
-    INCLUDE "Graphics/Sprites/PlayerShot/player_shot_color.s"
-.size:  equ $ - SpriteColors_PlayerShot
+SpriteColors_PlayerShot_Thin:
+    INCLUDE "Graphics/Sprites/PlayerShot/player_shot_color_thin.s"
+.size:  equ $ - SpriteColors_PlayerShot_Thin
+SpriteColors_PlayerShot_Fat:
+    INCLUDE "Graphics/Sprites/PlayerShot/player_shot_color_fat.s"
+.size:  equ $ - SpriteColors_PlayerShot_Fat
 
 
 

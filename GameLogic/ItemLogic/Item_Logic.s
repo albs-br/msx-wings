@@ -189,12 +189,14 @@ Item_Logic:
         jp      nz, .set_Player_Shot_Pattern_Fat
 
         ld      hl, SpritePattern_PlayerShot_Thin
-        call    LoadPlayerShotPattern
+        ld      de, SpriteColors_PlayerShot_Thin
+        call    Load_PlayerShot_Pattern_And_Colors
         jp      .playGetItemSfx
 
     .set_Player_Shot_Pattern_Fat:
         ld      hl, SpritePattern_PlayerShot_Fat
-        call    LoadPlayerShotPattern
+        ld      de, SpriteColors_PlayerShot_Fat
+        call    Load_PlayerShot_Pattern_And_Colors
 
     .playGetItemSfx:
         ;ld      a, 100             ; volume

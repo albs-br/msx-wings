@@ -123,7 +123,8 @@ LoadSpritesForGameplay:
         ; otir
 
         ld      hl, SpritePattern_PlayerShot_Thin
-        call    LoadPlayerShotPattern
+        ld      de, SpriteColors_PlayerShot_Thin
+        call    Load_PlayerShot_Pattern_And_Colors
     pop     hl
     ld      bc, SpritePattern_PlayerShot_Thin.size
     add     hl, bc
@@ -462,59 +463,59 @@ LoadSpritesForGameplay:
     ld      hl, SpriteColors_PlayerPlane_2_and_3
     otir
 
-    ; Spr 4 colors
-    ld      a, 0000 0001 b
-    ld      hl, SPRCOL + 64 + (SpriteColors_PlayerShot.size * 0)
-    call    SetVdp_Write
-    ld      b, SpriteColors_PlayerShot.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpriteColors_PlayerShot
-    otir
+    ; ; Spr 4 colors
+    ; ld      a, 0000 0001 b
+    ; ld      hl, SPRCOL + 64 + (SpriteColors_PlayerShot_Thin.size * 0)
+    ; call    SetVdp_Write
+    ; ld      b, SpriteColors_PlayerShot_Thin.size
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      hl, SpriteColors_PlayerShot_Thin
+    ; otir
 
-    ; Spr 5 colors
-    ld      a, 0000 0001 b
-    ld      hl, SPRCOL + 64 + (SpriteColors_PlayerShot.size * 1)
-    call    SetVdp_Write
-    ld      b, SpriteColors_PlayerShot.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpriteColors_PlayerShot
-    otir
+    ; ; Spr 5 colors
+    ; ld      a, 0000 0001 b
+    ; ld      hl, SPRCOL + 64 + (SpriteColors_PlayerShot_Thin.size * 1)
+    ; call    SetVdp_Write
+    ; ld      b, SpriteColors_PlayerShot_Thin.size
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      hl, SpriteColors_PlayerShot_Thin
+    ; otir
 
-    ; Spr 6 colors
-    ld      a, 0000 0001 b
-    ld      hl, SPRCOL + 64 + (SpriteColors_PlayerShot.size * 2)
-    call    SetVdp_Write
-    ld      b, SpriteColors_PlayerShot.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpriteColors_PlayerShot
-    otir
+    ; ; Spr 6 colors
+    ; ld      a, 0000 0001 b
+    ; ld      hl, SPRCOL + 64 + (SpriteColors_PlayerShot_Thin.size * 2)
+    ; call    SetVdp_Write
+    ; ld      b, SpriteColors_PlayerShot_Thin.size
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      hl, SpriteColors_PlayerShot_Thin
+    ; otir
 
-    ; Spr 7 colors
-    ld      a, 0000 0001 b
-    ld      hl, SPRCOL + 64 + (SpriteColors_PlayerShot.size * 3)
-    call    SetVdp_Write
-    ld      b, SpriteColors_PlayerShot.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpriteColors_PlayerShot
-    otir
+    ; ; Spr 7 colors
+    ; ld      a, 0000 0001 b
+    ; ld      hl, SPRCOL + 64 + (SpriteColors_PlayerShot_Thin.size * 3)
+    ; call    SetVdp_Write
+    ; ld      b, SpriteColors_PlayerShot_Thin.size
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      hl, SpriteColors_PlayerShot_Thin
+    ; otir
 
-    ; Spr 8 colors
-    ld      a, 0000 0001 b
-    ld      hl, SPRCOL + 64 + (SpriteColors_PlayerShot.size * 4)
-    call    SetVdp_Write
-    ld      b, SpriteColors_PlayerShot.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpriteColors_PlayerShot
-    otir
+    ; ; Spr 8 colors
+    ; ld      a, 0000 0001 b
+    ; ld      hl, SPRCOL + 64 + (SpriteColors_PlayerShot_Thin.size * 4)
+    ; call    SetVdp_Write
+    ; ld      b, SpriteColors_PlayerShot_Thin.size
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      hl, SpriteColors_PlayerShot_Thin
+    ; otir
 
-    ; Spr 9 colors
-    ld      a, 0000 0001 b
-    ld      hl, SPRCOL + 64 + (SpriteColors_PlayerShot.size * 5)
-    call    SetVdp_Write
-    ld      b, SpriteColors_PlayerShot.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpriteColors_PlayerShot
-    otir
+    ; ; Spr 9 colors
+    ; ld      a, 0000 0001 b
+    ; ld      hl, SPRCOL + 64 + (SpriteColors_PlayerShot_Thin.size * 5)
+    ; call    SetVdp_Write
+    ; ld      b, SpriteColors_PlayerShot_Thin.size
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      hl, SpriteColors_PlayerShot_Thin
+    ; otir
 
     ; --------------- this will be loaded on EnemyInit
 ENEMY_0_SPRCOL_ADDR:        equ SPRCOL + 64 + (16 * 6) + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 0)
@@ -699,19 +700,53 @@ Load_6x8_BitmapFromRAMToVRAM:
 
 ;     ret
 
-LoadPlayerShotPattern:
+; Inputs:
+;   HL: player shot pattern addr
+;   DE: player shot pattern colors
+Load_PlayerShot_Pattern_And_Colors:
+    ld      c, PORT_0
+
+    ; pattern
     push    hl
         ld      a, 0000 0001 b
         ld      hl, SPRPAT + 128
         call    SetVdp_Write
     pop     hl
-
-    ;ld      b, SpritePattern_PlayerShot_Thin.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ;ld      bc, 0 + (SpritePattern_PlayerShot_Thin.size * 256) + PORT_0
-    ;ld      hl, SpritePattern_PlayerShot_Thin
-    ;otir
-    ; 32x OUTI
+    ; 32x outi
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+
+
+    ; colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + 64 + (SpriteColors_PlayerShot_Thin.size * 0)
+    call    SetVdp_Write
+
+    ; fill 6 player shot sprites
+    ex      de, hl
+    
+    push    hl
+        ; 16x outi
+        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    pop     hl
+    push    hl
+        ; 16x outi
+        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    pop     hl
+    push    hl
+        ; 16x outi
+        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    pop     hl
+    push    hl
+        ; 16x outi
+        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    pop     hl
+    push    hl
+        ; 16x outi
+        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    pop     hl
+    push    hl
+        ; 16x outi
+        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    pop     hl
 
     ret
