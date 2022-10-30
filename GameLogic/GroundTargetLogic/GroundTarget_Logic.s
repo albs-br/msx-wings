@@ -31,14 +31,19 @@ GroundTarget_Logic:
     .isNotScroll:
         ; -------------------------- 
         
-        ld      a, (GroundTarget_Temp_Status)      ; get Status
-        cp      1
-        jp      nz, .doExplosionAnimation   ; if (Status != 1) doExplosionAnimation
-
         ; if (GroundTarget_Temp_Y_Static == 192) groundTargetReset
         ld      a, (GroundTarget_Temp_Y_Static)
         cp      192
         jp      z, .groundTargetReset
+
+
+        ld      a, (GroundTarget_Temp_Status)      ; get Status
+        ; cp      1
+        ; jp      nz, .doExplosionAnimation   ; if (Status != 1) doExplosionAnimation
+        cp      20
+        jp      nc, .itemAnimation   ; if (Status >= 20) itemAnimation
+        cp      2
+        jp      nc, .doExplosionAnimation   ; if (Status > 1) doExplosionAnimation
 
 
         ; --------------------------- check collision (ground target x player shots) -------------------------
@@ -116,27 +121,14 @@ GroundTarget_Logic:
     ld      de, GroundTargetDestroyed
     call    Copy16x16ImageFromRAMToVRAM
 
+    ;jp      .return
 
-    ; ----------- test: draw $ char over the ground target destroyed
+.itemAnimation:
+    ; ----------- draw $ char over the ground target destroyed
 
     ld      a, (GroundTarget_Temp_Has_Item)
     or      a
     jp      z, .dontHaveItem
-
-    ; TODO: move to InitVariables
-    ; copy from initial HMMM parameters to buffer
-    ld      hl, GroundTarget_HMMM_Parameters
-    ld      de, VDP_HMMM_Params_Buffer
-    ;ld      bc, HMMM_Parameters_size
-    ;ldir
-    ;HMMM_Parameters_size: equ 0Fh ; last def. pass 3
-    ; 15x LDI
-    ldi ldi ldi ldi ldi ldi ldi ldi 
-    ldi ldi ldi ldi ldi ldi ldi
-
-    ; set source x
-    ld      a, 0 ; 6 ; 12 ; 18
-    ld      (VDP_HMMM_Params_Buffer.Source_X), a
 
     ; set destiny x and y
     ; will be positioned at +5, +4 relative to ground target destroyed bitmap
@@ -149,12 +141,64 @@ GroundTarget_Logic:
     ld      (VDP_HMMM_Params_Buffer.Destiny_Y), a
 
 
+    ; Status++
+    ld      a, (GroundTarget_Temp_Status)
+    inc     a
+    ld      (GroundTarget_Temp_Status), a
+
+    ; if (Status == 36)
+    cp      36
+    jp      z, .resetItemStatus
+
+    ; if (Status < 24)
+    cp      24
+    jp      c, .item_Frame_0
+    ; else if (Status < 27)
+    cp      27
+    jp      c, .item_Frame_1
+    ; else if (Status < 30)
+    cp      30
+    jp      c, .item_Frame_2
+    ; else if (Status < 33)
+    cp      33
+    jp      c, .item_Frame_3
+    
+
+.item_Frame_0:
+    ; set source x to animation frame #0
+    ld      a, 0
+    jp      .item_execute_VDP_cmd
+
+.item_Frame_1:
+    ; set source x to animation frame #1
+    ld      a, 6
+    jp      .item_execute_VDP_cmd
+
+.item_Frame_2:
+    ; set source x to animation frame #2
+    ld      a, 12
+    jp      .item_execute_VDP_cmd
+
+.item_Frame_3:
+    ; set source x to animation frame #3
+    ld      a, 18
+    jp      .item_execute_VDP_cmd
+
+.resetItemStatus:
+    ld      a, 20
+    ld      (GroundTarget_Temp_Status), a
+    jp      .item_Frame_0
+
+.item_execute_VDP_cmd:
+    ld      (VDP_HMMM_Params_Buffer.Source_X), a
     ld      hl, VDP_HMMM_Params_Buffer
     call    Execute_VDP_HMMM
 
-.dontHaveItem:
-
 ; ----------- 
+
+    jp      .return
+
+.dontHaveItem:
 
     jp      .groundTargetReset
 

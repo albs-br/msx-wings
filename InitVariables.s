@@ -139,6 +139,19 @@ InitVariables:
 
 
 
+    ; --------- Ground target item
+    ; copy from initial HMMM parameters to buffer
+    ld      hl, GroundTarget_HMMM_Parameters
+    ld      de, VDP_HMMM_Params_Buffer
+    ;ld      bc, HMMM_Parameters_size
+    ;ldir
+    ;HMMM_Parameters_size: equ 0Fh ; last def. pass 3
+    ; 15x LDI
+    ldi ldi ldi ldi ldi ldi ldi ldi 
+    ldi ldi ldi ldi ldi ldi ldi
+
+
+
     ; copy from initial sprite attributes to buffer
     ld      hl, InitialSpriteAttributes
     ld      de, SPRATR_Buffer
