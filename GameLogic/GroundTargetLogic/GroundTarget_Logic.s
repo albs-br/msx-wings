@@ -130,6 +130,10 @@ GroundTarget_Logic:
     or      a
     jp      z, .dontHaveItem
 
+
+    ; check collision (if player got item)
+    call    CheckCol_GroundTarget_Player
+
     ; set destiny x and y
     ; will be positioned at +5, +4 relative to ground target destroyed bitmap
     ld      a, (GroundTarget_Temp_X)
@@ -359,7 +363,7 @@ CheckCol_GroundTarget_PlayerShot:
     ret
 
 
-; HMMM params for the $ char
+; HMMM base params for the $ char item
 GroundTarget_HMMM_Parameters:
 .Source_X:   dw    0 	    ; Source X (9 bits)
 .Source_Y:   dw    256 	    ; Source Y (10 bits)
@@ -371,3 +375,61 @@ GroundTarget_HMMM_Parameters:
 .Options:    db    0000 0000 b  ; select destination memory and direction from base coordinate
 .Command:    db    VDP_COMMAND_HMMM
 GroundTarget_HMMM_Parameters_size: equ $ - GroundTarget_HMMM_Parameters
+
+
+
+CheckCol_GroundTarget_Player:
+
+    ; check collision only on status > 20
+    ld      a, (GroundTarget_Temp_Status)      ; get Status
+    cp      20
+    ret     c
+
+    ;call    CheckCol_Object_PlayerShot
+    ;ret     nc
+
+    ld      a, (GroundTarget_Temp_X)
+    add     5
+    ld      b, a
+    ld      a, (GroundTarget_Temp_Y_Static)
+    add     4
+    ld      c, a
+
+    ld      a, (Player_X)
+    add     2                           ; adjust the 16x16 collision box to the center of the plane
+    ld      d, a
+    ld      a, (Player_Y_Static)
+    add     12                          ; adjust the 16x16 collision box to the center of the plane
+    ld      e, a
+
+    call    CheckCollision_8x8_16x16
+    ret     nc
+    ;jp      c, .playerGotItem
+
+    ; player got item
+    jp $ ; debug
+
+
+; ;.collision:
+;     ; decrement health
+;     ld      a, (GroundTarget_Temp_Health)
+;     dec     a
+;     ld      (GroundTarget_Temp_Health), a
+;     call    z, .startExplosionAnimation
+
+
+
+;     ; Ground target sprite attributes
+;     ld      a, (GroundTarget_Temp_X)
+;     ld      (GroundTarget_Sprite.X), a
+
+;     ld      a, (GroundTarget_Temp_Y)
+;     ld      (GroundTarget_Sprite.Y), a
+
+;     ld      a, GROUND_TARGET_PAT_0_NUMBER
+;     ld      (GroundTarget_Sprite.PatternNumber), a        
+    
+;     call    PlayerShot_Reset
+
+;     ret
+
