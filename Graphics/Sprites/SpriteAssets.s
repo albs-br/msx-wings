@@ -161,6 +161,14 @@ SpritePattern_GroundTarget_0:
 .size:  equ $ - SpritePattern_GroundTarget_0
 
 
+
+; 1000 points
+SpritePattern_1000_points:
+    INCLUDE "Graphics/Sprites/GroundTarget/1000_points_pattern.s"
+.size:  equ $ - SpritePattern_1000_points
+
+
+
 ; ------------------------------ Colors  ------------------------------
 
 ; Player plane
