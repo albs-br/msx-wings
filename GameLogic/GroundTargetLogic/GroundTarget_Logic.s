@@ -104,23 +104,7 @@ GroundTarget_Logic:
 
 
 
-    ; -------------------------- draw 16x16 bitmap over background bitmap (screen 11)
-    ld      hl, (CurrentVRAMAddrLineScroll)
-
-    ; HL += (GroundTarget_Temp_Y_Static * 256) + GroundTarget_Temp_X
-    ld      a, (GroundTarget_Temp_Y_Static)
-    ld      b, a    ; same as multiplying Y static by 256
-    ld      c, 0
-    add     hl, bc
-    ld      a, (GroundTarget_Temp_X)
-    ld      b, 0
-    ld      c, a
-    add     hl, bc
-
-    ; ld      de, .TestDrawBg
-    ld      de, GroundTargetDestroyed
-    call    Copy16x16ImageFromRAMToVRAM
-
+    call    DrawGroundTargetDestroyed
     ;jp      .return
 
 .itemAnimation:
@@ -133,6 +117,8 @@ GroundTarget_Logic:
 
     ; check collision (if player got item)
     call    CheckCol_GroundTarget_Player
+    jp      c, .playerGotItem
+
 
     ; set destiny x and y
     ; will be positioned at +5, +4 relative to ground target destroyed bitmap
@@ -205,6 +191,16 @@ GroundTarget_Logic:
 .dontHaveItem:
 
     jp      .groundTargetReset
+
+.playerGotItem:
+    ;ld      a, 100             ; volume
+    ld      a, SFX_GET_ITEM     ; number of sfx in the bank
+    ld      c, 1                ; sound priority
+    call    PlaySfx
+
+    call    DrawGroundTargetDestroyed
+
+    jp      GroundTarget_Logic.groundTargetReset
 
 ; .TestDrawBg:
 ;     ; 4 high bits: color index from palette
@@ -378,6 +374,7 @@ GroundTarget_HMMM_Parameters_size: equ $ - GroundTarget_HMMM_Parameters
 
 
 
+; OUT: Carry set if collision
 CheckCol_GroundTarget_Player:
 
     ; check collision only on status > 20
@@ -403,12 +400,12 @@ CheckCol_GroundTarget_Player:
     ld      e, a
 
     call    CheckCollision_8x8_16x16
-    ret     nc
+    ;ret     nc
     ;jp      c, .playerGotItem
 
     ; player got item
-    jp $ ; debug
-
+    ;jp $ ; debug
+    ret
 
 ; ;.collision:
 ;     ; decrement health
@@ -433,3 +430,24 @@ CheckCol_GroundTarget_Player:
 
 ;     ret
 
+
+
+DrawGroundTargetDestroyed:
+    ; -------------------------- draw 16x16 bitmap over background bitmap (screen 11)
+    ld      hl, (CurrentVRAMAddrLineScroll)
+
+    ; HL += (GroundTarget_Temp_Y_Static * 256) + GroundTarget_Temp_X
+    ld      a, (GroundTarget_Temp_Y_Static)
+    ld      b, a    ; same as multiplying Y static by 256
+    ld      c, 0
+    add     hl, bc
+    ld      a, (GroundTarget_Temp_X)
+    ld      b, 0
+    ld      c, a
+    add     hl, bc
+
+    ; ld      de, .TestDrawBg
+    ld      de, GroundTargetDestroyed
+    call    Copy16x16ImageFromRAMToVRAM
+
+    ret
