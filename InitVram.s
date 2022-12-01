@@ -443,6 +443,21 @@ LoadSpritesForGameplay:
     ld      bc, SpritePattern_EnemyPlaneTurning_Frame_7_Patterns_0_and_1.size
     add     hl, bc
 
+    ; --- END OF Enemy plane turning
+
+    ; Spr 57 pattern
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+        ld      b, SpritePattern_1000_points.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_1000_points
+        otir
+    pop     hl
+    ld      bc, SpritePattern_1000_points.size
+    add     hl, bc
+
+
 ; --------- Load sprite colors
 
     ; Spr 0 and 1 colors

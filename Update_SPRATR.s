@@ -58,7 +58,11 @@ ITEM_P_SPR_PAT_0_NUMBER:                         equ 38 * 4     ; 38 to 39  ; al
 
 GROUND_TARGET_PAT_0_NUMBER:                      equ 40 * 4
 
-; -------------- NEXT AVAILABLE: 57 --------------------
+; sprites 41 to 56: Enemy plane turning
+
+POINTS_1000_PAT_NUMBER:                          equ 57 * 4
+
+; -------------- NEXT AVAILABLE: 58 --------------------
 
 EMPTY_SPR_PAT_NUMBER:                            equ 63 * 4
 

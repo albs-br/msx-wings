@@ -38,12 +38,26 @@ GroundTarget_Logic:
 
 
         ld      a, (GroundTarget_Temp_Status)      ; get Status
+
+        ; if (Status != 1) doExplosionAnimation        
         ; cp      1
-        ; jp      nz, .doExplosionAnimation   ; if (Status != 1) doExplosionAnimation
+        ; jp      nz, .doExplosionAnimation
+        
+        ; else if (Status == 60) { end of "1000 points" sprite animation / reset target }
+        cp      60
+        jp      z, .endAnimation1000points
+
+        ; else if (Status >= 40) { animate sprite "1000 points" }
+        cp      40
+        jp      nc, .animateSprite1000
+
+        ; else if (Status >= 20) itemAnimation
         cp      20
-        jp      nc, .itemAnimation   ; if (Status >= 20) itemAnimation
+        jp      nc, .itemAnimation
+
+        ; else if (Status > 1) doExplosionAnimation
         cp      2
-        jp      nc, .doExplosionAnimation   ; if (Status > 1) doExplosionAnimation
+        jp      nc, .doExplosionAnimation
 
 
         ; --------------------------- check collision (ground target x player shots) -------------------------
@@ -174,6 +188,32 @@ GroundTarget_Logic:
     ld      a, 18
     jp      .item_execute_VDP_cmd
 
+.animateSprite1000:
+    ; set Ground target sprite attributes to show "1000 sprite"
+    ld      a, (GroundTarget_Temp_X)
+    ld      (GroundTarget_Sprite.X), a
+
+    ; Sprite.Y = GroundTarget_Temp_Y - Status - 40
+    ld      a, (GroundTarget_Temp_Status)
+    sub     40 ; status = 40 is the first frame of "1000 points" animation
+    ld      b, a
+    ld      a, (GroundTarget_Temp_Y)
+    sub     b
+    ld      (GroundTarget_Sprite.Y), a
+
+    ld      a, POINTS_1000_PAT_NUMBER
+    ld      (GroundTarget_Sprite.PatternNumber), a        
+
+    ; TODO: is necessary to load sprite colors too?
+
+    ; Status++
+    ld      a, (GroundTarget_Temp_Status)
+    inc     a
+    ld      (GroundTarget_Temp_Status), a
+
+
+    jp      .return
+
 .resetItemStatus:
     ld      a, 20
     ld      (GroundTarget_Temp_Status), a
@@ -198,8 +238,16 @@ GroundTarget_Logic:
     ld      c, 1                ; sound priority
     call    PlaySfx
 
-    call    DrawGroundTargetDestroyed
+    call    DrawGroundTargetDestroyed ; clear the "$"" bitmap by drawing over
 
+    ; set status = 40
+    ld      a, 40
+    ld      (GroundTarget_Temp_Status), a
+
+    ;jp      GroundTarget_Logic.groundTargetReset
+    jp      .return
+
+.endAnimation1000points:
     jp      GroundTarget_Logic.groundTargetReset
 
 ; .TestDrawBg:
