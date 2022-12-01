@@ -29,7 +29,7 @@ GroundTarget_Logic:
         ld      (GroundTarget_Temp_Y_Static), a
 
     .isNotScroll:
-        ; -------------------------- 
+        ; -------------------------- state machine
         
         ; if (GroundTarget_Temp_Y_Static == 192) groundTargetReset
         ld      a, (GroundTarget_Temp_Y_Static)
@@ -233,9 +233,9 @@ GroundTarget_Logic:
     jp      .groundTargetReset
 
 .playerGotItem:
-    ;ld      a, 100             ; volume
-    ld      a, SFX_GET_ITEM     ; number of sfx in the bank
-    ld      c, 1                ; sound priority
+    ;ld      a, 100                     ; volume
+    ld      a, SFX_GET_DOLLAR_ITEM      ; number of sfx in the bank
+    ld      c, 1                        ; sound priority
     call    PlaySfx
 
     call    DrawGroundTargetDestroyed ; clear the "$"" bitmap by drawing over
