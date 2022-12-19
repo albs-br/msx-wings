@@ -190,5 +190,14 @@ Level_1_Data:
     dw  961      db  ENEMY_TYPE_1,           160   dw  EnemyData_5     dw Enemy_4_Struct, ENEMY_4_SPRCOL_ADDR,      0,       Item_4_Struct
     dw  962      db  ENEMY_TYPE_1,           192   dw  EnemyData_5     dw Enemy_5_Struct, ENEMY_5_SPRCOL_ADDR,      0,       Item_5_Struct
 
+    ; 560px on image: counter at 1080
+    dw  1080     db  GROUND_TARGET,          42    dw  0       dw GroundTarget_0_Struct, 0,                         0,       HAS_ITEM
+    dw  1160     db  GROUND_TARGET,          46    dw  0       dw GroundTarget_1_Struct, 0,                         0,       HAS_ITEM
+    dw  1161     db  GROUND_TARGET,          22    dw  0       dw GroundTarget_2_Struct, 0,                         0,       HAS_ITEM
+    dw  1240     db  GROUND_TARGET,          8     dw  0       dw GroundTarget_3_Struct, 0,                         0,       HAS_ITEM
+    dw  1241     db  GROUND_TARGET,          28    dw  0       dw GroundTarget_4_Struct, 0,                         0,       HAS_ITEM
+    dw  1242     db  GROUND_TARGET,          50    dw  0       dw GroundTarget_5_Struct, 0,                         0,       HAS_ITEM
+
+
     ; end marking of level data
     dw  0

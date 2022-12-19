@@ -5,7 +5,7 @@
 ram_watch   add     0xc005      -type byte       -desc Player_Shot_Level      -format dec
 ram_watch   add     0xc006      -type byte       -desc Player_Shot_Width      -format dec
 
-ram_watch   add     0xC208      -type word       -desc LevelCounter      -format dec
+ram_watch   add     0xC20f      -type word       -desc LevelCounter      -format dec
 
 ram_watch   add     0xc3cd      -type byte       -desc LevelInitAnimation_Counter      -format dec
 
