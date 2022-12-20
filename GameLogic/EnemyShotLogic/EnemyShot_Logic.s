@@ -84,8 +84,9 @@ EnemyShot_Logic:
         jp      z, .enemyShotColor_1    ; if (A == 2) enemyShotColor_1
                                         ; else enemyShotColor_3
 
+    ; if (A == 0 || A == 3)
     ;.enemyShotColor_3:
-        ; Load enemy colors
+        ; Load enemy shot colors
         ld      a, 0000 0001 b
         ld      hl, (EnemyShot_Temp_SPRCOL_Addr)
         call    SetVdp_Write
@@ -100,7 +101,7 @@ EnemyShot_Logic:
         jp      .checkCollision
 
     .enemyShotColor_0:
-        ; Load enemy colors
+        ; Load enemy shot colors
         ld      a, 0000 0001 b
         ld      hl, (EnemyShot_Temp_SPRCOL_Addr)
         call    SetVdp_Write
@@ -115,7 +116,7 @@ EnemyShot_Logic:
         jp      .checkCollision
 
     .enemyShotColor_1:
-        ; Load enemy colors
+        ; Load enemy shot colors
         ld      a, 0000 0001 b
         ld      hl, (EnemyShot_Temp_SPRCOL_Addr)
         call    SetVdp_Write
