@@ -4,7 +4,7 @@
 ;       qty     range
 ;       4       0-3         Player plane (can be improved to only 4 by using an offset on sprites overlapping)
 ;       6       4-9         Player shots (3x 16x16 sprites for simple shots; 3x 32x16 for double shots)
-;       14      10-23       Enemies (7x 16x16 two or-color sprites enemies / 2x 7 32x32 sprites; there will be many other combinations)
+;       14      10-23       Enemies (7x two 16x16 or-color sprites enemies / 2x 7 32x32 sprites; there will be many other combinations)
 ;       7       24-30       Enemy shots (7x 16x16 single sprites)
 ;       1       31          Ground target (sprite used only to blink when shot), 
 ;                           this is shared by all ground targets, as only one is being shot at a time
@@ -36,6 +36,7 @@ ENEMY_PLANE_TURNING_FRAME_7_SPR_PAT_0_NUMBER:         equ 55 * 4     ; 55 and 56
 EXPLOSION_SPR_PAT_0_NUMBER:             equ 7 * 4
 EXPLOSION_SPR_PAT_1_NUMBER:             equ 8 * 4
 EXPLOSION_SPR_PAT_2_NUMBER:             equ 9 * 4
+
 ENEMY_SHOT_SPR_PAT_0_NUMBER:            equ 10 * 4
 ENEMY_SHOT_SPR_PAT_1_NUMBER:            equ 11 * 4
 
@@ -97,12 +98,17 @@ Update_SPRATR:
     ; add:
     ;   out (PORT_0), a (12 cycles)
 
+    ; CAUTION: on V9938/58 sequential OUT's must be at least 15 cycles apart
+    ; NOP is 5 cycles, 5 NOP's = 25 per sprite ==> 32 x 25 = 800 cycles wasted :(
+
     ; inc     hl
+    nop
     ld      a, (Player_X)
     ;ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Player_SpritePatternNumber)
     ;ld      (hl), a
     out     (PORT_0), a
@@ -110,6 +116,9 @@ Update_SPRATR:
     ; inc     hl
     ; ld      a, 0
     ; ld      (hl), a
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ----------------------------------------
@@ -124,6 +133,7 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Player_X)
     ;ld      (hl), a
     out     (PORT_0), a
@@ -137,6 +147,9 @@ Update_SPRATR:
     ; inc     hl
     ; ld      a, 0
     ; ld      (hl), a
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ----------------------------------------
@@ -152,6 +165,7 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Player_X)
     ;ld      (hl), a
     out     (PORT_0), a
@@ -165,6 +179,9 @@ Update_SPRATR:
     ; inc     hl
     ; ld      a, 0
     ; ld      (hl), a
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ----------------------------------------
@@ -197,6 +214,9 @@ Update_SPRATR:
     ; inc     hl
     ; ld      a, 0
     ; ld      (hl), a
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ================================== PLAYER SHOTS ===================================
@@ -213,16 +233,21 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (PlayerShot_0_Struct + 1)    ; X
     ;ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (PlayerShot_0_Struct + 4)    ; Pattern number 0
     ;ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ----------------------------------------
@@ -243,11 +268,15 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (PlayerShot_0_Struct + 5)    ; Pattern number 1
     ;ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
+    nop
+    nop
     out     (c), d
 
 ; --------------------------------------------------------------------------------
@@ -263,18 +292,23 @@ Update_SPRATR:
 
 
     ; inc     hl
+    nop
     ld      a, (PlayerShot_1_Struct + 1)    ; X
     ;ld      (hl), a
     out     (PORT_0), a
 
 
     ; inc     hl
+    nop
     ld      a, (PlayerShot_1_Struct + 4)    ; Pattern number 0
     ;ld      (hl), a
     out     (PORT_0), a
 
 
     ; inc     hl
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ----------------------------------------
@@ -295,11 +329,15 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (PlayerShot_1_Struct + 5)    ; Pattern number 1
     ;ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
+    nop
+    nop
     out     (c), d
 
 ; --------------------------------------------------------------------------------
@@ -314,16 +352,21 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (PlayerShot_2_Struct + 1)    ; X
     ;ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (PlayerShot_2_Struct + 4)    ; Pattern number 0
     ;ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ----------------------------------------
@@ -344,11 +387,15 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (PlayerShot_2_Struct + 5)    ; Pattern number 1
     ;ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ================================== ENEMIES ===================================
@@ -365,16 +412,21 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_0_Struct + 1)    ; X
     ;ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_0_Struct + 4)    ; Pattern 0
     ;ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ----------------------------------------
@@ -389,16 +441,21 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_0_Struct + 10)    ; X1
     ;ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_0_Struct + 5)    ; Pattern 1
     ;ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ------------------------------------------------------------------------------
@@ -413,16 +470,21 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_1_Struct + 1)    ; X
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_1_Struct + 4)    ; Pattern
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
+    nop
+    nop
     out     (c), d
 
 
@@ -438,16 +500,21 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_1_Struct + 10)    ; X1
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_1_Struct + 5)    ; Pattern
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ------------------------------------------------------------------------------
@@ -462,16 +529,21 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_2_Struct + 1)    ; X
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_2_Struct + 4)    ; Pattern
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ----------------------------------------
@@ -486,16 +558,21 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_2_Struct + 10)    ; X1
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_2_Struct + 5)    ; Pattern
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ------------------------------------------------------------------------------
@@ -510,16 +587,21 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_3_Struct + 1)    ; X
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_3_Struct + 4)    ; Pattern
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
+    nop
+    nop
     out     (c), d
 ; ----------------------------------------
 
@@ -533,16 +615,21 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_3_Struct + 10)    ; X1
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_3_Struct + 5)    ; Pattern
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ------------------------------------------------------------------------------
@@ -557,16 +644,21 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_4_Struct + 1)    ; X
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_4_Struct + 4)    ; Pattern
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ----------------------------------------
@@ -581,16 +673,21 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_4_Struct + 10)    ; X1
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_4_Struct + 5)    ; Pattern
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ------------------------------------------------------------------------------
@@ -605,16 +702,21 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_5_Struct + 1)    ; X
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_5_Struct + 4)    ; Pattern
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ----------------------------------------
@@ -629,11 +731,13 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_5_Struct + 10)    ; X1
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_5_Struct + 5)    ; Pattern
     ; ld      (hl), a
     out     (PORT_0), a
@@ -641,6 +745,9 @@ Update_SPRATR:
     ; inc     hl
     ; ld      a, 0
     ; ld      (hl), a
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ------------------------------------------------------------------------------
@@ -655,16 +762,21 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_6_Struct + 1)    ; X
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_6_Struct + 4)    ; Pattern
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ----------------------------------------
@@ -679,16 +791,21 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_6_Struct + 10)    ; X1
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (Enemy_6_Struct + 5)    ; Pattern
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ================================== ENEMY SHOTS ===============================
@@ -705,11 +822,13 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (EnemyShot_0_Struct + 1)    ; X
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (EnemyShot_0_Struct + 4)    ; Pattern
     ; ld      (hl), a
     out     (PORT_0), a
@@ -717,6 +836,9 @@ Update_SPRATR:
     ; inc     hl
     ; ld      a, 0
     ; ld      (hl), a
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ----------------------------------------
@@ -731,11 +853,13 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (EnemyShot_1_Struct + 1)    ; X
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (EnemyShot_1_Struct + 4)    ; Pattern
     ; ld      (hl), a
     out     (PORT_0), a
@@ -743,6 +867,9 @@ Update_SPRATR:
     ; inc     hl
     ; ld      a, 0
     ; ld      (hl), a
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ----------------------------------------
@@ -757,11 +884,13 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (EnemyShot_2_Struct + 1)    ; X
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (EnemyShot_2_Struct + 4)    ; Pattern
     ; ld      (hl), a
     out     (PORT_0), a
@@ -769,6 +898,9 @@ Update_SPRATR:
     ; inc     hl
     ; ld      a, 0
     ; ld      (hl), a
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ----------------------------------------
@@ -783,11 +915,13 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (EnemyShot_3_Struct + 1)    ; X
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (EnemyShot_3_Struct + 4)    ; Pattern
     ; ld      (hl), a
     out     (PORT_0), a
@@ -795,6 +929,9 @@ Update_SPRATR:
     ; inc     hl
     ; ld      a, 0
     ; ld      (hl), a
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ----------------------------------------
@@ -809,11 +946,13 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (EnemyShot_4_Struct + 1)    ; X
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (EnemyShot_4_Struct + 4)    ; Pattern
     ; ld      (hl), a
     out     (PORT_0), a
@@ -821,6 +960,9 @@ Update_SPRATR:
     ; inc     hl
     ; ld      a, 0
     ; ld      (hl), a
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ----------------------------------------
@@ -835,11 +977,13 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (EnemyShot_5_Struct + 1)    ; X
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (EnemyShot_5_Struct + 4)    ; Pattern
     ; ld      (hl), a
     out     (PORT_0), a
@@ -847,6 +991,9 @@ Update_SPRATR:
     ; inc     hl
     ; ld      a, 0
     ; ld      (hl), a
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ----------------------------------------
@@ -861,11 +1008,13 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (EnemyShot_6_Struct + 1)    ; X
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (EnemyShot_6_Struct + 4)    ; Pattern
     ; ld      (hl), a
     out     (PORT_0), a
@@ -873,6 +1022,9 @@ Update_SPRATR:
     ; inc     hl
     ; ld      a, 0
     ; ld      (hl), a
+    nop
+    nop
+    nop
     out     (c), d
 
 ; ----------------------------------------
@@ -887,11 +1039,13 @@ Update_SPRATR:
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (GroundTarget_Sprite.X)    ; X
     ; ld      (hl), a
     out     (PORT_0), a
 
     ; inc     hl
+    nop
     ld      a, (GroundTarget_Sprite.PatternNumber)    ; Pattern
     ; ld      (hl), a
     out     (PORT_0), a
@@ -899,8 +1053,12 @@ Update_SPRATR:
     ; inc     hl
     ; ld      a, 0
     ; ld      (hl), a
+    nop
+    nop
+    nop
     out     (c), d
 
+; ----------------------------------------
 
 
     ret

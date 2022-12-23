@@ -1,4 +1,4 @@
-ENEMY_PIXELS_PER_MOV:    equ 3
+;ENEMY_PIXELS_PER_MOV:    equ 3
 
 
 
