@@ -23,6 +23,8 @@ ENEMY_FRAME_3_SPR_PAT_0_NUMBER:         equ 16 * 4
 ENEMY_FRAME_4_SPR_PAT_0_NUMBER:         equ 18 * 4
 ENEMY_FRAME_5_SPR_PAT_0_NUMBER:         equ 20 * 4    ; 20 and 21
 
+; sprite patterns # 41 to 56 are available to Big Enemies (7x sprites, 32x32)
+
 ENEMY_PLANE_TURNING_FRAME_0_SPR_PAT_0_NUMBER:         equ 41 * 4     ; 41 and 42
 ENEMY_PLANE_TURNING_FRAME_1_SPR_PAT_0_NUMBER:         equ 43 * 4
 ENEMY_PLANE_TURNING_FRAME_2_SPR_PAT_0_NUMBER:         equ 45 * 4
@@ -399,6 +401,10 @@ Update_SPRATR:
     out     (c), d
 
 ; ================================== ENEMIES ===================================
+
+; TODO:
+; if (Gameplay_Type == SMALL_ENEMIES)
+; elseif (Gameplay_Type == BIG_ENEMIES)
 
 ; ------------------------------------------------------------------------------
 
