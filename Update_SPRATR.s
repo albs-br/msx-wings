@@ -89,7 +89,6 @@ Update_SPRATR:
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ;ld      (hl), a
     out     (PORT_0), a
     
     ; use OUT's directly, instead of a buffer (saves 18 + 8 + 7 - 12 = 21 cycles per byte, 128 * 21 = 2688 cycles total)
@@ -103,21 +102,18 @@ Update_SPRATR:
     ; CAUTION: on V9938/58 sequential OUT's must be at least 15 cycles apart
     ; NOP is 5 cycles, 5 NOP's = 25 per sprite ==> 32 x 25 = 800 cycles wasted :(
 
-    ; inc     hl
     nop
     ld      a, (Player_X)
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Player_SpritePatternNumber)
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
+    ; TODO: these 3 NOP's can be changed by
+    ; ld        a, (Player_Y)
+    ; cp        e
+    ; (code of next sprite). Worse for legibilty, better for performance
     nop
     nop
     nop
@@ -126,29 +122,20 @@ Update_SPRATR:
 ; ----------------------------------------
 
     ; Sprite # 1
-    ; inc     hl
     ld      a, (Player_Y)
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Player_X)
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     ld      a, (Player_SpritePatternNumber)
     add     4
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
     nop
     nop
     nop
@@ -157,30 +144,21 @@ Update_SPRATR:
 ; ----------------------------------------
 
     ; Sprite # 2
-    ; inc     hl
     ld      a, (Player_Y)
     add     a, 16
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Player_X)
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     ld      a, (Player_SpritePatternNumber)
     add     8
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
     nop
     nop
     nop
@@ -189,33 +167,24 @@ Update_SPRATR:
 ; ----------------------------------------
 
     ; Sprite # 3
-    ; inc     hl
     ld      a, (Player_Y)
     add     a, 16
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ;ld      (hl), a
     out     (PORT_0), a
 
     ld      a, (Player_Spr3_Offset_X)
     ld      b, a
 
-    ; inc     hl
     ld      a, (Player_X)
     add     a, b            ; x offset
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     ld      a, (Player_SpritePatternNumber)
     add     12
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
     nop
     nop
     nop
@@ -226,27 +195,20 @@ Update_SPRATR:
 ; --------------------------------------------------------------------------------
 
     ; Sprite # 4
-    ; inc     hl
     ld      a, (PlayerShot_0_Struct + 2)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (PlayerShot_0_Struct + 1)    ; X
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (PlayerShot_0_Struct + 4)    ; Pattern number 0
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     nop
     nop
@@ -255,27 +217,20 @@ Update_SPRATR:
 ; ----------------------------------------
 
     ; Sprite # 5
-    ; inc     hl
     ld      a, (PlayerShot_0_Struct + 2)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     ld      a, (PlayerShot_0_Struct + 1)    ; X
     add     16
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (PlayerShot_0_Struct + 5)    ; Pattern number 1
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     nop
     nop
@@ -284,30 +239,23 @@ Update_SPRATR:
 ; --------------------------------------------------------------------------------
 
     ; Sprite # 6
-    ; inc     hl
     ld      a, (PlayerShot_1_Struct + 2)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ;ld      (hl), a
     out     (PORT_0), a
 
 
-    ; inc     hl
     nop
     ld      a, (PlayerShot_1_Struct + 1)    ; X
-    ;ld      (hl), a
     out     (PORT_0), a
 
 
-    ; inc     hl
     nop
     ld      a, (PlayerShot_1_Struct + 4)    ; Pattern number 0
-    ;ld      (hl), a
     out     (PORT_0), a
 
 
-    ; inc     hl
     nop
     nop
     nop
@@ -316,27 +264,20 @@ Update_SPRATR:
 ; ----------------------------------------
 
     ; Sprite # 7
-    ; inc     hl
     ld      a, (PlayerShot_1_Struct + 2)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     ld      a, (PlayerShot_1_Struct + 1)    ; X
     add     16
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (PlayerShot_1_Struct + 5)    ; Pattern number 1
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     nop
     nop
@@ -345,27 +286,20 @@ Update_SPRATR:
 ; --------------------------------------------------------------------------------
 
     ; Sprite # 8
-    ; inc     hl
     ld      a, (PlayerShot_2_Struct + 2)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (PlayerShot_2_Struct + 1)    ; X
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (PlayerShot_2_Struct + 4)    ; Pattern number 0
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     nop
     nop
@@ -374,27 +308,20 @@ Update_SPRATR:
 ; ----------------------------------------
 
     ; Sprite # 9
-    ; inc     hl
     ld      a, (PlayerShot_2_Struct + 2)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     ld      a, (PlayerShot_2_Struct + 1)    ; X
     add     16
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (PlayerShot_2_Struct + 5)    ; Pattern number 1
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     nop
     nop
@@ -409,27 +336,20 @@ Update_SPRATR:
 ; ------------------------------------------------------------------------------
 
     ; Sprite # 10
-    ; inc     hl
     ld      a, (Enemy_0_Struct + 2)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_0_Struct + 1)    ; X
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_0_Struct + 4)    ; Pattern 0
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     nop
     nop
@@ -438,27 +358,20 @@ Update_SPRATR:
 ; ----------------------------------------
 
     ; Sprite # 11
-    ; inc     hl
     ld      a, (Enemy_0_Struct + 11)    ; Y1
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_0_Struct + 10)    ; X1
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_0_Struct + 5)    ; Pattern 1
-    ;ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     nop
     nop
@@ -467,27 +380,20 @@ Update_SPRATR:
 ; ------------------------------------------------------------------------------
 
     ; Sprite # 12
-    ; inc     hl
     ld      a, (Enemy_1_Struct + 2)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_1_Struct + 1)    ; X
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_1_Struct + 4)    ; Pattern
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     nop
     nop
@@ -497,27 +403,20 @@ Update_SPRATR:
 ; ----------------------------------------
 
     ; Sprite # 13
-    ; inc     hl
     ld      a, (Enemy_1_Struct + 11)    ; Y1
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_1_Struct + 10)    ; X1
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_1_Struct + 5)    ; Pattern
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     nop
     nop
@@ -526,27 +425,20 @@ Update_SPRATR:
 ; ------------------------------------------------------------------------------
 
     ; Sprite # 14
-    ; inc     hl
     ld      a, (Enemy_2_Struct + 2)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_2_Struct + 1)    ; X
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_2_Struct + 4)    ; Pattern
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     nop
     nop
@@ -555,27 +447,20 @@ Update_SPRATR:
 ; ----------------------------------------
 
     ; Sprite # 15
-    ; inc     hl
     ld      a, (Enemy_2_Struct + 11)    ; Y1
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_2_Struct + 10)    ; X1
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_2_Struct + 5)    ; Pattern
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     nop
     nop
@@ -584,27 +469,20 @@ Update_SPRATR:
 ; ------------------------------------------------------------------------------
 
     ; Sprite # 16
-    ; inc     hl
     ld      a, (Enemy_3_Struct + 2)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_3_Struct + 1)    ; X
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_3_Struct + 4)    ; Pattern
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     nop
     nop
@@ -612,27 +490,20 @@ Update_SPRATR:
 ; ----------------------------------------
 
     ; Sprite # 17
-    ; inc     hl
     ld      a, (Enemy_3_Struct + 11)    ; Y1
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_3_Struct + 10)    ; X1
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_3_Struct + 5)    ; Pattern
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     nop
     nop
@@ -641,27 +512,20 @@ Update_SPRATR:
 ; ------------------------------------------------------------------------------
 
     ; Sprite # 18
-    ; inc     hl
     ld      a, (Enemy_4_Struct + 2)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_4_Struct + 1)    ; X
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_4_Struct + 4)    ; Pattern
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     nop
     nop
@@ -670,27 +534,20 @@ Update_SPRATR:
 ; ----------------------------------------
 
     ; Sprite # 19
-    ; inc     hl
     ld      a, (Enemy_4_Struct + 11)    ; Y1
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_4_Struct + 10)    ; X1
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_4_Struct + 5)    ; Pattern
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     nop
     nop
@@ -699,27 +556,20 @@ Update_SPRATR:
 ; ------------------------------------------------------------------------------
 
     ; Sprite # 20
-    ; inc     hl
     ld      a, (Enemy_5_Struct + 2)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_5_Struct + 1)    ; X
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_5_Struct + 4)    ; Pattern
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     nop
     nop
@@ -728,29 +578,20 @@ Update_SPRATR:
 ; ----------------------------------------
 
     ; Sprite # 21
-    ; inc     hl
     ld      a, (Enemy_5_Struct + 11)    ; Y1
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_5_Struct + 10)    ; X1
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_5_Struct + 5)    ; Pattern
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
     nop
     nop
     nop
@@ -759,27 +600,20 @@ Update_SPRATR:
 ; ------------------------------------------------------------------------------
 
     ; Sprite # 22
-    ; inc     hl
     ld      a, (Enemy_6_Struct + 2)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_6_Struct + 1)    ; X
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_6_Struct + 4)    ; Pattern
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     nop
     nop
@@ -788,27 +622,20 @@ Update_SPRATR:
 ; ----------------------------------------
 
     ; Sprite # 23
-    ; inc     hl
     ld      a, (Enemy_6_Struct + 11)    ; Y1
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_6_Struct + 10)    ; X1
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (Enemy_6_Struct + 5)    ; Pattern
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     nop
     nop
@@ -819,29 +646,20 @@ Update_SPRATR:
 ; ----------------------------------------
 
     ; Sprite # 24
-    ; inc     hl
     ld      a, (EnemyShot_0_Struct + 2)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (EnemyShot_0_Struct + 1)    ; X
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (EnemyShot_0_Struct + 4)    ; Pattern
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
     nop
     nop
     nop
@@ -850,29 +668,20 @@ Update_SPRATR:
 ; ----------------------------------------
 
     ; Sprite # 25
-    ; inc     hl
     ld      a, (EnemyShot_1_Struct + 2)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (EnemyShot_1_Struct + 1)    ; X
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (EnemyShot_1_Struct + 4)    ; Pattern
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
     nop
     nop
     nop
@@ -881,29 +690,20 @@ Update_SPRATR:
 ; ----------------------------------------
 
     ; Sprite # 26
-    ; inc     hl
     ld      a, (EnemyShot_2_Struct + 2)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (EnemyShot_2_Struct + 1)    ; X
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (EnemyShot_2_Struct + 4)    ; Pattern
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
     nop
     nop
     nop
@@ -912,29 +712,20 @@ Update_SPRATR:
 ; ----------------------------------------
 
     ; Sprite # 27
-    ; inc     hl
     ld      a, (EnemyShot_3_Struct + 2)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (EnemyShot_3_Struct + 1)    ; X
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (EnemyShot_3_Struct + 4)    ; Pattern
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
     nop
     nop
     nop
@@ -943,29 +734,20 @@ Update_SPRATR:
 ; ----------------------------------------
 
     ; Sprite # 28
-    ; inc     hl
     ld      a, (EnemyShot_4_Struct + 2)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (EnemyShot_4_Struct + 1)    ; X
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (EnemyShot_4_Struct + 4)    ; Pattern
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
     nop
     nop
     nop
@@ -974,29 +756,20 @@ Update_SPRATR:
 ; ----------------------------------------
 
     ; Sprite # 29
-    ; inc     hl
     ld      a, (EnemyShot_5_Struct + 2)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (EnemyShot_5_Struct + 1)    ; X
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (EnemyShot_5_Struct + 4)    ; Pattern
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
     nop
     nop
     nop
@@ -1005,29 +778,20 @@ Update_SPRATR:
 ; ----------------------------------------
 
     ; Sprite # 30
-    ; inc     hl
     ld      a, (EnemyShot_6_Struct + 2)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (EnemyShot_6_Struct + 1)    ; X
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (EnemyShot_6_Struct + 4)    ; Pattern
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
     nop
     nop
     nop
@@ -1036,29 +800,20 @@ Update_SPRATR:
 ; ----------------------------------------
 
     ; Sprite # 31
-    ; inc     hl
     ld      a, (GroundTarget_Sprite.Y)    ; Y
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (GroundTarget_Sprite.X)    ; X
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
     nop
     ld      a, (GroundTarget_Sprite.PatternNumber)    ; Pattern
-    ; ld      (hl), a
     out     (PORT_0), a
 
-    ; inc     hl
-    ; ld      a, 0
-    ; ld      (hl), a
     nop
     nop
     nop
