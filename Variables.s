@@ -53,7 +53,7 @@ Enemy_Temp_X1:                      rb 1
 Enemy_Temp_Y1:                      rb 1
 Enemy_Temp_Frame_Counter:           rw 1
 Enemy_Temp_ItemStruct_Addr:         rw 1    ; 0x0000 means that this enemy will not be turned into an item when killed,
-                                            ; otherwise stores the Item Struct Addr (should have the same index as the enemy)
+                                            ; otherwise it stores the Item Struct Addr (should have the same index as the enemy)
 Enemy_Temp_Struct.size:        equ $ - Enemy_Temp_Struct
 
 
@@ -66,6 +66,25 @@ Enemy_4_Struct:                    rb Enemy_Temp_Struct.size
 Enemy_5_Struct:                    rb Enemy_Temp_Struct.size
 Enemy_6_Struct:                    rb Enemy_Temp_Struct.size
 
+
+; ---------------------------------------
+
+; Boss_Struct:
+; .Status:                           rb 1    ; 0: dead, 1: alive, 2-?: explosion animation
+
+; .X0:                               rb 1
+; .Y0:                               rb 1
+; .Y0_Static:                        rb 1    ; y coord ignoring scroll
+; .Pattern_0:                        rb 1
+
+; ; TODO: X1...
+
+; .Data_Current_Addr:                rw 1
+; .SPRCOL_Addr:                      rw 1    ; VRAM addr for colors of these 14 patterns
+
+; .Frame_Counter:                    rw 1
+
+; .size:        equ $ - Boss_Struct
 
 ; ---------------------------------------
 

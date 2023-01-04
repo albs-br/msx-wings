@@ -275,7 +275,7 @@ AdjustSprites_Y:
     ; CAUTION: Adjust is only working when the objects are moving on 1px or 3px increments on Y coord (don't know why)
 
     ; TODO: if this routine has only one instruction, 
-    ; substitute the call by the instruction itself
+    ; substitute the call by the instruction itself saving 18 (call) + 11 (ret) = 29 cycles per object (!), aprox 900 cycles, pretty good optimization
     dec     (hl)
 
 ;     ld      a, (hl)
