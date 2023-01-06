@@ -72,9 +72,12 @@ Enemy_6_Struct:                    rb Enemy_Temp_Struct.size
 ; Boss_Struct:
 ; .Status:                           rb 1    ; 0: dead, 1: alive, 2-?: explosion animation
 
-; .X0:                               rb 1
-; .Y0:                               rb 1
-; .Y0_Static:                        rb 1    ; y coord ignoring scroll
+; .X:                                rb 1
+; .Y:                                rb 1
+; .Y_Static:                         rb 1    ; y coord ignoring scroll
+
+; .SPR_0_X:                          rb 1
+; .SPR_0_Y:                          rb 1
 ; .Pattern_0:                        rb 1
 
 ; ; TODO: X1...

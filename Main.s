@@ -52,6 +52,10 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     INCLUDE "GameLogic/GroundTargetLogic/GroundTarget_Reset.s"
     INCLUDE "GameLogic/GroundTargetLogic/GroundTarget_Logic.s"
 
+    ; INCLUDE "GameLogic/BossLogic/Boss_Init.s"
+    ; INCLUDE "GameLogic/BossLogic/Boss_Reset.s"
+    ; INCLUDE "GameLogic/BossLogic/Boss_Logic.s"
+
     INCLUDE "LevelData/LoadLevel.s"
     ; INCLUDE "LevelData/Level_1.s"         ; moved to a MegaROM page
     ; INCLUDE "EnemyData/EnemyData_1.s"     ; moved to a MegaROM page

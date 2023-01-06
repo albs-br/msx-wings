@@ -87,6 +87,10 @@ GameLogic:
 
     ; -------------------------------------------
 
+    ; call    Boss_Logic
+
+    ; -------------------------------------------
+
     ld      hl, (LevelCounter)
     inc     hl
     ld      (LevelCounter), hl
