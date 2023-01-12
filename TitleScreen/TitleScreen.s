@@ -377,15 +377,15 @@ TitleScreen:
 ;LINE_INTERRUPT_NUMBER: equ 96
 
 TITLE_FONT_ATR_TEST:
-    db 152, 128 - (16 * 5) + (16 * 0),      0 * 4,  0
-    db 152, 128 - (16 * 5) + (16 * 1),      1 * 4,  0
-    db 152, 128 - (16 * 5) + (16 * 2),      2 * 4,  0
-    db 152, 128 - (16 * 5) + (16 * 3),      3 * 4,  0
-    db 152, 128 - (16 * 5) + (16 * 4),      4 * 4,  0
-    db 168, 128 - (16 * 5) + (16 * 5),      5 * 4,  0
-    db 168, 128 - (16 * 5) + (16 * 6),      6 * 4,  0
-    db 168, 128 - (16 * 5) + (16 * 7),      7 * 4,  0
-    db 168, 128 - (16 * 5) + (16 * 8),      8 * 4,  0
+    db 152, 128 - (8 * 5) +  (8 * 0),      0 * 4,  0
+    db 152, 128 - (8 * 5) +  (8 * 1),      1 * 4,  0
+    db 152, 128 - (8 * 5) +  (8 * 2),      2 * 4,  0
+    db 152, 128 - (8 * 5) +  (8 * 3),      3 * 4,  0
+    db 152, 128 - (8 * 5) +  (8 * 4),      4 * 4,  0
+    db 168, 128 - (8 * 5) +  (8 * 5),      5 * 4,  0
+    db 168, 128 - (8 * 5) +  (8 * 6),      6 * 4,  0
+    db 168, 128 - (8 * 5) +  (8 * 7),      7 * 4,  0
+    db 168, 128 - (8 * 5) +  (8 * 8),      8 * 4,  0
     ;db 176, 128 - (16 * 5) + (16 * 9),      9 * 4,  0
 .size: equ $ - TITLE_FONT_ATR_TEST
 
@@ -434,7 +434,7 @@ InitLoopRoundPalette:
     ld      hl, SC5_SPRPAT + (32 * 0)
     call    SetVdp_Write
     ld      a, 'P'
-    call    GetLargeFont_PatternAddr
+    call    Get_MediumFont_PatternAddr
     ld      b, 32
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
     otir
@@ -443,7 +443,7 @@ InitLoopRoundPalette:
     ld      hl, SC5_SPRPAT + (32 * 1)
     call    SetVdp_Write
     ld      a, 'R'
-    call    GetLargeFont_PatternAddr
+    call    Get_MediumFont_PatternAddr
     ld      b, 32
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
     otir
@@ -452,7 +452,7 @@ InitLoopRoundPalette:
     ld      hl, SC5_SPRPAT + (32 * 2)
     call    SetVdp_Write
     ld      a, 'E'
-    call    GetLargeFont_PatternAddr
+    call    Get_MediumFont_PatternAddr
     ld      b, 32
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
     otir
@@ -461,7 +461,7 @@ InitLoopRoundPalette:
     ld      hl, SC5_SPRPAT + (32 * 3)
     call    SetVdp_Write
     ld      a, 'S'
-    call    GetLargeFont_PatternAddr
+    call    Get_MediumFont_PatternAddr
     ld      b, 32
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
     otir
@@ -470,7 +470,7 @@ InitLoopRoundPalette:
     ld      hl, SC5_SPRPAT + (32 * 4)
     call    SetVdp_Write
     ld      a, 'S'
-    call    GetLargeFont_PatternAddr
+    call    Get_MediumFont_PatternAddr
     ld      b, 32
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
     otir
@@ -479,7 +479,7 @@ InitLoopRoundPalette:
     ld      hl, SC5_SPRPAT + (32 * 5)
     call    SetVdp_Write
     ld      a, 'F'
-    call    GetLargeFont_PatternAddr
+    call    Get_MediumFont_PatternAddr
     ld      b, 32
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
     otir
@@ -488,7 +488,7 @@ InitLoopRoundPalette:
     ld      hl, SC5_SPRPAT + (32 * 6)
     call    SetVdp_Write
     ld      a, 'I'
-    call    GetLargeFont_PatternAddr
+    call    Get_MediumFont_PatternAddr
     ld      b, 32
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
     otir
@@ -497,7 +497,7 @@ InitLoopRoundPalette:
     ld      hl, SC5_SPRPAT + (32 * 7)
     call    SetVdp_Write
     ld      a, 'R'
-    call    GetLargeFont_PatternAddr
+    call    Get_MediumFont_PatternAddr
     ld      b, 32
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
     otir
@@ -506,7 +506,7 @@ InitLoopRoundPalette:
     ld      hl, SC5_SPRPAT + (32 * 8)
     call    SetVdp_Write
     ld      a, 'E'
-    call    GetLargeFont_PatternAddr
+    call    Get_MediumFont_PatternAddr
     ld      b, 32
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
     otir
