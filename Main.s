@@ -212,6 +212,7 @@ Execute:
 
     ; call    BlitSPRATR
 
+    ;call    PaletteCycling
 
     IFDEF DEBUG
         ld 		a, 7       	            ; Border color
