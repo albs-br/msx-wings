@@ -27,6 +27,7 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     INCLUDE "InitVariables.s"
     INCLUDE "Scroll.s"
     INCLUDE "ReadInput.s"
+    INCLUDE "PaletteCycling.s"
     
     INCLUDE "GameLogic/CommonLogic.s"
     INCLUDE "GameLogic/GameLogic.s"
@@ -98,7 +99,7 @@ Execute:
 
 
 
-    call    TitleScreen ; debug
+    ;call    TitleScreen ; debug
 
 
 
@@ -212,7 +213,7 @@ Execute:
 
     ; call    BlitSPRATR
 
-    ;call    PaletteCycling
+    call    PaletteCycling
 
     IFDEF DEBUG
         ld 		a, 7       	            ; Border color

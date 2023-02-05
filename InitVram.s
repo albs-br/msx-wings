@@ -65,7 +65,7 @@ SPRATR:     equ 0xfa00
 
 
 
-    ld      hl, PaletteData
+    ld      hl, PaletteData_0
     call    LoadPalette
 
     ret

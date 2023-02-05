@@ -1,5 +1,11 @@
-PaletteData:
+PaletteData_0:
     INCBIN "Graphics/Sprites/msx-wings.pal"
+
+PaletteData_1:
+    INCBIN "Graphics/Sprites/msx-wings_1.pal"
+
+PaletteData_2:
+    INCBIN "Graphics/Sprites/msx-wings_2.pal"
 
     ; ;  data 1 (red 0-7; blue 0-7); data 2 (0000; green 0-7)
     ; db 0x00, 0x00 ; Color index 0
@@ -150,7 +156,7 @@ SpritePattern_EnemyShot_0_and_1:
 
 ; Item P
 SpritePattern_Item_P_Frames_0_to_7:
-    ; INCLUDE "Graphics/Sprites/Item_P/item_p_patterns.s"
+    ;INCLUDE "Graphics/Sprites/Item_P/item_p_patterns.s"
     INCLUDE "Graphics/Sprites/Item_Bomb/item_bomb_patterns.s"
 .size:  equ $ - SpritePattern_Item_P_Frames_0_to_7
 
