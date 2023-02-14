@@ -27,7 +27,6 @@ PT3_ROUT: equ 044C7h ; last def. pass 3
 BIOS_T32PAT: equ 0F3C5h ; last def. pass 3
 VDP_LOGIC_OPERATION_XOR: equ 03h ; last def. pass 3
 ayFX_PLAY.TAKECB: equ 04443h ; last def. pass 3
-DONT_HAVE_ITEM: equ 00h ; last def. pass 3
 PlayerShot_Temp_Struct.size: equ 06h ; last def. pass 3
 ClearVram_MSX2: equ 040F3h ; last def. pass 3
 BIOS_INSFLG: equ 0FCA8h ; last def. pass 3
@@ -219,7 +218,6 @@ BIOS_YSAVE: equ 0FB00h ; last def. pass 3
 BIOS_DECTM2: equ 0F7F2h ; last def. pass 3
 EnemyData_2: equ 08E94h ; last def. pass 3
 BIOS_H_RSET: equ 0FE26h ; last def. pass 3
-HAS_ITEM: equ 01h ; last def. pass 3
 SpriteColors_EnemyPlane_Frame_2_Patterns_0_and_1: equ 07671h ; last def. pass 3
 BIOS_BAKCLR: equ 0F3EAh ; last def. pass 3
 BIOS_H_NEWS: equ 0FF3Eh ; last def. pass 3
@@ -927,6 +925,7 @@ BIOS_CNPNTS: equ 0F936h ; last def. pass 3
 BIOS_ERAFNK: equ 0CCh ; last def. pass 3
 CheckCollision_8x8_16x16.checkVerticalCollision: equ 041D9h ; last def. pass 3
 ENEMY_SHOT_1_SPRCOL_ADDR: equ 0F990h ; last def. pass 3
+GROUND_TARGET_HAS_ITEM: equ 01h ; last def. pass 3
 BIOS_MLTATR: equ 0F3D7h ; last def. pass 3
 BIOS_FILNAM: equ 0F866h ; last def. pass 3
 VARayFXEND: equ 0C238h ; last def. pass 3
@@ -951,6 +950,7 @@ SpritePattern_EnemyPlaneTurning_Frame_2_Patterns_0_and_1: equ 06E79h ; last def.
 EnemyShot_Logic.enemyShotColor_1: equ 059C0h ; last def. pass 3
 BIOS_CMASK: equ 0F92Ch ; last def. pass 3
 BIOS_RNDX: equ 0F857h ; last def. pass 3
+ITEM_BOMB: equ 065h ; last def. pass 3
 GroundTarget_Logic.return: equ 05DEFh ; last def. pass 3
 Level_2_Data: equ 08596h ; last def. pass 3
 BIOS_SKPCNT: equ 0F94Fh ; last def. pass 3
@@ -984,6 +984,7 @@ GroundTarget_1_Struct: equ 0C1A1h ; last def. pass 3
 BIOS_H_NULO: equ 0FE5Dh ; last def. pass 3
 LoadPlayerColors_Right_0: equ 053C1h ; last def. pass 3
 EnableSprites: equ 04168h ; last def. pass 3
+GROUND_TARGET_DONT_HAVE_ITEM: equ 00h ; last def. pass 3
 EnemyShot_Init.return: equ 058F5h ; last def. pass 3
 LevelTitleAnimation.animateChar_6: equ 06296h ; last def. pass 3
 BIOS_CGPNT: equ 0F91Fh ; last def. pass 3

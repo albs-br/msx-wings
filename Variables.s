@@ -195,6 +195,7 @@ LevelData_Temp_EnemyStruct_Addr:            rw 1    ; TODO: rename to a more gen
 LevelData_Temp_SPRCOL_Addr:                 rw 1
 LevelData_Temp_EnemyShotStruct_Addr:        rw 1
 LevelData_Temp_ExtraData_Addr:              rw 1    ; will hold Item Struct Adrr, for enemy entries
+;LevelData_Temp_Item_Type:                   rb 1    ; item type for enemies (Item P or Bomb)
 LevelData_Temp_Struct.size:         equ $ - LevelData_Temp_Struct
 
 ; info needed for EnemyShot:

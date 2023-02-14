@@ -1,35 +1,38 @@
 ENEMY_TYPE_1:           equ 1
 ENEMY_SHOT_TYPE_1:      equ 2
-ITEM_P:                 equ 100     ; this is gonna be used only on bonus stages
-GROUND_TARGET:          equ 150
+ITEM_P:                 equ 100
+ITEM_BOMB:              equ 101
 
-DONT_HAVE_ITEM:         equ 0
-HAS_ITEM:               equ 1
+
+; --------------------------------
+GROUND_TARGET:                        equ 150
+GROUND_TARGET_DONT_HAVE_ITEM:         equ 0
+GROUND_TARGET_HAS_ITEM:               equ 1
 
 Level_1_Data:
     ; TODO: level data in the same timing mark should work
 
-;                                           Initial_X                      EnemyStruct_Addr
-;       Counter     ActionType              |         Delta_X_Initial_Addr |               SPRCOL_Addr
-;       |           |                       |         |                    |               |
-    dw  10      db  ENEMY_TYPE_1,           32    dw  EnemyData_5     dw Enemy_0_Struct, ENEMY_0_SPRCOL_ADDR,      0,       Item_0_Struct
-    dw  11      db  ENEMY_TYPE_1,           64    dw  EnemyData_5     dw Enemy_1_Struct, ENEMY_1_SPRCOL_ADDR,      0,       Item_1_Struct
-    dw  12      db  ENEMY_TYPE_1,           96    dw  EnemyData_5     dw Enemy_2_Struct, ENEMY_2_SPRCOL_ADDR,      0,       Item_2_Struct
-    dw  20      db  ENEMY_TYPE_1,           128   dw  EnemyData_5     dw Enemy_3_Struct, ENEMY_3_SPRCOL_ADDR,      0,       Item_3_Struct        
-    dw  21      db  ENEMY_TYPE_1,           160   dw  EnemyData_5     dw Enemy_4_Struct, ENEMY_4_SPRCOL_ADDR,      0,       Item_4_Struct
-    dw  22      db  ENEMY_TYPE_1,           192   dw  EnemyData_5     dw Enemy_5_Struct, ENEMY_5_SPRCOL_ADDR,      0,       Item_5_Struct
+;                                           Initial_X                                     EnemyStruct_Addr
+;       Counter     ActionType              |         Delta_X_Initial_Addr                |                    SPRCOL_Addr
+;       |           |                       |         |                                   |                    |
+    dw  10      db  ENEMY_TYPE_1,           32    dw  EnemyData_5                      dw Enemy_0_Struct,      ENEMY_0_SPRCOL_ADDR,                  0, Item_0_Struct ; db 0 TODO: put LevelData_Temp_Item_Type on each line (all levels data)
+    dw  11      db  ENEMY_TYPE_1,           64    dw  EnemyData_5                      dw Enemy_1_Struct,      ENEMY_1_SPRCOL_ADDR,                  0, Item_1_Struct
+    dw  12      db  ENEMY_TYPE_1,           96    dw  EnemyData_5                      dw Enemy_2_Struct,      ENEMY_2_SPRCOL_ADDR,                  0, Item_2_Struct
+    dw  20      db  ENEMY_TYPE_1,           128   dw  EnemyData_5                      dw Enemy_3_Struct,      ENEMY_3_SPRCOL_ADDR,                  0, Item_3_Struct        
+    dw  21      db  ENEMY_TYPE_1,           160   dw  EnemyData_5                      dw Enemy_4_Struct,      ENEMY_4_SPRCOL_ADDR,                  0, Item_4_Struct
+    dw  22      db  ENEMY_TYPE_1,           192   dw  EnemyData_5                      dw Enemy_5_Struct,      ENEMY_5_SPRCOL_ADDR,                  0, Item_5_Struct
     ; test debug trap    
     ; dw  33      db  ENEMY_TYPE_1,           32    dw  EnemyData_1     dw Enemy_0_Struct, ENEMY_0_SPRCOL_ADDR,      0,       0
 
 
 
-    dw  35      db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_45_degrees_left  dw Enemy_3_Struct, ENEMY_SHOT_0_SPRCOL_ADDR, EnemyShot_0_Struct,       Item_0_Struct
-    dw  36      db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_left  dw Enemy_3_Struct, ENEMY_SHOT_1_SPRCOL_ADDR, EnemyShot_1_Struct,       0
-    dw  37      db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_0_degrees_center dw Enemy_3_Struct, ENEMY_SHOT_2_SPRCOL_ADDR, EnemyShot_2_Struct,       0
-    dw  38      db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right dw Enemy_3_Struct, ENEMY_SHOT_3_SPRCOL_ADDR, EnemyShot_3_Struct,       0
-    dw  39      db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_45_degrees_right dw Enemy_6_Struct, ENEMY_SHOT_4_SPRCOL_ADDR, EnemyShot_4_Struct,       0
-    dw  40      db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_left  dw Enemy_6_Struct, ENEMY_SHOT_5_SPRCOL_ADDR, EnemyShot_5_Struct,       0
-    dw  41      db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right dw Enemy_6_Struct, ENEMY_SHOT_6_SPRCOL_ADDR, EnemyShot_6_Struct,       0
+    dw  35      db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_45_degrees_left  dw Enemy_3_Struct, ENEMY_SHOT_0_SPRCOL_ADDR, EnemyShot_0_Struct,             0
+    dw  36      db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_left  dw Enemy_3_Struct, ENEMY_SHOT_1_SPRCOL_ADDR, EnemyShot_1_Struct,             0
+    dw  37      db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_0_degrees_center dw Enemy_3_Struct, ENEMY_SHOT_2_SPRCOL_ADDR, EnemyShot_2_Struct,             0
+    dw  38      db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right dw Enemy_3_Struct, ENEMY_SHOT_3_SPRCOL_ADDR, EnemyShot_3_Struct,             0
+    dw  39      db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_45_degrees_right dw Enemy_6_Struct, ENEMY_SHOT_4_SPRCOL_ADDR, EnemyShot_4_Struct,             0
+    dw  40      db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_left  dw Enemy_6_Struct, ENEMY_SHOT_5_SPRCOL_ADDR, EnemyShot_5_Struct,             0
+    dw  41      db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right dw Enemy_6_Struct, ENEMY_SHOT_6_SPRCOL_ADDR, EnemyShot_6_Struct,             0
     ; test debug trap    
     ;dw  42      db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_45_degrees_left  dw Enemy_6_Struct, ENEMY_SHOT_0_SPRCOL_ADDR, EnemyShot_0_Struct,       0
 
@@ -39,7 +42,7 @@ Level_1_Data:
     dw  152     db  ENEMY_TYPE_1,           128   dw  EnemyData_2     dw Enemy_2_Struct, ENEMY_2_SPRCOL_ADDR,      0,       0
     dw  154     db  ENEMY_TYPE_1,           160   dw  EnemyData_2     dw Enemy_3_Struct, ENEMY_3_SPRCOL_ADDR,      0,       0
 
-    dw  155     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right dw Enemy_0_Struct, ENEMY_SHOT_0_SPRCOL_ADDR, EnemyShot_0_Struct,       Item_0_Struct
+    dw  155     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right dw Enemy_0_Struct, ENEMY_SHOT_0_SPRCOL_ADDR, EnemyShot_0_Struct,       0
     dw  156     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_45_degrees_right dw Enemy_1_Struct, ENEMY_SHOT_1_SPRCOL_ADDR, EnemyShot_1_Struct,       0
     dw  157     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_0_degrees_center dw Enemy_2_Struct, ENEMY_SHOT_2_SPRCOL_ADDR, EnemyShot_2_Struct,       0
     dw  158     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_0_degrees_center dw Enemy_3_Struct, ENEMY_SHOT_3_SPRCOL_ADDR, EnemyShot_3_Struct,       0
@@ -77,7 +80,7 @@ Level_1_Data:
     ; -------------------------------------------
                                                                                                                         ;0: no item; 1: item
     ; 770px on image: counter at 240                                                                                        |
-    dw  240     db  GROUND_TARGET,          112   dw  0       dw GroundTarget_0_Struct, 0,                         0,       HAS_ITEM
+    dw  240     db  GROUND_TARGET,          112   dw  0       dw GroundTarget_0_Struct, 0,                         0,       GROUND_TARGET_HAS_ITEM
 
 
     dw  250     db  ENEMY_TYPE_1,           80    dw  EnemyData_0     dw Enemy_0_Struct, ENEMY_0_SPRCOL_ADDR,      0,       0
@@ -90,11 +93,11 @@ Level_1_Data:
     dw  256     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_left  dw Enemy_3_Struct, ENEMY_SHOT_2_SPRCOL_ADDR, EnemyShot_2_Struct,       0
     dw  257     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right dw Enemy_3_Struct, ENEMY_SHOT_3_SPRCOL_ADDR, EnemyShot_3_Struct,       0
     dw  258     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_0_degrees_center dw Enemy_1_Struct, ENEMY_SHOT_4_SPRCOL_ADDR, EnemyShot_4_Struct,       0
-    dw  259     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_0_degrees_center dw Enemy_2_Struct, ENEMY_SHOT_5_SPRCOL_ADDR, EnemyShot_5_Struct,       Item_5_Struct
+    dw  259     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_0_degrees_center dw Enemy_2_Struct, ENEMY_SHOT_5_SPRCOL_ADDR, EnemyShot_5_Struct,       0
 
 
     ; 760px on image: counter at 280
-    dw  280     db  GROUND_TARGET,          240   dw  0       dw GroundTarget_1_Struct, 0,                         0,       DONT_HAVE_ITEM
+    dw  280     db  GROUND_TARGET,          240   dw  0       dw GroundTarget_1_Struct, 0,                         0,       GROUND_TARGET_DONT_HAVE_ITEM
 
 
     dw  350     db  ENEMY_TYPE_1,           80    dw  EnemyData_0     dw Enemy_0_Struct, ENEMY_0_SPRCOL_ADDR,      0,       0
@@ -123,7 +126,7 @@ Level_1_Data:
 
 
     ; 720px on image: counter at 440
-    dw  440     db  GROUND_TARGET,          224   dw  0       dw GroundTarget_2_Struct, 0,                         0,       HAS_ITEM
+    dw  440     db  GROUND_TARGET,          224   dw  0       dw GroundTarget_2_Struct, 0,                         0,       GROUND_TARGET_HAS_ITEM
 
     ;dw  499     db  GROUND_TARGET,          0     dw  0       dw GroundTarget_0_Struct, GROUND_TARGET_SPRCOL_ADDR, 0,       0
 
@@ -191,12 +194,12 @@ Level_1_Data:
     dw  962      db  ENEMY_TYPE_1,           192   dw  EnemyData_5     dw Enemy_5_Struct, ENEMY_5_SPRCOL_ADDR,      0,       Item_5_Struct
 
     ; 560px on image: counter at 1080
-    dw  1080     db  GROUND_TARGET,          42    dw  0       dw GroundTarget_0_Struct, 0,                         0,       HAS_ITEM
-    dw  1160     db  GROUND_TARGET,          46    dw  0       dw GroundTarget_1_Struct, 0,                         0,       HAS_ITEM
-    dw  1161     db  GROUND_TARGET,          22    dw  0       dw GroundTarget_2_Struct, 0,                         0,       HAS_ITEM
-    dw  1240     db  GROUND_TARGET,          8     dw  0       dw GroundTarget_3_Struct, 0,                         0,       HAS_ITEM
-    dw  1241     db  GROUND_TARGET,          28    dw  0       dw GroundTarget_4_Struct, 0,                         0,       HAS_ITEM
-    dw  1242     db  GROUND_TARGET,          50    dw  0       dw GroundTarget_5_Struct, 0,                         0,       HAS_ITEM
+    dw  1080     db  GROUND_TARGET,          42    dw  0       dw GroundTarget_0_Struct, 0,                         0,       GROUND_TARGET_HAS_ITEM
+    dw  1160     db  GROUND_TARGET,          46    dw  0       dw GroundTarget_1_Struct, 0,                         0,       GROUND_TARGET_HAS_ITEM
+    dw  1161     db  GROUND_TARGET,          22    dw  0       dw GroundTarget_2_Struct, 0,                         0,       GROUND_TARGET_HAS_ITEM
+    dw  1240     db  GROUND_TARGET,          8     dw  0       dw GroundTarget_3_Struct, 0,                         0,       GROUND_TARGET_HAS_ITEM
+    dw  1241     db  GROUND_TARGET,          28    dw  0       dw GroundTarget_4_Struct, 0,                         0,       GROUND_TARGET_HAS_ITEM
+    dw  1242     db  GROUND_TARGET,          50    dw  0       dw GroundTarget_5_Struct, 0,                         0,       GROUND_TARGET_HAS_ITEM
 
 
     ; end marking of level data
