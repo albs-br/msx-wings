@@ -201,6 +201,16 @@ Level_1_Data:
     dw 1241     db  GROUND_TARGET,           28   dw  0                                dw GroundTarget_4_Struct,                  0,  0,       GROUND_TARGET_HAS_ITEM   db 0
     dw 1242     db  GROUND_TARGET,           50   dw  0                                dw GroundTarget_5_Struct,                  0,  0,       GROUND_TARGET_HAS_ITEM   db 0
 
+    
+    
+
+    dw 2000     db  ENEMY_TYPE_1,           80    dw  EnemyData_0                      dw Enemy_0_Struct,      ENEMY_0_SPRCOL_ADDR,                  0,             0   db 0
+
+    dw 2500     db  ENEMY_TYPE_1,           80    dw  EnemyData_0                      dw Enemy_0_Struct,      ENEMY_0_SPRCOL_ADDR,                  0,             0   db 0
+
+    dw 3000     db  ENEMY_TYPE_1,           80    dw  EnemyData_0                      dw Enemy_0_Struct,      ENEMY_0_SPRCOL_ADDR,                  0,             0   db 0
+
+    ;dw 3327 ; last LevelCounter for Level 1 BG
 
     ; end marking of level data
     dw  0

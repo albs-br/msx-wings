@@ -2,14 +2,14 @@
 #ram_watch   add     0xc002      -type byte      -desc Player_Y_Static      -format dec
 #ram_watch   add     0xc003      -type byte      -desc Player_SideMovementCounter      -format dec
 
-ram_watch   add     0xc005      -type byte       -desc Player_Shot_Level      -format dec
-ram_watch   add     0xc006      -type byte       -desc Player_Shot_Width      -format dec
+#ram_watch   add     0xc005      -type byte       -desc Player_Shot_Level      -format dec
+#ram_watch   add     0xc006      -type byte       -desc Player_Shot_Width      -format dec
 
-ram_watch   add     0xC20f      -type word       -desc LevelCounter      -format dec
+ram_watch   add     0xC210      -type word       -desc LevelCounter      -format dec
 
-ram_watch   add     0xc3cd      -type byte       -desc LevelInitAnimation_Counter      -format dec
+#ram_watch   add     0xc3cd      -type byte       -desc LevelInitAnimation_Counter      -format dec
 
-ram_watch   add     0xc3eb      -type byte       -desc T_SpaceBarPressed      -format dec
+#ram_watch   add     0xc3eb      -type byte       -desc T_SpaceBarPressed      -format dec
 
 
 
@@ -60,14 +60,15 @@ ram_watch   add     0xc3eb      -type byte       -desc T_SpaceBarPressed      -f
 
 #ram_watch   add      0xC0F4      -type byte      -desc Item_Temp_Y_Static       -format dec
 
-ram_watch   add     0xC20d      -type byte      -desc VerticalScroll       -format dec
+#ram_watch   add     0xC20d      -type byte      -desc VerticalScroll       -format dec
 
 #ram_watch   add     0xc007      -type byte      -desc PShot_0_Status       -format dec
 #ram_watch   add     0xc009      -type byte      -desc PShot_0_Y            -format dec
 
 #ram_watch   add     0xc01f      -type word      -desc NextShot_Struct_Addr       -format hex
 
-ram_watch   add     0xC235      -type byte      -desc FramesSkipped            -format dec
+ram_watch   add     0xC23d      -type byte      -desc FramesSkipped            -format dec
+
 #ram_watch   add     0xC3e9      -type word      -desc Title_Counter            -format dec
 
 #ram_watch   add     0xC3ea      -type byte      -desc Counter_LineInterrupt            -format dec
