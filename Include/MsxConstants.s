@@ -51,7 +51,7 @@ REG21SAV: equ 0xFFF4
 REG22SAV: equ 0xFFF5
 REG23SAV: equ 0xFFF6
 
-;REG24SAV don't exist
+;REG24SAV doesn't exist
 
 REG25SAV: equ 0xFFFA
 REG26SAV: equ 0xFFFB
