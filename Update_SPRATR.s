@@ -81,7 +81,9 @@ GROUND_TARGET_PAT_0_NUMBER:                      equ 40 * 4
 
 POINTS_1000_PAT_NUMBER:                          equ 57 * 4
 
-; -------------- NEXT AVAILABLE: 58 --------------------
+ITEM_BOMB_SPR_PAT_0_NUMBER:                      equ 58 * 4     ; 58 to 59  ; all frames of item bomb will be put here (each frame uses 2 sprites)
+
+; -------------- NEXT AVAILABLE: 60 --------------------
 
 EMPTY_SPR_PAT_NUMBER:                            equ 63 * 4
 

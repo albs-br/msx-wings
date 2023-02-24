@@ -156,8 +156,7 @@ SpritePattern_EnemyShot_0_and_1:
 
 ; Item P
 SpritePattern_Item_P_Frames_0_to_7:
-    ;INCLUDE "Graphics/Sprites/Item_P/item_p_patterns.s"
-    INCLUDE "Graphics/Sprites/Item_Bomb/item_bomb_patterns.s"
+    INCLUDE "Graphics/Sprites/Item_P/item_p_patterns.s"
 .size:  equ $ - SpritePattern_Item_P_Frames_0_to_7
 
 
@@ -313,8 +312,7 @@ SpriteColors_EnemyShot_0_to_2:
 
 ; Item P
 SpriteColors_Item_P_Frame_0:
-    ;INCLUDE "Graphics/Sprites/Item_P/item_p_colors.s"
-    INCLUDE "Graphics/Sprites/Item_Bomb/item_bomb_colors.s"
+    INCLUDE "Graphics/Sprites/Item_P/item_p_colors.s"
 .size:  equ $ - SpriteColors_Item_P_Frame_0
 
 

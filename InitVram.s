@@ -457,6 +457,18 @@ LoadSpritesForGameplay:
     ld      bc, SpritePattern_1000_points.size
     add     hl, bc
 
+    ; Spr 58 and 59 patterns
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+        ld      b, 64 ; loading just the 2 first sprites (1st frame of animation)        ; SpritePattern_Item_P_Frames_0_to_7.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ld      hl, SpritePattern_Item_Bomb_Frames_0_to_7
+        otir
+    pop     hl
+    ld      bc, 64
+    add     hl, bc
+
 
 ; --------- Load sprite colors
 

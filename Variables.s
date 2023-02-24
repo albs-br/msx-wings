@@ -129,6 +129,7 @@ Item_Temp_Y1:                      rb 1     ; not used
 Item_Temp_Frame_Counter:           rw 1
 Item_Temp_Delta_X:                 rb 1     ; +1 or -1
 Item_Temp_Delta_Y:                 rb 1     ; +1 or -1
+Item_Temp_Type:                    rb 1    ; item type (Item P or Bomb)
 Item_Temp_Struct.size:        equ $ - Item_Temp_Struct
 
 

@@ -30,14 +30,35 @@ Item_Init:
         inc     de
         ;ld      a, (de)
         ld      a, (Enemy_Temp_Y_Static)
-        sub     6                           ; not sure why, but Y static need to be ajusted by 6 pixels..,
+        sub     6                           ; not sure why, but Y static needs to be ajusted by 6 pixels..,
         ld      (Item_Temp_Y_Static), a
 
-        ld      a, ITEM_P_SPR_PAT_0_NUMBER
-        ld      (Item_Temp_Pattern_0), a
+        ; Item_Type = Enemy_Item_Type
+        ld      a, (Enemy_Temp_Item_Type)
+        ld      (Item_Temp_Type), a
 
+    ; cp      ITEM_P
+    ; jp      z, $ ; debug
+
+
+
+
+        ; ------ Load item patterns
+        ; if (Item_Type == ITEM_P) load ITEM_P_SPR_PAT_0_NUMBER else load ITEM_BOMB_SPR_PAT_0_NUMBER
+        ld      a, (Item_Temp_Type)
+        cp      ITEM_P
+        jp      nz, .itemBomb_Patterns
+        ld      a, ITEM_P_SPR_PAT_0_NUMBER
+        jp      .continue_Patterns
+.itemBomb_Patterns:
+        ld      a, ITEM_BOMB_SPR_PAT_0_NUMBER
+.continue_Patterns:
+        ;ld      a, ITEM_P_SPR_PAT_0_NUMBER
+        ld      (Item_Temp_Pattern_0), a
         add     4
         ld      (Item_Temp_Pattern_1), a
+
+
 
         inc     de
         inc     de
@@ -67,16 +88,29 @@ Item_Init:
 .continue:
         ld      (Item_Temp_Delta_X), a
 
-        ld      a, -1 ; TODO: randomize delta_X
+        ld      a, -1 ; TODO: randomize delta_Y (is it really necessary?)
         ld      (Item_Temp_Delta_Y), a
 
 
-        ; Load item colors
+
+
+        ; ------ Load item colors
         ld      a, 0000 0001 b
         ld      hl, (Item_Temp_SPRCOL_Addr)
         call    SetVdp_Write
         ld      c, PORT_0
+        
+        ; TODO: 24/02/2023 this check is already done above, optimize
+        ; if (Item_Type == ITEM_P) load SpriteColors_Item_P_Frame_0 else load SpriteColors_Item_Bomb_Frame_0
+        ld      a, (Item_Temp_Type)
+        cp      ITEM_P
+        jp      nz, .itemBomb_Colors    
         ld      hl, SpriteColors_Item_P_Frame_0
+        jp      .continue_Colors
+.itemBomb_Colors:
+        ld      hl, SpriteColors_Item_Bomb_Frame_0
+.continue_Colors:
+
         ; 32x OUTI
         outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
         outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 

@@ -260,6 +260,7 @@ Item_Logic:
 
 
 
+; TODO: put this routine on a separate file
 ItemAnimation:
 
     ld      a, (BIOS_JIFFY)
@@ -286,14 +287,15 @@ ItemAnimation:
     ret     z               ; summing up all Item's Status, if sum is 0, no one Item is enabled
 
 
+    ; ---- Update Item P animation pattern
     ld      a, (ItemAnimation_CurrentFrame)
-    and     0000 0111 b         ; mask to get a 0 to 8
+    and     0000 0111 b         ; mask to get a 0 to 7
 
     ; set HL to current pattern addr
     ld      hl, SpritePattern_Item_P_Frames_0_to_7
     ld      bc, 64
     ld      d, a
-    or      a
+    or      a ; set Z flag if frame is 0
 .loop:
     jp      z, .endLoop
     add     hl, bc              ; HL will be incremented 64 bytes x ItemAnimation_CurrentFrame
@@ -313,6 +315,40 @@ ItemAnimation:
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+
+
+
+    ; ---- Update Item Bomb animation pattern
+    ld      a, (ItemAnimation_CurrentFrame)
+    and     0000 0111 b         ; mask to get a 0 to 7
+
+    ; TODO 24/02/2023: this offset is already computed above, optimize
+    ; set HL to current pattern addr
+    ld      hl, SpritePattern_Item_Bomb_Frames_0_to_7
+    ld      bc, 64
+    ld      d, a
+    or      a ; set Z flag if frame is 0
+.loop_1:
+    jp      z, .endLoop_1
+    add     hl, bc              ; HL will be incremented 64 bytes x ItemAnimation_CurrentFrame
+    dec     d
+    jp      .loop_1
+.endLoop_1:
+
+    push    hl
+        ld      a, 0000 0001 b
+        ld      hl, SPRPAT + (ITEM_BOMB_SPR_PAT_0_NUMBER * 8)
+        call    SetVdp_Write
+    pop     hl
+    ; unrolled OUTIs
+    ld      c, PORT_0
+    ; 64x OUTI
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+
+
 
     ; next ItemAnimation_CurrentFrame
     ld      hl, ItemAnimation_CurrentFrame

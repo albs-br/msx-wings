@@ -1,6 +1,13 @@
 ; Input
 ;   HL: addr of item struct
 Item_Reset:
+
+    ; reset all struct fields
+    push    hl
+        ld      b, Item_Temp_Struct.size
+        call    ClearRamArea
+    pop     hl
+
     xor     a
     ld      (hl), a     ; Status
 
@@ -25,7 +32,5 @@ Item_Reset:
     inc     hl
     ld      a, EMPTY_SPR_PAT_NUMBER
     ld      (hl), a     ; Pattern 1
-
-    ; TODO: should other fields be reset too?
 
     ret
