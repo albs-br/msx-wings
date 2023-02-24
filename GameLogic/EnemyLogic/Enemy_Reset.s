@@ -1,6 +1,14 @@
 ; Input
 ;   HL: addr of enemy struct
 Enemy_Reset:
+
+    ; reset all struct fields
+    push    hl
+        ld      b, Enemy_Temp_Struct.size
+        call    ClearRamArea
+    pop     hl
+
+
     xor     a
     ld      (hl), a     ; Status
 
@@ -25,7 +33,5 @@ Enemy_Reset:
     inc     hl
     ld      a, EMPTY_SPR_PAT_NUMBER
     ld      (hl), a     ; Pattern 1
-
-    ; TODO: should other fields be reset too?
 
     ret

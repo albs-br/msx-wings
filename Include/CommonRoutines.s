@@ -21,6 +21,20 @@ ClearRam:
 
 
 
+; Inputs:
+;   HL: address
+;   B:  size
+ClearRamArea:
+    xor     a
+.loop:
+    ld      (hl), a
+    inc     hl
+    djnz    .loop
+
+    ret
+
+
+
 ; Input:
 ;   A: Color number
 ;   B: high nibble: red 0-7; low nibble: blue 0-7

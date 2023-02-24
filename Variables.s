@@ -54,6 +54,7 @@ Enemy_Temp_Y1:                      rb 1
 Enemy_Temp_Frame_Counter:           rw 1
 Enemy_Temp_ItemStruct_Addr:         rw 1    ; 0x0000 means that this enemy will not be turned into an item when killed,
                                             ; otherwise it stores the Item Struct Addr (should have the same index as the enemy)
+Enemy_Temp_Item_Type:               rb 1    ; item type (Item P or Bomb)
 Enemy_Temp_Struct.size:        equ $ - Enemy_Temp_Struct
 
 
@@ -194,7 +195,7 @@ LevelData_Temp_Data_Initial_Addr:           rw 1
 LevelData_Temp_EnemyStruct_Addr:            rw 1    ; TODO: rename to a more generic name like LevelData_Temp_ObjectStruct_Addr
 LevelData_Temp_SPRCOL_Addr:                 rw 1
 LevelData_Temp_EnemyShotStruct_Addr:        rw 1
-LevelData_Temp_ExtraData_Addr:              rw 1    ; will hold Item Struct Adrr, for enemy entries
+LevelData_Temp_ExtraData_Addr:              rw 1    ; will hold Item Struct Addr, for enemy entries
 LevelData_Temp_Item_Type:                   rb 1    ; item type for enemies (Item P or Bomb)
 LevelData_Temp_Struct.size:         equ $ - LevelData_Temp_Struct
 

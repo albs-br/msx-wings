@@ -97,6 +97,8 @@ Enemy_Init:
     ld      hl, (LevelData_Temp_ExtraData_Addr)
     ld      (Enemy_Temp_ItemStruct_Addr), hl                ; Item data addr
 
+    ld      a, (LevelData_Temp_Item_Type)
+    ld      (Enemy_Temp_Item_Type), a                       ; Item type (Item P or Bomb)
 
 
     ;call    LoadDataFromEnemyData
