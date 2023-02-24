@@ -48,6 +48,7 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     INCLUDE "GameLogic/ItemLogic/Item_Init.s"
     INCLUDE "GameLogic/ItemLogic/Item_Reset.s"
     INCLUDE "GameLogic/ItemLogic/Item_Logic.s"
+    INCLUDE "GameLogic/ItemLogic/ItemAnimation.s"
 
     INCLUDE "GameLogic/GroundTargetLogic/GroundTarget_Init.s"
     INCLUDE "GameLogic/GroundTargetLogic/GroundTarget_Reset.s"
