@@ -102,14 +102,30 @@ ExecuteScroll:
     ; that will be the next to be shown on top of screen
     ld	    a, (CurrentMegaROMPage)
 	ld	    (Seg_P8000_SW), a
+
+    ; old (slow)
+    ; ld      hl, (CurrentAddrLineScroll)             ; RAM address (source)
+    ; ld		de, (CurrentVRAMAddrLineScroll)         ; VRAM address (destiny)
+    ; ld		bc, 256					                ; Block length
+    ; call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
+
+    ; new (optimized) OTIR = 23 cycles/byte = 256x23 = 5888 cycles/frame ; OUTI = 18 cycles/byte = 256x18 = 4608 cycles/frame
+    ld      a, 0000 0000 b
+    ld		hl, (CurrentVRAMAddrLineScroll)         ; VRAM address (destiny)
+    call    SetVdp_Write
+    ; unrolled OUTIs
     ld      hl, (CurrentAddrLineScroll)             ; RAM address (source)
-    ld		de, (CurrentVRAMAddrLineScroll)         ; VRAM address (destiny)
-    ld		bc, 256					                ; Block length
-    call 	BIOS_LDIRVM        						; Block transfer to VRAM from memory
-	; ld	    hl, (CurrentVRAMAddrLineScroll)		; VRAM start address
-    ; ld      bc, 256                             ; number of bytes
-    ; ld      a, 00011100 b                       ; value
-    ; call    BIOS_FILVRM                         ; Fill VRAM
+    ld      c, PORT_0
+    ; 256x OUTI
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+
 
 
 
