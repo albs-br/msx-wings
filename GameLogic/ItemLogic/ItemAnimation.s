@@ -25,21 +25,26 @@ ItemAnimation:
     ret     z               ; summing up all Item's Status, if sum is 0, no one Item is enabled
 
 
-    ; ---- Update Item P animation pattern
+
+    ; calc offset for pattern addr based on current animation frame and put it on DE
     ld      a, (ItemAnimation_CurrentFrame)
     and     0000 0111 b         ; mask to get a 0 to 7
 
-    ; set HL to current pattern addr
-    ld      hl, SpritePattern_Item_P_Frames_0_to_7
-    ld      bc, 64
-    ld      d, a
-    or      a ; set Z flag if frame is 0
+    ld      hl, 0
+    ld      de, 64
 .loop:
     jp      z, .endLoop
-    add     hl, bc              ; HL will be incremented 64 bytes x ItemAnimation_CurrentFrame
-    dec     d
+    add     hl, de              ; HL will be incremented 64 bytes x ItemAnimation_CurrentFrame
+    dec     a
     jp      .loop
 .endLoop:
+    ex      de, hl
+
+
+
+    ; update Item P animation pattern
+    ld      hl, SpritePattern_Item_P_Frames_0_to_7
+    add     hl, de
 
     push    hl
         ld      a, 0000 0001 b
@@ -56,22 +61,9 @@ ItemAnimation:
 
 
 
-    ; ---- Update Item Bomb animation pattern
-    ld      a, (ItemAnimation_CurrentFrame)
-    and     0000 0111 b         ; mask to get a 0 to 7
-
-    ; TODO 24/02/2023: this offset is already computed above, optimize
-    ; set HL to current pattern addr
+    ; update Item Bomb animation pattern
     ld      hl, SpritePattern_Item_Bomb_Frames_0_to_7
-    ld      bc, 64
-    ld      d, a
-    or      a ; set Z flag if frame is 0
-.loop_1:
-    jp      z, .endLoop_1
-    add     hl, bc              ; HL will be incremented 64 bytes x ItemAnimation_CurrentFrame
-    dec     d
-    jp      .loop_1
-.endLoop_1:
+    add     hl, de
 
     push    hl
         ld      a, 0000 0001 b
