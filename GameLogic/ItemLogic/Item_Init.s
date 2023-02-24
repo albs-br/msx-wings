@@ -49,11 +49,12 @@ Item_Init:
         cp      ITEM_P
         jp      nz, .itemBomb_Patterns
         ld      a, ITEM_P_SPR_PAT_0_NUMBER
+        ld      ix, SpriteColors_Item_P_Frame_0
         jp      .continue_Patterns
 .itemBomb_Patterns:
         ld      a, ITEM_BOMB_SPR_PAT_0_NUMBER
+        ld      ix, SpriteColors_Item_Bomb_Frame_0
 .continue_Patterns:
-        ;ld      a, ITEM_P_SPR_PAT_0_NUMBER
         ld      (Item_Temp_Pattern_0), a
         add     4
         ld      (Item_Temp_Pattern_1), a
@@ -100,16 +101,9 @@ Item_Init:
         call    SetVdp_Write
         ld      c, PORT_0
         
-        ; TODO: 24/02/2023 this check is already done above, optimize
-        ; if (Item_Type == ITEM_P) load SpriteColors_Item_P_Frame_0 else load SpriteColors_Item_Bomb_Frame_0
-        ld      a, (Item_Temp_Type)
-        cp      ITEM_P
-        jp      nz, .itemBomb_Colors    
-        ld      hl, SpriteColors_Item_P_Frame_0
-        jp      .continue_Colors
-.itemBomb_Colors:
-        ld      hl, SpriteColors_Item_Bomb_Frame_0
-.continue_Colors:
+        ; HL = IX
+        push    ix
+        pop     hl
 
         ; 32x OUTI
         outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
