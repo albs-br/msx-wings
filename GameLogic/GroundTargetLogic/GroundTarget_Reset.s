@@ -1,6 +1,14 @@
 ; Input
 ;   HL: addr of item struct
 GroundTarget_Reset:
+
+    ; reset all struct fields
+    push    hl
+        ld      b, GroundTarget_Temp_Struct.size
+        call    ClearRamArea
+    pop     hl
+
+
     xor     a
     ld      (hl), a     ; Status
 
@@ -27,8 +35,6 @@ GroundTarget_Reset:
     ; ld      a, EMPTY_SPR_PAT_NUMBER
     ; ld      (hl), a     ; Pattern 1
 
-    ; TODO: should other fields be reset too?
-    
 
 
     ; Ground target sprite attributes

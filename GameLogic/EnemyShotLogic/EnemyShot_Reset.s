@@ -1,6 +1,14 @@
 ; Input
 ;   HL: addr of enemy shot struct
 EnemyShot_Reset:
+
+    ; reset all struct fields
+    push    hl
+        ld      b, EnemyShot_Temp_Struct.size
+        call    ClearRamArea
+    pop     hl
+
+
     xor     a
     ld      (hl), a     ; Status
 

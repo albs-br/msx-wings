@@ -8,6 +8,7 @@ Item_Reset:
         call    ClearRamArea
     pop     hl
 
+
     xor     a
     ld      (hl), a     ; Status
 

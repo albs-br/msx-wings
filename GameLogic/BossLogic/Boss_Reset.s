@@ -1,4 +1,12 @@
 ; Boss_Reset:
+
+    ; ; reset all struct fields
+    ; push    hl
+    ;     ld      b, Boss_Struct.size
+    ;     call    ClearRamArea
+    ; pop     hl
+
+
 ;     xor     a
 ;     ld      (Boss_Struct.Status), a     ; Status
 
@@ -18,7 +26,5 @@
 ;     ld      (Boss_Struct.Pattern_0), a
 ;     ld      (Boss_Struct.Pattern_1), a
 
-
-;     ; TODO: should other fields be reset too?
 
 ;     ret
