@@ -1016,7 +1016,7 @@
 LEVEL_DATA_MEGAROM_PAGE:        equ 242
 ENEMY_DATA_MEGAROM_PAGE:        equ 242
 ENEMY_SHOT_DATA_MEGAROM_PAGE:   equ 242
-
+SFX_MEGAROM_PAGE:               equ 242
 
 ; ------- Page 242
 	org	0x8000, 0xBFFF
@@ -1027,6 +1027,7 @@ ENEMY_SHOT_DATA_MEGAROM_PAGE:   equ 242
     INCLUDE "EnemyData/EnemyPlane/EnemyPlane_Data.s"
     INCLUDE "EnemyData/EnemyPlaneTurning/EnemyPlaneTurning_Data.s"
     INCLUDE "EnemyData/EnemyShotData.s"
+    INCLUDE "Sound/Sfx/MsxWingsSfx_Bank.s"      
 MEGAROM_PAGE_242_size:          equ $ - 0x8000
 	ds PAGE_SIZE - ($ - 0x8000), 255
 

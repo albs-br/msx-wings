@@ -77,7 +77,7 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     ; Assets
     INCLUDE "Graphics/Sprites/SpriteAssets.s"
     ; INCLUDE "Graphics/Sprites/Fonts/Fonts.s"     ; moved to a MegaROM page
-    INCLUDE "Sound/Sfx/MsxWingsSfx_Bank.s"
+    ; INCLUDE "Sound/Sfx/MsxWingsSfx_Bank.s"       ; moved to a MegaROM page
 	INCLUDE "Graphics/Bitmaps/GroundTargetDestroyed.s"
     ; background bitmaps are on MegaRomPages.s
 
@@ -130,6 +130,11 @@ Execute:
 
     call    InitVariables
 
+
+
+    ; set MegaROM page for SFX data
+    ld      a, SFX_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
     
     ; Setup ayFXreplayer
     ld      hl, MsxWingsSfx_Bank

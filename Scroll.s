@@ -116,15 +116,12 @@ ExecuteScroll:
     ; unrolled OUTIs
     ld      hl, (CurrentAddrLineScroll)             ; RAM address (source)
     ld      c, PORT_0
-    ; 256x OUTI
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ld      d, 8
+.loopOUTI:
+        ; 32x OUTI
+        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    dec     d
+    jp      nz, .loopOUTI
 
 
 
