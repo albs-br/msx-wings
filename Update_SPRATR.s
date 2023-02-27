@@ -2,7 +2,7 @@
 ;       =====================
 
 ;       qty     range
-;       4       0-3         Player plane (can be improved to only 4 by using an offset on sprites overlapping)
+;       4       0-3         Player plane (was 6, then improved to only 4 by using an offset on sprites overlapping)
 ;       6       4-9         Player shots (3x 16x16 sprites for simple shots; 3x 32x16 for double shots)
 ;       14      10-23       Enemies (*)
 ;       7       24-30       Enemy shots (7x 16x16 single sprites) or player bomb sprites (14 sprites alternating 7 per frame)(**)
