@@ -29,28 +29,60 @@ Copy16x16ImageFromRAMToVRAM:
                 ex      de, hl          ; HL <= DE (source image on RAM)
                 ; ; 16x OUTI
                 ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+
                 ld      de, CurrentLineBGPixels
                 ld      b, 16
+
+; ; old version (152/147 cycles)
+;             .loop_1:
+;                 ld      a, (hl)         ; TODO: or (hl) is 5 pixels faster per pixel (256 pixels) on blank pixels
+;                 or      a               ; on the other hand will need a ld a, (HL) on non-blank pixels
+;                 jp      nz, .continue_1          ; if (pixel == 0) ignore
+;             ; .keepBGpixel:
+;                 ld      a, (de)
+;                 jp      .next_1
+;             .continue_1:
+;                 ; TODO: put this mask on a register (if possible), saving 3 cycles per pixel
+;                 and     1111 1000 b             ; mask to keep 5 high bits from source
+;                 push    af; TODO: this push/pop can be replaced by putting the value on C register
+;                     ld      a, (de)
+;                     ; TODO: put this mask on a register (if possible), saving 3 cycles per pixel
+;                     and     0000 0111 b         ; mask to keep 3 low bits from bg
+;                     ld      ixh, a ; TODO: ld C,A is 5 cycles faster, per pixel
+;                 pop     af
+;                 or      ixh     ; TODO: or C is 5 cycles faster, per pixel
+;             .next_1:
+;                 out     (c), a      ; TODO: out (port_0),a is 2 cycles faster per pixel (256 pixels)
+;                 inc     hl
+;                 inc     de
+;                 djnz    .loop_1
+
+;new version (117/112 cycles), 35 cycles saved, per pixel (9000 cycles total !!!)
             .loop_1:
-                ld      a, (hl)
-                or      a
-                jp      nz, .continue_1          ; if (pixel == 0) ignore
+                ld      a, (hl)         
+                or      a               
+                jp      nz, .continue_1         ; if (pixel == 0) ignore
             ; .keepBGpixel:
                 ld      a, (de)
                 jp      .next_1
             .continue_1:
                 and     1111 1000 b             ; mask to keep 5 high bits from source
-                push    af
-                    ld      a, (de)
-                    and     0000 0111 b         ; mask to keep 3 low bits from bg
-                    ld      ixh, a
-                pop     af
-                or      ixh
+                ld      c, a
+                ld      a, (de)
+                and     0000 0111 b             ; mask to keep 3 low bits from bg
+                or      c
             .next_1:
-                out     (c), a
-                inc     hl
-                inc     de
+                out     (PORT_0), a
+                inc     hl                  ; TODO: if data is table aligned can be replaced by INC L, saving 2 cycles per pixel
+                inc     de                  ; TODO: if data is table aligned can be replaced by INC E, saving 2 cycles per pixel
                 djnz    .loop_1
+
+; TNIASM ALIGN directive: https://www.msx.org/forum/msx-talk/development/tniasm-align
+; If you want to keep using tniASM and you want to use something like ALIGN, you can easily replicate its functionality with the
+; ds command (define space). For example, if you wanted to write align #4000, you could write ds (((($-1)/#4000)+1)*#4000-$), 
+; which does exactly the same thing.
+; GuyveR800 says this works: ds (($-1) & -4000h) + 4000h - $
+
 
             pop     hl
             ld      bc, 256  ; next line on screen 11

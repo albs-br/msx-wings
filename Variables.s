@@ -271,7 +271,8 @@ CurrentJiffy:                    rb 1
 
 ; ---------------------------------------
 
-; TODO: put this buffer table aligned so you can INC only L, saving (128 * 2 = 256) cycles
+; TODO (canceled): put this buffer table aligned so you can INC only L, saving (128 * 2 = 256) cycles
+; update: this buffer isn't used on gameplay anymore, only on Level title init animation (no need to performance there)
 SPRATR_Buffer:      rb 32 * 4
 .size:  equ $ - SPRATR_Buffer
 
@@ -297,14 +298,14 @@ ConvertMsx2SpritesToSc11_Output:                rb 16*16
 
 ; ---------------------------------------
 
-LevelInitAnimation_Counter:     rb 1
+LevelInitAnimation_Counter:                      rb 1
 LevelInitAnimation_Char_1_LookupTable_Addr:      rw 1
 LevelInitAnimation_Char_2_LookupTable_Addr:      rw 1
 LevelInitAnimation_Char_3_LookupTable_Addr:      rw 1
 LevelInitAnimation_Char_4_LookupTable_Addr:      rw 1
 LevelInitAnimation_Char_5_LookupTable_Addr:      rw 1
 LevelInitAnimation_Char_6_LookupTable_Addr:      rw 1
-LevelInitAnimation_Counter_1:     rb 1
+LevelInitAnimation_Counter_1:                    rb 1
 
 ; ---------------------------------------
 
