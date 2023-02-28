@@ -28,23 +28,23 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     INCLUDE "Scroll.s"
     INCLUDE "ReadInput.s"
     INCLUDE "PaletteCycling.s"
-    
+
     INCLUDE "GameLogic/CommonLogic.s"
     INCLUDE "GameLogic/GameLogic.s"
     INCLUDE "GameLogic/PlayerLogic.s"
-    
+
     INCLUDE "GameLogic/PlayerShotLogic/PlayerShot_Init.s"
     INCLUDE "GameLogic/PlayerShotLogic/PlayerShot_Reset.s"
     INCLUDE "GameLogic/PlayerShotLogic/PlayerShot_Logic.s"
-    
+
     INCLUDE "GameLogic/EnemyLogic/Enemy_Init.s"
     INCLUDE "GameLogic/EnemyLogic/Enemy_Reset.s"
     INCLUDE "GameLogic/EnemyLogic/Enemy_Logic.s"
-    
+
     INCLUDE "GameLogic/EnemyShotLogic/EnemyShot_Init.s"
     INCLUDE "GameLogic/EnemyShotLogic/EnemyShot_Reset.s"
     INCLUDE "GameLogic/EnemyShotLogic/EnemyShot_Logic.s"
-    
+
     INCLUDE "GameLogic/ItemLogic/Item_Init.s"
     INCLUDE "GameLogic/ItemLogic/Item_Reset.s"
     INCLUDE "GameLogic/ItemLogic/Item_Logic.s"
@@ -66,7 +66,7 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
 
     INCLUDE "LevelTitleAnimation/LevelTitleAnimation.s"
     INCLUDE "LevelTitleAnimation/Data.s"
-    
+
     INCLUDE "DebugMessage.s"
 
     INCLUDE "Graphics/Sprites/Fonts/FontsTest.s"
@@ -77,7 +77,7 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     ; Assets
     INCLUDE "Graphics/Sprites/SpriteAssets.s"
     ; INCLUDE "Graphics/Sprites/Fonts/Fonts.s"     ; moved to a MegaROM page
-    ; INCLUDE "Sound/Sfx/MsxWingsSfx_Bank.s" ;moved to a MegaROM page ATTENTION: MOVED BACK cos it was causing bug (sound tone keeps playing after sfx ended)
+    INCLUDE "Sound/Sfx/MsxWingsSfx_Bank.s" ;moved to a MegaROM page ATTENTION: MOVED BACK cos it was causing bug (sound tone keeps playing after sfx ended)
 	INCLUDE "Graphics/Bitmaps/GroundTargetDestroyed.s"
     ; background bitmaps are on MegaRomPages.s
 
@@ -132,10 +132,10 @@ Execute:
 
 
 
-    ; set MegaROM page for SFX data
-    ld      a, SFX_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
-    
+    ; ; set MegaROM page for SFX data
+    ; ld      a, SFX_MEGAROM_PAGE
+    ; ld	    (Seg_P8000_SW), a
+
     ; Setup ayFXreplayer
     ld      hl, MsxWingsSfx_Bank
     ld      a, 200
@@ -197,7 +197,7 @@ Execute:
         ; Save Jiffy to check if previous frame ended
         ld      a, (hl)
         ld      (CurrentJiffy), a
-    ENDIF    
+    ENDIF
 
 
 
@@ -209,7 +209,7 @@ Execute:
 
     IFDEF DEBUG
         ld 		a, 4       	            ; Border color
-        ld 		(BIOS_BDRCLR), a    
+        ld 		(BIOS_BDRCLR), a
         call 	BIOS_CHGCLR        		; Change Screen Color
     ENDIF
 
@@ -223,7 +223,7 @@ Execute:
 
     IFDEF DEBUG
         ld 		a, 7       	            ; Border color
-        ld 		(BIOS_BDRCLR), a    
+        ld 		(BIOS_BDRCLR), a
         call 	BIOS_CHGCLR        		; Change Screen Color
     ENDIF
 
@@ -247,7 +247,7 @@ Execute:
 
     IFDEF DEBUG
         ld 		a, 8       	            ; Border color
-        ld 		(BIOS_BDRCLR), a    
+        ld 		(BIOS_BDRCLR), a
         call 	BIOS_CHGCLR        		; Change Screen Color
     ENDIF
 

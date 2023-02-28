@@ -2,9 +2,9 @@
 ;   A: number of sfx in the bank
 ;   C: sound priority (0-15) of sample. 0: min, 15: max
 PlaySfx:
-    ; set MegaROM page for SFX data
-    ld      a, SFX_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ; set MegaROM page for SFX data
+    ; ld      a, SFX_MEGAROM_PAGE
+    ; ld	    (Seg_P8000_SW), a
 
     ; ld      hl, MsxWingsSfx_Bank
     ; ;ld      a, 200
