@@ -18,11 +18,9 @@
 ; (**)
 ; player bomb sprites
 ; odd frames:
-;  X X X
-; X X X X
+;  X X X X X X X
 ; even frames:
-; X X X X
-;  X X X
+; X X X X X X X
 ; horizontal spacing between sprites: 18 pixels (18 x 14 = 252)
 
 PLAYER_SPR_PAT_0_NUMBER:                equ 0 * 4
