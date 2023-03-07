@@ -156,6 +156,18 @@ Item_Logic:
 
     .collision:
 
+        ; if (Item_Type == ITEM_P) { improve player shot } else { increment bombs number }
+        ld      a, (Item_Temp_Type)
+        cp      ITEM_P
+        jp      z, .playerGotItemType_P
+
+        ; --------------- increment bombs number
+        ld      hl, Player_BombsNumber
+        inc     (hl)
+
+        jp      .playGetItemSfx
+
+.playerGotItemType_P:
         ; --------------- improve player shot
         
         ; if(Player_Shot_Level == PLAYER_SHOT_LEVEL_3) do nothing

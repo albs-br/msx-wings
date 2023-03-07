@@ -663,7 +663,7 @@ Update_SPRATR:
 ; ================================== ENEMY SHOTS ===============================
 
 ; TODO:
-; if (!PlayerBombActive) 
+; if (!Player_BombActive) 
 ;   showEnemyShots;
 ; else
 ;   showPlayerBomb;

@@ -14,6 +14,9 @@ Player_SpritePatternNumber:         rb 1
 
 Player_Spr3_Offset_X:               rb 1
 
+Player_BombsNumber:                 rb 1 ; ITEM_P or ITEM_BOMB
+; Player_BombActive:                  rb 1 ; 0: disabled; 1: enabled
+
 ; ---------------------------------------
 
 PlayerShot_Temp_Struct:

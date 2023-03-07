@@ -19,6 +19,8 @@ InitVariables:
     ld      a, h
     ld      (Seed + 1), a
 
+
+
     ld      a, PLAYER_INITIAL_X
     ld      (Player_X), a
 
@@ -50,6 +52,9 @@ InitVariables:
     ; call    PlayerShot_Reset
     ; ld      hl, PlayerShot_5_Struct
     ; call    PlayerShot_Reset
+
+    ld      a, 3
+    ld      (Player_BombsNumber), a
 
 
     ld      hl, Enemy_0_Struct
