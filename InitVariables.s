@@ -55,6 +55,8 @@ InitVariables:
 
     ld      a, 3
     ld      (Player_BombsNumber), a
+    xor     a
+    ld      (Player_BombActive), a
 
 
     ld      hl, Enemy_0_Struct

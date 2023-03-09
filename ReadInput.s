@@ -20,6 +20,11 @@ ReadInput:
         bit     0, a                ; 0th bit (space bar)
         call    z, .shot
     pop     de
+    push    de
+        ld      a, e
+        bit     3, a                ; 3th bit (DELETE key)
+        call    z, .bomb
+    pop     de
 
     ld      c, 0    ; control variable to check left/right press
 
@@ -161,3 +166,7 @@ ReadInput:
 
     ret
 
+.bomb:
+    ld      a, 1
+    ld      (Player_BombActive), a
+    ret
