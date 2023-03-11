@@ -20,6 +20,7 @@ ReadInput:
         bit     0, a                ; 0th bit (space bar)
         call    z, .shot
     pop     de
+    
     push    de
         ld      a, e
         bit     3, a                ; 3th bit (DELETE key)
@@ -167,6 +168,22 @@ ReadInput:
     ret
 
 .bomb:
+    ; if(Player_BombActive != 0) return;
+    ld      a, (Player_BombActive)
+    or      a
+    ret     nz
+
+    ; if(Player_BombsNumber == 0) return;
+    ld      a, (Player_BombsNumber)
+    or      a
+    ret     z
+
+    ; Player_BombActive = 1;
     ld      a, 1
     ld      (Player_BombActive), a
+
+    ; Player_BombsNumber--;
+    ld      hl, Player_BombsNumber
+    dec     (hl)
+
     ret

@@ -32,6 +32,7 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     INCLUDE "GameLogic/CommonLogic.s"
     INCLUDE "GameLogic/GameLogic.s"
     INCLUDE "GameLogic/PlayerLogic.s"
+    INCLUDE "GameLogic/PlayerBombLogic.s"
 
     INCLUDE "GameLogic/PlayerShotLogic/PlayerShot_Init.s"
     INCLUDE "GameLogic/PlayerShotLogic/PlayerShot_Reset.s"
