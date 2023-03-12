@@ -21,11 +21,18 @@ ReadInput:
         call    z, .shot
     pop     de
     
+    ; if the subrotine is simple and will not change 
+    ; E register there is no need to PUSH/POP DE
+    ld      a, e
+    bit     3, a                    ; 3rd bit (DELETE key)
+    call    z, .bomb
+
     push    de
         ld      a, e
-        bit     3, a                ; 3th bit (DELETE key)
-        call    z, .bomb
+        bit     1, a                    ; 1st bit (HOME key)
+        call    z, .pause
     pop     de
+
 
     ld      c, 0    ; control variable to check left/right press
 
@@ -167,6 +174,8 @@ ReadInput:
 
     ret
 
+
+
 .bomb:
     ; if(Player_BombActive != 0) return;
     ld      a, (Player_BombActive)
@@ -185,5 +194,58 @@ ReadInput:
     ; Player_BombsNumber--;
     ld      hl, Player_BombsNumber
     dec     (hl)
+
+    ret
+
+
+
+.pause:
+
+.pause_loop:
+
+    ; do pause animation
+    call    .pauseAnimation
+
+    ; check if HOME key was released
+    ld      a, 8                    ; 8th line
+    call    BIOS_SNSMAT             ; Read Data Of Specified Line From Keyboard Matrix
+
+    bit     1, a                    ; 1st bit (HOME key)
+    jp      z, .pause_loop
+
+
+.pause_endloop:
+
+    ; do pause animation
+    call    .pauseAnimation
+
+    ; check if HOME key was pressed again (end pause)
+    ld      a, 8                    ; 8th line
+    call    BIOS_SNSMAT             ; Read Data Of Specified Line From Keyboard Matrix
+
+    bit     1, a                    ; 1st bit (HOME key)
+    jp      nz, .pause_endloop
+
+.pause_loop_1:
+
+    ; do pause animation
+    call    .pauseAnimation
+
+    ; check if HOME key was released again
+    ld      a, 8                    ; 8th line
+    call    BIOS_SNSMAT             ; Read Data Of Specified Line From Keyboard Matrix
+
+    bit     1, a                    ; 1st bit (HOME key)
+    jp      z, .pause_loop_1
+
+
+    ret
+
+; TODO: put on a separate file
+.pauseAnimation:
+
+    call    Wait_Vblank         ; VBlank sync
+
+
 
     ret

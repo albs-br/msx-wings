@@ -7,7 +7,7 @@ PlayerBombLogic:
     or      a
     ret     z
 
-    ; Player_BombActive++
+    ; Player_BombActive++; if(Player_BombActive == PLAYER_BOMB_MAX_LIFETIME) return;
     inc     a
     cp      PLAYER_BOMB_MAX_LIFETIME
     jp      z, .resetPlayerBomb
