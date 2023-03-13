@@ -204,7 +204,7 @@ ReadInput:
 .pause_loop:
 
     ; do pause animation
-    call    .pauseAnimation
+    call    PauseAnimation
 
     ; check if HOME key was released
     ld      a, 8                    ; 8th line
@@ -217,7 +217,7 @@ ReadInput:
 .pause_endloop:
 
     ; do pause animation
-    call    .pauseAnimation
+    call    PauseAnimation
 
     ; check if HOME key was pressed again (end pause)
     ld      a, 8                    ; 8th line
@@ -229,7 +229,7 @@ ReadInput:
 .pause_loop_1:
 
     ; do pause animation
-    call    .pauseAnimation
+    call    PauseAnimation
 
     ; check if HOME key was released again
     ld      a, 8                    ; 8th line
@@ -239,13 +239,59 @@ ReadInput:
     jp      z, .pause_loop_1
 
 
+    ; end pause
+    call    EndPauseAnimation
+
     ret
 
+; -----------------------------
+
 ; TODO: put on a separate file
-.pauseAnimation:
+
+; END_PAUSE_ANIMATION_STEP_1:     equ ?
+; END_PAUSE_ANIMATION_STEP_2:     equ ?
+
+PauseAnimation:
 
     call    Wait_Vblank         ; VBlank sync
 
 
+    ; if(PauseAnimation_Counter == 0)
+    ld      a, (PauseAnimation_Counter)
+    or      a
+    jp      z, .initPauseAnimation
+
+    ; if(PauseAnimation_Counter > 0 && PauseAnimation_Counter < END_PAUSE_ANIMATION_STEP_1)
+    
+    ; if(PauseAnimation_Counter == END_PAUSE_ANIMATION_STEP_2)
+
+    ; PauseAnimation_Counter++
+    ld      hl, PauseAnimation_Counter
+    inc     (hl)
+
+    ret
+
+.initPauseAnimation:
+    ; save SPRATR table
+
+    ; hide all sprites
+
+    ; load PAUSE string sprites
+
+    ; load screen top sprites (lifes, bombs and score)
+
+    ; PauseAnimation_Counter++
+    ld      hl, PauseAnimation_Counter
+    inc     (hl)
+
+    ret
+
+
+
+EndPauseAnimation:
+    xor     a
+    ld      (PauseAnimation_Counter), a
+
+    ; restore SPRATR table
 
     ret

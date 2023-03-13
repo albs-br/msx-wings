@@ -340,3 +340,5 @@ Color_0_B:              rw 1
 LineNumberScreenSplit:  rb 1
 
 ; ----------------------------------------
+
+PauseAnimation_Counter:     rb 1

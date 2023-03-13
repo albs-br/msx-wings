@@ -74,6 +74,8 @@ ram_watch   add     0xC24f      -type byte      -desc FramesSkipped            -
 ram_watch   add     0xC00a      -type byte      -desc BombsNumber            -format dec
 ram_watch   add     0xC00b      -type byte      -desc BombActive            -format dec
 
+ram_watch   add     0xC40d      -type byte      -desc PauseAnim_Counter            -format dec
+
 
 
 
