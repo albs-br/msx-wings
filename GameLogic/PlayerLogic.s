@@ -173,11 +173,7 @@ LoadPlayerColors_Center:
     ld      a, 0000 0001 b
     ld      hl, SPRCOL
     call    SetVdp_Write
-    ; ld      b, SpriteColors_PlayerPlane_0_and_1.size
-    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ;ld      bc, 0 + (SpriteColors_PlayerPlane_0_and_1.size * 256) + PORT_0
     ld      hl, SpriteColors_PlayerPlane_0_and_1
-    ;otir
     ; 32x outi
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
@@ -187,11 +183,7 @@ LoadPlayerColors_Center:
     ld      a, 0000 0001 b
     ld      hl, SPRCOL + 32
     call    SetVdp_Write
-    ; ld      b, 16 - 4        ; avoid the last 4 lines (engine)
-    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ;ld      bc, 0 + ((16 - 4) * 256) + PORT_0
     ld      hl, SpriteColors_PlayerPlane_2_and_3
-    ;otir
     ; 12x outi
     outi outi outi outi outi outi outi outi outi outi outi outi 
 
@@ -200,11 +192,7 @@ LoadPlayerColors_Center:
     ld      a, 0000 0001 b
     ld      hl, SPRCOL + 32 + 16
     call    SetVdp_Write
-    ; ld      b, 16 - 4        ; avoid the last 4 lines (engine)
-    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ;ld      bc, 0 + ((16 - 4) * 256) + PORT_0
     ld      hl, SpriteColors_PlayerPlane_2_and_3 + 16
-    ;otir
     ; 12x outi
     outi outi outi outi outi outi outi outi outi outi outi outi 
 
@@ -217,11 +205,7 @@ LoadPlayerColors_Left_0:
     ld      a, 0000 0001 b
     ld      hl, SPRCOL
     call    SetVdp_Write
-    ; ld      b, SpriteColors_PlayerPlane_Left_Frame_0_Top.size
-    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ;ld      bc, 0 + (SpriteColors_PlayerPlane_Left_Frame_0_Top.size * 256) + PORT_0
     ld      hl, SpriteColors_PlayerPlane_Left_Frame_0_Top
-    ;otir
     ; 32x outi
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
@@ -230,11 +214,7 @@ LoadPlayerColors_Left_0:
     ld      a, 0000 0001 b
     ld      hl, SPRCOL + 32
     call    SetVdp_Write
-    ; ld      b, SpriteColors_PlayerPlane_Left_Frame_0_Bottom.size
-    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ;ld      bc, 0 + (SpriteColors_PlayerPlane_Left_Frame_0_Bottom.size * 256) + PORT_0
     ld      hl, SpriteColors_PlayerPlane_Left_Frame_0_Bottom
-    ;otir
     ; 32x outi
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
@@ -248,11 +228,7 @@ LoadPlayerColors_Left_1:
     ld      a, 0000 0001 b
     ld      hl, SPRCOL
     call    SetVdp_Write
-    ; ld      b, SpriteColors_PlayerPlane_Left_Frame_1_Top.size
-    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ;ld      bc, 0 + (SpriteColors_PlayerPlane_Left_Frame_1_Top.size * 256) + PORT_0
     ld      hl, SpriteColors_PlayerPlane_Left_Frame_1_Top
-    ;otir
     ; 32x outi
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
@@ -261,11 +237,7 @@ LoadPlayerColors_Left_1:
     ld      a, 0000 0001 b
     ld      hl, SPRCOL + 32
     call    SetVdp_Write
-    ; ld      b, SpriteColors_PlayerPlane_Left_Frame_1_Bottom.size
-    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ;ld      bc, 0 + (SpriteColors_PlayerPlane_Left_Frame_1_Bottom.size * 256) + PORT_0
     ld      hl, SpriteColors_PlayerPlane_Left_Frame_1_Bottom
-    ;otir
     ; 32x outi
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
@@ -279,9 +251,7 @@ LoadPlayerColors_Right_0:
     ld      a, 0000 0001 b
     ld      hl, SPRCOL
     call    SetVdp_Write
-    ;ld      bc, 0 + (SpriteColors_PlayerPlane_Right_Frame_0_Top.size * 256) + PORT_0
     ld      hl, SpriteColors_PlayerPlane_Right_Frame_0_Top
-    ;otir
     ; 32x outi
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
@@ -290,9 +260,7 @@ LoadPlayerColors_Right_0:
     ld      a, 0000 0001 b
     ld      hl, SPRCOL + 32
     call    SetVdp_Write
-    ;ld      bc, 0 + (SpriteColors_PlayerPlane_Right_Frame_0_Bottom.size * 256) + PORT_0
     ld      hl, SpriteColors_PlayerPlane_Right_Frame_0_Bottom
-    ;otir
     ; 32x outi
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
@@ -306,9 +274,7 @@ LoadPlayerColors_Right_1:
     ld      a, 0000 0001 b
     ld      hl, SPRCOL
     call    SetVdp_Write
-    ;ld      bc, 0 + (SpriteColors_PlayerPlane_Right_Frame_1_Top.size * 256) + PORT_0
     ld      hl, SpriteColors_PlayerPlane_Right_Frame_1_Top
-    ;otir
     ; 32x outi
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
@@ -317,9 +283,7 @@ LoadPlayerColors_Right_1:
     ld      a, 0000 0001 b
     ld      hl, SPRCOL + 32
     call    SetVdp_Write
-    ;ld      bc, 0 + (SpriteColors_PlayerPlane_Right_Frame_1_Bottom.size * 256) + PORT_0
     ld      hl, SpriteColors_PlayerPlane_Right_Frame_1_Bottom
-    ;otir
     ; 32x outi
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
