@@ -342,3 +342,6 @@ LineNumberScreenSplit:  rb 1
 ; ----------------------------------------
 
 PauseAnimation_Counter:     rb 1
+
+PauseAnimation_SPRATR_Bkp:  rb 32 * 4
+.size:  equ $ - PauseAnimation_SPRATR_Bkp

@@ -273,8 +273,21 @@ PauseAnimation:
 
 .initPauseAnimation:
     ; save SPRATR table
+    ld      a, 0000 0001 b
+    ld      hl, SPRATR
+    call    SetVdp_Read
+    ld      b, PauseAnimation_SPRATR_Bkp.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, PauseAnimation_SPRATR_Bkp
+    inir
 
     ; hide all sprites
+    ld      a, 0000 0001 b
+    ld      hl, SPRATR
+    call    SetVdp_Write
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      a, 216
+    out     (c), a          ; set Y to 216 hides all sprites from here onwards
 
     ; load PAUSE string sprites
 
@@ -293,5 +306,12 @@ EndPauseAnimation:
     ld      (PauseAnimation_Counter), a
 
     ; restore SPRATR table
+    ld      a, 0000 0001 b
+    ld      hl, SPRATR
+    call    SetVdp_Write
+    ld      b, PauseAnimation_SPRATR_Bkp.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, PauseAnimation_SPRATR_Bkp
+    otir
 
     ret
