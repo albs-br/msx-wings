@@ -65,6 +65,8 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     ; INCLUDE "EnemyData/EnemyShotData.s"     ; moved to a MegaROM page
     INCLUDE "Sound/Sfx/PlaySfx.s"
 
+    INCLUDE "PauseAnimation/PauseAnimation.s"
+
     INCLUDE "LevelTitleAnimation/LevelTitleAnimation.s"
     INCLUDE "LevelTitleAnimation/Data.s"
 

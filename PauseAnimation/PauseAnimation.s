@@ -62,12 +62,12 @@ PauseAnimation:
     out     (c), a          ; not used
 
     djnz    .loop_HideAllSprites
-    
 
 
-    ; load PAUSE string sprites
 
-    ; load screen top sprites (lifes, bombs and score)
+    ; load PAUSE string sprite patterns and colors
+
+    ; load screen top sprite patterns and colors (lifes, bombs and score)
 
     ; PauseAnimation_Counter++
     ld      hl, PauseAnimation_Counter
