@@ -1,3 +1,6 @@
+LARGE_FONT_CHAR_P:          equ (64 * (9 + 16))
+
+
 ; END_PAUSE_ANIMATION_STEP_1:     equ ?
 ; END_PAUSE_ANIMATION_STEP_2:     equ ?
 
@@ -65,7 +68,17 @@ PauseAnimation:
 
 
 
-    ; load PAUSE string sprite patterns and colors
+    ; set MegaROM page for Fonts data
+    ld      a, FONTS_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
+    ; --------------- load PAUSE string sprite patterns and colors
+    
+    ; ; load sprite for char P at position 0
+    ; ld      hl, SPRPAT
+    ; ld      de, SPRCOL
+    ; ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_P
+    ; call    .loadSpritePatternsAndColors
 
     ; load screen top sprite patterns and colors (lifes, bombs and score)
 
