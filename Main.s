@@ -73,6 +73,7 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     INCLUDE "DebugMessage.s"
 
     INCLUDE "Graphics/Sprites/Fonts/FontsTest.s"
+    INCLUDE "Graphics/Sprites/Fonts/Fonts_CommonRoutines.s"
 
     INCLUDE "TitleScreen/TitleScreen.s"
     INCLUDE "TitleScreen/Data.s"

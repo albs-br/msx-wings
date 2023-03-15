@@ -78,7 +78,7 @@ PauseAnimation:
     ; ld      hl, SPRPAT
     ; ld      de, SPRCOL
     ; ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_P
-    ; call    .loadSpritePatternsAndColors
+    ; call    LargeFont_loadSpritePatternsAndColors
 
     ; load screen top sprite patterns and colors (lifes, bombs and score)
 

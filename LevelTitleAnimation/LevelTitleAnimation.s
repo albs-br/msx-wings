@@ -42,7 +42,7 @@ LevelTitleAnimation:
     ld      hl, SPRPAT + (32 * 5)
     ld      de, SPRCOL + (16 * 5)
     
-    call    .loadSpritePatternsAndColors
+    call    LargeFont_loadSpritePatternsAndColors
 
 
 
@@ -50,31 +50,31 @@ LevelTitleAnimation:
     ld      hl, SPRPAT
     ld      de, SPRCOL
     ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_L
-    call    .loadSpritePatternsAndColors
+    call    LargeFont_loadSpritePatternsAndColors
 
     ; load sprite for char E at position 1
     ld      hl, SPRPAT + (32 * 1)
     ld      de, SPRCOL + (16 * 1)
     ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_E
-    call    .loadSpritePatternsAndColors
+    call    LargeFont_loadSpritePatternsAndColors
 
     ; load sprite for char V at position 2
     ld      hl, SPRPAT + (32 * 2)
     ld      de, SPRCOL + (16 * 2)
     ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_V
-    call    .loadSpritePatternsAndColors
+    call    LargeFont_loadSpritePatternsAndColors
 
     ; load sprite for char E at position 3
     ld      hl, SPRPAT + (32 * 3)
     ld      de, SPRCOL + (16 * 3)
     ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_E
-    call    .loadSpritePatternsAndColors
+    call    LargeFont_loadSpritePatternsAndColors
 
     ; load sprite for char L at position 4
     ld      hl, SPRPAT + (32 * 4)
     ld      de, SPRCOL + (16 * 4)
     ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_L
-    call    .loadSpritePatternsAndColors
+    call    LargeFont_loadSpritePatternsAndColors
 
 
 
@@ -177,47 +177,6 @@ LevelTitleAnimation:
     out     (PORT_0), a
 
     ret
-
-
-; Input:
-;   HL: SPRPAT addr
-;   DE: SPRCOL addr
-;   IX: source sprite pattern addr on RAM
-.loadSpritePatternsAndColors:
-
-    ; load sprite patterns
-    ld      a, 0000 0001 b
-    ;ld      hl, SPRPAT
-    call    SetVdp_Write
-    ; ld      b, 32
-    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      bc, 0 + (32 * 256) + PORT_0
-    ;ld      hl, LargeFont_Patterns
-    ; HL = IX
-    ld      a, ixh
-    ld      h, a
-    ld      a, ixl
-    ld      l, a
-    
-    ;ld hl, LargeFont_Patterns + LARGE_FONT_CHAR_E ; debug
-    
-    otir
-
-    ex      de, hl
-
-    ; load sprite colors
-    ld      a, 0000 0001 b
-    ;ld      hl, SPRCOL
-    call    SetVdp_Write
-    ; ld      b, 16
-    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      bc, 0 + (16 * 256) + PORT_0
-    ld      hl, LargeFont_Colors
-    otir
-
-    ret
-
-
 
 
 
