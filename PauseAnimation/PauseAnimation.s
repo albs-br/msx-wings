@@ -67,6 +67,10 @@ PauseAnimation:
     djnz    .loop_HideAllSprites
 
 
+    ; TODO:
+    ; --------------- save to RAM patterns and colors of current sprites on screen
+
+
 
     ; set MegaROM page for Fonts data
     ld      a, FONTS_DATA_MEGAROM_PAGE
@@ -74,11 +78,23 @@ PauseAnimation:
 
     ; --------------- load PAUSE string sprite patterns and colors
     
-    ; ; load sprite for char P at position 0
-    ; ld      hl, SPRPAT
-    ; ld      de, SPRCOL
-    ; ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_P
-    ; call    LargeFont_loadSpritePatternsAndColors
+    ; load sprite for char P at position 0
+    ld      hl, SPRPAT
+    ld      de, SPRCOL
+    ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_P
+    call    LargeFont_loadSpritePatternsAndColors
+    // TODO: other chars
+
+
+    ; load SPRATR table for PAUSE string
+    ld      a, 0000 0001 b
+    ld      hl, SPRATR
+    call    SetVdp_Write
+    ld      b, PauseAnimation_SPRATR.size
+    ld      c, PORT_0
+    ld      hl, PauseAnimation_SPRATR
+    otir
+
 
     ; load screen top sprite patterns and colors (lifes, bombs and score)
 
@@ -117,3 +133,7 @@ EndPauseAnimation:
 
     ; 'U'
     db  120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 142, 143, 144, 145, 146, 147, 148, 149, 150, 152
+
+PauseAnimation_SPRATR:
+    db  (192/2) - 8, (256/2) - 8, 0, 0
+.size:  equ $ - PauseAnimation_SPRATR
