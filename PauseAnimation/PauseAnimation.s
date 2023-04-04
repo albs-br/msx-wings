@@ -67,8 +67,22 @@ PauseAnimation:
     djnz    .loop_HideAllSprites
 
 
-    ; TODO:
-    ; --------------- save to RAM patterns and colors of current sprites on screen
+    ; ; TODO:
+    ; ; --------------- save to RAM patterns and colors of current sprites on screen
+    ; ld      a, 0000 0001 b
+    ; ld      hl, SPRPAT
+    ; call    SetVdp_Read
+    ; ld      b, PauseAnimation_SPRPAT_Bkp.size
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      hl, PauseAnimation_SPRPAT_Bkp
+    ; inir
+    ; ld      a, 0000 0001 b
+    ; ld      hl, SPRCOL
+    ; call    SetVdp_Read
+    ; ld      b, PauseAnimation_SPRCOL_Bkp.size
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      hl, PauseAnimation_SPRCOL_Bkp
+    ; inir
 
 
 
@@ -79,11 +93,35 @@ PauseAnimation:
     ; --------------- load PAUSE string sprite patterns and colors
     
     ; load sprite for char P at position 0
-    ld      hl, SPRPAT
-    ld      de, SPRCOL
+    ld      hl, SPRPAT + (32 * 0)
+    ld      de, SPRCOL + (16 * 0)
     ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_P
     call    LargeFont_loadSpritePatternsAndColors
-    // TODO: other chars
+    
+    ; // TODO: other chars
+    ; ; load sprite for char A at position 1
+    ; ld      hl, SPRPAT + (32 * 1)
+    ; ld      de, SPRCOL + (16 * 1)
+    ; ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_A
+    ; call    LargeFont_loadSpritePatternsAndColors
+
+    ; ; load sprite for char U at position 2
+    ; ld      hl, SPRPAT + (32 * 2)
+    ; ld      de, SPRCOL + (16 * 2)
+    ; ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_U
+    ; call    LargeFont_loadSpritePatternsAndColors
+
+    ; ; load sprite for char S at position 3
+    ; ld      hl, SPRPAT + (32 * 3)
+    ; ld      de, SPRCOL + (16 * 3)
+    ; ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_S
+    ; call    LargeFont_loadSpritePatternsAndColors
+
+    ; ; load sprite for char E at position 4
+    ; ld      hl, SPRPAT + (32 * 4)
+    ; ld      de, SPRCOL + (16 * 4)
+    ; ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_E
+    ; call    LargeFont_loadSpritePatternsAndColors
 
 
     ; load SPRATR table for PAUSE string
@@ -110,6 +148,22 @@ EndPauseAnimation:
     xor     a
     ld      (PauseAnimation_Counter), a
 
+    ; ; restore SPRPAT and SPRCOL tables
+    ; ld      a, 0000 0001 b
+    ; ld      hl, SPRPAT
+    ; call    SetVdp_Write
+    ; ld      b, PauseAnimation_SPRPAT_Bkp.size
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      hl, PauseAnimation_SPRPAT_Bkp
+    ; otir
+    ; ld      a, 0000 0001 b
+    ; ld      hl, SPRCOL
+    ; call    SetVdp_Write
+    ; ld      b, PauseAnimation_SPRCOL_Bkp.size
+    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; ld      hl, PauseAnimation_SPRCOL_Bkp
+    ; otir
+
     ; restore SPRATR table
     ld      a, 0000 0001 b
     ld      hl, SPRATR
@@ -128,12 +182,18 @@ EndPauseAnimation:
     ; 'A'
     db  120, 119, 118, 118, 117, 117, 116, 116, 115, 115, 114, 113, 113, 112, 112, 111, 111, 110, 110, 109, 108, 108, 107, 107, 106, 106, 105, 105, 104, 104
 
+    ; 'U' is fixed at center
+
     ; 'S'
     db  120, 120, 121, 121, 122, 122, 123, 123, 124, 124, 125, 126, 126, 127, 127, 128, 128, 129, 129, 130, 131, 131, 132, 132, 133, 133, 134, 134, 135, 136 
 
-    ; 'U'
+    ; 'E'
     db  120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 142, 143, 144, 145, 146, 147, 148, 149, 150, 152
 
 PauseAnimation_SPRATR:
-    db  (192/2) - 8, (256/2) - 8, 0, 0
+    db  (192/2) - 8, (256/2) - 8 - 32, 0, 0
+    ; db  (192/2) - 8, (256/2) - 8 - 16, 1, 0
+    ; db  (192/2) - 8, (256/2) - 8 - 0, 2, 0
+    ; db  (192/2) - 8, (256/2) - 8 + 16, 3, 0
+    ; db  (192/2) - 8, (256/2) - 8 + 32, 4, 0
 .size:  equ $ - PauseAnimation_SPRATR
