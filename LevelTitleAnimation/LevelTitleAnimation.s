@@ -1,6 +1,3 @@
-LARGE_FONT_CHAR_L:          equ (64 * (9 + 12))
-LARGE_FONT_CHAR_E:          equ (64 * (9 + 5))
-LARGE_FONT_CHAR_V:          equ (64 * (9 + 22))
 
 
 ; Input:

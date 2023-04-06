@@ -1,6 +1,3 @@
-LARGE_FONT_CHAR_P:          equ (64 * (9 + 16))
-
-
 ; END_PAUSE_ANIMATION_STEP_1:     equ ?
 ; END_PAUSE_ANIMATION_STEP_2:     equ ?
 
@@ -36,8 +33,143 @@ PauseAnimation:
 
 
 
-    ; ---------- hide all sprites
+    call    HideAllSprites
+
+
+    call    Wait_Vblank         ; VBlank sync
+
+    ; --------------- save to RAM patterns and colors of current sprites on screen
     ld      a, 0000 0001 b
+    ld      hl, SPRPAT
+    call    SetVdp_Read
+    ld      b, 0 ; PauseAnimation_SPRPAT_Bkp.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, PauseAnimation_SPRPAT_Bkp
+    inir    ; transfer 256 bytes
+    inir    ; transfer 256 bytes
+    inir    ; transfer 256 bytes
+    inir    ; transfer 256 bytes
+    inir    ; transfer 256 bytes
+    inir    ; transfer 256 bytes
+    inir    ; transfer 256 bytes
+    inir    ; transfer 256 bytes
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL
+    call    SetVdp_Read
+    ld      b, 0 ;PauseAnimation_SPRCOL_Bkp.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, PauseAnimation_SPRCOL_Bkp
+    inir    ; transfer 256 bytes
+    inir    ; transfer 256 bytes
+
+
+
+    ; set MegaROM page for Fonts data
+    ld      a, FONTS_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
+    ; --------------- load PAUSE string sprite patterns and colors
+    
+    ; load sprite for char P at position 0
+    ld      hl, SPRPAT + (32 * 0)
+    ld      de, SPRCOL + (16 * 0)
+    ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_P
+    call    LargeFont_loadSpritePatternsAndColors
+    
+    ; load sprite for char A at position 1
+    ld      hl, SPRPAT + (32 * 1)
+    ld      de, SPRCOL + (16 * 1)
+    ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_A
+    call    LargeFont_loadSpritePatternsAndColors
+
+    ; load sprite for char U at position 2
+    ld      hl, SPRPAT + (32 * 2)
+    ld      de, SPRCOL + (16 * 2)
+    ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_U
+    call    LargeFont_loadSpritePatternsAndColors
+
+    ; load sprite for char S at position 3
+    ld      hl, SPRPAT + (32 * 3)
+    ld      de, SPRCOL + (16 * 3)
+    ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_S
+    call    LargeFont_loadSpritePatternsAndColors
+
+    ; load sprite for char E at position 4
+    ld      hl, SPRPAT + (32 * 4)
+    ld      de, SPRCOL + (16 * 4)
+    ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_E
+    call    LargeFont_loadSpritePatternsAndColors
+
+
+    ; load SPRATR table for PAUSE string
+    ld      a, 0000 0001 b
+    ld      hl, SPRATR
+    call    SetVdp_Write
+    ld      b, PauseAnimation_SPRATR.size
+    ld      c, PORT_0
+    ld      hl, PauseAnimation_SPRATR
+    otir
+
+
+    ; load screen top sprite patterns and colors (lifes, bombs and score)
+
+    ; PauseAnimation_Counter++
+    ld      hl, PauseAnimation_Counter
+    inc     (hl)
+
+    ret
+
+
+
+EndPauseAnimation:
+    call    Wait_Vblank         ; VBlank sync
+
+    xor     a
+    ld      (PauseAnimation_Counter), a
+
+    call    HideAllSprites
+
+    ; restore SPRPAT and SPRCOL tables
+    ld      a, 0000 0001 b
+    ld      hl, SPRPAT
+    call    SetVdp_Write
+    ld      b, 0; PauseAnimation_SPRPAT_Bkp.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, PauseAnimation_SPRPAT_Bkp
+    otir    ; transfer 256 bytes
+    otir    ; transfer 256 bytes
+    otir    ; transfer 256 bytes
+    otir    ; transfer 256 bytes
+    otir    ; transfer 256 bytes
+    otir    ; transfer 256 bytes
+    otir    ; transfer 256 bytes
+    otir    ; transfer 256 bytes
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL
+    call    SetVdp_Write
+    ld      b, 0 ; PauseAnimation_SPRCOL_Bkp.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, PauseAnimation_SPRCOL_Bkp
+    otir    ; transfer 256 bytes
+    otir    ; transfer 256 bytes
+
+    ; restore SPRATR table
+    ld      a, 0000 0001 b
+    ld      hl, SPRATR
+    call    SetVdp_Write
+    ld      b, PauseAnimation_SPRATR_Bkp.size
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, PauseAnimation_SPRATR_Bkp
+    otir
+
+    ret
+
+
+
+HideAllSprites:
+    ; ---------- hide all sprites
+
+        ld      a, 0000 0001 b
     ld      hl, SPRATR
     call    SetVdp_Write
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
@@ -66,114 +198,9 @@ PauseAnimation:
 
     djnz    .loop_HideAllSprites
 
-
-    ; ; TODO:
-    ; ; --------------- save to RAM patterns and colors of current sprites on screen
-    ; ld      a, 0000 0001 b
-    ; ld      hl, SPRPAT
-    ; call    SetVdp_Read
-    ; ld      b, PauseAnimation_SPRPAT_Bkp.size
-    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ; ld      hl, PauseAnimation_SPRPAT_Bkp
-    ; inir
-    ; ld      a, 0000 0001 b
-    ; ld      hl, SPRCOL
-    ; call    SetVdp_Read
-    ; ld      b, PauseAnimation_SPRCOL_Bkp.size
-    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ; ld      hl, PauseAnimation_SPRCOL_Bkp
-    ; inir
-
-
-
-    ; set MegaROM page for Fonts data
-    ld      a, FONTS_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
-
-    ; --------------- load PAUSE string sprite patterns and colors
-    
-    ; load sprite for char P at position 0
-    ld      hl, SPRPAT + (32 * 0)
-    ld      de, SPRCOL + (16 * 0)
-    ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_P
-    call    LargeFont_loadSpritePatternsAndColors
-    
-    ; // TODO: other chars
-    ; ; load sprite for char A at position 1
-    ; ld      hl, SPRPAT + (32 * 1)
-    ; ld      de, SPRCOL + (16 * 1)
-    ; ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_A
-    ; call    LargeFont_loadSpritePatternsAndColors
-
-    ; ; load sprite for char U at position 2
-    ; ld      hl, SPRPAT + (32 * 2)
-    ; ld      de, SPRCOL + (16 * 2)
-    ; ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_U
-    ; call    LargeFont_loadSpritePatternsAndColors
-
-    ; ; load sprite for char S at position 3
-    ; ld      hl, SPRPAT + (32 * 3)
-    ; ld      de, SPRCOL + (16 * 3)
-    ; ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_S
-    ; call    LargeFont_loadSpritePatternsAndColors
-
-    ; ; load sprite for char E at position 4
-    ; ld      hl, SPRPAT + (32 * 4)
-    ; ld      de, SPRCOL + (16 * 4)
-    ; ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_E
-    ; call    LargeFont_loadSpritePatternsAndColors
-
-
-    ; load SPRATR table for PAUSE string
-    ld      a, 0000 0001 b
-    ld      hl, SPRATR
-    call    SetVdp_Write
-    ld      b, PauseAnimation_SPRATR.size
-    ld      c, PORT_0
-    ld      hl, PauseAnimation_SPRATR
-    otir
-
-
-    ; load screen top sprite patterns and colors (lifes, bombs and score)
-
-    ; PauseAnimation_Counter++
-    ld      hl, PauseAnimation_Counter
-    inc     (hl)
-
     ret
 
 
-
-EndPauseAnimation:
-    xor     a
-    ld      (PauseAnimation_Counter), a
-
-    ; ; restore SPRPAT and SPRCOL tables
-    ; ld      a, 0000 0001 b
-    ; ld      hl, SPRPAT
-    ; call    SetVdp_Write
-    ; ld      b, PauseAnimation_SPRPAT_Bkp.size
-    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ; ld      hl, PauseAnimation_SPRPAT_Bkp
-    ; otir
-    ; ld      a, 0000 0001 b
-    ; ld      hl, SPRCOL
-    ; call    SetVdp_Write
-    ; ld      b, PauseAnimation_SPRCOL_Bkp.size
-    ; ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ; ld      hl, PauseAnimation_SPRCOL_Bkp
-    ; otir
-
-    ; restore SPRATR table
-    ld      a, 0000 0001 b
-    ld      hl, SPRATR
-    call    SetVdp_Write
-    ld      b, PauseAnimation_SPRATR_Bkp.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, PauseAnimation_SPRATR_Bkp
-    otir
-
-    ret
 
 ; data for PAUSE string x values
     ; 'P'
@@ -191,9 +218,10 @@ EndPauseAnimation:
     db  120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 142, 143, 144, 145, 146, 147, 148, 149, 150, 152
 
 PauseAnimation_SPRATR:
-    db  (192/2) - 8, (256/2) - 8 - 32, 0, 0
-    ; db  (192/2) - 8, (256/2) - 8 - 16, 1, 0
-    ; db  (192/2) - 8, (256/2) - 8 - 0, 2, 0
-    ; db  (192/2) - 8, (256/2) - 8 + 16, 3, 0
-    ; db  (192/2) - 8, (256/2) - 8 + 32, 4, 0
+    db  (192/2) - 8, (256/2) - 8 - 32, 0 * 4, 0
+    db  (192/2) - 8, (256/2) - 8 - 16, 1 * 4, 0
+    db  (192/2) - 8, (256/2) - 8 - 0,  2 * 4, 0
+    db  (192/2) - 8, (256/2) - 8 + 16, 3 * 4, 0
+    db  (192/2) - 8, (256/2) - 8 + 32, 4 * 4, 0
 .size:  equ $ - PauseAnimation_SPRATR
+

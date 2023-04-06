@@ -340,8 +340,8 @@ PauseAnimation_Counter:     rb 1
 PauseAnimation_SPRATR_Bkp:  rb 32 * 4
 .size:  equ $ - PauseAnimation_SPRATR_Bkp
 
-; PauseAnimation_SPRPAT_Bkp:  rb 64 * 32
-; .size:  equ $ - PauseAnimation_SPRPAT_Bkp
+PauseAnimation_SPRPAT_Bkp:  rb 64 * 32 ; = 2048
+.size:  equ $ - PauseAnimation_SPRPAT_Bkp
 
-; PauseAnimation_SPRCOL_Bkp:  rb 32 * 16
-; .size:  equ $ - PauseAnimation_SPRCOL_Bkp
+PauseAnimation_SPRCOL_Bkp:  rb 32 * 16 ; = 512
+.size:  equ $ - PauseAnimation_SPRCOL_Bkp

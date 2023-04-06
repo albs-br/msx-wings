@@ -159,10 +159,6 @@ DrawString:
 
     ret
 
-LARGE_FONT_CHAR_A:          equ (64 * (9 + 1)) ; = 640
-;LARGE_FONT_CHAR_B:          equ (64 * (9 + 2)) ; = 704
-; ...
-;LARGE_FONT_CHAR_E:          equ (64 * (9 + 5))
 
 ; Inputs:
 ;   A: ascii code ('A'-'Z')
