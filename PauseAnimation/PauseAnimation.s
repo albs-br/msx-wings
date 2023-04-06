@@ -53,6 +53,9 @@ PauseAnimation:
     inir    ; transfer 256 bytes
     inir    ; transfer 256 bytes
     inir    ; transfer 256 bytes
+
+    call    Wait_Vblank         ; VBlank sync
+
     ld      a, 0000 0001 b
     ld      hl, SPRCOL
     call    SetVdp_Read
@@ -111,6 +114,34 @@ PauseAnimation:
     otir
 
 
+    ; TODO: loop to adjust all 5 sprites
+    ; adjust Y coord of sprites to compensate scroll
+    ld      hl, SPRATR
+
+    ld      b , 5       ; number of sprites
+.loop_AdjustSpritesY:
+    push    bc
+        push    hl
+            push    hl
+                ld      a, 0000 0001 b
+                call    SetVdp_Read
+                ld      c, PORT_0
+                in      d, (c)          ; read current Y value
+                ld      a, (VerticalScroll)
+                add     d
+                ld      d, a
+            pop     hl
+            ld      a, 0000 0001 b
+            call    SetVdp_Write
+            ld      c, PORT_0
+            out     (c), d              ; set new Y value
+        pop     hl
+        ld      bc, 4
+        add     hl, bc  ; go to next sprite
+    pop     bc
+    djnz    .loop_AdjustSpritesY
+
+
     ; load screen top sprite patterns and colors (lifes, bombs and score)
 
     ; PauseAnimation_Counter++
@@ -144,6 +175,9 @@ EndPauseAnimation:
     otir    ; transfer 256 bytes
     otir    ; transfer 256 bytes
     otir    ; transfer 256 bytes
+
+    call    Wait_Vblank         ; VBlank sync
+
     ld      a, 0000 0001 b
     ld      hl, SPRCOL
     call    SetVdp_Write
