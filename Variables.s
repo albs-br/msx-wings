@@ -345,3 +345,5 @@ PauseAnimation_SPRPAT_Bkp:  rb 64 * 32 ; = 2048
 
 PauseAnimation_SPRCOL_Bkp:  rb 32 * 16 ; = 512
 .size:  equ $ - PauseAnimation_SPRCOL_Bkp
+
+;PauseAnimation_TempAddr:    rw 1

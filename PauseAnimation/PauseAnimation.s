@@ -1,4 +1,4 @@
-; END_PAUSE_ANIMATION_STEP_1:     equ ?
+; END_PAUSE_ANIMATION_STEP_1:     equ 30
 ; END_PAUSE_ANIMATION_STEP_2:     equ ?
 
 PauseAnimation:
@@ -6,20 +6,27 @@ PauseAnimation:
     call    Wait_Vblank         ; VBlank sync
 
 
-    ; if(PauseAnimation_Counter == 0)
     ld      a, (PauseAnimation_Counter)
-    or      a
-    jp      z, .initPauseAnimation
-
-    ; if(PauseAnimation_Counter > 0 && PauseAnimation_Counter < END_PAUSE_ANIMATION_STEP_1)
-    
-    ; if(PauseAnimation_Counter == END_PAUSE_ANIMATION_STEP_2)
 
     ; PauseAnimation_Counter++
     ld      hl, PauseAnimation_Counter
     inc     (hl)
 
+    ; if(PauseAnimation_Counter == 0) ; testing value BEFORE increment
+    or      a
+    jp      z, .initPauseAnimation
+
+    ; if(PauseAnimation_Counter > 0 && PauseAnimation_Counter < END_PAUSE_ANIMATION_STEP_1)
+    cp      END_PAUSE_ANIMATION_STEP_1
+    jp      c, .animationStep_1
+    
+    ; if(PauseAnimation_Counter == END_PAUSE_ANIMATION_STEP_2)
+    cp      END_PAUSE_ANIMATION_STEP_2
+    jp      z, .animationStep_2
+
     ret
+
+
 
 .initPauseAnimation:
     ; save SPRATR table
@@ -141,15 +148,62 @@ PauseAnimation:
     pop     bc
     djnz    .loop_AdjustSpritesY
 
+    ; set first value of PAUSE string X lookup table
+    ld      ix, PauseAnimation_X_values_LookUpTable
+    ld      (PauseAnimation_TempAddr), ix
+
+
 
     ; load screen top sprite patterns and colors (lifes, bombs and score)
 
-    ; PauseAnimation_Counter++
-    ld      hl, PauseAnimation_Counter
-    inc     (hl)
+
+
+    ; ; PauseAnimation_Counter++
+    ; ld      hl, PauseAnimation_Counter
+    ; inc     (hl)
 
     ret
 
+
+
+.animationStep_1:
+    call    BIOS_BEEP ; debug
+    ret; debug
+
+    ; TODO:
+    ld      ix, (PauseAnimation_TempAddr)
+    ld      hl, SPRATR + 1  ; initial VRAM addr (X coord of first sprite)
+    ld      b, 5            ; number of sprites
+.animationStep_1_loop:
+    push    hl
+        ld      a, 0000 0001 b
+        call    SetVdp_Write
+
+        ld      a, (ix)
+        out     (PORT_0), a
+
+        ld      de, PauseAnimation_X_values_LookUpTable.size
+        add     ix, de ; addr of X value for next sprite on source table
+    pop     hl
+    ld      de, 4
+    add     hl, de  ; X value for next sprite on SPRATR table
+
+    djnz    .animationStep_1_loop
+
+    ; set PauseAnimation_TempAddr to next frame of animation
+    ; PauseAnimation_TempAddr++
+    ld      ix, (PauseAnimation_TempAddr)
+    inc     ix
+    ld      (PauseAnimation_TempAddr), ix
+
+    ret
+
+
+
+.animationStep_2:
+    ; TODO:
+    jp $ ; debug
+    ret
 
 
 EndPauseAnimation:
@@ -203,7 +257,7 @@ EndPauseAnimation:
 HideAllSprites:
     ; ---------- hide all sprites
 
-        ld      a, 0000 0001 b
+    ld      a, 0000 0001 b
     ld      hl, SPRATR
     call    SetVdp_Write
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
@@ -236,9 +290,18 @@ HideAllSprites:
 
 
 
-; data for PAUSE string x values
+; data for PAUSE string X values
+PauseAnimation_X_values_LookUpTable:
     ; 'P'
-    db  120, 118, 117, 116, 115, 114, 113, 112, 111, 110, 108, 107, 106, 105, 104, 103, 102, 101, 100, 99, 97, 96, 95, 94, 93, 92, 91, 90, 89, 88
+    db  120, 118, 117, 116 
+    db  115, 114, 113, 112 
+    db  111, 110, 108, 107 
+    db  106, 105, 104, 103 
+    db  102, 101, 100, 99 
+    db  97, 96, 95, 94 
+    db  93, 92, 91, 90 
+    db  89, 16 ; test (original value 88)      ; total 30 values
+.size: $ - PauseAnimation_X_values_LookUpTable
 
     ; 'A'
     db  120, 119, 118, 118, 117, 117, 116, 116, 115, 115, 114, 113, 113, 112, 112, 111, 111, 110, 110, 109, 108, 108, 107, 107, 106, 106, 105, 105, 104, 104
