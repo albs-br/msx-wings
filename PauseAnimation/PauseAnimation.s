@@ -121,8 +121,7 @@ PauseAnimation:
     otir
 
 
-    ; TODO: loop to adjust all 5 sprites
-    ; adjust Y coord of sprites to compensate scroll
+    ; loop to adjust Y coord of all 5 sprites to compensate scroll
     ld      hl, SPRATR
 
     ld      b , 5       ; number of sprites

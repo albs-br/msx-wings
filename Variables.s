@@ -275,7 +275,7 @@ CurrentJiffy:                    rb 1
 ; ---------------------------------------
 
 ; TODO (canceled): put this buffer table aligned so you can INC only L, saving (128 * 2 = 256) cycles
-; update: this buffer isn't used on gameplay anymore, only on Level title init animation (no need to performance there)
+; update: this buffer isn't used on gameplay anymore, only on Level title init animation (no need of performance there)
 SPRATR_Buffer:      rb 32 * 4
 .size:  equ $ - SPRATR_Buffer
 
