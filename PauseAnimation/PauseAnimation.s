@@ -1,5 +1,5 @@
-; END_PAUSE_ANIMATION_STEP_1:     equ 30
-; END_PAUSE_ANIMATION_STEP_2:     equ ?
+END_PAUSE_ANIMATION_STEP_1:     equ 30
+END_PAUSE_ANIMATION_STEP_2:     equ 255
 
 PauseAnimation:
 
@@ -16,13 +16,13 @@ PauseAnimation:
     or      a
     jp      z, .initPauseAnimation
 
-    ; if(PauseAnimation_Counter > 0 && PauseAnimation_Counter < END_PAUSE_ANIMATION_STEP_1)
-    cp      END_PAUSE_ANIMATION_STEP_1
-    jp      c, .animationStep_1
+    ; ; if(PauseAnimation_Counter > 0 && PauseAnimation_Counter < END_PAUSE_ANIMATION_STEP_1)
+    ; cp      END_PAUSE_ANIMATION_STEP_1
+    ; jp      c, .animationStep_1
     
-    ; if(PauseAnimation_Counter == END_PAUSE_ANIMATION_STEP_2)
-    cp      END_PAUSE_ANIMATION_STEP_2
-    jp      z, .animationStep_2
+    ; ; if(PauseAnimation_Counter == END_PAUSE_ANIMATION_STEP_2)
+    ; cp      END_PAUSE_ANIMATION_STEP_2
+    ; jp      z, .animationStep_2
 
     ret
 
@@ -147,9 +147,9 @@ PauseAnimation:
     pop     bc
     djnz    .loop_AdjustSpritesY
 
-    ; set first value of PAUSE string X lookup table
-    ld      ix, PauseAnimation_X_values_LookUpTable
-    ld      (PauseAnimation_TempAddr), ix
+    ; ; set first value of PAUSE string X lookup table
+    ; ld      ix, PauseAnimation_X_values_LookUpTable
+    ; ld      (PauseAnimation_TempAddr), ix
 
 
 
@@ -169,33 +169,33 @@ PauseAnimation:
     call    BIOS_BEEP ; debug
     ret; debug
 
-    ; TODO:
-    ld      ix, (PauseAnimation_TempAddr)
-    ld      hl, SPRATR + 1  ; initial VRAM addr (X coord of first sprite)
-    ld      b, 5            ; number of sprites
-.animationStep_1_loop:
-    push    hl
-        ld      a, 0000 0001 b
-        call    SetVdp_Write
+;     ; TODO:
+;     ld      ix, (PauseAnimation_TempAddr)
+;     ld      hl, SPRATR + 1  ; initial VRAM addr (X coord of first sprite)
+;     ld      b, 5            ; number of sprites
+; .animationStep_1_loop:
+;     push    hl
+;         ld      a, 0000 0001 b
+;         call    SetVdp_Write
 
-        ld      a, (ix)
-        out     (PORT_0), a
+;         ld      a, (ix)
+;         out     (PORT_0), a
 
-        ld      de, PauseAnimation_X_values_LookUpTable.size
-        add     ix, de ; addr of X value for next sprite on source table
-    pop     hl
-    ld      de, 4
-    add     hl, de  ; X value for next sprite on SPRATR table
+;         ld      de, PauseAnimation_X_values_LookUpTable.size
+;         add     ix, de ; addr of X value for next sprite on source table
+;     pop     hl
+;     ld      de, 4
+;     add     hl, de  ; X value for next sprite on SPRATR table
 
-    djnz    .animationStep_1_loop
+;     djnz    .animationStep_1_loop
 
-    ; set PauseAnimation_TempAddr to next frame of animation
-    ; PauseAnimation_TempAddr++
-    ld      ix, (PauseAnimation_TempAddr)
-    inc     ix
-    ld      (PauseAnimation_TempAddr), ix
+;     ; set PauseAnimation_TempAddr to next frame of animation
+;     ; PauseAnimation_TempAddr++
+;     ld      ix, (PauseAnimation_TempAddr)
+;     inc     ix
+;     ld      (PauseAnimation_TempAddr), ix
 
-    ret
+;     ret
 
 
 
@@ -290,28 +290,28 @@ HideAllSprites:
 
 
 ; data for PAUSE string X values
-PauseAnimation_X_values_LookUpTable:
-    ; 'P'
-    db  120, 118, 117, 116 
-    db  115, 114, 113, 112 
-    db  111, 110, 108, 107 
-    db  106, 105, 104, 103 
-    db  102, 101, 100, 99 
-    db  97, 96, 95, 94 
-    db  93, 92, 91, 90 
-    db  89, 16 ; test (original value 88)      ; total 30 values
-.size: $ - PauseAnimation_X_values_LookUpTable
+; PauseAnimation_X_values_LookUpTable:
+;     ; 'P'
+;     db  120, 118, 117, 116 
+;     db  115, 114, 113, 112 
+;     db  111, 110, 108, 107 
+;     db  106, 105, 104, 103 
+;     db  102, 101, 100, 99 
+;     db  97, 96, 95, 94 
+;     db  93, 92, 91, 90 
+;     db  89, 16 ; test (original value 88)      ; total 30 values
+; .size:  equ $ - PauseAnimation_X_values_LookUpTable
 
-    ; 'A'
-    db  120, 119, 118, 118, 117, 117, 116, 116, 115, 115, 114, 113, 113, 112, 112, 111, 111, 110, 110, 109, 108, 108, 107, 107, 106, 106, 105, 105, 104, 104
+;     ; 'A'
+;     db  120, 119, 118, 118, 117, 117, 116, 116, 115, 115, 114, 113, 113, 112, 112, 111, 111, 110, 110, 109, 108, 108, 107, 107, 106, 106, 105, 105, 104, 104
 
-    ; 'U' is fixed at center
+;     ; 'U' is fixed at center
 
-    ; 'S'
-    db  120, 120, 121, 121, 122, 122, 123, 123, 124, 124, 125, 126, 126, 127, 127, 128, 128, 129, 129, 130, 131, 131, 132, 132, 133, 133, 134, 134, 135, 136 
+;     ; 'S'
+;     db  120, 120, 121, 121, 122, 122, 123, 123, 124, 124, 125, 126, 126, 127, 127, 128, 128, 129, 129, 130, 131, 131, 132, 132, 133, 133, 134, 134, 135, 136 
 
-    ; 'E'
-    db  120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 142, 143, 144, 145, 146, 147, 148, 149, 150, 152
+;     ; 'E'
+;     db  120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 142, 143, 144, 145, 146, 147, 148, 149, 150, 152
 
 PauseAnimation_SPRATR:
     db  (192/2) - 8, (256/2) - 8 - 32, 0 * 4, 0

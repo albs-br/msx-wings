@@ -133,10 +133,13 @@ InitVariables:
     ld      (Screen_Y_Origin), a
     ld      (FramesSkipped), a
     ld      (ItemAnimation_CurrentFrame), a
+    ld      (PauseAnimation_Counter), a
+    
 
 
     ld      hl, 0
     ld      (LevelCounter), hl
+    ld      (PauseAnimation_TempAddr), hl
 
 
 
