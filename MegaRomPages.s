@@ -1013,9 +1013,12 @@
 ; =========================================== Reserved for data =================================
 
 ; ------------------------------------------------------------------------
-LEVEL_DATA_MEGAROM_PAGE:        equ 242
-ENEMY_DATA_MEGAROM_PAGE:        equ 242
-ENEMY_SHOT_DATA_MEGAROM_PAGE:   equ 242
+; --------------------- MegaROM page for miscelaneous data ---------------
+
+LEVEL_DATA_MEGAROM_PAGE:                equ 242
+ENEMY_DATA_MEGAROM_PAGE:                equ 242
+ENEMY_SHOT_DATA_MEGAROM_PAGE:           equ 242
+PAUSE_ANIMATION_DATA_MEGAROM_PAGE:      equ 242
 ; SFX_MEGAROM_PAGE:               equ 242 ; ATTENTION: MOVED BACK cos it was causing bug (sound tone keeps playing after sfx ended)
 
 ; ------- Page 242
@@ -1027,6 +1030,7 @@ ENEMY_SHOT_DATA_MEGAROM_PAGE:   equ 242
     INCLUDE "EnemyData/EnemyPlane/EnemyPlane_Data.s"
     INCLUDE "EnemyData/EnemyPlaneTurning/EnemyPlaneTurning_Data.s"
     INCLUDE "EnemyData/EnemyShotData.s"
+    INCLUDE "PauseAnimation/PauseAnimation_Data.s"
     ; INCLUDE "Sound/Sfx/MsxWingsSfx_Bank.s" ; ATTENTION: MOVED BACK cos it was causing bug (sound tone keeps playing after sfx ended)   
 MEGAROM_PAGE_242_size:          equ $ - 0x8000
 	ds PAGE_SIZE - ($ - 0x8000), 255
