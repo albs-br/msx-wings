@@ -29,6 +29,12 @@ PauseAnimation:
 
 
 .initPauseAnimation:
+
+    ; TODO: use specific sfx for pause
+    ld      a, SFX_GET_ITEM  ; number of sfx in the bank
+    ld      c, 15            ; sound priority
+    call    PlaySfx
+
     ; save SPRATR table
     ld      a, 0000 0001 b
     ld      hl, SPRATR
@@ -208,6 +214,12 @@ PauseAnimation:
 
 
 EndPauseAnimation:
+
+    ; TODO: use specific sfx for pause
+    ld      a, SFX_GET_ITEM  ; number of sfx in the bank
+    ld      c, 15            ; sound priority
+    call    PlaySfx
+
     call    Wait_Vblank         ; VBlank sync
 
     xor     a
