@@ -117,7 +117,18 @@ PauseAnimation:
     call    LargeFont_loadSpritePatternsAndColors
 
 
-    ; load SPRATR table for PAUSE string
+
+    ; --------------- load Bomb number string sprite patterns and colors
+
+    ; load sprite for char B at position 5
+    ld      hl, SPRPAT + (32 * 5)
+    ld      de, SPRCOL + (16 * 5)
+    ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_B
+    call    LargeFont_loadSpritePatternsAndColors
+
+
+
+    ; load SPRATR table for PAUSE string and top screen sprites
     ld      a, 0000 0001 b
     ld      hl, SPRATR
     call    SetVdp_Write
@@ -130,7 +141,7 @@ PauseAnimation:
     ; loop to adjust Y coord of all 5 sprites to compensate scroll
     ld      hl, SPRATR
 
-    ld      b , 5       ; number of sprites
+    ld      b , 6       ; number of sprites
 .loop_AdjustSpritesY:
     push    bc
         push    hl
@@ -193,6 +204,26 @@ PauseAnimation:
     add     hl, de  ; X value for next sprite on SPRATR table
 
     djnz    .animationStep_1_loop
+
+
+    ld      a, (PauseAnimation_Counter)
+    cp      16 ; 24 frames, started in -16, it will stop when Y = 8
+    jp      z, .endTopScreenAnimation
+
+    ; Read Y coord of Bombs number sprite (sprite #5), increment and save it
+    ld      a, 0000 0001 b
+    ld      hl, SPRATR + (4 * 5)
+    call    SetVdp_Read
+    in      a, (PORT_0)
+    inc     a
+    ld      b, a
+    ld      a, 0000 0001 b
+    ld      hl, SPRATR + (4 * 5)
+    call    SetVdp_Write
+    ld      a, b
+    out     (PORT_0), a
+    
+.endTopScreenAnimation:
 
     ; set PauseAnimation_TempAddr to next frame of animation
     ; PauseAnimation_TempAddr++
@@ -308,6 +339,8 @@ PauseAnimation_SPRATR:
     db  (192/2) - 8, (256/2) - 8, 1 * 4, 0 ; A
     db  (192/2) - 8, (256/2) - 8, 3 * 4, 0 ; S
     db  (192/2) - 8, (256/2) - 8, 4 * 4, 0 ; E
-    db  (192/2) - 8, (256/2) - 8, 2 * 4, 0 ; U 
+    db  (192/2) - 8, (256/2) - 8, 2 * 4, 0 ; U (this one doe not move,)
+
+    db  -16, 8, 5 * 4, 0 ; Bombs number
 .size:  equ $ - PauseAnimation_SPRATR
 
