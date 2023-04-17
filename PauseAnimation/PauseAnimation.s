@@ -206,9 +206,10 @@ PauseAnimation:
     djnz    .animationStep_1_loop
 
 
+    ; if (Counter >= 24) endTopScreenAnimation
     ld      a, (PauseAnimation_Counter)
-    cp      16 ; 24 frames, started in -16, it will stop when Y = 8
-    jp      z, .endTopScreenAnimation
+    cp      16 + 8 ; 24 frames, started in -16, it will stop when Y = 8
+    jp      nc, .endTopScreenAnimation
 
     ; Read Y coord of Bombs number sprite (sprite #5), increment and save it
     ld      a, 0000 0001 b
