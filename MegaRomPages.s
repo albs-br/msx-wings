@@ -1051,6 +1051,7 @@ MEGAROM_PAGE_243_size:          equ $ - 0x8000
 
 ; ------------------------------------------------------------------------
 
+; TODO: compress it with pletter/zx0
 TITLE_SCREEN_FIRST_MEGAROM_PAGE:        equ 244
 
 ; ------- Page 244

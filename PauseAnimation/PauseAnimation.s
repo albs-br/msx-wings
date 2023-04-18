@@ -118,15 +118,31 @@ PauseAnimation:
 
 
 
-    ; --------------- load Bomb number string sprite patterns and colors
+    ; --------------- load Lives / Bomb number sprite patterns and colors
 
-    ; load sprite for char B at position 5
+    ; set IX to 0-9 char correponding to bombs number
+    ld      ix, SmallFont_Patterns + SMALL_FONT_CHAR_0
+    ld      de, 64  ;each char uses 64 bytes
+    ld      a, (Player_BombsNumber)
+    
+    or      a
+    jp      z, .bombsNumber_0
+    
+    cp      9 
+    jp      c, .bombsNumber_less_than_9 ; if (A >= 9) A = 9
+    ld      a, 9
+    
+.bombsNumber_less_than_9:
+    ld      b, a
+.loop_bombsNumber:
+    add     ix, de
+    djnz    .loop_bombsNumber
+.bombsNumber_0:
+
+    ; load sprite for char 0 at position 5
     ld      hl, SPRPAT + (32 * 5)
     ld      de, SPRCOL + (16 * 5)
-    ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_B
-    call    LargeFont_loadSpritePatternsAndColors
-    ; ld      ix, SmallFont_Patterns + SMALL_FONT_CHAR_A
-    ; call    SmallFont_LoadSpritePatternsAndColors
+    call    SmallFont_LoadSpritePatternsAndColors
 
 
 
@@ -344,6 +360,6 @@ PauseAnimation_SPRATR:
     db  (192/2) - 8, (256/2) - 8, 4 * 4, 0 ; E
     db  (192/2) - 8, (256/2) - 8, 2 * 4, 0 ; U (this one doe not move,)
 
-    db  -16, 8, 5 * 4, 0 ; Bombs number
+    db  -16, 16, 5 * 4, 0 ; Bombs number
 .size:  equ $ - PauseAnimation_SPRATR
 

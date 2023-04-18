@@ -25,3 +25,7 @@ LARGE_FONT_CHAR_X:          equ (64 * (9 + 24))
 LARGE_FONT_CHAR_Y:          equ (64 * (9 + 25))
 LARGE_FONT_CHAR_Z:          equ (64 * (9 + 26))
 
+SMALL_FONT_CHAR_0:          equ (64 * (20 + 0))
+SMALL_FONT_CHAR_1:          equ (64 * (20 + 1))
+;...
+;SMALL_FONT_CHAR_A:          equ (64 * (? + 1))
