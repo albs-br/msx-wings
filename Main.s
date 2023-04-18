@@ -5,7 +5,7 @@ PAGE_SIZE:	    equ	0x4000	        ; 16kB
 Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 16k Mapper, same for 8k Mapper)
 
 
-DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
+;DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
 
 
 ; Compilation address
@@ -80,7 +80,9 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     INCLUDE "TitleScreen/Data.s"
 
     ; Assets
-    INCLUDE "Graphics/Sprites/SpriteAssets.s"
+    INCLUDE "Graphics/Sprites/SpritePalettes.s"
+    INCLUDE "Graphics/Sprites/SpritePatterns.s"
+    INCLUDE "Graphics/Sprites/SpriteColors.s"
     ; INCLUDE "Graphics/Sprites/Fonts/Fonts.s"     ; moved to a MegaROM page
     INCLUDE "Sound/Sfx/MsxWingsSfx_Bank.s" ;moved to a MegaROM page ATTENTION: MOVED BACK cos it was causing bug (sound tone keeps playing after sfx ended)
 	INCLUDE "Graphics/Bitmaps/GroundTargetDestroyed.s"
@@ -105,7 +107,7 @@ Execute:
 
 
 
-    ;call    TitleScreen ; debug
+    call    TitleScreen
 
 
 

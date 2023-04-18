@@ -125,6 +125,8 @@ PauseAnimation:
     ld      de, SPRCOL + (16 * 5)
     ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_B
     call    LargeFont_loadSpritePatternsAndColors
+    ; ld      ix, SmallFont_Patterns + SMALL_FONT_CHAR_A
+    ; call    SmallFont_LoadSpritePatternsAndColors
 
 
 
