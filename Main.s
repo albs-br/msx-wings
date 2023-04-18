@@ -81,7 +81,7 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
 
     ; Assets
     INCLUDE "Graphics/Sprites/SpritePalettes.s"
-    INCLUDE "Graphics/Sprites/SpritePatterns.s"
+    ; INCLUDE "Graphics/Sprites/SpritePatterns.s" ; moved to a MegaROM page
     INCLUDE "Graphics/Sprites/SpriteColors.s"
     ; INCLUDE "Graphics/Sprites/Fonts/Fonts.s"     ; moved to a MegaROM page
     INCLUDE "Sound/Sfx/MsxWingsSfx_Bank.s" ;moved to a MegaROM page ATTENTION: MOVED BACK cos it was causing bug (sound tone keeps playing after sfx ended)

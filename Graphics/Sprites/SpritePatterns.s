@@ -154,3 +154,4 @@ SpritePattern_1000_points:
 
 
 
+SpritePatterns_size: equ $ - SpritePattern_PlayerPlane_0_and_1 ; 2,8kb

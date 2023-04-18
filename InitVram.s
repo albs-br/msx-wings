@@ -74,6 +74,10 @@ SPRATR:     equ 0xfa00
 
 LoadSpritesForGameplay:
 
+    ; set MegaROM page for Sprite Patterns data
+    ld      a, SPRITE_PATTERNS_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
 ; --------- Load sprite patterns
 
     ld      hl, SPRPAT
