@@ -2,7 +2,7 @@
 ;   HL: SPRPAT addr
 ;   DE: SPRCOL addr
 ;   IX: source sprite pattern addr on RAM
-LargeFont_loadSpritePatternsAndColors:
+LargeFont_LoadSpritePatternsAndColors:
 
     ; load sprite patterns
     ld      a, 0000 0001 b ; highest bit of the 17-bit VRAM address

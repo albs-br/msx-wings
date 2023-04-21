@@ -39,7 +39,7 @@ LevelTitleAnimation:
     ld      hl, SPRPAT + (32 * 5)
     ld      de, SPRCOL + (16 * 5)
     
-    call    LargeFont_loadSpritePatternsAndColors
+    call    LargeFont_LoadSpritePatternsAndColors
 
 
 
@@ -47,31 +47,31 @@ LevelTitleAnimation:
     ld      hl, SPRPAT
     ld      de, SPRCOL
     ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_L
-    call    LargeFont_loadSpritePatternsAndColors
+    call    LargeFont_LoadSpritePatternsAndColors
 
     ; load sprite for char E at position 1
     ld      hl, SPRPAT + (32 * 1)
     ld      de, SPRCOL + (16 * 1)
     ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_E
-    call    LargeFont_loadSpritePatternsAndColors
+    call    LargeFont_LoadSpritePatternsAndColors
 
     ; load sprite for char V at position 2
     ld      hl, SPRPAT + (32 * 2)
     ld      de, SPRCOL + (16 * 2)
     ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_V
-    call    LargeFont_loadSpritePatternsAndColors
+    call    LargeFont_LoadSpritePatternsAndColors
 
     ; load sprite for char E at position 3
     ld      hl, SPRPAT + (32 * 3)
     ld      de, SPRCOL + (16 * 3)
     ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_E
-    call    LargeFont_loadSpritePatternsAndColors
+    call    LargeFont_LoadSpritePatternsAndColors
 
     ; load sprite for char L at position 4
     ld      hl, SPRPAT + (32 * 4)
     ld      de, SPRCOL + (16 * 4)
     ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_L
-    call    LargeFont_loadSpritePatternsAndColors
+    call    LargeFont_LoadSpritePatternsAndColors
 
 
 

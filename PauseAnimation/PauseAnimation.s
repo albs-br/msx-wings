@@ -22,7 +22,9 @@ PauseAnimation:
     
     ; if(PauseAnimation_Counter == END_PAUSE_ANIMATION_STEP_2)
     cp      END_PAUSE_ANIMATION_STEP_2
-    jp      z, .animationStep_2
+    jp      z, .resetAnimation
+    ; else 
+    jp      .animationStep_2
 
     ret
 
@@ -90,59 +92,37 @@ PauseAnimation:
     ld      hl, SPRPAT + (32 * 0)
     ld      de, SPRCOL + (16 * 0)
     ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_P
-    call    LargeFont_loadSpritePatternsAndColors
+    call    LargeFont_LoadSpritePatternsAndColors
     
     ; load sprite for char A at position 1
     ld      hl, SPRPAT + (32 * 1)
     ld      de, SPRCOL + (16 * 1)
     ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_A
-    call    LargeFont_loadSpritePatternsAndColors
+    call    LargeFont_LoadSpritePatternsAndColors
 
     ; load sprite for char U at position 2
     ld      hl, SPRPAT + (32 * 2)
     ld      de, SPRCOL + (16 * 2)
     ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_U
-    call    LargeFont_loadSpritePatternsAndColors
+    call    LargeFont_LoadSpritePatternsAndColors
 
     ; load sprite for char S at position 3
     ld      hl, SPRPAT + (32 * 3)
     ld      de, SPRCOL + (16 * 3)
     ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_S
-    call    LargeFont_loadSpritePatternsAndColors
+    call    LargeFont_LoadSpritePatternsAndColors
 
     ; load sprite for char E at position 4
     ld      hl, SPRPAT + (32 * 4)
     ld      de, SPRCOL + (16 * 4)
     ld      ix, LargeFont_Patterns + LARGE_FONT_CHAR_E
-    call    LargeFont_loadSpritePatternsAndColors
+    call    LargeFont_LoadSpritePatternsAndColors
 
 
 
-    ; --------------- load Lives / Bomb number sprite patterns and colors
 
-    ; set IX to 0-9 char correponding to bombs number
-    ld      ix, SmallFont_Patterns + SMALL_FONT_CHAR_0
-    ld      de, 64  ;each char uses 64 bytes
-    ld      a, (Player_BombsNumber)
-    
-    or      a
-    jp      z, .bombsNumber_0
-    
-    cp      9 
-    jp      c, .bombsNumber_less_than_9 ; if (A >= 9) A = 9
-    ld      a, 9
-    
-.bombsNumber_less_than_9:
-    ld      b, a
-.loop_bombsNumber:
-    add     ix, de
-    djnz    .loop_bombsNumber
-.bombsNumber_0:
 
-    ; load sprite for char 0 at position 5
-    ld      hl, SPRPAT + (32 * 5)
-    ld      de, SPRCOL + (16 * 5)
-    call    SmallFont_LoadSpritePatternsAndColors
+    call    LoadSpritePatternsAndColors_TopScore
 
 
 
@@ -255,7 +235,34 @@ PauseAnimation:
 
 
 .animationStep_2:
+    ; alternate sprite colors based on PauseAnimation_Counter
+    ld      a, (PauseAnimation_Counter)
+    and     0000 0100 b
+    or      a
+    jp      z, .setTopScoreColors_2
 
+;.setTopScoreColors_1:
+    ld      hl, TopScore_Colors
+    jp      .topScoreColors_cont
+
+.setTopScoreColors_2:
+    ld      hl, TopScore_Colors_alternate
+
+.topScoreColors_cont:
+    push    hl
+        ; load sprite colors
+        ld      a, 0000 0001 b ; highest bit of the 17-bit VRAM address
+        ld      hl, SPRCOL + (16 * 5)
+        call    SetVdp_Write
+        ld      bc, 0 + (16 * 256) + PORT_0 ; B = 16, C = PORT_0
+    pop     hl
+    otir
+
+    ret
+
+
+
+.resetAnimation:
     ; PauseAnimation_Counter = END_PAUSE_ANIMATION_STEP_1 + 1
     ld      a, END_PAUSE_ANIMATION_STEP_1 + 1
     ld      (PauseAnimation_Counter), a
@@ -353,6 +360,61 @@ HideAllSprites:
 
 
 
+; Load Lives / Bomb number sprite patterns and colors
+; Inputs: none
+LoadSpritePatternsAndColors_TopScore:
+
+    ; load sprite pattern with symbols for plane and bomb on left
+    ld      a, 0000 0001 b ; highest bit of the 17-bit VRAM address
+    ld      hl, SPRPAT + (32 * 5)
+    call    SetVdp_Write
+    ld      b, TopScore_Patterns.size
+    ld      c, PORT_0
+    ld      hl, TopScore_Patterns
+    otir
+
+    ; set hl to 0-9 char correponding to bombs number
+    ld      hl, SmallFont_Patterns + SMALL_FONT_CHAR_0
+    ld      de, 64  ;each char uses 64 bytes
+    ld      a, (Player_BombsNumber)
+    
+    or      a
+    jp      z, .bombsNumber_0
+    
+    ; TODO: maybe show a :) when bombs > 9
+    cp      9 
+    jp      c, .bombsNumber_less_than_9 ; if (A >= 9) A = 9
+    ld      a, 9
+    
+.bombsNumber_less_than_9:
+    ld      b, a
+.loop_bombsNumber:
+    add     hl, de
+    djnz    .loop_bombsNumber
+.bombsNumber_0:
+
+    push    hl
+        ; load pattern for bombs number on last 8 bytes of sprite position 5
+        ld      a, 0000 0001 b ; highest bit of the 17-bit VRAM address
+        ld      hl, SPRPAT + (32 * 5) + 24
+        call    SetVdp_Write
+        ld      bc, 0 + (8 * 256) + PORT_0 ; B = 8, C = PORT_0
+    pop     hl
+    otir
+
+
+    ; load sprite colors
+    ld      a, 0000 0001 b ; highest bit of the 17-bit VRAM address
+    ld      hl, SPRCOL + (16 * 5)
+    call    SetVdp_Write
+    ld      bc, 0 + (16 * 256) + PORT_0 ; B = 16, C = PORT_0
+    ld      hl, TopScore_Colors
+    otir
+
+    ret
+
+
+
 PauseAnimation_SPRATR:
     db  (192/2) - 8, (256/2) - 8, 0 * 4, 0 ; P
     db  (192/2) - 8, (256/2) - 8, 1 * 4, 0 ; A
@@ -363,3 +425,75 @@ PauseAnimation_SPRATR:
     db  -16, 16, 5 * 4, 0 ; Bombs number
 .size:  equ $ - PauseAnimation_SPRATR
 
+
+
+TopScore_Patterns:
+    DB 00010000b
+    DB 00010000b
+    DB 00111000b
+    DB 01111100b
+    DB 11010110b
+    DB 00010000b
+    DB 00111000b
+    DB 00000000b
+    DB 00111000b
+    DB 01000100b
+    DB 10100010b
+    DB 10000010b
+    DB 10000010b
+    DB 01000100b
+    DB 00101000b
+    DB 01111100b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+    DB 00000000b
+.size: equ $ - TopScore_Patterns
+
+TopScore_Colors:
+	db	0x0d
+	db	0x0d
+	db	0x0d
+	db	0x0d
+	db	0x0d
+	db	0x0d
+	db	0x0d
+	db	0x0d
+	db	0x0d
+	db	0x0d
+	db	0x0d
+	db	0x0d
+	db	0x0d
+	db	0x0d
+	db	0x0d
+	db	0x0d
+
+TopScore_Colors_alternate:
+	db	0x0c
+	db	0x0c
+	db	0x0c
+	db	0x0c
+	db	0x0c
+	db	0x0c
+	db	0x0c
+	db	0x0c
+	db	0x0c
+	db	0x0c
+	db	0x0c
+	db	0x0c
+	db	0x0c
+	db	0x0c
+	db	0x0c
+	db	0x0c
