@@ -59,8 +59,17 @@ Enemy_Init:
     ld      hl, 0
     ld      (Enemy_Temp_Frame_Counter), hl      ; reset frame counter
 
+    ; ; get initial X coord from level data struct
+    ; ld      a, (LevelData_Temp_Initial_X)
+    ; ld      (Enemy_Temp_X), a
+
     ; get initial X coord from level data struct
+    ; if(LevelData_Temp_Initial_X == 255) setEnemyX_Equal_PlayerX
     ld      a, (LevelData_Temp_Initial_X)
+    cp      255
+    jp      nz, .notSetEnemyX_Equal_PlayerX
+    ld      a, (Player_X)
+.notSetEnemyX_Equal_PlayerX:
     ld      (Enemy_Temp_X), a
 
     ; this now comes from enemy data

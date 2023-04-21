@@ -176,6 +176,7 @@ EnemyData_2:
                 dw  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
                 dw  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
 
+; Enemy plane comes from top of screen, goes straight until bottom, no X movement
 EnemyData_4:  
 ; .deltaX:
                 db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
