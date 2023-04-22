@@ -364,7 +364,7 @@ HideAllSprites:
 ; Inputs: none
 LoadSpritePatternsAndColors_TopScore:
 
-    ; load sprite pattern with symbols for plane and bomb on left
+    ; load sprite pattern with symbols for plane and bomb on left (also clean all remaining bytes of this 16x16 sprite)
     ld      a, 0000 0001 b ; highest bit of the 17-bit VRAM address
     ld      hl, SPRPAT + (32 * 5)
     call    SetVdp_Write
@@ -373,26 +373,21 @@ LoadSpritePatternsAndColors_TopScore:
     ld      hl, TopScore_Patterns
     otir
 
-    ; set hl to 0-9 char correponding to bombs number
-    ld      hl, SmallFont_Patterns + SMALL_FONT_CHAR_0
-    ld      de, 64  ;each char uses 64 bytes
-    ld      a, (Player_BombsNumber)
-    
-    or      a
-    jp      z, .bombsNumber_0
-    
-    ; TODO: maybe show a :) when bombs > 9
-    cp      9 
-    jp      c, .bombsNumber_less_than_9 ; if (A >= 9) A = 9
-    ld      a, 9
-    
-.bombsNumber_less_than_9:
-    ld      b, a
-.loop_bombsNumber:
-    add     hl, de
-    djnz    .loop_bombsNumber
-.bombsNumber_0:
+    ; set player lives number on sprite pattern
+    ld      a, (Player_Lives)
+    call    ConvertNumberToSpriteChar_SmallFont
+    push    hl
+        ; load pattern for bombs number on last 8 bytes of sprite position 5
+        ld      a, 0000 0001 b ; highest bit of the 17-bit VRAM address
+        ld      hl, SPRPAT + (32 * 5) + 16
+        call    SetVdp_Write
+        ld      bc, 0 + (8 * 256) + PORT_0 ; B = 8, C = PORT_0
+    pop     hl
+    otir
 
+    ; set bombs number on sprite pattern
+    ld      a, (Player_BombsNumber)
+    call    ConvertNumberToSpriteChar_SmallFont
     push    hl
         ; load pattern for bombs number on last 8 bytes of sprite position 5
         ld      a, 0000 0001 b ; highest bit of the 17-bit VRAM address

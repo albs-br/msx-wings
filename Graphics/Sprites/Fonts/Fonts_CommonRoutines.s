@@ -57,3 +57,33 @@ SmallFont_LoadSpritePatternsAndColors:
     otir
 
     ret
+
+
+
+
+; Convert a number value in an sprite pattern address for the
+; corresponding char font, using small font
+; Input:
+;   A: number
+; Output:
+;   HL: sprite pattern address
+ConvertNumberToSpriteChar_SmallFont:
+    ; set hl to 0-9 char correponding to bombs number
+    ld      hl, SmallFont_Patterns + SMALL_FONT_CHAR_0
+    ld      de, 64  ;each char uses 64 bytes
+    
+    ; if (number == 0) ret
+    or      a
+    ret     z ;jp      z, .bombsNumber_0
+    
+    ; TODO: maybe show a :) when bombs > 9
+    cp      9 
+    jp      c, .less_than_9 ; if (A >= 9) A = 9
+    ld      a, 9
+    
+.less_than_9:
+    ld      b, a
+.loop:
+    add     hl, de
+    djnz    .loop
+    ret

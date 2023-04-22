@@ -21,6 +21,9 @@ InitVariables:
 
 
 
+    ld      a, 3
+    ld      (Player_Lives), a
+
     ld      a, PLAYER_INITIAL_X
     ld      (Player_X), a
 

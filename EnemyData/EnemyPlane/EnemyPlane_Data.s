@@ -9,6 +9,7 @@ EnemyOffset_y1_size:        equ EnemyData_0.SPRCOL_Addr - EnemyData_0.offset_y1
 ; Delta X values for enemy position on time
 ; values should be in -2, +2 range
 
+; Enemy plane comes from top of screen, swerve left a little and continues straight until bottom
 EnemyData_0:
 .deltaX:
                 db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
@@ -65,6 +66,7 @@ EnemyData_0:
                 dw  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
                 dw  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
 
+; Enemy plane comes from top of screen, swerve right a little and continues straight until bottom
 EnemyData_1:  
 ; .deltaX:
                 db  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
@@ -120,6 +122,8 @@ EnemyData_1:
                 dw  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
                 dw  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
                 dw  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 
+
+; Enemy plane comes from top of screen, does zigzags until bottom
 EnemyData_2:  
 ; .deltaX:
                 db  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1

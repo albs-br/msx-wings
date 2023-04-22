@@ -5,7 +5,7 @@
 #ram_watch   add     0xc005      -type byte       -desc Player_Shot_Level      -format dec
 #ram_watch   add     0xc006      -type byte       -desc Player_Shot_Width      -format dec
 
-ram_watch   add     0xC222      -type word       -desc LevelCounter      -format dec
+ram_watch   add     0xC223      -type word       -desc LevelCounter      -format dec
 
 
 
@@ -69,12 +69,12 @@ ram_watch   add     0xC222      -type word       -desc LevelCounter      -format
 
 #ram_watch   add     0xc01f      -type word      -desc NextShot_Struct_Addr       -format hex
 
-ram_watch   add     0xC24f      -type byte      -desc FramesSkipped            -format dec
+ram_watch   add     0xC250      -type byte      -desc FramesSkipped            -format dec
 
 ram_watch   add     0xC00a      -type byte      -desc BombsNumber            -format dec
 ram_watch   add     0xC00b      -type byte      -desc BombActive            -format dec
 
-ram_watch   add     0xC40d      -type byte      -desc PauseAnim_Counter            -format dec
+ram_watch   add     0xC40e      -type byte      -desc PauseAnim_Counter            -format dec
 
 
 
