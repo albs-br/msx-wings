@@ -11,3 +11,15 @@
 	after animation, convert to bmp on sc5/11
 	total sprites = 25+16+9+4+1 = 55
 	size in bytes = 55 * 48 (pattern + colors) = 2640 bytes (it may be loaded ROM -> VRAM in 1 frame at initialization), and easily compressed on ROM
+
+ 01234 56789
+"STAGE CLEAR": 11 chars
+
+11 x 16 px = 176 px
+
+x of center char (' ') = 128 - (16/2) = 120
+
+x of 'E' char (char #4) = 128 - (16/2) - 16 = 104
+center of it is: 104 + 8 = 112
+
+center x, y = 112, 96-8=88
