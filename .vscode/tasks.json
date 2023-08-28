@@ -39,21 +39,21 @@
                         //"value": "-machine Panasonic_FS-A1WSX",         // MSX 2+ with turbo
                         //"value": "-machine Panasonic_FS-A1GT",          // MSX Turbo R
                         
-                        "quoting": "escape"
+                        "quoting": "weak"
                     },
                     {
                         "value": "-romtype ASCII16",
                         //"value": "-romtype ASCII8",
-                        "quoting": "escape"
+                        "quoting": "weak"
                     },
                     {
                         //"value": "-script ${workspaceFolder}\\msx-wings_debug.tcl",
                         "value": "-script ${workspaceFolder}\\profiler.tcl",
-                        "quoting": "escape"
+                        "quoting": "weak"
                     },
                     {
                         "value": "-script ${workspaceFolder}\\msx-wings_debug.tcl",
-                        "quoting": "escape"
+                        "quoting": "weak"
                     }
                 ],
             "label": "run openmsx",

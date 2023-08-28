@@ -5,7 +5,7 @@
 LevelTitleAnimation:
 
     push    af
-        ; hide all sprites
+        ; hide all sprites (set Y=216 for all 32 sprites on SPRATR)
         ld      de, 4
         ld      a, 216
         ld      hl, SPRATR_Buffer
