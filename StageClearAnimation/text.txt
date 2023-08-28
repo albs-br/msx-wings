@@ -1,16 +1,18 @@
 -level end animation for msx-wings:
-	string STAGE CLEAR zooming out, char by char:
-		-5x5 sprites maximized =  160x160 pixels	10x
-		-4x4 sprites maximized =  128x128 pixels	8x
-		-3x3 sprites maximized =    96x96 pixels	6x
-		-5x5 sprites normal size =  80x80 pixels	5x
-		-4x4 sprites normal size =  64x64 pixels	4x
-		-3x3 sprites normal size =  48x48 pixels	3x
-		-2x2 sprites normal size =  32x32 pixels	2x
-		-1 sprite normal size    =  16x16 pixels	1x
+	string STAGE CLEAR zooming out, char by char:			frame#
+		-5x5 sprites maximized =  160x160 pixels	10x		0
+		-4x4 sprites maximized =  128x128 pixels	8x		2
+		-3x3 sprites maximized =    96x96 pixels	6x		4
+		-5x5 sprites normal size =  80x80 pixels	5x		6
+		-4x4 sprites normal size =  64x64 pixels	4x		8
+		-3x3 sprites normal size =  48x48 pixels	3x		10
+		-2x2 sprites normal size =  32x32 pixels	2x		12
+		-1 sprite normal size    =  16x16 pixels	1x		14
 	after animation, convert to bmp on sc5/11
 	total sprites = 25+16+9+4+1 = 55
 	size in bytes = 55 * 48 (pattern + colors) = 2640 bytes (it may be loaded ROM -> VRAM in 1 frame at initialization), and easily compressed on ROM
+
+8 steps of animation, 2 frames/step = 16 frames
 
  01234 56789
 "STAGE CLEAR": 11 chars
@@ -23,3 +25,9 @@ x of 'E' char (char #4) = 128 - (16/2) - 16 = 104
 center of it is: 104 + 8 = 112
 
 center x, y = 112, 96-8=88
+
+------ Char #0 ('S')
+frame#		width	xCenter		yCenter
+0			160		80			80
+...
+14			16		112-64		88

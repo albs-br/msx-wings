@@ -2,7 +2,7 @@ PLAYER_BOMB_MAX_LIFETIME:   equ 240     ; 240 frames = 4 seconds
 
 PlayerBombLogic:
 
-    ; if(Player_BombActive != 0) return;
+    ; if(Player_BombActive == 0) return;
     ld      a, (Player_BombActive)
     or      a
     ret     z
