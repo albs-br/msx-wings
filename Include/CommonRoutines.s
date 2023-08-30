@@ -393,6 +393,24 @@ SetSprites16x16:
     call    BIOS_WRTVDP
 	ret
 
+SetSpritesMinimized:
+    ld      a, (REG1SAV)
+    and     1111 1110 b
+    ld      (REG1SAV), a
+    ld      b, a
+    ld      c, 1            ; register #
+    call    BIOS_WRTVDP
+	ret
+
+SetSpritesMaximized:
+    ld      a, (REG1SAV)
+    or      0000 0001 b
+    ld      (REG1SAV), a
+    ld      b, a
+    ld      c, 1            ; register #
+    call    BIOS_WRTVDP
+	ret
+
 Set192Lines:
     ; set 192 lines
     ; ld      b, 0000 0000 b  ; data
@@ -554,7 +572,7 @@ CheckCollision_16x16_32x16:
         ld      a, d                        ; get x2
         sub     b                           ; calculate x2 - x1
         jr      c, .x1IsLarger              ; jump if x2 < x1
-        sub     16                          ; compare with size 1
+        sub     16                          ; compare with width 1
         ret     nc                          ; return if no collision
         jp      .checkVerticalCollision
 .x1IsLarger:
@@ -564,14 +582,14 @@ CheckCollision_16x16_32x16:
         ; xor     a                           ; same as ld a, 0
         ; sub     a, b
     
-        sub     32                          ; compare with size 2
+        sub     32                          ; compare with width 2
         ret     nc                          ; return if no collision
 
 .checkVerticalCollision:
         ld      a, e                        ; get y2
         sub     c                           ; calculate y2 - y1
         jr      c, .y1IsLarger              ; jump if y2 < y1
-        sub     16                          ; compare with size 1
+        sub     16                          ; compare with height 1
         ret                                 ; return collision or no collision
 .y1IsLarger:
         neg                                 ; use negative value (Z80)
@@ -580,7 +598,7 @@ CheckCollision_16x16_32x16:
         ; xor     a                           ; same as ld a, 0
         ; sub     a, c
     
-        sub     16                          ; compare with size 2
+        sub     16                          ; compare with height 2
         ret                                 ; return collision or no collision
 
 
