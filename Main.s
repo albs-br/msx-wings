@@ -70,6 +70,9 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     INCLUDE "LevelTitleAnimation/LevelTitleAnimation.s"
     INCLUDE "LevelTitleAnimation/Data.s"
 
+    INCLUDE "StageClearAnimation/StageClearAnimation.s"
+    INCLUDE "StageClearAnimation/Data.s"
+
     INCLUDE "DebugMessage.s"
 
     INCLUDE "Graphics/Sprites/Fonts/FontsTest.s"

@@ -188,9 +188,9 @@ ExecuteScroll:
 
 .stopScroll:
     ;jp      .stopScroll
-    jp      Execute
+    ; jp      Execute
     ;jp      NextLevel
-
+    jp      StageClearAnimation
 
 AdjustSprites_Y:
     ; adjust Y position of sprites to compensate scroll

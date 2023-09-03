@@ -1046,6 +1046,7 @@ FONTS_DATA_MEGAROM_PAGE:        equ 243
 ; ------- Page 243
 	org	0x8000, 0xBFFF
     INCLUDE "Graphics/Sprites/Fonts/Fonts.s"
+    INCLUDE "Graphics/Sprites/StageClearAnimation/StageClearAnimation.s"
 MEGAROM_PAGE_243_size:          equ $ - 0x8000
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
