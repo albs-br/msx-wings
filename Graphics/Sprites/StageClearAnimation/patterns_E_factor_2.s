@@ -1,3 +1,4 @@
+StageClear_Patterns_E_factor_2:
 ; ----------- Sprite pattern #0
 	db 00000000 b
 	db 00000000 b
@@ -130,3 +131,4 @@
 	db 11110000 b
 	db 00000000 b
 	db 00000000 b
+.size:  equ $ - StageClear_Patterns_E_factor_2
