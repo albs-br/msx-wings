@@ -1,5 +1,6 @@
-StageClearAnnimation_SPRPAT:
+StageClearAnimation_SPRATR:
 ; --- frame #0
+.frame_0:
         db 16, 0, 0, 0
         db 48, 0, 4, 0
         db 80, 0, 8, 0

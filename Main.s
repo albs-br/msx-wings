@@ -173,7 +173,8 @@ Execute:
 
     ;ld      a, 1 ; debug
     ld      a, (CurrentLevelNumber)
-    call    LevelTitleAnimation
+    ; call    LevelTitleAnimation
+    call    StageClearAnimation ; DEBUG
 
     ; jp      DEBUG_ResetCircleLoopTest
     ; call    InitVram

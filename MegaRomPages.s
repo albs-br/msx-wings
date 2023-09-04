@@ -1046,7 +1046,6 @@ FONTS_DATA_MEGAROM_PAGE:        equ 243
 ; ------- Page 243
 	org	0x8000, 0xBFFF
     INCLUDE "Graphics/Sprites/Fonts/Fonts.s"
-    INCLUDE "Graphics/Sprites/StageClearAnimation/StageClearAnimation.s"
 MEGAROM_PAGE_243_size:          equ $ - 0x8000
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
@@ -1067,3 +1066,12 @@ TITLE_SCREEN_FIRST_MEGAROM_PAGE:        equ 244
 	INCBIN "Graphics/Bitmaps/TitleScreen/title-screen_1.sc5.new"
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
+; ------------------------------------------------------------------------
+
+STAGE_CLEAR_ANIMATION_DATA_MEGAROM_PAGE:        equ 246
+
+; ------- Page 246
+	org	0x8000, 0xBFFF
+    INCLUDE "Graphics/Sprites/StageClearAnimation/StageClearAnimation.s"
+MEGAROM_PAGE_246_size:          equ $ - 0x8000
+	ds PAGE_SIZE - ($ - 0x8000), 255

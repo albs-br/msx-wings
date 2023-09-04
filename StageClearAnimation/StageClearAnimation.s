@@ -1,56 +1,52 @@
 StageClearAnimation:
 
-; debug
-call bios_beep
-jp StageClearAnimation
+    ; hide all sprites (set Y=216 for all 32 sprites on SPRATR)
+    ld      de, 4
+    ld      a, 216
+    ld      hl, SPRATR
+    ld      b, 32
+    ld      c, PORT_0
+.loop_2:
+    call    SetVdp_Write
+    out     (c), a
+    add     hl, de
+    djnz    .loop_2
 
-;     push    af
-;         ; hide all sprites (set Y=216 for all 32 sprites on SPRATR)
-;         ld      de, 4
-;         ld      a, 216
-;         ld      hl, SPRATR_Buffer
-;         ld      b, 32
-;     .loop_2:
-;         ld      (hl), a
-;         add     hl, de
-;         djnz    .loop_2
-
-;         ; set MegaROM page for Stage clear animation sprites data
-;         ld      a, FONTS_DATA_MEGAROM_PAGE
-;         ld	    (Seg_P8000_SW), a
-;     pop     af
+    ; set MegaROM page for Stage clear animation sprites data
+    ld      a, STAGE_CLEAR_ANIMATION_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
 
 
-;     ; init variables
-;     xor     a
-;     ld      (LevelInitAnimation_Counter), a
+    ; init variables
+    xor     a
+    ld      (LevelInitAnimation_Counter), a
 
 
-; .animationLoop:
-;     ld      hl, BIOS_JIFFY              ; (v-blank sync)
-;     ld      a, (hl)
-; .animationLoop_waitVBlank:
-;     cp      (hl)
-;     jr      z, .animationLoop_waitVBlank
+.animationLoop:
+    ld      hl, BIOS_JIFFY              ; (v-blank sync)
+    ld      a, (hl)
+.animationLoop_waitVBlank:
+    cp      (hl)
+    jr      z, .animationLoop_waitVBlank
 
 
 
-;     ld      a, (LevelInitAnimation_Counter)
+    ld      a, (LevelInitAnimation_Counter)
 
-;     ; if (counter < 2)
-;     cp      2
-;     jp      c, .load_5x5_sprites_maximized
+    ; if (counter < 2)
+    cp      2
+    jp      c, .load_5x5_sprites_maximized
 
-;     ; else if (counter < 4)
-;     cp      4
-;     jp      c, .load_4x4_sprites_maximized
+    ; ; else if (counter < 4)
+    ; cp      4
+    ; jp      c, .load_4x4_sprites_maximized
 
-;     ; TODO: other ifs
+    ; TODO: other ifs
 
-;     ; else .exit
-;     jp      .exit
+    ; else .exit
+    jp      .exit
 
-; .continue:
+.continue:
 
 
 
@@ -72,34 +68,70 @@ jp StageClearAnimation
 
 
 
-;     ; load from SPRATR_Buffer to SPRATR table (all 32 sprites)
-;     ld      a, 0000 0001 b
-;     ld      hl, SPRATR
-;     call    SetVdp_Write
-;     ld      bc, 0 + ((32 * 4) * 256) + PORT_0
-;     ld      hl, SPRATR_Buffer
-;     otir
-;     ; ; 4x OUTI
-;     ; outi outi outi outi 
+    ; load from HL to SPRATR table (all 32 sprites)
+    push    hl
+        ld      a, 0000 0001 b
+        ld      hl, SPRATR
+        call    SetVdp_Write
+        ; ld      bc, 0 + ((32 * 4) * 256) + PORT_0
+        ld      b, 0 + (32 * 4)
+        ld      c, PORT_0
+        ; ld      hl, StageClearAnimation_SPRATR.frame_0; SPRATR_Buffer
+    pop     hl
+    otir
+    ; ; 4x OUTI
+    ; outi outi outi outi 
 
-;     jp      .animationLoop
+    ; LevelInitAnimation_Counter ++
+    ld      hl, LevelInitAnimation_Counter
+    inc     (hl)
 
-; .exit:
-;     call    SetSpritesMinimized
+.debug:
+CALL BIOS_BEEP
+JP .debug
+
+    jp      .animationLoop
+
+.exit:
+    call    SetSpritesMinimized
 
 
 
-;     ret
+    ret
 
-; .load_5x5_sprites_maximized:
+.load_5x5_sprites_maximized:
 
-;     call    SetSpritesMaximized
+    call    SetSpritesMaximized
 
-;     ; load sprite patterns
-    
-;     ; load sprite colors
+    ; load sprite patterns
+    ld      a, 0000 0001 b
+    ld      hl, SPRPAT
+    call    SetVdp_Write
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      hl, StageClear_Patterns_S_factor_5
+    ld      de, StageClear_Patterns_S_factor_5.size
+.loop_10:
+    outi
+    dec     de
+    ld      a, d
+    or      e
+    jp      nz, .loop_10
 
-;     ; set HL to SPRATR to be loaded
-;     ld      hl, ????
+    ; load sprite colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL
+    call    SetVdp_Write
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ld      d, 5          ; number of repetitions (same as factor)
+    .loop_colors:
+        ld      hl, StageClear_Colors_factor_5
+        ld      b, StageClear_Colors_factor_5.size
+        otir
+    dec     d
+    jp      nz, .loop_Colors
 
-;     jp      .continue
+
+    ; set HL to SPRATR to be loaded
+    ld      hl, StageClearAnimation_SPRATR.frame_0
+
+    jp      .continue
