@@ -1,3 +1,4 @@
+StageClear_Colors_factor_4:
                  db	0x05
                  db	0x05
                  db	0x05
@@ -62,3 +63,4 @@
                  db	0x0d
                  db	0x0d
                  db	0x0d
+.size:  equ $ - StageClear_Colors_factor_4

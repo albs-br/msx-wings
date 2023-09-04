@@ -28,6 +28,7 @@ StageClearAnimation_SPRATR:
         db 144, 128, 96, 0
         db 216 ; Y = 216: hide all sprites from here onwards
 ; --- frame #1
+.frame_1:
         db 16, 0, 0, 0
         db 48, 0, 4, 0
         db 80, 0, 8, 0
@@ -55,6 +56,7 @@ StageClearAnimation_SPRATR:
         db 144, 128, 96, 0
         db 216 ; Y = 216: hide all sprites from here onwards
 ; --- frame #2
+.frame_2:
         db 32, 5, 0, 0
         db 64, 5, 4, 0
         db 96, 5, 8, 0
@@ -91,6 +93,7 @@ StageClearAnimation_SPRATR:
         db 128, 101, 60, 0
         db 216 ; Y = 216: hide all sprites from here onwards
 ; --- frame #4
+.frame_4:
         db 48, 11, 0, 0
         db 80, 11, 4, 0
         db 112, 11, 8, 0
@@ -113,6 +116,7 @@ StageClearAnimation_SPRATR:
         db 112, 75, 32, 0
         db 216 ; Y = 216: hide all sprites from here onwards
 ; --- frame #6
+.frame_6:
         db 56, 17, 0, 0
         db 72, 17, 4, 0
         db 88, 17, 8, 0
@@ -167,6 +171,7 @@ StageClearAnimation_SPRATR:
         db 120, 81, 96, 0
         db 216 ; Y = 216: hide all sprites from here onwards
 ; --- frame #8
+.frame_8:
         db 64, 22, 0, 0
         db 80, 22, 4, 0
         db 96, 22, 8, 0
@@ -203,6 +208,7 @@ StageClearAnimation_SPRATR:
         db 112, 70, 60, 0
         db 216 ; Y = 216: hide all sprites from here onwards
 ; --- frame #10
+.frame_10:
         db 72, 28, 0, 0
         db 88, 28, 4, 0
         db 104, 28, 8, 0
@@ -225,6 +231,7 @@ StageClearAnimation_SPRATR:
         db 104, 60, 32, 0
         db 216 ; Y = 216: hide all sprites from here onwards
 ; --- frame #12
+.frame_12:
         db 80, 34, 0, 0
         db 96, 34, 4, 0
         db 80, 50, 8, 0
