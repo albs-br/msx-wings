@@ -165,6 +165,7 @@ InitVariables:
 
 
 
+    ; TODO: this isnt necessary anymore (SPRATR buffer is not used on gmaeplay)
     ; copy from initial sprite attributes to buffer
     ld      hl, InitialSpriteAttributes
     ld      de, SPRATR_Buffer

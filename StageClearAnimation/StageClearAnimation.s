@@ -1,16 +1,6 @@
 StageClearAnimation:
 
-    ; hide all sprites (set Y=216 for all 32 sprites on SPRATR)
-    ld      de, 4
-    ld      a, 216
-    ld      hl, SPRATR
-    ld      b, 32
-    ld      c, PORT_0
-.loop_2:
-    call    SetVdp_Write
-    out     (c), a
-    add     hl, de
-    djnz    .loop_2
+    call    .hideAllSprites
 
     ; set MegaROM page for Stage clear animation sprites data
     ld      a, STAGE_CLEAR_ANIMATION_DATA_MEGAROM_PAGE
@@ -163,6 +153,35 @@ StageClearAnimation:
     jp      .animationLoop
 
 .exit:
+
+    call    .hideAllSprites
+
+    ; clear SPRPAT
+    ld      a, 0000 0001 b
+    ld      hl, SPRPAT
+    call    SetVdp_Write
+    xor     a
+    ld      de, 256 * 8
+.loop_100:
+    out     (PORT_0), a
+    dec     e
+    jp      nz, .loop_100
+    dec     d
+    jp      nz, .loop_100
+
+    ; clear SPRCOL
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL
+    call    SetVdp_Write
+    xor     a
+    ld      de, 32 * 16
+.loop_200:
+    out     (PORT_0), a
+    dec     e
+    jp      nz, .loop_200
+    dec     d
+    jp      nz, .loop_200
+
     call    SetSpritesMinimized
 
 
@@ -323,4 +342,36 @@ StageClearAnimation:
     jp      .continue
 
 
+.hideAllSprites:
+    ; hide all sprites (set Y=216 for all 32 sprites on SPRATR)
+    ld      a, 0000 0001 b
+    ld      hl, SPRATR
+    call    SetVdp_Write
+    ld      b, 32
+.loop_2:
 
+    ; on v9938/57 OUTs must be 15 cycles apart outside of vblank
+
+    ld      a, 216  ; Y
+    nop
+    nop
+    out     (PORT_0), a
+
+    ld      a, 255  ; X
+    nop
+    nop
+    out     (PORT_0), a
+
+    xor     a       ; pattern
+    nop
+    nop
+    out     (PORT_0), a
+
+    xor     a       ; not used
+    nop
+    nop
+    out     (PORT_0), a
+
+    djnz    .loop_2
+
+    ret
