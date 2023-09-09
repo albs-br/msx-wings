@@ -1,4 +1,5 @@
-StageClearAnimation_SPRATR:
+; ------------- char #0
+StageClearAnimation_SPRATR_Char_0:
 
 ; --- frame #0
 .frame_0:

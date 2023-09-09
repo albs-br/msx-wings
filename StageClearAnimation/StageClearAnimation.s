@@ -8,10 +8,7 @@ StageClearAnimation:
 
 
     ; init variables for this char (S)
-    xor     a
-    ld      (LevelInitAnimation_Counter), a
-
-    ld      hl, StageClearAnimation_SPRATR.frame_0 
+    ld      hl, StageClearAnimation_SPRATR_Char_0
     ld      (StageClearAnimationVars.SPRATR_Address), hl
 
     ld      hl, StageClear_Patterns_S_factor_5 
@@ -20,6 +17,14 @@ StageClearAnimation:
     ld      hl, StageClear_Colors_factor_5 
     ld      (StageClearAnimationVars.SPRCOL_Address), hl
 
+    ld      hl, LargeFont_Patterns + LARGE_FONT_CHAR_S
+    ld      (StageClearAnimationVars.FontSprite_16x16_Addr), hl
+
+
+
+
+    xor     a
+    ld      (StageClearAnimationVars.FrameCounter), a
 
 .animationLoop:
     ld      hl, BIOS_JIFFY              ; (v-blank sync)
@@ -30,11 +35,11 @@ StageClearAnimation:
 
 
     ; if counter is odd go to next frame
-    ld      a, (LevelInitAnimation_Counter)
+    ld      a, (StageClearAnimationVars.FrameCounter)
     and     0000 0001 b
     jp      nz, .nextFrame
 
-    ld      a, (LevelInitAnimation_Counter)
+    ld      a, (StageClearAnimationVars.FrameCounter)
 
     ; if (counter == 0)
     cp      0
@@ -74,10 +79,7 @@ StageClearAnimation:
             ld      a, 0000 0001 b
             ld      hl, SPRATR
             call    SetVdp_Write
-            ; ld      bc, 0 + ((32 * 4) * 256) + PORT_0
-            ; ld      b, 0 + (32 * 4)
             ld      c, PORT_0
-            ; ld      hl, StageClearAnimation_SPRATR.frame_0; SPRATR_Buffer
         pop     de, hl
         ; otir
         ; 25 sprites * 4 = 100
@@ -161,7 +163,7 @@ StageClearAnimation:
 .nextFrame:
 
     ; LevelInitAnimation_Counter ++
-    ld      hl, LevelInitAnimation_Counter
+    ld      hl, StageClearAnimationVars.FrameCounter
     inc     (hl)
 
     jp      .animationLoop
@@ -249,7 +251,7 @@ StageClearAnimation:
         ld      hl, (StageClearAnimationVars.SPRATR_Address)
         push    hl
             ; set SPRATR_Address var to next frame
-            ld      bc, StageClearAnimation_SPRATR.frame_0_size ; all chars have the sime size
+            ld      bc, StageClearAnimation_SPRATR_Char_0.frame_0_size ; all chars have the sime size
             call    .nextSPRATR
         pop     hl
     pop     bc
@@ -284,7 +286,7 @@ StageClearAnimation:
         ld      hl, (StageClearAnimationVars.SPRATR_Address)
         push    hl
             ; set SPRATR_Address var to next frame
-            ld      bc, StageClearAnimation_SPRATR.frame_2_size ; all chars have the sime size
+            ld      bc, StageClearAnimation_SPRATR_Char_0.frame_2_size ; all chars have the sime size
             call    .nextSPRATR
         pop     hl
     pop     bc
@@ -328,7 +330,7 @@ StageClearAnimation:
         ld      hl, (StageClearAnimationVars.SPRATR_Address)
         push    hl
             ; set SPRATR_Address var to next frame
-            ld      bc, StageClearAnimation_SPRATR.frame_4_size ; all chars have the sime size
+            ld      bc, StageClearAnimation_SPRATR_Char_0.frame_4_size ; all chars have the sime size
             call    .nextSPRATR
         pop     hl
     pop     bc
@@ -364,7 +366,7 @@ StageClearAnimation:
         ld      hl, (StageClearAnimationVars.SPRATR_Address)
         push    hl
             ; set SPRATR_Address var to next frame
-            ld      bc, StageClearAnimation_SPRATR.frame_6_size ; all chars have the sime size
+            ld      bc, StageClearAnimation_SPRATR_Char_0.frame_6_size ; all chars have the sime size
             call    .nextSPRATR
         pop     hl
     pop     bc
@@ -400,7 +402,7 @@ StageClearAnimation:
         ld      hl, (StageClearAnimationVars.SPRATR_Address)
         push    hl
             ; set SPRATR_Address var to next frame
-            ld      bc, StageClearAnimation_SPRATR.frame_8_size ; all chars have the sime size
+            ld      bc, StageClearAnimation_SPRATR_Char_0.frame_8_size ; all chars have the sime size
             call    .nextSPRATR
         pop     hl
     pop     bc
@@ -436,7 +438,7 @@ StageClearAnimation:
         ld      hl, (StageClearAnimationVars.SPRATR_Address)
         push    hl
             ; set SPRATR_Address var to next frame
-            ld      bc, StageClearAnimation_SPRATR.frame_10_size ; all chars have the sime size
+            ld      bc, StageClearAnimation_SPRATR_Char_0.frame_10_size ; all chars have the sime size
             call    .nextSPRATR
         pop     hl
     pop     bc
@@ -472,7 +474,7 @@ StageClearAnimation:
         ld      hl, (StageClearAnimationVars.SPRATR_Address)
         push    hl
             ; set SPRATR_Address var to next frame
-            ld      bc, StageClearAnimation_SPRATR.frame_12_size ; all chars have the sime size
+            ld      bc, StageClearAnimation_SPRATR_Char_0.frame_12_size ; all chars have the sime size
             call    .nextSPRATR
         pop     hl
     pop     bc
@@ -488,7 +490,7 @@ StageClearAnimation:
     ld	    (Seg_P8000_SW), a
 
     ; 8 left pixels of the chars
-    ld      hl, LargeFont_Patterns + LARGE_FONT_CHAR_S
+    ld      hl, (StageClearAnimationVars.FontSprite_16x16_Addr)
     ld      ix, LargeFont_Colors
     ld      de, ConvertMsx2SpritesToSc11_Output
     ld      b, 16
@@ -499,7 +501,9 @@ StageClearAnimation:
     call    ConvertMsx2SpritesToSc11
 
     ; 8 right pixels of the chars
-    ld      hl, LargeFont_Patterns + LARGE_FONT_CHAR_S + 16
+    ld      hl, (StageClearAnimationVars.FontSprite_16x16_Addr)
+    ld      bc, 16
+    add     hl, bc
     ld      ix, LargeFont_Colors
     ld      de, ConvertMsx2SpritesToSc11_Output + 8
     ld      b, 16
