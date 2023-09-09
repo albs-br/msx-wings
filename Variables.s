@@ -306,6 +306,18 @@ LevelInitAnimation_Char_6_LookupTable_Addr:      rw 1
 LevelInitAnimation_Counter_1:                    rb 1
 
 ; ---------------------------------------
+; Stage clear animation vars
+StageClearAnimationVars:
+
+.SPRATR_Address:        rw 1
+; .SPRATR_Size:           rw 1
+
+.SPRPAT_Address:        rw 1
+; .SPRPAT_Size:           rw 1
+
+.SPRCOL_Address:        rw 1
+; .SPRCOL_Size:           rw 1
+; ---------------------------------------
 
 VDP_HMMM_Params_Buffer:
 .Source_X:   rw    1 	    ; Source X (9 bits)
