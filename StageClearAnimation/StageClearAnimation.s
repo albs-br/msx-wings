@@ -61,6 +61,9 @@ StageClearAnimation:
     cp      12
     jp      z, .load_2x2_sprites_minimized
 
+    cp      14
+    jp      z, .load_1x1_sprite_minimized
+
     ; else .exit
     jp      .exit
 
@@ -77,13 +80,14 @@ StageClearAnimation:
             ; ld      hl, StageClearAnimation_SPRATR.frame_0; SPRATR_Buffer
         pop     de, hl
         ; otir
-        ; 25 * 4 = 100
+        ; 25 sprites * 4 = 100
         ; 100x outi:
         outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi
         outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi
         outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi
         outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi
         outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi
+        outi ; OUTI for Y=216
     pop     bc
 
 
@@ -95,21 +99,19 @@ StageClearAnimation:
         ld      hl, SPRPAT
         call    SetVdp_Write
         ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-        ; ld      hl, StageClear_Patterns_S_factor_5
 
         ; HL = IX
         push    ix
         pop     hl
 
-        ; ld      de, StageClear_Patterns_S_factor_5.size
         ; DE = IY
         push    iy
         pop     de
     .loop_10:
-        outi
-        ; ; 32x outi:
-        ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-        ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+        ; outi
+        ; 32x outi:
+        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
         dec     de
         ld      a, d
         or      e
@@ -161,10 +163,6 @@ StageClearAnimation:
     ; LevelInitAnimation_Counter ++
     ld      hl, LevelInitAnimation_Counter
     inc     (hl)
-
-; .debug:
-; CALL BIOS_BEEP
-; JP .debug
 
     jp      .animationLoop
 
@@ -225,70 +223,19 @@ StageClearAnimation:
     ld      (StageClearAnimationVars.SPRATR_Address), hl
     ret
 
-; ; Inputs:
-; ;   IY: SPRPAT size on bytes
-; ;   B: SPRCOL size on bytes
-; .loadSprites:
-
-;     ; set IX to SPRPAT to be loaded (size in IY)
-;     ld      ix, (StageClearAnimationVars.SPRPAT_Address)
-;     ;ld      iy, 0 + (StageClear_Patterns_S_factor_5.size) ; all chars have the sime size
-
-;     push    bc
-;         ; set SPRPAT_Address var to next frame
-;         ld      bc, 0 + (StageClear_Patterns_S_factor_5.size) ; all chars have the sime size
-;         call    .updateSPRPAT
-;     pop     bc
-
-;     ; set DE to SPRCOL to be loaded (size in B)
-;     ld      de, (StageClearAnimationVars.SPRCOL_Address)
-;     ; ld      b, StageClear_Colors_factor_5.size
-
-;     push    bc
-;         ; set SPRCOL_Address var to next frame
-;         ; ld      bc, StageClear_Colors_factor_5.size ; all chars have the sime size
-        
-;         ; BC = B
-;         ld      c, b
-;         ld      b, 0
-
-;         call    .updateSPRCOL
-
-
-;         ; set HL to SPRATR to be loaded
-;         ld      hl, (StageClearAnimationVars.SPRATR_Address)
-;         push    hl
-;             ; set SPRATR_Address var to next frame
-;             ld      bc, StageClearAnimation_SPRATR.frame_0_size ; all chars have the sime size
-;             call    .updateSPRATR
-;             ; ld      hl, (StageClearAnimationVars.SPRATR_Address)
-;             ; ld      bc, StageClearAnimation_SPRATR.frame_0_size ; all chars have the sime size
-;             ; add     hl, bc
-;             ; ld      (StageClearAnimationVars.SPRATR_Address), hl
-;         pop     hl
-;     pop     bc
-    
-;     ret
-
 .load_5x5_sprites_maximized:
     call    SetSpritesMaximized
 
     ; set IX to SPRPAT to be loaded (size in IY)
-    ; ld      ix, StageClear_Patterns_S_factor_5
     ld      ix, (StageClearAnimationVars.SPRPAT_Address)
-    ld      iy, 0 + (StageClear_Patterns_S_factor_5.size) ; all chars have the sime size
+    ld      iy, 0 + (StageClear_Patterns_S_factor_5.size / 32) ; all chars have the sime size
 
     ; set SPRPAT_Address var to next frame
     ld      bc, 0 + (StageClear_Patterns_S_factor_5.size) ; all chars have the sime size
     call    .nextSPRPAT
-    ; ld      hl, (StageClearAnimationVars.SPRPAT_Address)
-    ; ld      bc, StageClear_Patterns_S_factor_5.size ; all chars have the sime size
-    ; add     hl, bc
-    ; ld      (StageClearAnimationVars.SPRPAT_Address), hl
 
 
     ; set DE to SPRCOL to be loaded (size in B)
-    ; ld      de, StageClear_Colors_factor_5
     ld      de, (StageClearAnimationVars.SPRCOL_Address)
     ld      b, StageClear_Colors_factor_5.size
 
@@ -296,23 +243,14 @@ StageClearAnimation:
         ; set SPRCOL_Address var to next frame
         ld      bc, StageClear_Colors_factor_5.size ; all chars have the sime size
         call    .nextSPRCOL
-        ; ld      hl, (StageClearAnimationVars.SPRCOL_Address)
-        ; ld      bc, StageClear_Colors_factor_5.size ; all chars have the sime size
-        ; add     hl, bc
-        ; ld      (StageClearAnimationVars.SPRCOL_Address), hl
 
 
         ; set HL to SPRATR to be loaded
-        ; ld      hl, StageClearAnimation_SPRATR.frame_0
         ld      hl, (StageClearAnimationVars.SPRATR_Address)
         push    hl
             ; set SPRATR_Address var to next frame
             ld      bc, StageClearAnimation_SPRATR.frame_0_size ; all chars have the sime size
             call    .nextSPRATR
-            ; ld      hl, (StageClearAnimationVars.SPRATR_Address)
-            ; ld      bc, StageClearAnimation_SPRATR.frame_0_size ; all chars have the sime size
-            ; add     hl, bc
-            ; ld      (StageClearAnimationVars.SPRATR_Address), hl
         pop     hl
     pop     bc
 
@@ -325,7 +263,7 @@ StageClearAnimation:
 
     ; set IX to SPRPAT to be loaded (size in IY)
     ld      ix, (StageClearAnimationVars.SPRPAT_Address)
-    ld      iy, StageClear_Patterns_S_factor_4.size ; all chars have the sime size
+    ld      iy, StageClear_Patterns_S_factor_4.size / 32 ; all chars have the sime size
 
     ; set SPRPAT_Address var to next frame
     ld      bc, StageClear_Patterns_S_factor_4.size ; all chars have the sime size
@@ -361,7 +299,7 @@ StageClearAnimation:
 
     ; set IX to SPRPAT to be loaded (size in IY)
     ld      ix, (StageClearAnimationVars.SPRPAT_Address)
-    ld      iy, StageClear_Patterns_S_factor_3.size ; all chars have the sime size
+    ld      iy, StageClear_Patterns_S_factor_3.size / 32 ; all chars have the sime size
 
     ; THIS one is different from the others, as it is the transition from maximized to normal sprites
     ; set SPRPAT_Address var to next frame
@@ -405,7 +343,7 @@ StageClearAnimation:
 
     ; set IX to SPRPAT to be loaded (size in IY)
     ld      ix, (StageClearAnimationVars.SPRPAT_Address)
-    ld      iy, StageClear_Patterns_S_factor_5.size ; all chars have the sime size
+    ld      iy, StageClear_Patterns_S_factor_5.size / 32 ; all chars have the sime size
 
     ; set SPRPAT_Address var to next frame
     ld      bc, StageClear_Patterns_S_factor_5.size ; all chars have the sime size
@@ -441,7 +379,7 @@ StageClearAnimation:
 
     ; set IX to SPRPAT to be loaded (size in IY)
     ld      ix, (StageClearAnimationVars.SPRPAT_Address)
-    ld      iy, StageClear_Patterns_S_factor_4.size ; all chars have the sime size
+    ld      iy, StageClear_Patterns_S_factor_4.size / 32 ; all chars have the sime size
 
     ; set SPRPAT_Address var to next frame
     ld      bc, StageClear_Patterns_S_factor_4.size ; all chars have the sime size
@@ -477,7 +415,7 @@ StageClearAnimation:
 
     ; set IX to SPRPAT to be loaded (size in IY)
     ld      ix, (StageClearAnimationVars.SPRPAT_Address)
-    ld      iy, StageClear_Patterns_S_factor_3.size ; all chars have the sime size
+    ld      iy, StageClear_Patterns_S_factor_3.size / 32 ; all chars have the sime size
 
     ; set SPRPAT_Address var to next frame
     ld      bc, StageClear_Patterns_S_factor_3.size ; all chars have the sime size
@@ -513,7 +451,7 @@ StageClearAnimation:
 
     ; set IX to SPRPAT to be loaded (size in IY)
     ld      ix, (StageClearAnimationVars.SPRPAT_Address)
-    ld      iy, StageClear_Patterns_S_factor_2.size ; all chars have the sime size
+    ld      iy, StageClear_Patterns_S_factor_2.size / 32 ; all chars have the sime size
 
     ; set SPRPAT_Address var to next frame
     ld      bc, StageClear_Patterns_S_factor_2.size ; all chars have the sime size
@@ -541,6 +479,57 @@ StageClearAnimation:
 
     jp      .continue
 
+.load_1x1_sprite_minimized:
+
+    call    .hideAllSprites
+
+    ; set MegaROM page for Fonts data
+    ld      a, FONTS_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
+    ; 8 left pixels of the chars
+    ld      hl, LargeFont_Patterns + LARGE_FONT_CHAR_S
+    ld      ix, LargeFont_Colors
+    ld      de, ConvertMsx2SpritesToSc11_Output
+    ld      b, 16
+;   HL: pointer to sprite patterns on RAM (32 bytes for pattern 0, 32 bytes for pattern 1)
+;   IX: pointer to sprite colors on RAM (16 bytes for color 0, 16 bytes for color 1)
+;   DE: destiny addr on RAM
+;   B:  font height in pixels
+    call    ConvertMsx2SpritesToSc11
+
+    ; 8 right pixels of the chars
+    ld      hl, LargeFont_Patterns + LARGE_FONT_CHAR_S + 16
+    ld      ix, LargeFont_Colors
+    ld      de, ConvertMsx2SpritesToSc11_Output + 8
+    ld      b, 16
+;   HL: pointer to sprite patterns on RAM (32 bytes for pattern 0, 32 bytes for pattern 1)
+;   IX: pointer to sprite colors on RAM (16 bytes for color 0, 16 bytes for color 1)
+;   DE: destiny addr on RAM
+;   B:  font height in pixels
+    call    ConvertMsx2SpritesToSc11
+
+    ld      hl, NAMTBL
+
+    ; adjust HL to sprite y position
+    ld      de, 256
+    ld      ix, (StageClearAnimationVars.SPRATR_Address)
+    ld      b, (ix + 0) ; Y position
+.loop_30:
+    add     hl, de
+    djnz    .loop_30
+
+    ; adjust HL to sprite x position
+    ld      d, 0
+    ld      e, (ix + 1) ; X position
+    add     hl, de
+
+    ld      de, ConvertMsx2SpritesToSc11_Output
+    call    Copy16x16ImageFromRAMToVRAM
+
+jp $;debug
+
+    jp      .continue
 
 .hideAllSprites:
     ; hide all sprites (set Y=216 for all 32 sprites on SPRATR)
