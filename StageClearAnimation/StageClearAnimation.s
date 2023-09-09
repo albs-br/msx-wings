@@ -1,27 +1,138 @@
 StageClearAnimation:
 
+    xor     a
+    ld      (StageClearAnimationVars.CharCounter), a
+
+.loopChars:
+
     call    .hideAllSprites
 
-    ; set MegaROM page for Stage clear animation sprites data
-    ld      a, STAGE_CLEAR_ANIMATION_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ld      a, (StageClearAnimationVars.CharCounter)
+    cp      10
+    ret     z
 
+    cp      0   ; char #0 (S)
+    jp      z, .initChar_0
 
-    ; init variables for this char (S)
+    cp      1   ; char #1 (T)
+    jp      z, .initChar_1
+
+    cp      2
+    jp      z, .initChar_2
+
+    cp      3
+    jp      z, .initChar_3
+
+    cp      4
+    jp      z, .initChar_4
+
+    cp      5
+    jp      z, .initChar_5
+
+    cp      6
+    jp      z, .initChar_6
+
+    cp      7
+    jp      z, .initChar_7
+
+    cp      8
+    jp      z, .initChar_8
+
+    cp      9 ; char #9 (R)
+    jp      z, .initChar_9
+
+    ret
+
+.initChar_0:
+    ; init variables for first char (S)
     ld      hl, StageClearAnimation_SPRATR_Char_0
+    ld      bc, StageClear_Patterns_S_factor_5 
+    ld      de, LargeFont_Patterns + LARGE_FONT_CHAR_S
+
+    jp      .cont_1
+
+.initChar_1:
+    ; init variables for first char (T)
+    ld      hl, StageClearAnimation_SPRATR_Char_1
+    ld      bc, StageClear_Patterns_T_factor_5 
+    ld      de, LargeFont_Patterns + LARGE_FONT_CHAR_T
+
+    jp      .cont_1
+
+.initChar_2:
+    ; init variables for first char (A)
+    ld      hl, StageClearAnimation_SPRATR_Char_2
+    ld      bc, StageClear_Patterns_A_factor_5
+    ld      de, LargeFont_Patterns + LARGE_FONT_CHAR_A
+
+    jp      .cont_1
+
+.initChar_3:
+    ; init variables for first char (G)
+    ld      hl, StageClearAnimation_SPRATR_Char_3
+    ld      bc, StageClear_Patterns_G_factor_5
+    ld      de, LargeFont_Patterns + LARGE_FONT_CHAR_G
+
+    jp      .cont_1
+
+.initChar_4:
+    ; init variables for first char (E)
+    ld      hl, StageClearAnimation_SPRATR_Char_4
+    ld      bc, StageClear_Patterns_E_factor_5
+    ld      de, LargeFont_Patterns + LARGE_FONT_CHAR_E
+
+    jp      .cont_1
+
+.initChar_5:
+    ; init variables for first char (C)
+    ld      hl, StageClearAnimation_SPRATR_Char_6
+    ld      bc, StageClear_Patterns_C_factor_5
+    ld      de, LargeFont_Patterns + LARGE_FONT_CHAR_C
+
+    jp      .cont_1
+
+.initChar_6:
+    ; init variables for first char (L)
+    ld      hl, StageClearAnimation_SPRATR_Char_7
+    ld      bc, StageClear_Patterns_L_factor_5
+    ld      de, LargeFont_Patterns + LARGE_FONT_CHAR_L
+
+    jp      .cont_1
+
+.initChar_7:
+    ; init variables for first char (E)
+    ld      hl, StageClearAnimation_SPRATR_Char_8
+    ld      bc, StageClear_Patterns_E_factor_5
+    ld      de, LargeFont_Patterns + LARGE_FONT_CHAR_E
+
+    jp      .cont_1
+
+.initChar_8:
+    ; init variables for first char (A)
+    ld      hl, StageClearAnimation_SPRATR_Char_9
+    ld      bc, StageClear_Patterns_A_factor_5
+    ld      de, LargeFont_Patterns + LARGE_FONT_CHAR_A
+
+    jp      .cont_1
+
+.initChar_9:
+    ; init variables for first char (R)
+    ld      hl, StageClearAnimation_SPRATR_Char_10
+    ld      bc, StageClear_Patterns_R_factor_5
+    ld      de, LargeFont_Patterns + LARGE_FONT_CHAR_R
+
+    jp      .cont_1
+
+
+.cont_1:
+
     ld      (StageClearAnimationVars.SPRATR_Address), hl
+    ld      (StageClearAnimationVars.SPRPAT_Address), bc
+    ld      (StageClearAnimationVars.FontSprite_16x16_Addr), de
 
-    ld      hl, StageClear_Patterns_S_factor_5 
-    ld      (StageClearAnimationVars.SPRPAT_Address), hl
-
+    ; colors are the same for all chars
     ld      hl, StageClear_Colors_factor_5 
     ld      (StageClearAnimationVars.SPRCOL_Address), hl
-
-    ld      hl, LargeFont_Patterns + LARGE_FONT_CHAR_S
-    ld      (StageClearAnimationVars.FontSprite_16x16_Addr), hl
-
-
-
 
     xor     a
     ld      (StageClearAnimationVars.FrameCounter), a
@@ -74,6 +185,10 @@ StageClearAnimation:
 
 .continue:
 
+    ; set MegaROM page for SPRATR Stage clear animation sprites data
+    ld      a, STAGE_CLEAR_ANIMATION_DATA_MEGAROM_PAGE_1
+    ld	    (Seg_P8000_SW), a
+
     ; load from HL to SPRATR table (all 32 sprites)
     push    bc, hl, de
             ld      a, 0000 0001 b
@@ -93,6 +208,9 @@ StageClearAnimation:
     pop     bc
 
 
+    ; set MegaROM page for SPRPAT/SPRCOL Stage clear animation sprites data
+    ld      a, STAGE_CLEAR_ANIMATION_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
 
     push    bc, de
         
@@ -515,6 +633,10 @@ StageClearAnimation:
 
     ld      hl, NAMTBL
 
+    ; set MegaROM page for SPRATR Stage clear animation sprites data
+    ld      a, STAGE_CLEAR_ANIMATION_DATA_MEGAROM_PAGE_1
+    ld	    (Seg_P8000_SW), a
+
     ; adjust HL to sprite y position
     ld      de, 256
     ld      ix, (StageClearAnimationVars.SPRATR_Address)
@@ -531,9 +653,11 @@ StageClearAnimation:
     ld      de, ConvertMsx2SpritesToSc11_Output
     call    Copy16x16ImageFromRAMToVRAM
 
-jp $;debug
+    ; next char
+    ld      hl, StageClearAnimationVars.CharCounter
+    inc     (hl)
 
-    jp      .continue
+    jp      .loopChars
 
 .hideAllSprites:
     ; hide all sprites (set Y=216 for all 32 sprites on SPRATR)

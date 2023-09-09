@@ -1075,3 +1075,13 @@ STAGE_CLEAR_ANIMATION_DATA_MEGAROM_PAGE:        equ 246
     INCLUDE "Graphics/Sprites/StageClearAnimation/StageClearAnimation.s"
 MEGAROM_PAGE_246_size:          equ $ - 0x8000
 	ds PAGE_SIZE - ($ - 0x8000), 255
+
+; ------------------------------------------------------------------------
+
+STAGE_CLEAR_ANIMATION_DATA_MEGAROM_PAGE_1:        equ 247
+
+; ------- Page 247
+	org	0x8000, 0xBFFF
+    INCLUDE "StageClearAnimation/SPRATR_Data.s"
+MEGAROM_PAGE_247_size:          equ $ - 0x8000
+	ds PAGE_SIZE - ($ - 0x8000), 255
