@@ -1,3 +1,5 @@
+; these are all planes turning
+
 Level_4_Data:
 ;                                           Initial_X                      EnemyStruct_Addr
 ;       Counter     ActionType              |         Delta_X_Initial_Addr |               SPRCOL_Addr

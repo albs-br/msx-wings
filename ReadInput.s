@@ -195,6 +195,31 @@ ReadInput:
     ld      hl, Player_BombsNumber
     dec     (hl)
 
+    ; Player_Bomb_Y = 192 + VerticalScroll;
+    ld      a, (VerticalScroll)
+    ld      b, 192
+    add     b
+    ld      (Player_Bomb_Y), a
+
+    ; reset all enemy shots
+    ld      hl, EnemyShot_0_Struct
+    call    EnemyShot_Reset
+    ld      hl, EnemyShot_1_Struct
+    call    EnemyShot_Reset
+    ld      hl, EnemyShot_2_Struct
+    call    EnemyShot_Reset
+    ld      hl, EnemyShot_3_Struct
+    call    EnemyShot_Reset
+    ld      hl, EnemyShot_4_Struct
+    call    EnemyShot_Reset
+    ld      hl, EnemyShot_5_Struct
+    call    EnemyShot_Reset
+    ld      hl, EnemyShot_6_Struct
+    call    EnemyShot_Reset
+
+    ; set SPRCOL data for player bomb (sprites #24 to #30 of SPRATR)
+
+
     ret
 
 

@@ -658,15 +658,17 @@ Update_SPRATR:
     nop
     out     (c), d
 
-; ================================== ENEMY SHOTS ===============================
-
-; TODO:
-; if (!Player_BombActive) 
-;   showEnemyShots;
-; else
-;   showPlayerBomb;
-
 ; ----------------------------------------
+
+    ; if (!Player_BombActive) 
+    ;   showEnemyShots;
+    ; else
+    ;   showPlayerBomb;
+    ld      a, (Player_BombActive)
+    or      a
+    jp      nz, .showPlayerBombSprites
+
+; ================================== ENEMY SHOTS ===============================
 
     ; Sprite # 24
     ld      a, (EnemyShot_0_Struct + 2)    ; Y
@@ -689,6 +691,9 @@ Update_SPRATR:
     out     (c), d
 
 ; ----------------------------------------
+
+
+.test:
 
     ; Sprite # 25
     ld      a, (EnemyShot_1_Struct + 2)    ; Y
@@ -820,7 +825,54 @@ Update_SPRATR:
     nop
     out     (c), d
 
+    jp      .cont_1
+
 ; ----------------------------------------
+
+
+.showPlayerBombSprites:
+
+    ; switch between odd and even sprites based on JIFFY least signigicant bit
+    ; if(JIFFY & 1) H = 18; else H = 0;
+    ld      h, 0
+    ld      a, (BIOS_JIFFY)
+    and     0000 0001 b
+    jp      z, .cont_20
+    ld      h, 18
+.cont_20:
+; ================================== PLAYER BOMB ===============================
+
+    ; Sprite # 24
+    ld      a, (Player_Bomb_Y)    ; Y
+    cp      e           ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
+    out     (PORT_0), a
+
+    nop
+    ld      a, 0 * 18   ; X
+    add     h
+    out     (PORT_0), a
+
+    nop
+    nop
+    ld      a, PLAYER_SHOT_SPR_PAT_NUMBER    ; Pattern
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+jp .test
+
+; ----------------------------------------
+
+; TODO: sprites 25 to 30
+
+; ----------------------------------------
+
+.cont_1:
 
     ; Sprite # 31
     ld      a, (GroundTarget_Sprite.Y)    ; Y

@@ -2,6 +2,12 @@
 ;   DE: addr of level data struct
 EnemyShot_Init:
 
+    ; if (Player_BombActive) return;
+    ld      a, (Player_BombActive)
+    or      a
+    ret     nz
+
+
     ; init Enemy Shot / load some data from Level Data Struct to Enemy Shot Struct
 
     ; Copy Level Data struct to temp Level Data struct

@@ -11,7 +11,11 @@ ram_watch   add     0xC223      -type word       -desc LevelCounter      -format
 ram_watch   add     0xC3fa      -type word       -desc SPRPAT_Address      -format hex
 ram_watch   add     0xC3fe      -type word       -desc SPRCOL_Address      -format hex
 
-#StageClearAnimationVars.SPRCOL_Address: equ 0C3FEh ; last def. pass 3
+ram_watch   add     0xc228      -type byte       -desc VerticalScroll      -format dec
+
+
+#VerticalScroll: equ 0C228h ; last def. pass 3
+
 
 
 #ram_watch   add     0xc3cd      -type byte       -desc LevelInitAnimation_Counter      -format dec

@@ -1,4 +1,4 @@
-PLAYER_BOMB_MAX_LIFETIME:   equ 240     ; 240 frames = 4 seconds
+PLAYER_BOMB_MAX_LIFETIME:   equ 128     ; 128 frames = aprox. 2 seconds
 
 PlayerBombLogic:
 
@@ -15,11 +15,19 @@ PlayerBombLogic:
     ld      (Player_BombActive), a
 
     ; do bomb animation
+    ld      a, (Player_Bomb_Y)
+    sub     2
+    ld      (Player_Bomb_Y), a
+
     ; TODO
+    ; check collision with enemies
 
     ret
 
 .resetPlayerBomb:
     xor     a
     ld      (Player_BombActive), a
+
+    ; reset SPRCOL data for enemy shots (sprites #24 to #30 of SPRATR)
+
     ret
