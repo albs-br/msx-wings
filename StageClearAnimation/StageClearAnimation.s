@@ -214,7 +214,7 @@ StageClearAnimation:
 
     push    bc, de
         
-        ; load from IX to SPRPAT (size in IY)
+        ; load from IX to SPRPAT (size in IY - divided by 32)
         ld      a, 0000 0001 b
         ld      hl, SPRPAT
         call    SetVdp_Write
@@ -241,22 +241,29 @@ StageClearAnimation:
 
 
 
-    ; load from DE to SPRCOL (size in B)
+    ; load from DE to SPRCOL (factor in C)
     ld      a, 0000 0001 b
     ld      hl, SPRCOL
     call    SetVdp_Write
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      ixh, 5          ; number of repetitions (same as factor)
-    ld      a, b ; save B
+    ld      ixh, c          ; number of repetitions (same as factor)
+    ; ld      b, c          ; number of repetitions (same as factor)
+    ld      ixl, c            ; save factor
+    ld      c, PORT_0
     .loop_colors:
         ; HL = DE
-        push    de
-        pop     hl
+        ; push    de ; 23 cycles
+        ; pop     hl
+        ld      l, e ; 10 cycles
+        ld      h, d
 
-        ld      b, a
-        ; ld      hl, StageClear_Colors_factor_5
-        ; ld      b, StageClear_Colors_factor_5.size
-        otir
+        ld      a, ixl
+        ; otir
+        .innerLoop_colors:
+            ; 16x outi
+            outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+            dec     a
+            jp      nz, .innerLoop_colors
+
     dec     ixh
     jp      nz, .loop_Colors
 
@@ -355,9 +362,9 @@ StageClearAnimation:
     call    .nextSPRPAT
 
 
-    ; set DE to SPRCOL to be loaded (size in B)
+    ; set DE to SPRCOL to be loaded (factor in C)
     ld      de, (StageClearAnimationVars.SPRCOL_Address)
-    ld      b, StageClear_Colors_factor_5.size
+    ld      c, 5
 
     push    bc
         ; set SPRCOL_Address var to next frame
@@ -390,9 +397,9 @@ StageClearAnimation:
     call    .nextSPRPAT
 
 
-    ; set DE to SPRCOL to be loaded (size in B)
+    ; set DE to SPRCOL to be loaded (factor in C)
     ld      de, (StageClearAnimationVars.SPRCOL_Address)
-    ld      b, StageClear_Colors_factor_4.size
+    ld      c, 4
 
     push    bc
         ; set SPRCOL_Address var to next frame
@@ -430,9 +437,9 @@ StageClearAnimation:
     ld      (StageClearAnimationVars.SPRPAT_Address), hl
 
 
-    ; set DE to SPRCOL to be loaded (size in B)
+    ; set DE to SPRCOL to be loaded (factor in C)
     ld      de, (StageClearAnimationVars.SPRCOL_Address)
-    ld      b, StageClear_Colors_factor_3.size
+    ld      c, 3
 
     push    bc
         ; THIS one is different from the others, as it is the transition from maximized to normal sprites
@@ -470,9 +477,9 @@ StageClearAnimation:
     call    .nextSPRPAT
 
 
-    ; set DE to SPRCOL to be loaded (size in B)
+    ; set DE to SPRCOL to be loaded (factor in C)
     ld      de, (StageClearAnimationVars.SPRCOL_Address)
-    ld      b, StageClear_Colors_factor_5.size
+    ld      c, 5
 
     push    bc
         ; set SPRCOL_Address var to next frame
@@ -506,9 +513,9 @@ StageClearAnimation:
     call    .nextSPRPAT
 
 
-    ; set DE to SPRCOL to be loaded (size in B)
+    ; set DE to SPRCOL to be loaded (factor in C)
     ld      de, (StageClearAnimationVars.SPRCOL_Address)
-    ld      b, StageClear_Colors_factor_4.size
+    ld      c, 4
 
     push    bc
         ; set SPRCOL_Address var to next frame
@@ -542,9 +549,9 @@ StageClearAnimation:
     call    .nextSPRPAT
 
 
-    ; set DE to SPRCOL to be loaded (size in B)
+    ; set DE to SPRCOL to be loaded (factor in C)
     ld      de, (StageClearAnimationVars.SPRCOL_Address)
-    ld      b, StageClear_Colors_factor_3.size
+    ld      c, 3
 
     push    bc
         ; set SPRCOL_Address var to next frame
@@ -578,9 +585,9 @@ StageClearAnimation:
     call    .nextSPRPAT
 
 
-    ; set DE to SPRCOL to be loaded (size in B)
+    ; set DE to SPRCOL to be loaded (factor in CB)
     ld      de, (StageClearAnimationVars.SPRCOL_Address)
-    ld      b, StageClear_Colors_factor_2.size
+    ld      c, 2
 
     push    bc
         ; set SPRCOL_Address var to next frame
