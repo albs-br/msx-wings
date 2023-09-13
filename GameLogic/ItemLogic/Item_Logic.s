@@ -273,3 +273,40 @@ Item_Logic:
     ld      a, -1
     ld      (Item_Temp_Delta_Y), a
     ret
+
+
+
+; Inputs:
+;   HL: player shot pattern addr
+;   DE: player shot pattern colors
+Load_PlayerShot_Pattern_And_Colors:
+    ld      c, PORT_0
+
+    ; pattern
+    push    hl
+        ld      a, 0000 0001 b
+        ld      hl, SPRPAT + 128
+        call    SetVdp_Write
+    pop     hl
+    ; 32x outi
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+
+
+    ; colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + 64 + (SpriteColors_PlayerShot_Thin.size * 0)
+    call    SetVdp_Write
+
+    ; fill 6 player shot sprites
+    ex      de, hl
+    
+    ld      d, 6
+.loop:
+        push    hl
+            ; 16x outi
+            outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+        pop     hl
+    dec     d
+    jp      nz, .loop
+
+    ret
