@@ -694,9 +694,6 @@ Update_SPRATR:
 
 ; ----------------------------------------
 
-
-.test:
-
     ; Sprite # 25
     ld      a, (EnemyShot_1_Struct + 2)    ; Y
     cp      e           ; if (Y == 216) Y++
@@ -842,15 +839,27 @@ Update_SPRATR:
     jp      z, .cont_20
     ld      hl, 8 + (18 * 256) ; L = 8, H = 18
 .cont_20:
-; ================================== PLAYER BOMB ===============================
 
-    ; Sprite # 24
+    ; calc bomb Y and save to L register
     ld      a, (Player_Bomb_Y)    ; Y
     add     l
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
-    out     (PORT_0), a
+    ld      l, a
+    
+; ================================== PLAYER BOMB ===============================
+
+    ; Sprite # 24
+    ; ld      a, (Player_Bomb_Y)    ; Y
+    ; add     l
+    ; cp      e           ; if (Y == 216) Y++
+    ; jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    ; inc     a
+    ld      a, l
+    nop
+    nop
+    out     (PORT_0), a ; Y
 
     nop
     ld      a, 0 * 18   ; X
@@ -867,11 +876,143 @@ Update_SPRATR:
     nop
     out     (c), d
 
-jp .test
+; ----------------------------------------
+
+    ; Sprite # 25
+    ld      a, l
+    nop
+    nop
+    out     (PORT_0), a ; Y
+
+    nop
+    ld      a, 2 * 18   ; X
+    add     h
+    out     (PORT_0), a
+
+    nop
+    nop
+    ld      a, PLAYER_BOMB_SPR_PAT_NUMBER    ; Pattern
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
 
 ; ----------------------------------------
 
-; TODO: sprites 25 to 30
+    ; Sprite # 26
+    ld      a, l
+    nop
+    nop
+    out     (PORT_0), a ; Y
+
+    nop
+    ld      a, 4 * 18   ; X
+    add     h
+    out     (PORT_0), a
+
+    nop
+    nop
+    ld      a, PLAYER_BOMB_SPR_PAT_NUMBER    ; Pattern
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+; ----------------------------------------
+
+    ; Sprite # 27
+    ld      a, l
+    nop
+    nop
+    out     (PORT_0), a ; Y
+
+    nop
+    ld      a, 6 * 18   ; X
+    add     h
+    out     (PORT_0), a
+
+    nop
+    nop
+    ld      a, PLAYER_BOMB_SPR_PAT_NUMBER    ; Pattern
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+; ----------------------------------------
+
+    ; Sprite # 28
+    ld      a, l
+    nop
+    nop
+    out     (PORT_0), a ; Y
+
+    nop
+    ld      a, 8 * 18   ; X
+    add     h
+    out     (PORT_0), a
+
+    nop
+    nop
+    ld      a, PLAYER_BOMB_SPR_PAT_NUMBER    ; Pattern
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+; ----------------------------------------
+
+    ; Sprite # 29
+    ld      a, l
+    nop
+    nop
+    out     (PORT_0), a ; Y
+
+    nop
+    ld      a, 10 * 18   ; X
+    add     h
+    out     (PORT_0), a
+
+    nop
+    nop
+    ld      a, PLAYER_BOMB_SPR_PAT_NUMBER    ; Pattern
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+; ----------------------------------------
+
+    ; Sprite # 30
+    ld      a, l
+    nop
+    nop
+    out     (PORT_0), a ; Y
+
+    nop
+    ld      a, 12 * 18   ; X
+    add     h
+    out     (PORT_0), a
+
+    nop
+    nop
+    ld      a, PLAYER_BOMB_SPR_PAT_NUMBER    ; Pattern
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
 
 ; ----------------------------------------
 

@@ -1,4 +1,4 @@
-PLAYER_BOMB_MAX_LIFETIME:   equ 128     ; 128 frames = aprox. 2 seconds
+PLAYER_BOMB_MAX_LIFETIME:   equ 64     ; 64 frames = aprox. 1 second
 
 PlayerBombLogic:
 
@@ -16,8 +16,29 @@ PlayerBombLogic:
 
     ; do bomb animation
     ld      a, (Player_Bomb_Y)
-    sub     2
+    sub     8
     ld      (Player_Bomb_Y), a
+
+    ; change border color
+    ld      a, (BIOS_JIFFY)
+    and     0000 0001 b
+    jp      z, .setBorderWhite
+
+    ld 		a, 1      	            ; Border color black
+    ld 		(BIOS_BDRCLR), a    
+    call 	BIOS_CHGCLR        		; Change Screen Color
+    jp      .cont_1
+.setBorderWhite:
+    ld 		a, 13      	            ; Border color white
+    ld 		(BIOS_BDRCLR), a    
+    call 	BIOS_CHGCLR        		; Change Screen Color
+.cont_1:
+
+    ; play sfx
+    ;ld      a, 100           ; volume
+    ld      a, SFX_SHOT     ; number of sfx in the bank
+    ld      c, 15            ; sound priority
+    call    PlaySfx
 
     ; TODO
     ; check collision with enemies
@@ -27,6 +48,11 @@ PlayerBombLogic:
 .resetPlayerBomb:
     xor     a
     ld      (Player_BombActive), a
+
+    ; reset border color
+    ld 		a, 1      	            ; Border color black
+    ld 		(BIOS_BDRCLR), a    
+    call 	BIOS_CHGCLR        		; Change Screen Color
 
     ; ---- reset SPRPAT data for enemy shots sprite
 
@@ -45,6 +71,6 @@ PlayerBombLogic:
 
 
     ; ---- reset SPRCOL data for enemy shots (sprites #24 to #30 of SPRATR)
-    ; (NOT really necesary, as this data is written each fram on enemy shot logic)
+    ; (NOT really necessary, as this data is written each frame on enemy shot logic)
 
     ret
