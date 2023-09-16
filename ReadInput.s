@@ -243,7 +243,7 @@ ReadInput:
     ld      hl, SPRCOL + (16 * 24) ; Sprite color #24
     call    SetVdp_Write
     ld      c, PORT_0
-    ld      a, 15
+    ld      a, 5 ; color
     ld      b, 7 * 16       ; 7 sprites
 .loop_10:
     out     (c), a

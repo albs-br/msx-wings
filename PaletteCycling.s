@@ -6,23 +6,37 @@ PaletteCycling:
     ; 10        2
     ; 11        1
 
+; DONE: this can be optimized (each palette is being loaded 4 times in sequence)
     ld      a, (BIOS_JIFFY)
-    and     0000 1100 b
-    srl     a                 ; shift right A
-    srl     a                 ; shift right A
+    and     0000 1111 b
+    ; srl     a                 ; shift right A
+    ; srl     a                 ; shift right A
     
-    dec     a       ; if (A == 1)
+    ; dec     a       ; if (A == 0)
+    or      a
+    jp      z, .palette_0
+
+    ; dec     a       ; if (A == 1)
+    cp      0000 0100 b
     jp      z, .palette_1
     
-    dec     a       ; if (A == 2)
+    ; dec     a       ; if (A == 2)
+    cp      0000 1000 b
     jp      z, .palette_2
     
-    dec     a       ; if (A == 3)
+    ; dec     a       ; if (A == 3)
+    cp      0000 1100 b
     jp      z, .palette_1
     
+    ; else ret
+    ret
+
     ;jp      .palette_0  ; else
 
-;.palette_0:
+; TODO: only ome of the 16 colors change betwwen these palettes.
+; Probably it can be optimized
+
+.palette_0:
     ld      hl, PaletteData_0
     call    LoadPalette
     ret
@@ -35,6 +49,4 @@ PaletteCycling:
 .palette_2:
     ld      hl, PaletteData_2
     call    LoadPalette
-    ret
-
     ret

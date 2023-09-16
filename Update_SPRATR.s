@@ -835,17 +835,18 @@ Update_SPRATR:
 .showPlayerBombSprites:
 
     ; switch between odd and even sprites based on JIFFY least significant bit
-    ; if(JIFFY & 1) H = 18; else H = 0;
-    ld      h, 0
+    ; if (JIFFY & 1) { H = 18; L = 8 } else { H = 0; L = 0 }
+    ld      hl, 0 ; L = 0 ; H = 0
     ld      a, (BIOS_JIFFY)
     and     0000 0001 b
     jp      z, .cont_20
-    ld      h, 18
+    ld      hl, 8 + (18 * 256) ; L = 8, H = 18
 .cont_20:
 ; ================================== PLAYER BOMB ===============================
 
     ; Sprite # 24
     ld      a, (Player_Bomb_Y)    ; Y
+    add     l
     cp      e           ; if (Y == 216) Y++
     jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
     inc     a
