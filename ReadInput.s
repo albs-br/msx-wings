@@ -187,6 +187,9 @@ ReadInput:
     or      a
     ret     z
 
+
+    ; --- Init player bomb
+
     ; Player_BombActive = 1;
     ld      a, 1
     ld      (Player_BombActive), a
@@ -217,8 +220,36 @@ ReadInput:
     ld      hl, EnemyShot_6_Struct
     call    EnemyShot_Reset
 
-    ; set SPRCOL data for player bomb (sprites #24 to #30 of SPRATR)
 
+    ; ---- set SPRPAT data for player bomb (overwrite enemy shots sprite, as there are no enemy shots when player bomb is active)
+
+    ; set MegaROM page for Sprite Patterns data
+    ld      a, SPRITE_PATTERNS_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
+    ld      a, 0000 0001 b
+    ld      hl, SPRPAT + (32 * 10) ; Sprite pattern #10
+    call    SetVdp_Write
+    ld      c, PORT_0
+    ld      hl, SpritePattern_PlayerShot_Fat
+    ; 32x outi
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+
+
+
+    ; ---- set SPRCOL data for player bomb (sprites #24 to #30 of SPRATR)
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL + (16 * 24) ; Sprite color #24
+    call    SetVdp_Write
+    ld      c, PORT_0
+    ld      a, 15
+    ld      b, 7 * 16       ; 7 sprites
+.loop_10:
+    out     (c), a
+    ; dec     b
+    ; jp      nz, .loop_10
+    djnz    .loop_10
 
     ret
 

@@ -56,6 +56,8 @@ EXPLOSION_SPR_PAT_2_NUMBER:             equ 9 * 4
 ENEMY_SHOT_SPR_PAT_0_NUMBER:            equ 10 * 4
 ENEMY_SHOT_SPR_PAT_1_NUMBER:            equ 11 * 4
 
+PLAYER_BOMB_SPR_PAT_NUMBER:             equ ENEMY_SHOT_SPR_PAT_0_NUMBER
+
 ; sprite patterns # 12 to 21 are Enemy Planes
 
 PLAYER_LEFT_FRAME_0_TOP_SPR_PAT_0_NUMBER:        equ 22 * 4     ; 22 to 25
@@ -832,7 +834,7 @@ Update_SPRATR:
 
 .showPlayerBombSprites:
 
-    ; switch between odd and even sprites based on JIFFY least signigicant bit
+    ; switch between odd and even sprites based on JIFFY least significant bit
     ; if(JIFFY & 1) H = 18; else H = 0;
     ld      h, 0
     ld      a, (BIOS_JIFFY)
@@ -856,7 +858,7 @@ Update_SPRATR:
 
     nop
     nop
-    ld      a, PLAYER_SHOT_SPR_PAT_NUMBER    ; Pattern
+    ld      a, PLAYER_BOMB_SPR_PAT_NUMBER    ; Pattern
     out     (PORT_0), a
 
     nop

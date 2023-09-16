@@ -28,6 +28,23 @@ PlayerBombLogic:
     xor     a
     ld      (Player_BombActive), a
 
-    ; reset SPRCOL data for enemy shots (sprites #24 to #30 of SPRATR)
+    ; ---- reset SPRPAT data for enemy shots sprite
+
+    ; set MegaROM page for Sprite Patterns data
+    ld      a, SPRITE_PATTERNS_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
+    ld      a, 0000 0001 b
+    ld      hl, SPRPAT + (32 * 10) ; Sprite pattern #10
+    call    SetVdp_Write
+    ld      c, PORT_0
+    ld      hl, SpritePattern_EnemyShot_0_and_1
+    ; 32x outi
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+
+
+    ; ---- reset SPRCOL data for enemy shots (sprites #24 to #30 of SPRATR)
+    ; (NOT really necesary, as this data is written each fram on enemy shot logic)
 
     ret
