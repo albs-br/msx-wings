@@ -1,4 +1,4 @@
-PLAYER_BOMB_MAX_LIFETIME:   equ 64     ; 64 frames = aprox. 1 second
+PLAYER_BOMB_MAX_LIFETIME:   equ 32     ; 32 frames = aprox. half second
 
 PlayerBombLogic:
 
@@ -18,6 +18,10 @@ PlayerBombLogic:
     ld      a, (Player_Bomb_Y)
     sub     8
     ld      (Player_Bomb_Y), a
+
+    ld      a, (Player_Bomb_Y_Static)
+    sub     8
+    ld      (Player_Bomb_Y_Static), a
 
     ; change border color
     ld      a, (BIOS_JIFFY)
@@ -40,10 +44,76 @@ PlayerBombLogic:
     ld      c, 15            ; sound priority
     call    PlaySfx
 
-    ; TODO
-    ; check collision with enemies
+    ; ---- check collision with enemies (only Y axis)
+    ld      ix, Enemy_0_Struct
+    call    .checkCollision_PlayerBomb_Enemy
+    call    c, .collision
+
+    ld      ix, Enemy_1_Struct
+    call    .checkCollision_PlayerBomb_Enemy
+    call    c, .collision
+
+    ld      ix, Enemy_2_Struct
+    call    .checkCollision_PlayerBomb_Enemy
+    call    c, .collision
+
+    ld      ix, Enemy_3_Struct
+    call    .checkCollision_PlayerBomb_Enemy
+    call    c, .collision
+
+    ld      ix, Enemy_4_Struct
+    call    .checkCollision_PlayerBomb_Enemy
+    call    c, .collision
+
+    ld      ix, Enemy_5_Struct
+    call    .checkCollision_PlayerBomb_Enemy
+    call    c, .collision
+
+    ld      ix, Enemy_6_Struct
+    call    .checkCollision_PlayerBomb_Enemy
+    call    c, .collision
+
 
     ret
+
+.collision:
+    ; call    PlayerShot_Reset
+    push    ix ; HL = IX
+    pop     hl
+    ; ld      hl, Enemy_Temp_Struct
+    call    Enemy_StartExplosionAnimation
+    
+    ret
+
+;  Calculates whether a collision occurs between player bomb and enemy (only Y axis)
+; IN: 
+;    HL: enemy struct addr
+; OUT: Carry set if collision
+; CHANGES: AF
+.checkCollision_PlayerBomb_Enemy:
+    ld      a, (ix)         ; get enemy status
+    ; or      a
+    ; ret     z               ; if (Status == 0) ret
+    ; cp      255             ; if (Status == 255) ret (means that this enemy was turned into item)
+    ; ret     z
+    cp      1       ; check collision only if enemy is alive (status = 1)
+    scf         ; set carry flag
+    ccf         ; complement carry flag
+    ret     nz
+
+    ; get enemy Y static
+    ld      c, (ix + 3)
+
+    ld      a, (Player_Bomb_Y_Static)   ; get y2
+    sub     c                           ; calculate y2 - y1
+    jr      c, .y1IsLarger              ; jump if y2 < y1
+    sub     16                          ; compare with size 1
+    ret                                 ; return collision or no collision
+.y1IsLarger:
+    neg                                 ; use negative value (Z80)
+
+    sub     16                          ; compare with size 2
+    ret                                 ; return collision or no collision
 
 .resetPlayerBomb:
     xor     a

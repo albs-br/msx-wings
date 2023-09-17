@@ -203,6 +203,9 @@ ReadInput:
     ld      b, 192
     add     b
     ld      (Player_Bomb_Y), a
+    
+    ld      a, 192
+    ld      (Player_Bomb_Y_Static), a
 
     ; reset all enemy shots
     ld      hl, EnemyShot_0_Struct

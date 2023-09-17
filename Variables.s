@@ -17,6 +17,7 @@ Player_Spr3_Offset_X:               rb 1
 Player_BombsNumber:                 rb 1
 Player_BombActive:                  rb 1 ; 0: disabled; >0: enabled (act like a counter)
 Player_Bomb_Y:                      rb 1
+Player_Bomb_Y_Static:               rb 1
 Player_Lives:                       rb 1
 
 ; ---------------------------------------
