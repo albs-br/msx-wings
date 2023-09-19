@@ -171,8 +171,9 @@ Execute:
 ; DEBUG_ResetCircleLoopTest:
 
     ;ld      a, 1 ; debug
-    ld      a, (CurrentLevelNumber)
+    ; ld      a, (CurrentLevelNumber)
     ; call    LevelTitleAnimation ; DEBUG
+    
     ; call    StageClearAnimation ; DEBUG
 
     ; jp      DEBUG_ResetCircleLoopTest

@@ -11,10 +11,7 @@ ram_watch   add     0xC223      -type word       -desc LevelCounter      -format
 ram_watch   add     0xC3fa      -type word       -desc SPRPAT_Address      -format hex
 ram_watch   add     0xC3fe      -type word       -desc SPRCOL_Address      -format hex
 
-ram_watch   add     0xc228      -type byte       -desc VerticalScroll      -format dec
-
-
-#VerticalScroll: equ 0C228h ; last def. pass 3
+ram_watch   add     0xc22a      -type byte       -desc VerticalScroll      -format dec
 
 
 
@@ -82,6 +79,7 @@ ram_watch   add     0xC250      -type byte      -desc FramesSkipped            -
 
 ram_watch   add     0xC00a      -type byte      -desc BombsNumber            -format dec
 ram_watch   add     0xC00b      -type byte      -desc BombActive            -format dec
+#Player_BombActive: equ 0C00Bh ; last def. pass 3
 
 ram_watch   add     0xC40e      -type byte      -desc PauseAnim_Counter            -format dec
 

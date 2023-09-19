@@ -1,5 +1,9 @@
 StageClearAnimation:
 
+    ; restore default palette (one blue color is constantly being changed)
+    ld      hl, PaletteData_0
+    call    LoadPalette
+
     xor     a
     ld      (StageClearAnimationVars.CharCounter), a
 
@@ -198,12 +202,40 @@ StageClearAnimation:
         pop     de, hl
         ; otir
         ; 25 sprites * 4 = 100
-        ; 100x outi:
-        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi
-        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi
-        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi
-        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi
-        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi
+
+        push    de
+
+            ld      a, (VerticalScroll)
+            ld      d, a
+
+            ld      e, 25
+        .loop_300:
+                ; outi ; 18 cycles
+
+                ; get Y coord and adjust to scroll
+                ld      a, (hl)
+                cp      216
+                jp      z, .skip_300
+                add     d
+            .skip_300:
+                ; cp      216 ; TODO (this may be necessary depending on VerticalScroll value + Y)
+                out     (PORT_0), a
+                inc     hl
+                ; outi
+
+                outi outi outi 
+
+            dec     e
+            jp      nz, .loop_300
+
+        pop     de
+
+        ; ; 100x outi:
+        ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi
+        ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi
+        ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi
+        ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi
+        ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi
         outi ; OUTI for Y=216
     pop     bc
 
@@ -648,6 +680,10 @@ StageClearAnimation:
     ld      de, 256
     ld      ix, (StageClearAnimationVars.SPRATR_Address)
     ld      b, (ix + 0) ; Y position
+
+    ld      a, (VerticalScroll) ; adjust to scroll
+    add     b
+    ld      b, a
 .loop_30:
     add     hl, de
     djnz    .loop_30
