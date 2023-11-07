@@ -260,6 +260,10 @@ ReadInput:
 
 .pause:
 
+    ; restore default palette (one blue color is constantly being changed)
+    ld      hl, PaletteData_0
+    call    LoadPalette
+
 .pause_loop:
 
     ; do pause animation

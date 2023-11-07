@@ -4,7 +4,7 @@
 ;       qty     range
 ;       4       0-3         Player plane (was 6, then improved to only 4 by using an offset on sprites overlapping)
 ;       6       4-9         Player shots (3x 16x16 sprites for simple shots; 3x 32x16 for double shots)
-;       14      10-23       Enemies (*)
+;       14      10-23       Enemies (*) (***)
 ;       7       24-30       Enemy shots (7x 16x16 single sprites) or player bomb sprites (14 sprites alternating 7 per frame)(**)
 ;       1       31          Ground target (sprite used only to blink when shot), 
 ;                           this is shared by all ground targets, as only one is being shot at a time
@@ -14,6 +14,8 @@
 ; BIG_ENEMIES: 2x 7 16x16 sprites (32x32 total size)
 ; BOSS: 1x 14 16x16 sprites (80x64 total size)
 
+; (***)
+; 21 sprites for enemy shots (range 10-30), bosses made of static background bitmap
 
 ; (**)
 ; player bomb sprites
