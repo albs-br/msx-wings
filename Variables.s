@@ -44,6 +44,12 @@ PlayerShot_2_Struct:                    rb PlayerShot_Temp_Struct.size
 NextShot_Struct_Addr:                   rw 1
 Player_FramesSinceLastShot:             rb 1
 
+
+ENEMY_MODE_SMALL_ENEMIES: equ 0
+ENEMY_MODE_BIG_ENEMIES: equ 1
+; ENEMY_MODE_BOSS: equ 2
+EnemyMode:      rb 1
+
 ; ---------------------------------------
 
 Enemy_Temp_Struct:
@@ -72,6 +78,43 @@ Enemy_3_Struct:                    rb Enemy_Temp_Struct.size
 Enemy_4_Struct:                    rb Enemy_Temp_Struct.size
 Enemy_5_Struct:                    rb Enemy_Temp_Struct.size
 Enemy_6_Struct:                    rb Enemy_Temp_Struct.size
+
+
+; ---------------------------------------
+
+BigEnemy_Temp_Struct:
+BigEnemy_Temp_Status:                  rb 1    ; 0: dead, 1: alive, 2-20: explosion animation
+BigEnemy_Temp_X:                       rb 1
+BigEnemy_Temp_Y:                       rb 1
+BigEnemy_Temp_Y_Static:                rb 1    ; y coord ignoring scroll
+BigEnemy_Temp_Data_Current_Addr:       rw 1
+BigEnemy_Temp_SPRCOL_Addr:             rw 1    ; VRAM addr for colors of these two patterns
+BigEnemy_Temp_X1:                      rb 1 ; BigEnemy_Temp_Struct + 8
+BigEnemy_Temp_Y1:                      rb 1 ; BigEnemy_Temp_Struct + 9
+BigEnemy_Temp_X2:                      rb 1 ; BigEnemy_Temp_Struct + 10
+BigEnemy_Temp_Y2:                      rb 1 ; BigEnemy_Temp_Struct + 11
+BigEnemy_Temp_X3:                      rb 1 ; BigEnemy_Temp_Struct + 12
+BigEnemy_Temp_Y3:                      rb 1 ; BigEnemy_Temp_Struct + 13
+BigEnemy_Temp_X4:                      rb 1 ; BigEnemy_Temp_Struct + 14
+BigEnemy_Temp_Y4:                      rb 1 ; BigEnemy_Temp_Struct + 15
+BigEnemy_Temp_X5:                      rb 1 ; BigEnemy_Temp_Struct + 16
+BigEnemy_Temp_Y5:                      rb 1 ; BigEnemy_Temp_Struct + 17
+BigEnemy_Temp_X6:                      rb 1 ; BigEnemy_Temp_Struct + 18
+BigEnemy_Temp_Y6:                      rb 1 ; BigEnemy_Temp_Struct + 19
+BigEnemy_Temp_Pattern_0:               rb 1 ; BigEnemy_Temp_Struct + 20
+BigEnemy_Temp_Pattern_1:               rb 1 ; BigEnemy_Temp_Struct + 21
+BigEnemy_Temp_Pattern_2:               rb 1 ; BigEnemy_Temp_Struct + 22
+BigEnemy_Temp_Pattern_3:               rb 1 ; BigEnemy_Temp_Struct + 23
+BigEnemy_Temp_Pattern_4:               rb 1 ; BigEnemy_Temp_Struct + 24
+BigEnemy_Temp_Pattern_5:               rb 1 ; BigEnemy_Temp_Struct + 25
+BigEnemy_Temp_Pattern_6:               rb 1 ; BigEnemy_Temp_Struct + 26
+BigEnemy_Temp_Frame_Counter:           rw 1
+BigEnemy_Temp_Struct.size:        equ $ - BigEnemy_Temp_Struct
+
+
+
+BigEnemy_0_Struct:                    rb BigEnemy_Temp_Struct.size
+BigEnemy_1_Struct:                    rb BigEnemy_Temp_Struct.size
 
 
 ; ---------------------------------------

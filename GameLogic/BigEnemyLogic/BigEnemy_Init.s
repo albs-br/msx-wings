@@ -1,11 +1,11 @@
 ; Input
 ;   DE: addr of level data struct
-Enemy_Init:
+BigEnemy_Init:
     ; init Enemy / load some data from Level Data Struct to Enemy Struct
 
 
     ; EnemyMode = ENEMY_MODE_SMALL_ENEMIES
-    ld      a, ENEMY_MODE_SMALL_ENEMIES
+    ld      a, ENEMY_MODE_BIG_ENEMIES
     ld      (EnemyMode), a
 
     
@@ -17,22 +17,22 @@ Enemy_Init:
     ld      bc, LevelData_Temp_Struct.size                  ; size
     ldir                                                    ; Copy BC bytes from HL to DE
 
-    ; Copy Enemy struct to temp Enemy struct
+    ; Copy Big Enemy struct to temp Big Enemy struct
     ld      hl, (LevelData_Temp_EnemyStruct_Addr)           ; source
-    ld      de, Enemy_Temp_Struct                           ; destiny
-    ld      bc, Enemy_Temp_Struct.size                      ; size
+    ld      de, BigEnemy_Temp_Struct                        ; destiny
+    ld      bc, BigEnemy_Temp_Struct.size                   ; size
     ldir                                                    ; Copy BC bytes from HL to DE
 
-    ; return if this enemy is now an item
-    ; if (Enemy_Temp_Status == 255) ret     ; Status = 255 means that this enemy was turned into item
-    ld      a, (Enemy_Temp_Status)      ; get Status
-    cp      255
-    ret     z
+    ; ; return if this enemy is now an item
+    ; ; if (Enemy_Temp_Status == 255) ret     ; Status = 255 means that this enemy was turned into item
+    ; ld      a, (Enemy_Temp_Status)      ; get Status
+    ; cp      255
+    ; ret     z
 
 
     IFDEF DEBUG
         ; debug trap (get if an enemy is being initialized before its lifecycle ends)
-        ld      a, (Enemy_Temp_Status)      ; get Status
+        ld      a, (BigEnemy_Temp_Status)      ; get Status
         cp      1
     .debugTrap:
         ld      hl, STRING_DEBUG_ENEMY_INIT_ERROR
@@ -43,7 +43,7 @@ Enemy_Init:
 
 
     ld      hl, (LevelData_Temp_SPRCOL_Addr)
-    ld      (Enemy_Temp_SPRCOL_Addr), hl
+    ld      (BigEnemy_Temp_SPRCOL_Addr), hl
 
 
     ; ; Load enemy colors
@@ -61,38 +61,83 @@ Enemy_Init:
 
 
     ld      a, 1
-    ld      (Enemy_Temp_Status), a     ; Status
+    ld      (BigEnemy_Temp_Status), a     ; Status
 
     ld      hl, 0
-    ld      (Enemy_Temp_Frame_Counter), hl      ; reset frame counter
+    ld      (BigEnemy_Temp_Frame_Counter), hl      ; reset frame counter
 
     ; ; get initial X coord from level data struct
     ; ld      a, (LevelData_Temp_Initial_X)
     ; ld      (Enemy_Temp_X), a
 
     ; get initial X coord from level data struct
-    ; if(LevelData_Temp_Initial_X == 255) setEnemyX_Equal_PlayerX
+;     ; if(LevelData_Temp_Initial_X == 255) setEnemyX_Equal_PlayerX
+;     ld      a, (LevelData_Temp_Initial_X)
+;     cp      255
+;     jp      nz, .notSetEnemyX_Equal_PlayerX
+;     ld      a, (Player_X)
+; .notSetEnemyX_Equal_PlayerX:
+;     ld      (BigEnemy_Temp_X), a
+
+    ; get initial X coord from level data struct
     ld      a, (LevelData_Temp_Initial_X)
-    cp      255
-    jp      nz, .notSetEnemyX_Equal_PlayerX
-    ld      a, (Player_X)
-.notSetEnemyX_Equal_PlayerX:
-    ld      (Enemy_Temp_X), a
+    ld      (BigEnemy_Temp_X), a
 
     ; this now comes from enemy data
     ; ;add     1          ; X offset for sprite 1
     ; ld      (Enemy_Temp_X1), a            ; X1
 
     ld      a, (Screen_Y_Origin)
-    ld      (Enemy_Temp_Y), a
+    ; sub     32 ; TODO: should sub 32 here
+    ld      (BigEnemy_Temp_Y), a
 
     ; this now comes from enemy data
     ; add     8           ; Y offset for sprite 1
     ; ;add     4           ; Y offset for sprite 1
     ; ld      (Enemy_Temp_Y1), a            ; Y1
 
-    xor     a
-    ld      (Enemy_Temp_Y_Static), a      ; Y static
+    xor     a ; TODO: should be -32
+    ld      (BigEnemy_Temp_Y_Static), a      ; Y static
+
+
+    ; ----- load all X and Y for Big enemy type Chopper
+    ; load X1 .. X6
+    ld      a, (BigEnemy_Temp_X)
+    ld      (BigEnemy_Temp_X3), a
+    ld      (BigEnemy_Temp_X4), a
+    add     8 ; X1 offset
+    ld      (BigEnemy_Temp_X1), a
+    add     8 ; X2 offset
+    ld      (BigEnemy_Temp_X2), a
+    ld      (BigEnemy_Temp_X5), a
+    ld      (BigEnemy_Temp_X6), a
+    ; load Y1 .. Y6
+    ld      a, (BigEnemy_Temp_Y)
+    ld      (BigEnemy_Temp_Y1), a
+    ld      (BigEnemy_Temp_Y2), a
+    add     16
+    ld      (BigEnemy_Temp_Y3), a
+    ld      (BigEnemy_Temp_Y4), a
+    ld      (BigEnemy_Temp_Y5), a
+    ld      (BigEnemy_Temp_Y6), a
+
+    
+    ld      b, 4
+    ld      a, BIG_ENEMY_SPR_PAT_0_NUMBER
+    ld      (BigEnemy_Temp_Pattern_0), a
+    add     b
+    ld      (BigEnemy_Temp_Pattern_1), a
+    add     b
+    ld      (BigEnemy_Temp_Pattern_2), a
+    add     b
+    ld      (BigEnemy_Temp_Pattern_3), a
+    add     b
+    ld      (BigEnemy_Temp_Pattern_4), a
+    add     b
+    ld      (BigEnemy_Temp_Pattern_5), a
+    add     b
+    ld      (BigEnemy_Temp_Pattern_6), a
+
 
     ; this now comes from enemy data
     ; ld      a, ENEMY_FRAME_0_SPR_PAT_0_NUMBER
@@ -107,14 +152,14 @@ Enemy_Init:
 
     ; get  Enemy Data Initial Addr from level data struct
     ld      hl, (LevelData_Temp_Data_Initial_Addr)
-    ld      (Enemy_Temp_Data_Current_Addr), hl              ; Enemy data addr
+    ld      (BigEnemy_Temp_Data_Current_Addr), hl              ; Enemy data addr
 
 
-    ld      hl, (LevelData_Temp_ExtraData_Addr)
-    ld      (Enemy_Temp_ItemStruct_Addr), hl                ; Item data addr
+    ; ld      hl, (LevelData_Temp_ExtraData_Addr)
+    ; ld      (Enemy_Temp_ItemStruct_Addr), hl                ; Item data addr
 
-    ld      a, (LevelData_Temp_Item_Type)
-    ld      (Enemy_Temp_Item_Type), a                       ; Item type (Item P or Bomb)
+    ; ld      a, (LevelData_Temp_Item_Type)
+    ; ld      (Enemy_Temp_Item_Type), a                       ; Item type (Item P or Bomb)
 
 
     ;call    LoadDataFromEnemyData
@@ -133,9 +178,9 @@ Enemy_Init:
 
 .return:
 
-    ld      hl, Enemy_Temp_Struct                               ; source
+    ld      hl, BigEnemy_Temp_Struct                            ; source
     ld      de, (LevelData_Temp_EnemyStruct_Addr)               ; destiny
-    ld      bc, Enemy_Temp_Struct.size                          ; size
+    ld      bc, BigEnemy_Temp_Struct.size                       ; size
     ldir                                                        ; Copy BC bytes from HL to DE
 
     ret

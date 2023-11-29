@@ -30,6 +30,11 @@ GameLogic:
 
     ; -------------------------------------------
 
+    ; if (EnemyMode == ENEMY_MODE_SMALL_ENEMIES) {
+    ld      a, (EnemyMode)
+    cp      ENEMY_MODE_SMALL_ENEMIES
+    jp      nz, .enemyMode_BigEnemies
+
     ld      hl, Enemy_0_Struct
     call    Enemy_Logic
     ld      hl, Enemy_1_Struct
@@ -44,6 +49,23 @@ GameLogic:
     call    Enemy_Logic
     ld      hl, Enemy_6_Struct
     call    Enemy_Logic
+
+    jp      .cont_0
+
+    ; } else {
+.enemyMode_BigEnemies:
+
+    ; update big enemies patterns only once (both uses the same animation frame)
+    ; call    UpdateBigEnemiesPatterns
+
+    ; ld      hl, BigEnemy_0_Struct
+    ; call    BigEnemy_Logic
+    ; ld      hl, BigEnemy_1_Struct
+    ; call    BigEnemy_Logic
+
+    ; }
+
+.cont_0:
 
     ; -------------------------------------------
 

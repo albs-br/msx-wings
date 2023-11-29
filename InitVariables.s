@@ -61,6 +61,8 @@ InitVariables:
     xor     a
     ld      (Player_BombActive), a
 
+    ld      a, ENEMY_MODE_SMALL_ENEMIES
+    ld      (EnemyMode), a
 
     ld      hl, Enemy_0_Struct
     call    Enemy_Reset
@@ -77,6 +79,12 @@ InitVariables:
     ld      hl, Enemy_6_Struct
     call    Enemy_Reset
 
+
+    ld      hl, BigEnemy_0_Struct
+    call    BigEnemy_Reset
+    ld      hl, BigEnemy_1_Struct
+    call    BigEnemy_Reset
+    
 
     ld      hl, EnemyShot_0_Struct
     call    EnemyShot_Reset

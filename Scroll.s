@@ -197,7 +197,7 @@ AdjustSprites_Y:
     ; adjust Y position of sprites to compensate scroll
 
     ld      hl, Player_Y
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
 
 
     ; player shots are so fast that they don't need such a small adjust (let's save some CPU cycles!)
@@ -209,96 +209,131 @@ AdjustSprites_Y:
     ; call    .adjustSprite
     
 
+    ; TODO: if (EnemyMode == ENEMY_MODE_SMALL_ENEMIES)
+
     ld      hl, Enemy_0_Struct + 2  ; Y
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
     ld      hl, Enemy_0_Struct + 11 ; Y1
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
 
     ld      hl, Enemy_1_Struct + 2
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
     ld      hl, Enemy_1_Struct + 11
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
 
     ld      hl, Enemy_2_Struct + 2
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
     ld      hl, Enemy_2_Struct + 11
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
 
     ld      hl, Enemy_3_Struct + 2
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
     ld      hl, Enemy_3_Struct + 11
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
 
     ld      hl, Enemy_4_Struct + 2
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
     ld      hl, Enemy_4_Struct + 11
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
 
     ld      hl, Enemy_5_Struct + 2
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
     ld      hl, Enemy_5_Struct + 11
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
 
     ld      hl, Enemy_6_Struct + 2
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
     ld      hl, Enemy_6_Struct + 11
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
+
+
+    ; adjust all Ys of Big Enemies
+    ld      hl, BigEnemy_0_Struct + 2  ; Y
+    dec     (hl) ; call    .adjustSprite
+    ld      hl, BigEnemy_0_Struct + 9  ; Y1
+    dec     (hl) ; call    .adjustSprite
+    ld      hl, BigEnemy_0_Struct + 11 ; Y2
+    dec     (hl) ; call    .adjustSprite
+    ld      hl, BigEnemy_0_Struct + 13 ; Y3
+    dec     (hl) ; call    .adjustSprite
+    ld      hl, BigEnemy_0_Struct + 15 ; Y4
+    dec     (hl) ; call    .adjustSprite
+    ld      hl, BigEnemy_0_Struct + 17 ; Y5
+    dec     (hl) ; call    .adjustSprite
+    ld      hl, BigEnemy_0_Struct + 19 ; Y6
+    dec     (hl) ; call    .adjustSprite
+
+    ld      hl, BigEnemy_1_Struct + 2  ; Y
+    dec     (hl) ; call    .adjustSprite
+    ld      hl, BigEnemy_1_Struct + 9  ; Y1
+    dec     (hl) ; call    .adjustSprite
+    ld      hl, BigEnemy_1_Struct + 11 ; Y2
+    dec     (hl) ; call    .adjustSprite
+    ld      hl, BigEnemy_1_Struct + 13 ; Y3
+    dec     (hl) ; call    .adjustSprite
+    ld      hl, BigEnemy_1_Struct + 15 ; Y4
+    dec     (hl) ; call    .adjustSprite
+    ld      hl, BigEnemy_1_Struct + 17 ; Y5
+    dec     (hl) ; call    .adjustSprite
+    ld      hl, BigEnemy_1_Struct + 19 ; Y6
+    dec     (hl) ; call    .adjustSprite
+
 
 
     ld      hl, EnemyShot_0_Struct + 2
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
     ld      hl, EnemyShot_1_Struct + 2
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
     ld      hl, EnemyShot_2_Struct + 2
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
     ld      hl, EnemyShot_3_Struct + 2
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
     ld      hl, EnemyShot_4_Struct + 2
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
     ld      hl, EnemyShot_5_Struct + 2
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
     ld      hl, EnemyShot_6_Struct + 2
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
 
 
     ld      hl, Item_0_Struct + 2
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
     ; ld      hl, Item_0_Struct + 11        ; y1 isn't used for items
     ; call    .adjustSprite
     ld      hl, Item_1_Struct + 2
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
     ld      hl, Item_2_Struct + 2
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
     ld      hl, Item_3_Struct + 2
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
     ld      hl, Item_4_Struct + 2
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
     ld      hl, Item_5_Struct + 2
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
     ld      hl, Item_6_Struct + 2
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
 
 
     ld      hl, GroundTarget_Sprite.Y
-    call    .adjustSprite
+    dec     (hl) ; call    .adjustSprite
 
     ret
 
-.adjustSprite:
+; .adjustSprite:
 
-    ; CAUTION: Adjust is only working when the objects are moving on 1px or 3px increments on Y coord (don't know why)
+;     ; CAUTION: Adjust is only working when the objects are moving on 1px or 3px increments on Y coord (don't know why)
 
-    ; TODO: if this routine has only one instruction, 
-    ; substitute the call by the instruction itself saving 18 (call) + 11 (ret) = 29 cycles per object (!), aprox 900 cycles, pretty good optimization
-    dec     (hl)
+;     ; TODO: if this routine has only one instruction, 
+;     ; substitute the call by the instruction itself saving 18 (call) + 11 (ret) = 29 cycles per object (!), aprox 900 cycles, pretty good optimization
+;     dec     (hl)
 
-;     ld      a, (hl)
-;     dec     a
+; ;     ld      a, (hl)
+; ;     dec     a
     
-;     ; commented out because it was causing bug
-;     ;cp      216             ; avoid value 216 (hide all sprites)
-;     ;jp      nz, .continue
-;     ;ld      a, 215
-; .continue:
-;     ld      (hl), a
-    ret
+; ;     ; commented out because it was causing bug
+; ;     ;cp      216             ; avoid value 216 (hide all sprites)
+; ;     ;jp      nz, .continue
+; ;     ;ld      a, 215
+; ; .continue:
+; ;     ld      (hl), a
+;     ret

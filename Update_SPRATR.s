@@ -4,8 +4,8 @@
 ;       qty     range
 ;       4       0-3         Player plane (was 6, then improved to only 4 by using an offset on sprites overlapping)
 ;       6       4-9         Player shots (3x 16x16 sprites for simple shots; 3x 32x16 for double shots)
-;       14      10-23       Enemies (*) (***)
-;       7       24-30       Enemy shots (7x 16x16 single sprites) or player bomb sprites (14 sprites alternating 7 per frame)(**)
+;       14      10-23       Enemies (*) (**)
+;       7       24-30       Enemy shots (7x 16x16 single sprites) or player bomb sprites (14 sprites alternating 7 per frame)(***)
 ;       1       31          Ground target (sprite used only to blink when shot), 
 ;                           this is shared by all ground targets, as only one is being shot at a time
 
@@ -14,10 +14,10 @@
 ; BIG_ENEMIES: 2x 7 16x16 sprites (32x32 total size)
 ; BOSS: 1x 14 16x16 sprites (80x64 total size)
 
-; (***)
+; (**)
 ; 21 sprites for enemy shots (range 10-30), bosses made of static background bitmap
 
-; (**)
+; (***)
 ; player bomb sprites
 ; odd frames:
 ;  X X X X X X X
@@ -40,6 +40,8 @@ ENEMY_FRAME_4_SPR_PAT_0_NUMBER:         equ 18 * 4
 ENEMY_FRAME_5_SPR_PAT_0_NUMBER:         equ 20 * 4    ; 20 and 21
 
 ; sprite patterns # 41 to 56 are available to Big Enemies (7x sprites, 32x32)
+
+BIG_ENEMY_SPR_PAT_0_NUMBER:                           equ 41 * 4
 
 ENEMY_PLANE_TURNING_FRAME_0_SPR_PAT_0_NUMBER:         equ 41 * 4     ; 41 and 42
 ENEMY_PLANE_TURNING_FRAME_1_SPR_PAT_0_NUMBER:         equ 43 * 4
@@ -347,12 +349,14 @@ Update_SPRATR:
     nop
     out     (c), d
 
-; ================================== ENEMIES ===================================
+; ================================== SMALL ENEMIES ===================================
 
-; TODO:
-; if (Gameplay_Type == SMALL_ENEMIES)
-; elseif (Gameplay_Type == BIG_ENEMIES)
-; elseif (Gameplay_Type == BOSS)
+; if (EnemyMode == ENEMY_MODE_SMALL_ENEMIES) updateSprites_SmallEnemies
+; elseif (EnemyMode == ENEMY_MODE_BIG_ENEMIES) updateSprites_BigEnemies
+; elseif (EnemyMode == ENEMY_MODE_BOSS) updateSprites_Boss
+    ld      a, (EnemyMode)
+    cp      ENEMY_MODE_BIG_ENEMIES
+    jp      z, .updateSprites_BigEnemies
 
 ; ------------------------------------------------------------------------------
 
@@ -662,7 +666,354 @@ Update_SPRATR:
     nop
     out     (c), d
 
+    jp      .cont_3
+
+; ================================== BIG ENEMIES ===============================
+
+; ------------------------------------------------------------------------------
+.updateSprites_BigEnemies:
+
+    ; ---- Big Enemy #0
+
+    ; Sprite # 10
+    ld      a, (BigEnemy_0_Struct + 2)    ; Y
+    cp      e           ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_0_Struct + 1)    ; X
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_0_Struct + 20)    ; Pattern 0
+    ; ld      a, 255 ; just to wait 8 cycles
+    ; ld      a, BIG_ENEMY_SPR_PAT_0_NUMBER    ; Pattern 0
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
 ; ----------------------------------------
+
+    ; Sprite # 11
+    ld      a, (BigEnemy_0_Struct + 9)    ; Y1
+    cp      e           ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_0_Struct + 8)    ; X1
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_0_Struct + 21)    ; Pattern 1
+    ; ld      a, BIG_ENEMY_SPR_PAT_0_NUMBER
+    ; add     1 * 4                         ; Pattern 1
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+; ----------------------------------------
+
+    ; Sprite # 12
+    ld      a, (BigEnemy_0_Struct + 11)    ; Y2
+    cp      e           ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_0_Struct + 10)    ; X2
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_0_Struct + 22)    ; Pattern 2
+    ; ld      a, BIG_ENEMY_SPR_PAT_0_NUMBER
+    ; add     2 * 4                         ; Pattern 2
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+; ----------------------------------------
+
+    ; Sprite # 13
+    ld      a, (BigEnemy_0_Struct + 13)    ; Y3
+    cp      e           ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_0_Struct + 12)    ; X3
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_0_Struct + 23)    ; Pattern 3
+    ; ld      a, BIG_ENEMY_SPR_PAT_0_NUMBER
+    ; add     3 * 4                         ; Pattern 3
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+; ----------------------------------------
+
+    ; Sprite # 14
+    ld      a, (BigEnemy_0_Struct + 15)    ; Y4
+    cp      e           ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_0_Struct + 14)    ; X4
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_0_Struct + 24)    ; Pattern 4
+    ; ld      a, BIG_ENEMY_SPR_PAT_0_NUMBER
+    ; add     4 * 4                         ; Pattern 4
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+; ----------------------------------------
+
+    ; Sprite # 15
+    ld      a, (BigEnemy_0_Struct + 17)    ; Y5
+    cp      e           ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_0_Struct + 16)    ; X5
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_0_Struct + 25)    ; Pattern 5
+    ; ld      a, BIG_ENEMY_SPR_PAT_0_NUMBER
+    ; add     5 * 4                         ; Pattern 5
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+; ----------------------------------------
+
+    ; Sprite # 16
+    ld      a, (BigEnemy_0_Struct + 19)    ; Y6
+    cp      e           ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_0_Struct + 18)    ; X6
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_0_Struct + 26)    ; Pattern 6
+    ; ld      a, BIG_ENEMY_SPR_PAT_0_NUMBER
+    ; add     6 * 4                         ; Pattern 6
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+
+    ; ---- Big Enemy #1
+
+    ; Sprite # 17
+    ld      a, (BigEnemy_1_Struct + 2)    ; Y
+    cp      e           ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_1_Struct + 1)    ; X
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_1_Struct + 20)    ; Pattern 0
+    ; ld      a, 255 ; just to wait 8 cycles
+    ; ld      a, BIG_ENEMY_SPR_PAT_0_NUMBER    ; Pattern 0
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+; ----------------------------------------
+
+    ; Sprite # 18
+    ld      a, (BigEnemy_1_Struct + 9)    ; Y1
+    cp      e           ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_1_Struct + 8)    ; X1
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_1_Struct + 21)    ; Pattern 1
+    ; ld      a, BIG_ENEMY_SPR_PAT_0_NUMBER
+    ; add     1 * 4                         ; Pattern 1
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+; ----------------------------------------
+
+    ; Sprite # 19
+    ld      a, (BigEnemy_1_Struct + 11)    ; Y2
+    cp      e           ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_1_Struct + 10)    ; X2
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_1_Struct + 22)    ; Pattern 2
+    ; ld      a, BIG_ENEMY_SPR_PAT_0_NUMBER
+    ; add     2 * 4                         ; Pattern 2
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+; ----------------------------------------
+
+    ; Sprite # 20
+    ld      a, (BigEnemy_1_Struct + 13)    ; Y3
+    cp      e           ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_1_Struct + 12)    ; X3
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_1_Struct + 23)    ; Pattern 3
+    ; ld      a, BIG_ENEMY_SPR_PAT_0_NUMBER
+    ; add     3 * 4                         ; Pattern 3
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+; ----------------------------------------
+
+    ; Sprite # 21
+    ld      a, (BigEnemy_1_Struct + 15)    ; Y4
+    cp      e           ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_1_Struct + 14)    ; X4
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_1_Struct + 24)    ; Pattern 4
+    ; ld      a, BIG_ENEMY_SPR_PAT_0_NUMBER
+    ; add     4 * 4                         ; Pattern 4
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+; ----------------------------------------
+
+    ; Sprite # 22
+    ld      a, (BigEnemy_1_Struct + 17)    ; Y5
+    cp      e           ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_1_Struct + 16)    ; X5
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_1_Struct + 25)    ; Pattern 5
+    ; ld      a, BIG_ENEMY_SPR_PAT_0_NUMBER
+    ; add     5 * 4                         ; Pattern 5
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+; ----------------------------------------
+
+    ; Sprite # 23
+    ld      a, (BigEnemy_1_Struct + 19)    ; Y6
+    cp      e           ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_1_Struct + 18)    ; X6
+    out     (PORT_0), a
+
+    nop
+    ld      a, (BigEnemy_1_Struct + 26)    ; Pattern 6
+    ; ld      a, BIG_ENEMY_SPR_PAT_0_NUMBER
+    ; add     6 * 4                         ; Pattern 6
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+
+; ----------------------------------------
+
+.cont_3:
 
     ; if (!Player_BombActive) 
     ;   showEnemyShots;
@@ -834,7 +1185,7 @@ Update_SPRATR:
 .showPlayerBombSprites:
 
     ; switch between odd and even sprites based on JIFFY least significant bit
-    ; if (JIFFY & 1) { H = 18; L = 8 } else { H = 0; L = 0 }
+    ; if (JIFFY & 1) { H = 18; L = 8; } else { H = 0; L = 0; }
     ld      hl, 0 ; L = 0 ; H = 0
     ld      a, (BIOS_JIFFY)
     and     0000 0001 b

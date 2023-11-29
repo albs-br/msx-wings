@@ -42,6 +42,10 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     INCLUDE "GameLogic/EnemyLogic/Enemy_Reset.s"
     INCLUDE "GameLogic/EnemyLogic/Enemy_Logic.s"
 
+    INCLUDE "GameLogic/BigEnemyLogic/BigEnemy_Init.s"
+    INCLUDE "GameLogic/BigEnemyLogic/BigEnemy_Reset.s"
+    ; INCLUDE "GameLogic/BigEnemyLogic/BigEnemy_Logic.s"
+
     INCLUDE "GameLogic/EnemyShotLogic/EnemyShot_Init.s"
     INCLUDE "GameLogic/EnemyShotLogic/EnemyShot_Reset.s"
     INCLUDE "GameLogic/EnemyShotLogic/EnemyShot_Logic.s"
@@ -109,7 +113,7 @@ Execute:
 
 
 
-    ; call    TitleScreen ; DEBUG
+    call    TitleScreen
 
 
 
@@ -171,8 +175,8 @@ Execute:
 ; DEBUG_ResetCircleLoopTest:
 
     ;ld      a, 1 ; debug
-    ; ld      a, (CurrentLevelNumber)
-    ; call    LevelTitleAnimation ; DEBUG
+    ld      a, (CurrentLevelNumber)
+    call    LevelTitleAnimation
     
     ; call    StageClearAnimation ; DEBUG
 
@@ -357,3 +361,4 @@ PAGE_0x4000_size:          equ $ - 0x4000
 RamStart:
     INCLUDE "Variables.s"
 RamEnd:
+Ram_size:          equ $ - RamStart ; 0EF5h (3829 bytes)
