@@ -236,8 +236,9 @@ ReadInput:
     ld      c, PORT_0
     ld      hl, SpritePattern_PlayerShot_Fat
     ; 32x outi
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    call    OUTI_x32
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
 
 

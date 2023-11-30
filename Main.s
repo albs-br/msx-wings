@@ -9,7 +9,7 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
 
 
 ; Compilation address
-    org 0x4000, 0xbeff	                    ; 0x8000 can be also used here if Rom size is 16kB or less.
+    org 0x4000, 0x7fff	                    ; 0x8000 can be also used here if Rom size is 16kB or less.
 
     ; Common
     INCLUDE "Include/RomHeader.s"
@@ -345,7 +345,7 @@ End:
 
     db      "End ROM started at 0x4000"
 
-PAGE_0x4000_size:          equ $ - 0x4000
+PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3d8a bytes (almost full)
 	ds PAGE_SIZE - ($ - 0x4000), 255	; Fill the unused area with 0xFF
 
 

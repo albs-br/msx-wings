@@ -1041,12 +1041,15 @@ MEGAROM_PAGE_242_size:          equ $ - 0x8000
 
 ; ------------------------------------------------------------------------
 
-FONTS_DATA_MEGAROM_PAGE:        equ 243
+FONTS_DATA_MEGAROM_PAGE:                equ 243
+SPRITE_COLORS_CONT_DATA_MEGAROM_PAGE:   equ 243
+
 
 ; ------- Page 243
 	org	0x8000, 0xBFFF
     INCLUDE "Graphics/Sprites/Fonts/Fonts.s"
-MEGAROM_PAGE_243_size:          equ $ - 0x8000
+    INCLUDE "Graphics/Sprites/SpriteColors_cont.s"
+MEGAROM_PAGE_243_size:          equ $ - 0x8000 ; 0x31b0 bytes (aprox 12.5 kb)
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
 ; ------------------------------------------------------------------------

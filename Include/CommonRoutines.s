@@ -1215,3 +1215,10 @@ SNSMAT_NO_DI_EI:
 	out	(PPI.C), a
 	in	a, (PPI.B)
 	ret
+
+
+
+OUTI_x32:
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ret
