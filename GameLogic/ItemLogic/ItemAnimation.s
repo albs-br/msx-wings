@@ -57,10 +57,12 @@ ItemAnimation:
     ; unrolled OUTIs
     ld      c, PORT_0
     ; 64x OUTI
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    call    OUTI_x32
+    call    OUTI_x32
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
 
 
@@ -76,10 +78,12 @@ ItemAnimation:
     ; unrolled OUTIs
     ld      c, PORT_0
     ; 64x OUTI
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    call    OUTI_x32
+    call    OUTI_x32
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
 
 

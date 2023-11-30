@@ -289,7 +289,9 @@ Load_PlayerShot_Pattern_And_Colors:
         call    SetVdp_Write
     pop     hl
     ; 32x outi
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    call    OUTI_x32
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
 
     ; colors

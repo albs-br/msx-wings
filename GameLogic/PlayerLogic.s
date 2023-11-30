@@ -175,8 +175,9 @@ LoadPlayerColors_Center:
     call    SetVdp_Write
     ld      hl, SpriteColors_PlayerPlane_0_and_1
     ; 32x outi
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    call    OUTI_x32
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
 
     ; Spr 2 colors
@@ -207,8 +208,9 @@ LoadPlayerColors_Left_0:
     call    SetVdp_Write
     ld      hl, SpriteColors_PlayerPlane_Left_Frame_0_Top
     ; 32x outi
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    call    OUTI_x32
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
     ; Spr 2 and 3 colors
     ld      a, 0000 0001 b
@@ -216,8 +218,9 @@ LoadPlayerColors_Left_0:
     call    SetVdp_Write
     ld      hl, SpriteColors_PlayerPlane_Left_Frame_0_Bottom
     ; 32x outi
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    call    OUTI_x32
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     
     ret
 
@@ -230,8 +233,9 @@ LoadPlayerColors_Left_1:
     call    SetVdp_Write
     ld      hl, SpriteColors_PlayerPlane_Left_Frame_1_Top
     ; 32x outi
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    call    OUTI_x32
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
     ; Spr 2 and 3 colors
     ld      a, 0000 0001 b
@@ -239,8 +243,9 @@ LoadPlayerColors_Left_1:
     call    SetVdp_Write
     ld      hl, SpriteColors_PlayerPlane_Left_Frame_1_Bottom
     ; 32x outi
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    call    OUTI_x32
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     
     ret
 
@@ -253,8 +258,9 @@ LoadPlayerColors_Right_0:
     call    SetVdp_Write
     ld      hl, SpriteColors_PlayerPlane_Right_Frame_0_Top
     ; 32x outi
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    call    OUTI_x32
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
     ; Spr 2 and 3 colors
     ld      a, 0000 0001 b
@@ -262,8 +268,9 @@ LoadPlayerColors_Right_0:
     call    SetVdp_Write
     ld      hl, SpriteColors_PlayerPlane_Right_Frame_0_Bottom
     ; 32x outi
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    call    OUTI_x32
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     
     ret
 
@@ -276,8 +283,9 @@ LoadPlayerColors_Right_1:
     call    SetVdp_Write
     ld      hl, SpriteColors_PlayerPlane_Right_Frame_1_Top
     ; 32x outi
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    call    OUTI_x32
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
     ; Spr 2 and 3 colors
     ld      a, 0000 0001 b
@@ -285,8 +293,9 @@ LoadPlayerColors_Right_1:
     call    SetVdp_Write
     ld      hl, SpriteColors_PlayerPlane_Right_Frame_1_Bottom
     ; 32x outi
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    call    OUTI_x32
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     
     ret
 

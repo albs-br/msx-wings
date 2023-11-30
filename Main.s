@@ -345,7 +345,7 @@ End:
 
     db      "End ROM started at 0x4000"
 
-PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3d8a bytes (almost full)
+PAGE_0x4000_size:          equ $ - 0x4000   ; 0x388d bytes (14447 bytes)
 	ds PAGE_SIZE - ($ - 0x4000), 255	; Fill the unused area with 0xFF
 
 

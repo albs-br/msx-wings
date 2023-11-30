@@ -136,8 +136,9 @@ PlayerBombLogic:
     ld      c, PORT_0
     ld      hl, SpritePattern_EnemyShot_0_and_1
     ; 32x outi
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    call    OUTI_x32
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
 
     ; ---- reset SPRCOL data for enemy shots (sprites #24 to #30 of SPRATR)

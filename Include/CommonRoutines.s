@@ -1217,7 +1217,7 @@ SNSMAT_NO_DI_EI:
 	ret
 
 
-
+; Subroutine used to save bytes when you have many blocks of unrolled OUTI's 
 OUTI_x32:
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 

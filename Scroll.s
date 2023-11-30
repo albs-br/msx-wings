@@ -119,7 +119,9 @@ ExecuteScroll:
     ld      d, 8
 .loopOUTI:
         ; 32x OUTI
-        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+        call    OUTI_x32
+        ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+        ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
     dec     d
     jp      nz, .loopOUTI
 

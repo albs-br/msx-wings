@@ -262,8 +262,9 @@ StageClearAnimation:
     .loop_10:
         ; outi
         ; 32x outi:
-        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-        outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+        call    OUTI_x32
+        ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+        ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
         dec     de
         ld      a, d
         or      e

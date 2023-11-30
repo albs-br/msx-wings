@@ -525,8 +525,9 @@ LoadDataFromEnemyData:
     ;ld      hl, SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1
     ;ld      hl, SpriteColors_EnemyPlane_Frame_1_Patterns_0_and_1
     ; 32x OUTI
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi     
+    call    OUTI_x32
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
     ; ; Load enemy colors
     ; ld      a, 0000 0001 b
