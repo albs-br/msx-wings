@@ -1015,7 +1015,6 @@
 ; ------------------------------------------------------------------------
 ; --------------------- MegaROM page for miscelaneous data ---------------
 
-LEVEL_DATA_MEGAROM_PAGE:                equ 242
 ENEMY_DATA_MEGAROM_PAGE:                equ 242
 ENEMY_SHOT_DATA_MEGAROM_PAGE:           equ 242
 PAUSE_ANIMATION_DATA_MEGAROM_PAGE:      equ 242
@@ -1024,11 +1023,6 @@ SPRITE_PATTERNS_DATA_MEGAROM_PAGE:      equ 242
 
 ; ------- Page 242
 	org	0x8000, 0xBFFF
-    INCLUDE "LevelData/Level_1.s"
-    INCLUDE "LevelData/Level_2.s"
-    INCLUDE "LevelData/Level_3.s"
-    INCLUDE "LevelData/Level_4.s"
-    INCLUDE "LevelData/Level_5.s"
     INCLUDE "EnemyData/EnemyPlane/EnemyPlane_Data.s"
     INCLUDE "EnemyData/EnemyPlaneTurning/EnemyPlaneTurning_Data.s"
     INCLUDE "EnemyData/BigEnemy/Chopper_Data.s"
@@ -1089,4 +1083,18 @@ STAGE_CLEAR_ANIMATION_DATA_MEGAROM_PAGE_1:        equ 247
 	org	0x8000, 0xBFFF
     INCLUDE "StageClearAnimation/SPRATR_Data.s"
 MEGAROM_PAGE_247_size:          equ $ - 0x8000
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+; ------------------------------------------------------------------------
+
+LEVEL_DATA_MEGAROM_PAGE:                equ 248
+
+; ------- Page 248
+	org	0x8000, 0xBFFF
+    INCLUDE "LevelData/Level_1.s"
+    INCLUDE "LevelData/Level_2.s"
+    INCLUDE "LevelData/Level_3.s"
+    INCLUDE "LevelData/Level_4.s"
+    INCLUDE "LevelData/Level_5.s"
+MEGAROM_PAGE_248_size:          equ $ - 0x8000
 	ds PAGE_SIZE - ($ - 0x8000), 255
