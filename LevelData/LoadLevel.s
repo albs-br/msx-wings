@@ -119,7 +119,7 @@ LoadLevel:
     ld      a, LEVEL_5_LAST_SCREEN_PAGE
     ld      (CurrentLevelLastScreen), a
 
-    ld      hl, Level_1_Data
+    ld      hl, Level_5_Data
     ld      (LevelData_CurrentAddr), hl
 
     jp      .continue

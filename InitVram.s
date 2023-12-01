@@ -558,6 +558,9 @@ ENEMY_5_SPRCOL_ADDR:        equ SPRCOL + 64 + (16 * 6) + (SpriteColors_EnemyPlan
 ENEMY_6_SPRCOL_ADDR:        equ SPRCOL + 64 + (16 * 6) + (SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size * 6)
 
 
+BIG_ENEMY_0_SPRCOL_ADDR:    equ ENEMY_0_SPRCOL_ADDR
+BIG_ENEMY_1_SPRCOL_ADDR:    equ BIG_ENEMY_0_SPRCOL_ADDR + (16 * 7) ; seven sprites for each Big enemy
+
 ENEMY_SHOT_0_SPRCOL_ADDR:   equ ENEMY_6_SPRCOL_ADDR + SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1.size
 ENEMY_SHOT_1_SPRCOL_ADDR:   equ ENEMY_SHOT_0_SPRCOL_ADDR + 16
 ENEMY_SHOT_2_SPRCOL_ADDR:   equ ENEMY_SHOT_1_SPRCOL_ADDR + 16

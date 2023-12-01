@@ -1,5 +1,5 @@
 ; Input
-;   HL: addr of enemy struct
+;   HL: addr of big enemy struct
 BigEnemy_Logic:
 
     ; check status before copying to temp vars to save cycles when disabled
@@ -13,7 +13,7 @@ BigEnemy_Logic:
 
     push    hl
 
-        ; Copy enemy struct to temp enemy struct
+        ; Copy big enemy struct to temp big enemy struct
         ;ld      hl, ?                                          ; source
         ld      de, BigEnemy_Temp_Struct                           ; destiny
         ld      bc, BigEnemy_Temp_Struct.size                      ; size
@@ -21,11 +21,11 @@ BigEnemy_Logic:
 
 
 
-        ; if enemy data ends, then the enemy life cycle ends
+        ; if big enemy data ends, then the big enemy life cycle ends
         ld      hl, (BigEnemy_Temp_Frame_Counter)
         ld      de, EnemyDeltaX_size
         call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
-        jp      nc, .bigEnemyReset             ; if (HL >= DE) enemyReset
+        jp      nc, .bigEnemyReset             ; if (HL >= DE) bigEnemyReset
 
 
         ld      a, (BigEnemy_Temp_Status)      ; get Status
@@ -33,12 +33,12 @@ BigEnemy_Logic:
         jp      nz, .doExplosionAnimation   ; if (Status != 1) doExplosionAnimation
 
 
-        ; --------------------------- load data from enemy data -------------------------
+        ; --------------------------- load data from big enemy data -------------------------
 
-        call    BigEnemy_LoadDataFromEnemyData
+        ; call    BigEnemy_LoadDataFromEnemyData
 
 
-        ; --------------------------- enemy movement -------------------------
+        ; --------------------------- big enemy movement -------------------------
 
         ; Delta Y
         ; (Delta Y data is always n bytes after Delta X data. n = EnemyDeltaX_size)
@@ -61,9 +61,30 @@ BigEnemy_Logic:
         ld      a, (BigEnemy_Temp_Y)        ; Y
         add     a, b                        ; add to delta Y
         ld      (BigEnemy_Temp_Y), a
+        
         ld      a, (BigEnemy_Temp_Y1)       ; Y1
         add     a, b                        ; add to delta Y
         ld      (BigEnemy_Temp_Y1), a
+        
+        ld      a, (BigEnemy_Temp_Y2)       ; Y2
+        add     a, b                        ; add to delta Y
+        ld      (BigEnemy_Temp_Y2), a
+        
+        ld      a, (BigEnemy_Temp_Y3)       ; Y3
+        add     a, b                        ; add to delta Y
+        ld      (BigEnemy_Temp_Y3), a
+        
+        ld      a, (BigEnemy_Temp_Y4)       ; Y4
+        add     a, b                        ; add to delta Y
+        ld      (BigEnemy_Temp_Y4), a
+        
+        ld      a, (BigEnemy_Temp_Y5)       ; Y5
+        add     a, b                        ; add to delta Y
+        ld      (BigEnemy_Temp_Y5), a
+        
+        ld      a, (BigEnemy_Temp_Y6)       ; Y6
+        add     a, b                        ; add to delta Y
+        ld      (BigEnemy_Temp_Y6), a
 
         ; inc     hl                          ; next Enemy Data addr
         ; ld      (Enemy_Temp_Data_Current_Addr), hl
@@ -88,11 +109,29 @@ BigEnemy_Logic:
         jp      nc, .bigEnemyReset         ; if (X >= 254) bigEnemyReset
         ld      (BigEnemy_Temp_X), a       ; save X
 
-        ;ld      b, (hl)                 ; get delta X value
-        ld      a, (BigEnemy_Temp_X1)      ; get current X1 value
+        ld      a, (BigEnemy_Temp_X1)   ; get current X1 value
         add     a, b                    ; add to delta X
-        ld      (BigEnemy_Temp_X1), a      ; save X1
-
+        ld      (BigEnemy_Temp_X1), a   ; save
+        
+        ld      a, (BigEnemy_Temp_X2)   ; get current X2 value
+        add     a, b                    ; add to delta X
+        ld      (BigEnemy_Temp_X2), a   ; save
+        
+        ld      a, (BigEnemy_Temp_X3)   ; get current X3 value
+        add     a, b                    ; add to delta X
+        ld      (BigEnemy_Temp_X3), a   ; save
+        
+        ld      a, (BigEnemy_Temp_X4)   ; get current X4 value
+        add     a, b                    ; add to delta X
+        ld      (BigEnemy_Temp_X4), a   ; save
+        
+        ld      a, (BigEnemy_Temp_X5)   ; get current X5 value
+        add     a, b                    ; add to delta X
+        ld      (BigEnemy_Temp_X5), a   ; save
+        
+        ld      a, (BigEnemy_Temp_X6)   ; get current X6 value
+        add     a, b                    ; add to delta X
+        ld      (BigEnemy_Temp_X6), a   ; save
 
 
         ; inc     hl                      ; next Delta X addr
@@ -101,7 +140,7 @@ BigEnemy_Logic:
         ld      (BigEnemy_Temp_Data_Current_Addr), hl
     .ignoreDeltaX:
 
-        ; --------------------------- check collision (enemy x player shots) -------------------------
+        ; --------------------------- check collision (big enemy x player shots) -------------------------
 
         ld      a, (BigEnemy_Temp_X)
         ld      b, a
@@ -111,20 +150,20 @@ BigEnemy_Logic:
         push    bc
                 ; check col. between current enemy and shot 0
                 ld      hl, PlayerShot_0_Struct
-                call    CheckCol_Enemy_PlayerShot
+                call    CheckCol_BigEnemy_PlayerShot
         pop     bc
         push    bc
                 ; check col. between current enemy and shot 1
                 ld      hl, PlayerShot_1_Struct
-                call    CheckCol_Enemy_PlayerShot
+                call    CheckCol_BigEnemy_PlayerShot
         pop     bc
         push    bc
                 ; check col. between current enemy and shot 2
                 ld      hl, PlayerShot_2_Struct
-                call    CheckCol_Enemy_PlayerShot
+                call    CheckCol_BigEnemy_PlayerShot
         pop     bc
         ; push    bc
-        ;         ; check col. between current enemy and shot 3
+        ;         ; check col. between current enemy an1d shot 3
         ;         ld      hl, PlayerShot_3_Struct
         ;         call    CheckCol_Enemy_PlayerShot
         ; pop     bc
@@ -146,14 +185,14 @@ BigEnemy_Logic:
         ; ld      a, (Enemy_Temp_Y_Static)
         ; ld      c, a
 
-        ; check col. between current enemy and plane
+        ; check col. between current big enemy and plane
         ld      a, (Player_X)
         add     2                           ; adjust the 16x16 collision box to the center of the plane
         ld      d, a
         ld      a, (Player_Y_Static)
         add     12                          ; adjust the 16x16 collision box to the body of the plane
         ld      e, a
-        call    CheckCol_Enemy_PlayerPlane
+        call    CheckCol_BigEnemy_PlayerPlane
 
 
 
@@ -211,8 +250,8 @@ BigEnemy_Logic:
     ; ;pop     hl
     ; jp      nz, .doInitItem
 
-    ld      hl, Enemy_Temp_Struct
-    call    z, Enemy_Reset
+    ld      hl, BigEnemy_Temp_Struct
+    call    z, BigEnemy_Reset
     ret
 
 ; .doInitItem:
@@ -350,7 +389,7 @@ BigEnemy_Logic:
 
 
 ; Inputs:
-;   BC: X and Y static of enemy
+;   BC: X and Y static of big enemy
 ;   HL: PlayerShot struct addr
 CheckCol_BigEnemy_PlayerShot:
 
@@ -374,7 +413,7 @@ CheckCol_BigEnemy_PlayerPlane:
     ;or      a
     ;ret     z                  ; if (Player status == 0) skip Check Col.
 
-    call    CheckCollision_16x16_32x32
+    call    CheckCollision_32x32_16x16
     ret     nc
 
 ;.collision:
@@ -428,7 +467,7 @@ BigEnemy_StartExplosionAnimation:
 
 
 
-BigEnemy_LoadDataFromEnemyData:
+; BigEnemy_LoadDataFromEnemyData:
 
 
     ; sprite pattern for animations are controlled in UpdateBigEnemiesPatterns
@@ -477,37 +516,37 @@ BigEnemy_LoadDataFromEnemyData:
     ; add     b
     ; ld      (BigEnemy_Temp_Y1), a          ; 
 
-    ; -------------------------- colors -----------------------
+    ; ; -------------------------- colors -----------------------
 
-    ld      hl, (Enemy_Temp_Data_Current_Addr)          ; Enemy data addr
+    ; ld      hl, (Enemy_Temp_Data_Current_Addr)          ; Enemy data addr
 
-    ld      bc, EnemyDeltaX_size + EnemyDeltaY_size + EnemyPatternNumber_size + EnemyOffset_x1_size + EnemyOffset_y1_size    ; set HL to current offset y1
-    add     hl, bc
+    ; ld      bc, EnemyDeltaX_size + EnemyDeltaY_size + EnemyPatternNumber_size + EnemyOffset_x1_size + EnemyOffset_y1_size    ; set HL to current offset y1
+    ; add     hl, bc
 
-    ld      bc, (Enemy_Temp_Frame_Counter)              ; this is to duplicate the advance (this data is word, the others are byte)
-    ;dec     bc                                          ; adjust because frame counter is inc before this routine is called
-    add     hl, bc
+    ; ld      bc, (Enemy_Temp_Frame_Counter)              ; this is to duplicate the advance (this data is word, the others are byte)
+    ; ;dec     bc                                          ; adjust because frame counter is inc before this routine is called
+    ; add     hl, bc
 
-    push    hl
-        ; Load enemy colors
-        ld      a, 0000 0001 b
-        ld      hl, (Enemy_Temp_SPRCOL_Addr)
-        call    SetVdp_Write
-        ;ld      b, SpriteColors_EnemyPlane_0_and_1.size
-        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    pop     hl
-    ;ld      hl, testcolors
-    ;ld      hl, EnemyData_5 + (128 * 5)
-    ld      a, (hl)
-    inc     hl
-    ld      h, (hl)
-    ld      l, a
-    ;ld      hl, SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1
-    ;ld      hl, SpriteColors_EnemyPlane_Frame_1_Patterns_0_and_1
-    ; 32x OUTI
-    call    OUTI_x32
-    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; push    hl
+    ;     ; Load enemy colors
+    ;     ld      a, 0000 0001 b
+    ;     ld      hl, (Enemy_Temp_SPRCOL_Addr)
+    ;     call    SetVdp_Write
+    ;     ;ld      b, SpriteColors_EnemyPlane_0_and_1.size
+    ;     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    ; pop     hl
+    ; ;ld      hl, testcolors
+    ; ;ld      hl, EnemyData_5 + (128 * 5)
+    ; ld      a, (hl)
+    ; inc     hl
+    ; ld      h, (hl)
+    ; ld      l, a
+    ; ;ld      hl, SpriteColors_EnemyPlane_Frame_0_Patterns_0_and_1
+    ; ;ld      hl, SpriteColors_EnemyPlane_Frame_1_Patterns_0_and_1
+    ; ; 32x OUTI
+    ; call    OUTI_x32
+    ; ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
     ; ; Load enemy colors
     ; ld      a, 0000 0001 b
@@ -523,7 +562,7 @@ BigEnemy_LoadDataFromEnemyData:
     ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
 
-    ret
+    ; ret
 
 
 
@@ -536,6 +575,10 @@ UpdateBigEnemiesPatterns:
     or      b
     ret     z
 
+    ; set MegaROM page for Chopper sprite colors data
+    ld      a, SPRITE_PATTERNS_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
     ; load patterns
     ld      a, 0000 0001 b
     ld      hl, SPRPAT + ((BIG_ENEMY_SPR_PAT_0_NUMBER / 4) * 32)
@@ -546,7 +589,9 @@ UpdateBigEnemiesPatterns:
     ; 7 x 32 OUTI
     ld      a, 14
 .loop_a:
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    ; ld hl, .testChopperPattern ; DEBUG
+    outi outi outi outi outi outi outi outi
+    outi outi outi outi outi outi outi outi 
     dec     a
     jp      nz, .loop_a
 
@@ -566,15 +611,17 @@ UpdateBigEnemiesPatterns:
     ; 7 x 16 OUTI (Big Enemy 0)
     ld      a, 7
 .loop_b:
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi 
     dec     a
     jp      nz, .loop_b
 
-    ld      hl, SpriteColors_EnemyChopper_Frame_0_TopLeft
+    ld      hl, SpriteColors_EnemyChopper_Frame_0_TopLeft ; return HL to start of color data
     ; 7 x 16 OUTI (Big Enemy 1)
     ld      a, 7
 .loop_c:
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    outi outi outi outi outi outi outi outi
+    outi outi outi outi outi outi outi outi 
     dec     a
     jp      nz, .loop_c
 

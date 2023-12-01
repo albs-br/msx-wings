@@ -1,10 +1,10 @@
 ; Input
 ;   DE: addr of level data struct
 BigEnemy_Init:
-    ; init Enemy / load some data from Level Data Struct to Enemy Struct
+    ; init Big Enemy / load some data from Level Data Struct to Big Enemy Struct
 
 
-    ; EnemyMode = ENEMY_MODE_SMALL_ENEMIES
+    ; EnemyMode = ENEMY_MODE_BIG_ENEMIES
     ld      a, ENEMY_MODE_BIG_ENEMIES
     ld      (EnemyMode), a
 
@@ -31,7 +31,7 @@ BigEnemy_Init:
 
 
     IFDEF DEBUG
-        ; debug trap (get if an enemy is being initialized before its lifecycle ends)
+        ; debug trap (get if an big enemy is being initialized before its lifecycle ends)
         ld      a, (BigEnemy_Temp_Status)      ; get Status
         cp      1
     .debugTrap:
@@ -99,6 +99,7 @@ BigEnemy_Init:
     xor     a ; TODO: should be -32
     ld      (BigEnemy_Temp_Y_Static), a      ; Y static
 
+    ; TODO: switch (type of big enemy)
 
     ; ----- load all X and Y for Big enemy type Chopper
     ; load X1 .. X6
@@ -122,7 +123,7 @@ BigEnemy_Init:
     ld      (BigEnemy_Temp_Y6), a
 
     
-    ld      b, 4
+    ld      b, 4 ; add b is faster than add 4
     ld      a, BIG_ENEMY_SPR_PAT_0_NUMBER
     ld      (BigEnemy_Temp_Pattern_0), a
     add     b

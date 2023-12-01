@@ -1,5 +1,6 @@
 ENEMY_TYPE_1:           equ 1
 ENEMY_SHOT_TYPE_1:      equ 2
+BIG_ENEMY_TYPE_1:       equ 3
 ITEM_P:                 equ 100
 ITEM_BOMB:              equ 101
 

@@ -56,12 +56,12 @@ GameLogic:
 .enemyMode_BigEnemies:
 
     ; update big enemies patterns only once (both uses the same animation frame)
-    ; call    UpdateBigEnemiesPatterns
+    call    UpdateBigEnemiesPatterns
 
-    ; ld      hl, BigEnemy_0_Struct
-    ; call    BigEnemy_Logic
-    ; ld      hl, BigEnemy_1_Struct
-    ; call    BigEnemy_Logic
+    ld      hl, BigEnemy_0_Struct
+    call    BigEnemy_Logic
+    ld      hl, BigEnemy_1_Struct
+    call    BigEnemy_Logic
 
     ; }
 
@@ -174,6 +174,9 @@ GameLogic:
     
     cp      ENEMY_TYPE_1
     call    z, Enemy_Init
+    
+    cp      BIG_ENEMY_TYPE_1
+    call    z, BigEnemy_Init
     
     cp      ENEMY_SHOT_TYPE_1
     call    z, EnemyShot_Init

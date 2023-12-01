@@ -44,7 +44,7 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
 
     INCLUDE "GameLogic/BigEnemyLogic/BigEnemy_Init.s"
     INCLUDE "GameLogic/BigEnemyLogic/BigEnemy_Reset.s"
-    ; INCLUDE "GameLogic/BigEnemyLogic/BigEnemy_Logic.s"
+    INCLUDE "GameLogic/BigEnemyLogic/BigEnemy_Logic.s"
 
     INCLUDE "GameLogic/EnemyShotLogic/EnemyShot_Init.s"
     INCLUDE "GameLogic/EnemyShotLogic/EnemyShot_Reset.s"
@@ -113,7 +113,7 @@ Execute:
 
 
 
-    call    TitleScreen
+    ; call    TitleScreen ; debug
 
 
 
@@ -159,7 +159,7 @@ Execute:
 
 
 
-    ld      a, 1                        ; level number (1-8)
+    ld      a, 5                        ; level number (1-8)
     ld      (CurrentLevelNumber), a
     call    LoadLevel
 
