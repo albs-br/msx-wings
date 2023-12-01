@@ -66,6 +66,7 @@ BigEnemy_Init:
     ld      hl, 0
     ld      (BigEnemy_Temp_Frame_Counter), hl      ; reset frame counter
 
+
     ; ; get initial X coord from level data struct
     ; ld      a, (LevelData_Temp_Initial_X)
     ; ld      (Enemy_Temp_X), a
@@ -88,7 +89,7 @@ BigEnemy_Init:
     ; ld      (Enemy_Temp_X1), a            ; X1
 
     ld      a, (Screen_Y_Origin)
-    ; sub     32 ; TODO: should sub 32 here
+    sub     32 ; -32 to start off screen
     ld      (BigEnemy_Temp_Y), a
 
     ; this now comes from enemy data

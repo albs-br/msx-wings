@@ -575,48 +575,85 @@ UpdateBigEnemiesPatterns:
     or      b
     ret     z
 
-    ; set MegaROM page for Chopper sprite colors data
-    ld      a, SPRITE_PATTERNS_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    
+    ; switch (Animation_Counter)
+    ld      a, (BigEnemy_Animation_Counter)
+    
+    cp      1
+    jp      z, .loadFrame_1
+    cp      2
+    jp      z, .loadFrame_2
 
-    ; load patterns
-    ld      a, 0000 0001 b
-    ld      hl, SPRPAT + ((BIG_ENEMY_SPR_PAT_0_NUMBER / 4) * 32)
-    call    SetVdp_Write
-    ; ld      b, xxxxx.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+
+; .loadFrame_0:
     ld      hl, SpritePattern_EnemyChopper_Frame_0_TopLeft
-    ; 7 x 32 OUTI
-    ld      a, 14
-.loop_a:
-    ; ld hl, .testChopperPattern ; DEBUG
-    outi outi outi outi outi outi outi outi
-    outi outi outi outi outi outi outi outi 
-    dec     a
-    jp      nz, .loop_a
+    ld      de, SpriteColors_EnemyChopper_Frame_0_TopLeft
+    inc     a
+    jp      .continue
+
+.loadFrame_1:
+    ld      hl, SpritePattern_EnemyChopper_Frame_1_TopLeft
+    ld      de, SpriteColors_EnemyChopper_Frame_1_TopLeft
+    inc     a
+    jp      .continue
+
+.loadFrame_2:
+    ld      hl, SpritePattern_EnemyChopper_Frame_2_TopLeft
+    ld      de, SpriteColors_EnemyChopper_Frame_2_TopLeft
+    xor     a
+    ; jp      .continue
+
+.continue:
+    ld      (BigEnemy_Animation_Counter), a
+
+    push    de
+        push    hl
+
+            ; set MegaROM page for Chopper sprite colors data
+            ld      a, SPRITE_PATTERNS_DATA_MEGAROM_PAGE
+            ld	    (Seg_P8000_SW), a
+
+            ; load patterns
+            ld      a, 0000 0001 b
+            ld      hl, SPRPAT + ((BIG_ENEMY_SPR_PAT_0_NUMBER / 4) * 32)
+            call    SetVdp_Write
+            ; ld      b, xxxxx.size
+            ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+        ; ld      hl, SpritePattern_EnemyChopper_Frame_0_TopLeft
+        pop     hl
+        ; 7 x 32 OUTI
+        ld      a, 14
+    .loop_a:
+        outi outi outi outi outi outi outi outi
+        outi outi outi outi outi outi outi outi 
+        dec     a
+        jp      nz, .loop_a
 
 
 
-    ; set MegaROM page for Chopper sprite colors data
-    ld      a, SPRITE_COLORS_CONT_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+        ; set MegaROM page for Chopper sprite colors data
+        ld      a, SPRITE_COLORS_CONT_DATA_MEGAROM_PAGE
+        ld	    (Seg_P8000_SW), a
 
-    ; load colors for Big Enemy 0 and 1
-    ld      a, 0000 0001 b
-    ld      hl, SPRCOL + (10 * 16)
-    call    SetVdp_Write
-    ; ld      b, xxxxx.size
-    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
-    ld      hl, SpriteColors_EnemyChopper_Frame_0_TopLeft
-    ; 7 x 16 OUTI (Big Enemy 0)
-    ld      a, 7
-.loop_b:
-    outi outi outi outi outi outi outi outi 
-    outi outi outi outi outi outi outi outi 
-    dec     a
-    jp      nz, .loop_b
+        ; load colors for Big Enemy 0 and 1
+        ld      a, 0000 0001 b
+        ld      hl, SPRCOL + (10 * 16)
+        call    SetVdp_Write
+        ; ld      b, xxxxx.size
+        ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+    pop     hl
+    push    hl
+        ; ld      hl, SpriteColors_EnemyChopper_Frame_0_TopLeft
+        ; 7 x 16 OUTI (Big Enemy 0)
+        ld      a, 7
+    .loop_b:
+        outi outi outi outi outi outi outi outi 
+        outi outi outi outi outi outi outi outi 
+        dec     a
+        jp      nz, .loop_b
 
-    ld      hl, SpriteColors_EnemyChopper_Frame_0_TopLeft ; return HL to start of color data
+    pop     hl ; return HL to start of color data
+    ; ld      hl, SpriteColors_EnemyChopper_Frame_0_TopLeft ; return HL to start of color data
     ; 7 x 16 OUTI (Big Enemy 1)
     ld      a, 7
 .loop_c:

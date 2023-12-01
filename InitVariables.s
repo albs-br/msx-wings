@@ -84,7 +84,11 @@ InitVariables:
     call    BigEnemy_Reset
     ld      hl, BigEnemy_1_Struct
     call    BigEnemy_Reset
-    
+
+    xor     a
+    ld      (BigEnemy_Animation_Counter), a
+
+
 
     ld      hl, EnemyShot_0_Struct
     call    EnemyShot_Reset

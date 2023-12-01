@@ -108,8 +108,12 @@ BigEnemy_Temp_Pattern_3:               rb 1 ; BigEnemy_Temp_Struct + 23
 BigEnemy_Temp_Pattern_4:               rb 1 ; BigEnemy_Temp_Struct + 24
 BigEnemy_Temp_Pattern_5:               rb 1 ; BigEnemy_Temp_Struct + 25
 BigEnemy_Temp_Pattern_6:               rb 1 ; BigEnemy_Temp_Struct + 26
-BigEnemy_Temp_Frame_Counter:           rw 1
+BigEnemy_Temp_Frame_Counter:           rw 1 ; counts how long the enemy is alive (in frames)
 BigEnemy_Temp_Struct.size:        equ $ - BigEnemy_Temp_Struct
+
+
+; animation frame counter for all big enemies
+BigEnemy_Animation_Counter:           rb 1 ; 0-2 animation frame # (Chopper)
 
 
 
