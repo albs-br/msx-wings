@@ -612,7 +612,7 @@ UpdateBigEnemiesPatterns:
     push    de
         push    hl
 
-            ; set MegaROM page for Chopper sprite colors data
+            ; set MegaROM page for Chopper sprite patterns data
             ld      a, SPRITE_PATTERNS_DATA_MEGAROM_PAGE
             ld	    (Seg_P8000_SW), a
 
@@ -633,38 +633,47 @@ UpdateBigEnemiesPatterns:
         jp      nz, .loop_a
 
 
+    pop     hl
 
-        ; set MegaROM page for Chopper sprite colors data
-        ld      a, SPRITE_COLORS_CONT_DATA_MEGAROM_PAGE
-        ld	    (Seg_P8000_SW), a
+    ; set MegaROM page for Chopper sprite colors data
+    ld      a, SPRITE_COLORS_CONT_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
 
-        ; load colors for Big Enemy 0 and 1
+
+    ; ld      hl, SpriteColors_EnemyChopper_Frame_2_TopLeft
+    ld      de, SPRCOL + (10 * 16)
+    push    hl
+        ld      a, (BigEnemy_0_Struct)  ; get enemy status
+        cp      1                       ; check if enemy is alive
+        call    z, .loadColorsForBigEnemy
+    pop     hl
+
+    ld      de, SPRCOL + (17 * 16)
+    ld      a, (BigEnemy_1_Struct)  ; get enemy status
+    cp      1                       ; check if enemy is alive
+    call    z, .loadColorsForBigEnemy
+
+    ret
+
+; Input
+;   HL: addr source for sprite colors (7 x 16 bytes)
+;   DE: VRAM addr of SPRCOL
+.loadColorsForBigEnemy:
+
+    push    hl
+        ex      de, hl ; HL = DE
         ld      a, 0000 0001 b
-        ld      hl, SPRCOL + (10 * 16)
+        ; ld      hl, SPRCOL + (10 * 16)
         call    SetVdp_Write
         ; ld      b, xxxxx.size
         ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
     pop     hl
-    push    hl
-        ; ld      hl, SpriteColors_EnemyChopper_Frame_0_TopLeft
-        ; 7 x 16 OUTI (Big Enemy 0)
-        ld      a, 7
-    .loop_b:
-        outi outi outi outi outi outi outi outi 
-        outi outi outi outi outi outi outi outi 
-        dec     a
-        jp      nz, .loop_b
 
-    pop     hl ; return HL to start of color data
-    ; ld      hl, SpriteColors_EnemyChopper_Frame_0_TopLeft ; return HL to start of color data
-    ; 7 x 16 OUTI (Big Enemy 1)
     ld      a, 7
-.loop_c:
-    outi outi outi outi outi outi outi outi
+.loop_b:
+    outi outi outi outi outi outi outi outi 
     outi outi outi outi outi outi outi outi 
     dec     a
-    jp      nz, .loop_c
-
-
+    jp      nz, .loop_b
 
     ret
