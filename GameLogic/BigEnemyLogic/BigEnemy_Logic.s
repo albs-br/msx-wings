@@ -103,7 +103,7 @@ BigEnemy_Logic:
         jp      z, .ignoreDeltaX
         
         ld      b, (hl)                 ; get delta X value
-        ld      a, (BigEnemy_Temp_X)       ; get current X value
+        ld      a, (BigEnemy_Temp_X)    ; get current X value
         add     a, b                    ; add to delta X
         ; test if sides of screen were reached
         cp      3
@@ -228,8 +228,7 @@ BigEnemy_Logic:
     ld      (BigEnemy_Temp_Status), a
     cp      20
     ld      hl, BigEnemy_Temp_Struct
-    ;call    z, Enemy_Reset
-    call    z, .doBigEnemy_Reset
+    call    z, BigEnemy_Reset
 
 
     ld      a, (BigEnemy_Temp_Status)      ; get Status
@@ -243,19 +242,19 @@ BigEnemy_Logic:
     jp      z, .loadExplosionFrame_3
     jp      .return
 
-.doBigEnemy_Reset:
-    ; ; check if this enemy should become an item after dead
-    ; ; if (Enemy_Temp_ItemStruct_Addr != 0) Status = 255
-    ; ;push    hl
-    ;     ld      hl, (Enemy_Temp_ItemStruct_Addr)
-    ;     ld      a, l
-    ;     or      h
-    ; ;pop     hl
-    ; jp      nz, .doInitItem
+; .doBigEnemy_Reset:
+;     ; ; check if this enemy should become an item after dead
+;     ; ; if (Enemy_Temp_ItemStruct_Addr != 0) Status = 255
+;     ; ;push    hl
+;     ;     ld      hl, (Enemy_Temp_ItemStruct_Addr)
+;     ;     ld      a, l
+;     ;     or      h
+;     ; ;pop     hl
+;     ; jp      nz, .doInitItem
 
-    ld      hl, BigEnemy_Temp_Struct
-    call    z, BigEnemy_Reset
-    ret
+;     ld      hl, BigEnemy_Temp_Struct
+;     call    BigEnemy_Reset
+;     ret
 
 ; .doInitItem:
 ; ;jp .doInitItem ; debug
@@ -582,31 +581,33 @@ UpdateBigEnemiesPatterns:
     ; switch (Animation_Counter)
     ld      a, (BigEnemy_Animation_Counter)
     
-    cp      1
-    jp      z, .loadFrame_1
     cp      2
-    jp      z, .loadFrame_2
+    jp      c, .loadFrame_1 ; counter 0 or 1
+    cp      4
+    jp      c, .loadFrame_2 ; counter 2 or 3
 
 
-; .loadFrame_0:
+; .loadFrame_0: ; counter 4 or 5
     ld      hl, SpritePattern_EnemyChopper_Frame_0_TopLeft
     ld      de, SpriteColors_EnemyChopper_Frame_0_TopLeft
-    inc     a
     jp      .continue
 
 .loadFrame_1:
     ld      hl, SpritePattern_EnemyChopper_Frame_1_TopLeft
     ld      de, SpriteColors_EnemyChopper_Frame_1_TopLeft
-    inc     a
     jp      .continue
 
 .loadFrame_2:
     ld      hl, SpritePattern_EnemyChopper_Frame_2_TopLeft
     ld      de, SpriteColors_EnemyChopper_Frame_2_TopLeft
-    xor     a
     ; jp      .continue
 
 .continue:
+    inc     a
+    cp      6
+    jp      nz, .dontReset
+    xor     a
+.dontReset:
     ld      (BigEnemy_Animation_Counter), a
 
     push    de
