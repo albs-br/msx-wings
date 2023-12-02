@@ -23,7 +23,7 @@ BigEnemy_Logic:
 
         ; if big enemy data ends, then the big enemy life cycle ends
         ld      hl, (BigEnemy_Temp_Frame_Counter)
-        ld      de, EnemyDeltaX_size
+        ld      de, BigEnemyDeltaX_size
         call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
         jp      nc, .bigEnemyReset             ; if (HL >= DE) bigEnemyReset
 
@@ -41,17 +41,20 @@ BigEnemy_Logic:
         ; --------------------------- big enemy movement -------------------------
 
         ; Delta Y
-        ; (Delta Y data is always n bytes after Delta X data. n = EnemyDeltaX_size)
+        ; (Delta Y data is always n bytes after Delta X data. n = BigEnemyDeltaX_size)
         ld      hl, (BigEnemy_Temp_Data_Current_Addr)
-        ld      bc, EnemyDeltaX_size
+        ld      bc, BigEnemyDeltaX_size
         add     hl, bc
 
         ;ld      hl, (Enemy_Temp_Delta_Y_Current_Addr)                 ; Delta Y
         ld      b, (hl)                     ; get delta Y value
 
         ld      a, (BigEnemy_Temp_Y_Static)    ; Y static
-        cp      192
-        jp      nc, .bigEnemyReset             ; if (Y_Static >= 192) enemyReset
+;         cp      -31 ; =225
+;         jp      nc, .isOffScreen               ; if (Y_Static >= -32) isOffScreen
+;         cp      192
+;         jp      nc, .bigEnemyReset             ; if (Y_Static >= 192) enemyReset
+; .isOffScreen:
         add     a, b                        ; add to delta Y
         ld      (BigEnemy_Temp_Y_Static), a
 

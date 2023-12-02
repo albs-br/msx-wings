@@ -58,14 +58,17 @@ EnemyShot_Init:
     ; get X and Y initial coords from enemy 
     inc     hl
     ld      a, (hl)
+    add     8
     ld      (EnemyShot_Temp_X), a                ; X
 
     inc     hl
     ld      a, (hl)
+    add     8
     ld      (EnemyShot_Temp_Y), a                ; Y
 
     inc     hl
     ld      a, (hl)
+    add     8
     ld      (EnemyShot_Temp_Y_Static), a         ; Y static
 
     ld      a, ENEMY_SHOT_SPR_PAT_0_NUMBER

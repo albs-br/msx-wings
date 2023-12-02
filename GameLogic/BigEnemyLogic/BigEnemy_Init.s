@@ -97,7 +97,7 @@ BigEnemy_Init:
     ; ;add     4           ; Y offset for sprite 1
     ; ld      (Enemy_Temp_Y1), a            ; Y1
 
-    xor     a ; TODO: should be -32
+    ld      a, -32 ; -32 to start off screen
     ld      (BigEnemy_Temp_Y_Static), a      ; Y static
 
     ; TODO: switch (type of big enemy)
