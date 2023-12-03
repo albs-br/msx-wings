@@ -61,10 +61,16 @@ BigEnemy_Init:
 
 
     ld      a, 1
-    ld      (BigEnemy_Temp_Status), a     ; Status
+    ld      (BigEnemy_Temp_Status), a           ; Status
 
     ld      hl, 0
-    ld      (BigEnemy_Temp_Frame_Counter), hl      ; reset frame counter
+    ld      (BigEnemy_Temp_Frame_Counter), hl   ; reset frame counter
+
+    ld      a, 20                               ; initial big enemy energy level
+    ld      (BigEnemy_Temp_Power), a
+
+    xor     a
+    ld      (BigEnemy_Temp_Hit), a
 
 
     ; ; get initial X coord from level data struct

@@ -108,7 +108,9 @@ BigEnemy_Temp_Pattern_3:               rb 1 ; BigEnemy_Temp_Struct + 23
 BigEnemy_Temp_Pattern_4:               rb 1 ; BigEnemy_Temp_Struct + 24
 BigEnemy_Temp_Pattern_5:               rb 1 ; BigEnemy_Temp_Struct + 25
 BigEnemy_Temp_Pattern_6:               rb 1 ; BigEnemy_Temp_Struct + 26
-BigEnemy_Temp_Frame_Counter:           rw 1 ; counts how long the enemy is alive (in frames)
+BigEnemy_Temp_Frame_Counter:           rw 1 ; BigEnemy_Temp_Struct + 27 ; counts how long the enemy is alive (in frames)
+BigEnemy_Temp_Power:                   rb 1 ; BigEnemy_Temp_Struct + 29 ; energy level of big enemy (decreased at each shot received, it dies when get to 0)
+BigEnemy_Temp_Hit:                     rb 1 ; BigEnemy_Temp_Struct + 30 ; flag to indicate big enemy got hit
 BigEnemy_Temp_Struct.size:        equ $ - BigEnemy_Temp_Struct
 
 

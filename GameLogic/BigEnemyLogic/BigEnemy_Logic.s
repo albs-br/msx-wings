@@ -276,6 +276,13 @@ BigEnemy_Logic:
     ld      (BigEnemy_Temp_Pattern_0), a
     ld      a, EMPTY_SPR_PAT_NUMBER
     ld      (BigEnemy_Temp_Pattern_1), a
+
+    ld      a, EMPTY_SPR_PAT_NUMBER
+    ld      (BigEnemy_Temp_Pattern_2), a
+    ld      (BigEnemy_Temp_Pattern_3), a
+    ld      (BigEnemy_Temp_Pattern_4), a
+    ld      (BigEnemy_Temp_Pattern_5), a
+    ld      (BigEnemy_Temp_Pattern_6), a
     ; TODO: use the remaining sprites to make a bigger explosion
     
     ; load explosion colors (first sprite)
@@ -400,6 +407,22 @@ CheckCol_BigEnemy_PlayerShot:
 
 ;.collision:
     call    PlayerShot_Reset
+
+    ;jp      BigEnemyGotHit ; not necessary (fall through)
+
+BigEnemyGotHit:
+    ld      a, 1
+    ld      (BigEnemy_Temp_Hit), a ; set big enemy hit flag
+
+
+    ld      a, (BigEnemy_Temp_Power)
+    dec     a
+    ld      (BigEnemy_Temp_Power), a
+    jp      z, .enemyKilled
+
+    ret
+
+.enemyKilled:
     ld      hl, BigEnemy_Temp_Struct
     call    BigEnemy_StartExplosionAnimation
 
@@ -422,10 +445,12 @@ CheckCol_BigEnemy_PlayerPlane:
     ; ld      b, 30       ; 1/2 second
     ; call    Wait_B_Vblanks
 
-    ld      hl, BigEnemy_Temp_Struct
-    call    BigEnemy_StartExplosionAnimation
+    jp      BigEnemyGotHit
 
-    ret
+    ; ld      hl, BigEnemy_Temp_Struct
+    ; call    BigEnemy_StartExplosionAnimation
+
+    ; ret
 
 
 BigEnemy_StartExplosionAnimation:
@@ -433,15 +458,15 @@ BigEnemy_StartExplosionAnimation:
     ld      (hl), a                         ; status
     inc     hl
 
-    ld      a, (hl)                         ; x
-    sub     a, 6
-    ld      b, a
+    ld      a, (hl)                         ; X
+    ld      b, a                            ; register B = X
+    add     4
     ld      (hl), a
     inc     hl
 
     ld      a, (hl)                         ; Y
-    sub     a, 6
-    ld      c, a
+    ld      c, a                            ; register C = Y
+    add     4
     ld      (hl), a
     inc     hl
 
@@ -449,12 +474,12 @@ BigEnemy_StartExplosionAnimation:
     add     hl, de  ; skip 5 bytes (y static, BigEnemy_Temp_Data_Current_Addr and BigEnemy_Temp_SPRCOL_Addr)
 
     ld      a, b
-    add     a, 12
+    add     16
     ld      (hl), a                         ; X1
     inc     hl
 
     ld      a, c
-    add     a, 12
+    add     16
     ld      (hl), a                         ; Y1
 
     ; TODO: other X and Y's
@@ -644,23 +669,32 @@ UpdateBigEnemiesPatterns:
     ; ld      hl, SpriteColors_EnemyChopper_Frame_2_TopLeft
     ld      de, SPRCOL + (10 * 16)
     push    hl
-        ld      a, (BigEnemy_0_Struct)  ; get enemy status
-        cp      1                       ; check if enemy is alive
-        call    z, .loadColorsForBigEnemy
+        ld      ix, BigEnemy_0_Struct
+        ; ld      a, (BigEnemy_0_Struct)  ; get enemy status
+        ; cp      1                       ; check if enemy is alive
+        ; ld      a, (BigEnemy_0_Struct + 30)  ; get enemy hit flag
+        call    .loadColorsForBigEnemy
     pop     hl
 
     ld      de, SPRCOL + (17 * 16)
-    ld      a, (BigEnemy_1_Struct)  ; get enemy status
-    cp      1                       ; check if enemy is alive
-    call    z, .loadColorsForBigEnemy
+    ld      ix, BigEnemy_1_Struct
+    ; ld      a, (BigEnemy_1_Struct)  ; get enemy status
+    ; cp      1                       ; check if enemy is alive
+    ; ld      a, (BigEnemy_1_Struct + 30)  ; get enemy hit flag
+    call    .loadColorsForBigEnemy
 
     ret
 
 ; Input
 ;   HL: addr source for sprite colors (7 x 16 bytes)
 ;   DE: VRAM addr of SPRCOL
+;   IX: big enemy struct addr
 .loadColorsForBigEnemy:
 
+    ld      a, (ix + 0)  ; get enemy status
+    cp      1            ; check if enemy is alive
+    ret     nz
+    
     push    hl
         ex      de, hl ; HL = DE
         ld      a, 0000 0001 b
@@ -670,11 +704,31 @@ UpdateBigEnemiesPatterns:
         ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
     pop     hl
 
+    ld      a, (ix + 30)  ; get enemy hit flag
+    or      a
+    jp      nz, .enemyColorWhite
+
     ld      a, 7
 .loop_b:
     outi outi outi outi outi outi outi outi 
     outi outi outi outi outi outi outi outi 
     dec     a
     jp      nz, .loop_b
+
+    ret
+
+.enemyColorWhite:
+
+    xor     a
+    ld      (ix + 30), a  ; reset enemy hit flag
+
+    ; all colors white to show visual feedback
+    ; ld      c, PORT_0
+    ld      a, 13 ; white color
+    ld      b, 7 * 16 ; 7 sprites
+.loop_setColors:
+    out     (c), a
+    nop
+    djnz    .loop_setColors
 
     ret
