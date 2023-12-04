@@ -1677,7 +1677,7 @@ ConvertMsx2SpritesToSc11.saveBit_Pattern_1: equ 0440Dh ; last def. pass 3
 AYFX_MUTE.StopCheck3: equ 0457Ah ; last def. pass 3
 BIOS_CHGET: equ 09Fh ; last def. pass 3
 LARGE_FONT_CHAR_F: equ 03C0h ; last def. pass 3
-MEGAROM_PAGE_248_size: equ 0A78h ; last def. pass 3
+MEGAROM_PAGE_248_size: equ 0B59h ; last def. pass 3
 PORT_3: equ 09Bh ; last def. pass 3
 PlayerShot_Temp_PatternNumber_0: equ 0C013h ; last def. pass 3
 SpritePattern_EnemyPlaneTurning_Frame_0_Patterns_0_and_1: equ 0B258h ; last def. pass 3
