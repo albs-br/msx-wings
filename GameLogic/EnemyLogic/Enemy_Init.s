@@ -78,7 +78,7 @@ Enemy_Init:
     ; get initial X coord from level data struct
     ; if(LevelData_Temp_Initial_X == 255) setEnemyX_Equal_PlayerX
     ld      a, (LevelData_Temp_Initial_X)
-    cp      255
+    cp      ENEMY_X_EQUAL_PLAYER_X
     jp      nz, .notSetEnemyX_Equal_PlayerX
     ld      a, (Player_X)
 .notSetEnemyX_Equal_PlayerX:

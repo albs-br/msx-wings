@@ -364,7 +364,7 @@ CheckCol_GroundTarget_PlayerShot:
     cp      1
     ret     nz
 
-    call    CheckCol_Object_PlayerShot
+    call    CheckCol_16x16_Object_PlayerShot
     ret     nc
 
 ;.collision:

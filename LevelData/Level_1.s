@@ -10,6 +10,12 @@ GROUND_TARGET:                        equ 150
 GROUND_TARGET_DONT_HAVE_ITEM:         equ 0
 GROUND_TARGET_HAS_ITEM:               equ 1
 
+;---------------------------------
+
+ENEMY_X_EQUAL_PLAYER_X:               equ 255
+
+;---------------------------------
+
 Level_1_Data:
     ; TODO: level data in the same timing mark should work
 
@@ -207,11 +213,11 @@ Level_1_Data:
     
     
 
-    dw 2000     db  ENEMY_TYPE_1,          255    dw  EnemyData_4                      dw Enemy_0_Struct,      ENEMY_0_SPRCOL_ADDR,                  0,             0   db 0
-
-    dw 2500     db  ENEMY_TYPE_1,          255    dw  EnemyData_4                      dw Enemy_0_Struct,      ENEMY_0_SPRCOL_ADDR,                  0,             0   db 0
-
-    dw 3000     db  ENEMY_TYPE_1,          255    dw  EnemyData_4                      dw Enemy_0_Struct,      ENEMY_0_SPRCOL_ADDR,                  0,             0   db 0
+    dw 2000     db  ENEMY_TYPE_1, ENEMY_X_EQUAL_PLAYER_X  dw  EnemyData_4                      dw Enemy_0_Struct,      ENEMY_0_SPRCOL_ADDR,                  0,             0   db 0
+    
+    dw 2500     db  ENEMY_TYPE_1, ENEMY_X_EQUAL_PLAYER_X  dw  EnemyData_4                      dw Enemy_0_Struct,      ENEMY_0_SPRCOL_ADDR,                  0,             0   db 0
+    
+    dw 3000     db  ENEMY_TYPE_1, ENEMY_X_EQUAL_PLAYER_X  dw  EnemyData_4                      dw Enemy_0_Struct,      ENEMY_0_SPRCOL_ADDR,                  0,             0   db 0
 
     ;dw 3327 ; last LevelCounter for Level 1 BG
 

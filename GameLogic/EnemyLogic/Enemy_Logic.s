@@ -373,7 +373,7 @@ Enemy_Logic:
 ;   HL: PlayerShot struct addr
 CheckCol_Enemy_PlayerShot:
 
-    call    CheckCol_Object_PlayerShot
+    call    CheckCol_16x16_Object_PlayerShot
     ret     nc
 
 ;.collision:

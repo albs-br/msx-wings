@@ -274,57 +274,22 @@ BigEnemy_Logic:
 .loadExplosionFrame_0:
     ld      a, EXPLOSION_SPR_PAT_0_NUMBER
     ld      (BigEnemy_Temp_Pattern_0), a
-    ld      a, EMPTY_SPR_PAT_NUMBER
     ld      (BigEnemy_Temp_Pattern_1), a
+    ld      (BigEnemy_Temp_Pattern_2), a
 
     ld      a, EMPTY_SPR_PAT_NUMBER
-    ld      (BigEnemy_Temp_Pattern_2), a
     ld      (BigEnemy_Temp_Pattern_3), a
     ld      (BigEnemy_Temp_Pattern_4), a
     ld      (BigEnemy_Temp_Pattern_5), a
     ld      (BigEnemy_Temp_Pattern_6), a
     ; TODO: use the remaining sprites to make a bigger explosion
     
-    ; load explosion colors (first sprite)
-    ld      hl, (BigEnemy_Temp_SPRCOL_Addr)
-    ld      a, 0000 0001 b
-    call    SetVdp_Write
-    ld      c, PORT_0
-    ld      hl, SpriteColors_Explosion_Frames_0_to_2
-    ; 16x OUTI
-    outi outi outi outi
-    outi outi outi outi
-    outi outi outi outi
-    outi outi outi outi 
-
-    ; load explosion colors (second sprite)
-    ld      hl, (BigEnemy_Temp_SPRCOL_Addr)
-    ld      bc, 16
-    add     hl, bc
-    ld      a, 0000 0001 b
-    call    SetVdp_Write
-    ld      c, PORT_0
-    ld      hl, SpriteColors_Explosion_Frames_0_to_2 + 16
-    ; 16x OUTI
-    outi outi outi outi
-    outi outi outi outi
-    outi outi outi outi
-    outi outi outi outi 
-
-    jp      .return
-
-.loadExplosionFrame_1:
-    ld      a, EXPLOSION_SPR_PAT_1_NUMBER
-    ld      (BigEnemy_Temp_Pattern_0), a
-    ld      a, EXPLOSION_SPR_PAT_0_NUMBER
-    ld      (BigEnemy_Temp_Pattern_1), a
-
     ; ; load explosion colors (first sprite)
-    ; ld      hl, (Enemy_Temp_SPRCOL_Addr)
+    ; ld      hl, (BigEnemy_Temp_SPRCOL_Addr)
     ; ld      a, 0000 0001 b
     ; call    SetVdp_Write
     ; ld      c, PORT_0
-    ; ld      hl, SpriteColors_Explosion_Frames_0_to_2 + 16
+    ; ld      hl, SpriteColors_Explosion_Frames_0_to_2
     ; ; 16x OUTI
     ; outi outi outi outi
     ; outi outi outi outi
@@ -332,7 +297,7 @@ BigEnemy_Logic:
     ; outi outi outi outi 
 
     ; ; load explosion colors (second sprite)
-    ; ld      hl, (Enemy_Temp_SPRCOL_Addr)
+    ; ld      hl, (BigEnemy_Temp_SPRCOL_Addr)
     ; ld      bc, 16
     ; add     hl, bc
     ; ld      a, 0000 0001 b
@@ -345,53 +310,80 @@ BigEnemy_Logic:
     ; outi outi outi outi
     ; outi outi outi outi 
 
+    ; load explosion colors
+    ld      hl, (BigEnemy_Temp_SPRCOL_Addr)
+    ld      a, 0000 0001 b
+    call    SetVdp_Write
+    ld      c, PORT_0
+
+    ld      a, 8 ; color yellow
+    ld      b, 16
+.loop_1001:
+    nop
+    out     (c), a
+    djnz    .loop_1001
+
+    ld      a, 12 ; color light orange
+    ld      b, 16
+.loop_1002:
+    nop
+    out     (c), a
+    djnz    .loop_1002
+
+    ld      a, 4 ; color dark orange
+    ld      b, 16 + (4 * 16)
+.loop_1003:
+    nop
+    out     (c), a
+    djnz    .loop_1003
+
+    jp      .return
+
+.loadExplosionFrame_1:
+    ld      a, EXPLOSION_SPR_PAT_1_NUMBER
+    ld      (BigEnemy_Temp_Pattern_0), a
+    ld      (BigEnemy_Temp_Pattern_1), a
+    ld      (BigEnemy_Temp_Pattern_2), a
+
+    ld      a, EXPLOSION_SPR_PAT_0_NUMBER
+    ld      (BigEnemy_Temp_Pattern_3), a
+    ld      (BigEnemy_Temp_Pattern_4), a
+    ld      (BigEnemy_Temp_Pattern_5), a
+    ld      (BigEnemy_Temp_Pattern_6), a
+
     jp      .return
 
 .loadExplosionFrame_2:
     ld      a, EXPLOSION_SPR_PAT_2_NUMBER
     ld      (BigEnemy_Temp_Pattern_0), a
-    ld      a, EXPLOSION_SPR_PAT_1_NUMBER
-    ld      (BigEnemy_Temp_Pattern_1), a
+    ld      (BigEnemy_Temp_Pattern_2), a
 
-    ; ; load explosion colors (first sprite)
-    ; ld      hl, (Enemy_Temp_SPRCOL_Addr)
-    ; ; ld      a, (Enemy_Temp_SPRCOL_Addr)         ; low byte
-    ; ; ld      l, a
-    ; ; ld      a, (Enemy_Temp_SPRCOL_Addr + 1)     ; high byte
-    ; ; ld      h, a
-    ; ld      a, 0000 0001 b
-    ; call    SetVdp_Write
-    ; ld      c, PORT_0
-    ; ld      hl, SpriteColors_Explosion_Frames_0_to_2 + 32
-    ; ; 16x OUTI
-    ; outi outi outi outi
-    ; outi outi outi outi
-    ; outi outi outi outi
-    ; outi outi outi outi 
+    ld      a, EXPLOSION_SPR_PAT_1_NUMBER
+    ld      (BigEnemy_Temp_Pattern_3), a
+    ld      (BigEnemy_Temp_Pattern_4), a
+    ld      (BigEnemy_Temp_Pattern_5), a
+    ld      (BigEnemy_Temp_Pattern_6), a
 
     jp      .return
 
 .loadExplosionFrame_3:
     ld      a, EMPTY_SPR_PAT_NUMBER
     ld      (BigEnemy_Temp_Pattern_0), a
-    ld      a, EXPLOSION_SPR_PAT_2_NUMBER
     ld      (BigEnemy_Temp_Pattern_1), a
+    ld      (BigEnemy_Temp_Pattern_2), a
 
-    ; ; load explosion colors (first sprite)
-    ; ld      hl, (Enemy_Temp_SPRCOL_Addr)
-    ; ; ld      a, (Enemy_Temp_SPRCOL_Addr)         ; low byte
-    ; ; ld      l, a
-    ; ; ld      a, (Enemy_Temp_SPRCOL_Addr + 1)     ; high byte
-    ; ; ld      h, a
-    ; ld      a, 0000 0001 b
-    ; call    SetVdp_Write
-    ; ld      c, PORT_0
-    ; ld      hl, SpriteColors_Explosion_Frames_0_to_2 + 32
-    ; ; 16x OUTI
-    ; outi outi outi outi
-    ; outi outi outi outi
-    ; outi outi outi outi
-    ; outi outi outi outi 
+    ld      a, EXPLOSION_SPR_PAT_2_NUMBER
+    ld      (BigEnemy_Temp_Pattern_3), a
+    ld      (BigEnemy_Temp_Pattern_4), a
+    ld      (BigEnemy_Temp_Pattern_5), a
+    ld      (BigEnemy_Temp_Pattern_6), a
+
+ 
+     ;ld      a, 200          ; volume
+    ld      a, SFX_EXPLOSION    ; number of sfx in the bank
+    ld      c, 1                ; sound priority
+    call    PlaySfx
+
 
     jp      .return
 
@@ -402,7 +394,7 @@ BigEnemy_Logic:
 ;   HL: PlayerShot struct addr
 CheckCol_BigEnemy_PlayerShot:
 
-    call    CheckCol_Object_PlayerShot
+    call    CheckCol_32x32_Object_PlayerShot
     ret     nc
 
 ;.collision:
@@ -473,6 +465,7 @@ BigEnemy_StartExplosionAnimation:
     ld      de, 5
     add     hl, de  ; skip 5 bytes (y static, BigEnemy_Temp_Data_Current_Addr and BigEnemy_Temp_SPRCOL_Addr)
 
+
     ld      a, b
     add     16
     ld      (hl), a                         ; X1
@@ -481,8 +474,62 @@ BigEnemy_StartExplosionAnimation:
     ld      a, c
     add     16
     ld      (hl), a                         ; Y1
+    inc     hl
 
-    ; TODO: other X and Y's
+
+    ld      a, b
+    ; add     16
+    ld      (hl), a                         ; X2
+    inc     hl
+
+    ld      a, c
+    add     20
+    ld      (hl), a                         ; Y2
+    inc     hl
+
+
+    ld      a, b
+    add     8
+    ld      (hl), a                         ; X3
+    inc     hl
+
+    ld      a, c
+    sub     8
+    ld      (hl), a                         ; Y3
+    inc     hl
+
+
+    ld      a, b
+    add     16
+    ld      (hl), a                         ; X4
+    inc     hl
+
+    ld      a, c
+    ; add     16
+    ld      (hl), a                         ; Y4
+    inc     hl
+
+
+    ld      a, b
+    sub     4
+    ld      (hl), a                         ; X5
+    inc     hl
+
+    ld      a, c
+    add     8
+    ld      (hl), a                         ; Y5
+    inc     hl
+
+
+    ld      a, b
+    add     24
+    ld      (hl), a                         ; X6
+    inc     hl
+
+    ld      a, c
+    add     4
+    ld      (hl), a                         ; Y6
+    inc     hl
 
 
     ;ld      a, 200          ; volume
