@@ -24,7 +24,9 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     INCLUDE "InitVram.s"
     INCLUDE "Update_SPRATR.s"
     ;INCLUDE "BlitSPRATR.s"
-    INCLUDE "InitVariables.s"
+    INCLUDE "InitVariables/InitVariables_GameStart.s"
+    INCLUDE "InitVariables/InitVariables_LevelStart.s"
+    INCLUDE "InitVariables/InitVariables_PlayerStart.s"
     INCLUDE "Scroll.s"
     INCLUDE "ReadInput.s"
     INCLUDE "PaletteCycling.s"
@@ -141,7 +143,7 @@ Execute:
     call    ClearRam
 
 
-    call    InitVariables
+    call    InitVariables_GameStart
 
 
 
@@ -159,10 +161,13 @@ Execute:
 
 
 
-    ld      a, 5                        ; level number (1-8)
+    ld      a, 1                        ; level number (1-8)
     ld      (CurrentLevelNumber), a
     call    LoadLevel
 
+    call    InitVariables_LevelStart
+
+    call    InitVariables_PlayerStart
 
     call    BIOS_ENASCR
 
@@ -344,7 +349,7 @@ End:
 
     db      "End ROM started at 0x4000"
 
-PAGE_0x4000_size:          equ $ - 0x4000   ; 0x388d bytes (14447 bytes)
+PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3c61 bytes (? bytes)
 	ds PAGE_SIZE - ($ - 0x4000), 255	; Fill the unused area with 0xFF
 
 

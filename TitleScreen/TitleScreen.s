@@ -812,7 +812,8 @@ ReadSpaceBar:
     push    bc
         ; read space bar
         ld      a, 8                    ; 8th line
-        call    SNSMAT_NO_DI_EI         ; Read Data Of Specified Line From Keyboard Matrix
+        call    BIOS_SNSMAT
+        ; call    SNSMAT_NO_DI_EI         ; Read Data Of Specified Line From Keyboard Matrix
         bit     0, a                    ; 0th bit (space bar)
     
         jp      nz, .return
