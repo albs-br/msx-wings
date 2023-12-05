@@ -165,11 +165,10 @@ Execute:
     ld      (CurrentLevelNumber), a
     call    LoadLevel
 
-    call    InitVariables_LevelStart
+    ; call    InitVariables_LevelStart
+    ; call    InitVariables_PlayerStart
 
-    call    InitVariables_PlayerStart
-
-    call    BIOS_ENASCR
+    ; call    BIOS_ENASCR
 
 
 
@@ -197,7 +196,7 @@ Execute:
 ;     inc     hl
 ;     djnz    .loop_2
 
-    call    LoadSpritesForGameplay
+    ; call    LoadSpritesForGameplay
 
 
 

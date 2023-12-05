@@ -19,6 +19,11 @@ InitVariablesForScroll:
     xor     a
     ld      (VerticalScroll), a
 
+    ld      b, a         ; data
+
+    ld      c, 23        ; register #
+    call    BIOS_WRTVDP
+
     ; VerticalScroll: word
     ; ld      hl, 0
     ; ld      (VerticalScroll), hl
@@ -189,11 +194,9 @@ ExecuteScroll:
     ret
 
 .stopScroll:
-    ;jp      .stopScroll
-    ; jp      Execute
-    ;jp      NextLevel
-    jp      StageClearAnimation
-    ; jp $ ; debug
+    call    StageClearAnimation
+    call    NextLevel
+    ret
 
 AdjustSprites_Y:
     ; adjust Y position of sprites to compensate scroll

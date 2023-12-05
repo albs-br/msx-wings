@@ -35,6 +35,10 @@ LEVEL_8_LAST_SCREEN_PAGE:       equ 218
 ;   A: level number
 LoadLevel:
 
+    push    af
+        call    BIOS_DISSCR
+    pop     af
+
     cp      1
     jp      z, .level_1
     
@@ -165,6 +169,12 @@ LoadLevel:
 
 .continue:
 
+
+    ; init vars
+    call    InitVariables_LevelStart
+    call    InitVariables_PlayerStart
+
+
     ; Pre-load all level pages (for sd mapper users, otherwise there would 
     ; be a lag every time a page is read for the first time)
 
@@ -184,23 +194,36 @@ LoadLevel:
 
     jp      nz, .loop
 
+
+
+    call    BIOS_ENASCR
+
+
+    ld      a, (CurrentLevelNumber) ; debug
+    call    LevelTitleAnimation
+
+
+
+    call    LoadSpritesForGameplay
+
+
+
     ret
 
 
 
-; NextLevel:
+NextLevel:
 
-;     call    InitVariables
+    ; call    InitVariables_Level
+    ; call    InitVariables_Player
 
-;     ld      a, (CurrentLevelNumber)
-;     inc     a
-;     ld      (CurrentLevelNumber), a
+    ld      a, (CurrentLevelNumber)
+    inc     a
+    ld      (CurrentLevelNumber), a
 
-;     call    BIOS_DISSCR
+    cp      9
+    jp      z, $ ; game finished
 
-;     call    LoadLevel
+    call    LoadLevel
 
-;     call    BIOS_ENASCR
-
-
-;     jp      Execute.gameLoop
+    ret

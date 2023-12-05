@@ -83,6 +83,7 @@
 #ram_watch   add     0xC40e      -type byte      -desc PauseAnim_Counter            -format dec
 
 ram_watch   add     0xC02a      -type byte      -desc EnemyMode            -format dec
+ram_watch   add     0xC281      -type byte      -desc CurLevelNumber            -format dec
 
 
 
