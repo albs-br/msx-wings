@@ -47,6 +47,7 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     INCLUDE "GameLogic/BigEnemyLogic/BigEnemy_Init.s"
     INCLUDE "GameLogic/BigEnemyLogic/BigEnemy_Reset.s"
     INCLUDE "GameLogic/BigEnemyLogic/BigEnemy_Logic.s"
+    INCLUDE "GameLogic/BigEnemyLogic/UpdateBigEnemiesPatterns.s"
 
     INCLUDE "GameLogic/EnemyShotLogic/EnemyShot_Init.s"
     INCLUDE "GameLogic/EnemyShotLogic/EnemyShot_Reset.s"
@@ -161,7 +162,7 @@ Execute:
 
 
 
-    ld      a, 5                        ; level number (1-8)
+    ld      a, 6                        ; level number (1-8)
     ld      (CurrentLevelNumber), a
     call    LoadLevel
 

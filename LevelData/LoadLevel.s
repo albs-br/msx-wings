@@ -136,7 +136,7 @@ LoadLevel:
     ld      a, LEVEL_6_LAST_SCREEN_PAGE
     ld      (CurrentLevelLastScreen), a
 
-    ld      hl, Level_1_Data ; TODO: fix
+    ld      hl, Level_6_Data
     ld      (LevelData_CurrentAddr), hl
 
     jp      .continue

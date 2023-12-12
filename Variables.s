@@ -114,9 +114,9 @@ BigEnemy_Temp_Hit:                     rb 1 ; BigEnemy_Temp_Struct + 30 ; flag t
 BigEnemy_Temp_Struct.size:        equ $ - BigEnemy_Temp_Struct
 
 
-; animation frame counter for all big enemies
+; vars common for both big enemies
 BigEnemy_Animation_Counter:           rb 1 ; 0-2 animation frame # (Chopper)
-
+BigEnemy_Type:                        rb 1 ; contants: BIG_ENEMY_TYPE_1, BIG_ENEMY_TYPE_2
 
 
 BigEnemy_0_Struct:                    rb BigEnemy_Temp_Struct.size

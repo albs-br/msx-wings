@@ -8,7 +8,7 @@ BigEnemy_Init:
     ld      a, ENEMY_MODE_BIG_ENEMIES
     ld      (EnemyMode), a
 
-    
+
 
     ; Copy Level Data struct to temp Level Data struct
     ex      de, hl                                          ; HL receives addr of level data struct
@@ -28,6 +28,12 @@ BigEnemy_Init:
     ; ld      a, (Enemy_Temp_Status)      ; get Status
     ; cp      255
     ; ret     z
+
+
+    ; set BigEnemy_Type = LevelData_Temp_ActionType
+    ld      a, (LevelData_Temp_ActionType)
+    ld      (BigEnemy_Type), a
+
 
 
     IFDEF DEBUG
@@ -138,12 +144,14 @@ BigEnemy_Init:
     ; ----- load all X and Y for Big enemy type Tank
     ; load X1 .. X6
     ld      a, (BigEnemy_Temp_X)
+    ld      (BigEnemy_Temp_X1), a
+    add     16
+    ld      (BigEnemy_Temp_X2), a
+    ld      a, (BigEnemy_Temp_X)
+    sub     7
     ld      (BigEnemy_Temp_X3), a
     ld      (BigEnemy_Temp_X4), a
-    add     8 ; X1 offset
-    ld      (BigEnemy_Temp_X1), a
-    add     8 ; X2 offset
-    ld      (BigEnemy_Temp_X2), a
+    add     16
     ld      (BigEnemy_Temp_X5), a
     ld      (BigEnemy_Temp_X6), a
     ; load Y1 .. Y6
