@@ -177,6 +177,8 @@ GameLogic:
     
     cp      BIG_ENEMY_TYPE_1
     call    z, BigEnemy_Init
+    cp      BIG_ENEMY_TYPE_2
+    call    z, BigEnemy_Init
     
     cp      ENEMY_SHOT_TYPE_1
     call    z, EnemyShot_Init

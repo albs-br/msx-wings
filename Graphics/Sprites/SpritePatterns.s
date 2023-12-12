@@ -112,7 +112,7 @@ SpritePattern_EnemyPlaneTurning_Frame_7_Patterns_0_and_1:
 
 
 
-; Enemy chopper
+; Big Enemy chopper
 SpritePattern_EnemyChopper_Frame_0_TopLeft: ; 2 sprites
     INCBIN "Graphics/Sprites/EnemyChopper/enemy_chopper_0_top_left.pat"
 .size:  equ $ - SpritePattern_EnemyChopper_Frame_0_TopLeft
@@ -163,6 +163,27 @@ SpritePattern_EnemyChopper_Frame_2_BottomLeft: ; 2 sprites
 SpritePattern_EnemyChopper_Frame_2_BottomRight: ; 2 sprites
     INCBIN "Graphics/Sprites/EnemyChopper/enemy_chopper_2_bottom_right.pat"
 .size:  equ $ - SpritePattern_EnemyChopper_Frame_2_BottomRight
+
+
+
+; Big Enemy tank
+SpritePattern_EnemyTank_Frame_0_TopLeft: ; 2 sprites
+    INCBIN "Graphics/Sprites/EnemyTank/tank_top_left.pat"
+.size:  equ $ - SpritePattern_EnemyTank_Frame_0_TopLeft
+
+SpritePattern_EnemyTank_Frame_0_TopRight: ; 1 sprite 
+; (this one is assembly source code, not binary - should use INCLUDE instead of INCBIN)
+    INCLUDE "Graphics/Sprites/EnemyTank/tank_top_right-patterns.s"
+.size:  equ $ - SpritePattern_EnemyTank_Frame_0_TopRight
+
+SpritePattern_EnemyTank_Frame_0_BottomLeft: ; 2 sprites
+    INCBIN "Graphics/Sprites/EnemyTank/tank_bottom_left.pat"
+.size:  equ $ - SpritePattern_EnemyTank_Frame_0_BottomLeft
+
+SpritePattern_EnemyTank_Frame_0_BottomRight: ; 2 sprites
+    INCBIN "Graphics/Sprites/EnemyTank/tank_bottom_right.pat"
+.size:  equ $ - SpritePattern_EnemyTank_Frame_0_BottomRight
+
 
 
 

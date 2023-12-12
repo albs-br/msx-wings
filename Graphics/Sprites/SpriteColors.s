@@ -112,7 +112,7 @@ SpriteColors_EnemyPlaneTurning_Frame_7_Patterns_0_and_1:
 
 
 
-; Enemy chopper sprite colors are in: SPRITE_PATTERNS_DATA_MEGAROM_PAGE
+; Enemy chopper sprite colors are in: SPRITE_COLORS_CONT_DATA_MEGAROM_PAGE
 
 
 

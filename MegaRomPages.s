@@ -1033,7 +1033,7 @@ SPRITE_PATTERNS_DATA_MEGAROM_PAGE:      equ 242
 MEGAROM_PAGE_242_size:          equ $ - 0x8000
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
-; WARNING MEGAROM_PAGE_242_size: equ 03c23h ; almost full!
+; WARNING MEGAROM_PAGE_242_size: equ 03cb8h ; almost full!
 
 ; ------------------------------------------------------------------------
 
