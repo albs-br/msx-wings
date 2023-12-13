@@ -50,11 +50,11 @@ BigEnemy_Logic:
         ld      b, (hl)                     ; get delta Y value
 
         ld      a, (BigEnemy_Temp_Y_Static)    ; Y static
-;         cp      -31 ; =225
-;         jp      nc, .isOffScreen               ; if (Y_Static >= -32) isOffScreen
-;         cp      192
-;         jp      nc, .bigEnemyReset             ; if (Y_Static >= 192) enemyReset
-; .isOffScreen:
+        cp      224 ; = -32
+        jp      nc, .isOffScreen               ; if (Y_Static >= -32) isOffScreen    ; A >= N, then S and P/V are the same.
+        cp      192
+        jp      nc, .bigEnemyReset             ; if (Y_Static >= 192) enemyReset
+.isOffScreen:
         add     a, b                        ; add to delta Y
         ld      (BigEnemy_Temp_Y_Static), a
 
