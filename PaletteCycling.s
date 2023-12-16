@@ -1,5 +1,23 @@
 PaletteCycling:
 
+    ; return if no items are active
+    xor     a
+    ld      hl, Item_0_Struct
+    add     (hl)
+    ld      hl, Item_1_Struct
+    add     (hl)
+    ld      hl, Item_2_Struct
+    add     (hl)
+    ld      hl, Item_3_Struct
+    add     (hl)
+    ld      hl, Item_4_Struct
+    add     (hl)
+    ld      hl, Item_5_Struct
+    add     (hl)
+    ld      hl, Item_6_Struct
+    add     (hl) ; register A contains sum of status of all items
+    ret     z
+
     ; JIFFY     palette
     ; 00        0
     ; 01        1
