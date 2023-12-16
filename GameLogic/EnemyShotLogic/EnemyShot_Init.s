@@ -59,11 +59,28 @@ EnemyShot_Init:
     inc     hl
     ld      a, (hl)
     add     8
+    ; if is Big enemy, add 8 to X
+    ld      b, a
+    ld      a, (EnemyMode)
+    cp      ENEMY_MODE_BIG_ENEMIES
+    ld      a, b
+    jp      nz, .cont_2
+    add     8
+.cont_2:
     ld      (EnemyShot_Temp_X), a                ; X
+
 
     inc     hl
     ld      a, (hl)
     add     8
+    ; if is Big enemy, add 16 to Y
+    ld      b, a
+    ld      a, (EnemyMode)
+    cp      ENEMY_MODE_BIG_ENEMIES
+    ld      a, b
+    jp      nz, .cont_1
+    add     16
+.cont_1:
     ld      (EnemyShot_Temp_Y), a                ; Y
 
     inc     hl
