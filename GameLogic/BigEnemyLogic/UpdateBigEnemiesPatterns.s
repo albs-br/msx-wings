@@ -11,15 +11,18 @@ UpdateBigEnemiesPatterns:
 
     ; switch(BigEnemy_Type)
     ld      a, (BigEnemy_Type)
-    cp      BIG_ENEMY_TYPE_1 ; chopper
-    jp      nz, .bigEnemyTypeTank
+    cp      BIG_ENEMY_TYPE_CHOPPER
+    jp      z, UpdateBigEnemiesPatterns_BigEnemyTypeChopper
+    cp      BIG_ENEMY_TYPE_HOVERCRAFT
+    jp      z, UpdateBigEnemiesPatterns_BigEnemyTypeHovercraft
+    jp      UpdateBigEnemiesPatterns_BigEnemyTypeTank
 
 
 
 
 ; ----------------------------------------
 
-;.bigEnemyTypeChopper:
+UpdateBigEnemiesPatterns_BigEnemyTypeChopper:
 
     ; switch (Animation_Counter)
     ld      a, (BigEnemy_Animation_Counter)
@@ -53,22 +56,59 @@ UpdateBigEnemiesPatterns:
 .dontReset:
     ld      (BigEnemy_Animation_Counter), a
 
-    jp      .cont_1
+    jp      UpdateBigEnemiesPatterns_cont_1
 
 
 
 ; ----------------------------------------
 
-.bigEnemyTypeTank:
+UpdateBigEnemiesPatterns_BigEnemyTypeHovercraft:
+
+    ; switch (Animation_Counter)
+    ld      a, (BigEnemy_Animation_Counter)
+    
+    cp      20
+    jp      c, .loadFrame_1 ; counter 0 to 19
+ 
+
+; .loadFrame_0: ; counter 20 to 39
+    ld      hl, SpritePattern_EnemyHovercraft_Frame_0_TopLeft
+    ld      de, SpriteColors_EnemyHovercraft_Frame_0_TopLeft
+    jp      .continue
+
+.loadFrame_1:
+    ld      hl, SpritePattern_EnemyHovercraft_Frame_1_TopLeft
+    ld      de, SpriteColors_EnemyHovercraft_Frame_1_TopLeft
+    ; jp      .continue
+
+.continue:
+    inc     a
+    cp      40
+    jp      nz, .dontReset
+    xor     a
+.dontReset:
+    ld      (BigEnemy_Animation_Counter), a
+
+    jp      UpdateBigEnemiesPatterns_cont_1
+
+
+
+; ----------------------------------------
+
+UpdateBigEnemiesPatterns_BigEnemyTypeTank:
+
+    ; TODO: no need to update SPRPAT and SPRCOL each frame...
+    ; nor on other Big Enemies
 
     ; tank has no animation
     ld      hl, SpritePattern_EnemyTank_Frame_0_TopLeft
     ld      de, SpriteColors_EnemyTank_Frame_0_TopLeft
 
+    ; jp      .UpdateBigEnemiesPatterns_cont_1
 
 ; ----------------------------------------
 
-.cont_1:
+UpdateBigEnemiesPatterns_cont_1:
     push    de
         push    hl
 

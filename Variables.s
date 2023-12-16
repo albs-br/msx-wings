@@ -116,7 +116,7 @@ BigEnemy_Temp_Struct.size:        equ $ - BigEnemy_Temp_Struct
 
 ; vars common for both big enemies
 BigEnemy_Animation_Counter:           rb 1 ; 0-2 animation frame # (Chopper)
-BigEnemy_Type:                        rb 1 ; contants: BIG_ENEMY_TYPE_1, BIG_ENEMY_TYPE_2
+BigEnemy_Type:                        rb 1 ; contants: BIG_ENEMY_TYPE_CHOPPER, BIG_ENEMY_TYPE_TANK, BIG_ENEMY_TYPE_HOVERCRAFT
 
 
 BigEnemy_0_Struct:                    rb BigEnemy_Temp_Struct.size

@@ -186,6 +186,44 @@ SpritePattern_EnemyTank_Frame_0_BottomRight: ; 2 sprites
 
 
 
+; Big Enemy hovercraft
+SpritePattern_EnemyHovercraft_Frame_0_TopLeft: ; 2 sprites
+    INCBIN "Graphics/Sprites/EnemyHovercraft/enemy_hovercraft_frame_0_top_left.pat"
+.size:  equ $ - SpritePattern_EnemyHovercraft_Frame_0_TopLeft
+
+SpritePattern_EnemyHovercraft_Frame_0_TopRight: ; 2 sprites
+    INCBIN "Graphics/Sprites/EnemyHovercraft/enemy_hovercraft_frame_0_top_right.pat"
+.size:  equ $ - SpritePattern_EnemyHovercraft_Frame_0_TopRight
+
+SpritePattern_EnemyHovercraft_Frame_0_BottomLeft: ; 2 sprites
+    INCBIN "Graphics/Sprites/EnemyHovercraft/enemy_hovercraft_frame_0_bottom_left.pat"
+.size:  equ $ - SpritePattern_EnemyHovercraft_Frame_0_BottomLeft
+
+SpritePattern_EnemyHovercraft_Frame_0_BottomRight: ; 1 sprite
+    ; INCBIN "Graphics/Sprites/EnemyHovercraft/enemy_hovercraft_frame_0_bottom_right.pat"
+; (this one is assembly source code, not binary - should use INCLUDE instead of INCBIN)
+    INCLUDE "Graphics/Sprites/EnemyHovercraft/enemy_hovercraft_frame_0_bottom_right-patterns.s"
+.size:  equ $ - SpritePattern_EnemyHovercraft_Frame_0_BottomRight
+
+SpritePattern_EnemyHovercraft_Frame_1_TopLeft: ; 2 sprites
+    INCBIN "Graphics/Sprites/EnemyHovercraft/enemy_hovercraft_frame_1_top_left.pat"
+.size:  equ $ - SpritePattern_EnemyHovercraft_Frame_1_TopLeft
+
+SpritePattern_EnemyHovercraft_Frame_1_TopRight: ; 2 sprites 
+    INCBIN "Graphics/Sprites/EnemyHovercraft/enemy_hovercraft_frame_1_top_right.pat"
+.size:  equ $ - SpritePattern_EnemyHovercraft_Frame_1_TopRight
+
+SpritePattern_EnemyHovercraft_Frame_1_BottomLeft: ; 2 sprites
+    INCBIN "Graphics/Sprites/EnemyHovercraft/enemy_hovercraft_frame_1_bottom_left.pat"
+.size:  equ $ - SpritePattern_EnemyHovercraft_Frame_1_BottomLeft
+
+SpritePattern_EnemyHovercraft_Frame_1_BottomRight: ; 1 sprites
+    ; INCBIN "Graphics/Sprites/EnemyHovercraft/enemy_hovercraft_frame_1_bottom_right.pat"
+; (this one is assembly source code, not binary - should use INCLUDE instead of INCBIN)
+    INCLUDE "Graphics/Sprites/EnemyHovercraft/enemy_hovercraft_frame_1_bottom_right-patterns.s"
+.size:  equ $ - SpritePattern_EnemyHovercraft_Frame_1_BottomRight
+
+
 
 ; Explosion
 SpritePattern_Explosion_Frames_0_to_2:

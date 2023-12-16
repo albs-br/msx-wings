@@ -175,9 +175,11 @@ GameLogic:
     cp      ENEMY_TYPE_1
     call    z, Enemy_Init
     
-    cp      BIG_ENEMY_TYPE_1
+    cp      BIG_ENEMY_TYPE_CHOPPER
     call    z, BigEnemy_Init
-    cp      BIG_ENEMY_TYPE_2
+    cp      BIG_ENEMY_TYPE_TANK
+    call    z, BigEnemy_Init
+    cp      BIG_ENEMY_TYPE_HOVERCRAFT
     call    z, BigEnemy_Init
     
     cp      ENEMY_SHOT_TYPE_1

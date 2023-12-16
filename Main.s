@@ -161,7 +161,14 @@ Execute:
 
 
 
-
+    ; 1: Tokyo
+    ; 2: USSR
+    ; 3: Japan classic
+    ; 4: Jungle
+    ; 5: NY
+    ; 6: Paris
+    ; 7: Sidney
+    ; 8: Mexico
     ld      a, 6                        ; level number (1-8)
     ld      (CurrentLevelNumber), a
     call    LoadLevel

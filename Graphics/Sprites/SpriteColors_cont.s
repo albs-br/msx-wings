@@ -1,4 +1,4 @@
-; Enemy chopper
+; Big Enemy chopper
 SpriteColors_EnemyChopper_Frame_0_TopLeft: ; 2 sprites
     INCBIN "Graphics/Sprites/EnemyChopper/enemy_chopper_0_top_left.col"
 .size:  equ $ - SpriteColors_EnemyChopper_Frame_0_TopLeft
@@ -53,7 +53,7 @@ SpriteColors_EnemyChopper_Frame_2_BottomRight: ; 2 sprites
 
 
 
-; Enemy tank
+; Big Enemy tank
 SpriteColors_EnemyTank_Frame_0_TopLeft: ; 2 sprites
     INCBIN "Graphics/Sprites/EnemyTank/tank_top_left.col"
 .size:  equ $ - SpriteColors_EnemyTank_Frame_0_TopLeft
@@ -70,4 +70,45 @@ SpriteColors_EnemyTank_Frame_0_BottomLeft: ; 2 sprites
 SpriteColors_EnemyTank_Frame_0_BottomRight: ; 2 sprites
     INCBIN "Graphics/Sprites/EnemyTank/tank_bottom_right.col"
 .size:  equ $ - SpriteColors_EnemyTank_Frame_0_BottomRight
+
+
+
+
+
+; Big Enemy hovercraft
+SpriteColors_EnemyHovercraft_Frame_0_TopLeft: ; 2 sprites
+    INCBIN "Graphics/Sprites/EnemyHovercraft/enemy_hovercraft_frame_0_top_left.col"
+.size:  equ $ - SpriteColors_EnemyHovercraft_Frame_0_TopLeft
+
+SpriteColors_EnemyHovercraft_Frame_0_TopRight: ; 2 sprite 
+    INCBIN "Graphics/Sprites/EnemyHovercraft/enemy_hovercraft_frame_0_top_right.col"
+.size:  equ $ - SpriteColors_EnemyHovercraft_Frame_0_TopRight
+
+SpriteColors_EnemyHovercraft_Frame_0_BottomLeft: ; 2 sprites
+    INCBIN "Graphics/Sprites/EnemyHovercraft/enemy_hovercraft_frame_0_bottom_left.col"
+.size:  equ $ - SpriteColors_EnemyHovercraft_Frame_0_BottomLeft
+
+SpriteColors_EnemyHovercraft_Frame_0_BottomRight: ; 1 sprites
+    ; INCBIN "Graphics/Sprites/EnemyHovercraft/enemy_hovercraft_frame_0_bottom_right.col"
+; (this one is assembly source code, not binary - should use INCLUDE instead of INCBIN)
+    INCLUDE "Graphics/Sprites/EnemyHovercraft/enemy_hovercraft_frame_0_bottom_right-colors.s"
+.size:  equ $ - SpriteColors_EnemyHovercraft_Frame_0_BottomRight
+
+SpriteColors_EnemyHovercraft_Frame_1_TopLeft: ; 2 sprites
+    INCBIN "Graphics/Sprites/EnemyHovercraft/enemy_hovercraft_frame_1_top_left.col"
+.size:  equ $ - SpriteColors_EnemyHovercraft_Frame_1_TopLeft
+
+SpriteColors_EnemyHovercraft_Frame_1_TopRight: ; 2 sprite 
+    INCBIN "Graphics/Sprites/EnemyHovercraft/enemy_hovercraft_frame_1_top_right.col"
+.size:  equ $ - SpriteColors_EnemyHovercraft_Frame_1_TopRight
+
+SpriteColors_EnemyHovercraft_Frame_1_BottomLeft: ; 2 sprites
+    INCBIN "Graphics/Sprites/EnemyHovercraft/enemy_hovercraft_frame_1_bottom_left.col"
+.size:  equ $ - SpriteColors_EnemyHovercraft_Frame_1_BottomLeft
+
+SpriteColors_EnemyHovercraft_Frame_1_BottomRight: ; 1 sprites
+    ; INCBIN "Graphics/Sprites/EnemyHovercraft/enemy_hovercraft_frame_1_bottom_right.col"
+; (this one is assembly source code, not binary - should use INCLUDE instead of INCBIN)
+    INCLUDE "Graphics/Sprites/EnemyHovercraft/enemy_hovercraft_frame_1_bottom_right-colors.s"
+.size:  equ $ - SpriteColors_EnemyHovercraft_Frame_1_BottomRight
 

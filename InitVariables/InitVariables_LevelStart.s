@@ -27,7 +27,7 @@ InitVariables_LevelStart:
     xor     a
     ld      (BigEnemy_Animation_Counter), a
 
-    ld      a, BIG_ENEMY_TYPE_1
+    ld      a, BIG_ENEMY_TYPE_CHOPPER
     ld      (BigEnemy_Type), a
 
 

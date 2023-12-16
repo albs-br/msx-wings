@@ -114,10 +114,12 @@ BigEnemy_Init:
 
     ; switch (type of big enemy)
     ld      a, (LevelData_Temp_ActionType)
-    cp      BIG_ENEMY_TYPE_2
-    jp      z, .setBigEnemyType_2
+    cp      BIG_ENEMY_TYPE_TANK
+    jp      z, .setBigEnemyType_Tank
+    cp      BIG_ENEMY_TYPE_HOVERCRAFT
+    jp      z, .setBigEnemyType_Hovercraft
 
-; .setBigEnemyType_1:
+; .setBigEnemyType_Chopper:
     ; ----- load all X and Y for Big enemy type Chopper
     ; load X1 .. X6
     ld      a, (BigEnemy_Temp_X)
@@ -140,7 +142,7 @@ BigEnemy_Init:
     ld      (BigEnemy_Temp_Y6), a
     jp      .continue_0
 
-.setBigEnemyType_2:
+.setBigEnemyType_Tank:
     ; ----- load all X and Y for Big enemy type Tank
     ; load X1 .. X6
     ld      a, (BigEnemy_Temp_X)
@@ -160,6 +162,31 @@ BigEnemy_Init:
     ld      (BigEnemy_Temp_Y2), a
     add     16
     ld      (BigEnemy_Temp_Y3), a
+    ld      (BigEnemy_Temp_Y4), a
+    ld      (BigEnemy_Temp_Y5), a
+    ld      (BigEnemy_Temp_Y6), a
+    jp      .continue_0
+
+.setBigEnemyType_Hovercraft:
+    ; ----- load all X and Y for Big enemy type Hovercraft
+    ; load X1 .. X6
+    ld      a, (BigEnemy_Temp_X)
+    ld      (BigEnemy_Temp_X1), a
+    add     16
+    ld      (BigEnemy_Temp_X2), a
+    ld      (BigEnemy_Temp_X3), a
+    ld      a, (BigEnemy_Temp_X)
+    add     2
+    ld      (BigEnemy_Temp_X4), a
+    ld      (BigEnemy_Temp_X5), a
+    add     16
+    ld      (BigEnemy_Temp_X6), a
+    ; load Y1 .. Y6
+    ld      a, (BigEnemy_Temp_Y)
+    ld      (BigEnemy_Temp_Y1), a
+    ld      (BigEnemy_Temp_Y2), a
+    ld      (BigEnemy_Temp_Y3), a
+    add     16
     ld      (BigEnemy_Temp_Y4), a
     ld      (BigEnemy_Temp_Y5), a
     ld      (BigEnemy_Temp_Y6), a

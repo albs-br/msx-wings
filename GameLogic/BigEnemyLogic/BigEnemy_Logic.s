@@ -51,7 +51,7 @@ BigEnemy_Logic:
 
         ld      a, (BigEnemy_Temp_Y_Static)    ; Y static
         cp      224 ; = -32
-        jp      nc, .isOffScreen               ; if (Y_Static >= -32) isOffScreen    ; A >= N, then S and P/V are the same.
+        jp      nc, .isOffScreen               ; if (Y_Static >= -32) isOffScreen
         cp      192
         jp      nc, .bigEnemyReset             ; if (Y_Static >= 192) enemyReset
 .isOffScreen:

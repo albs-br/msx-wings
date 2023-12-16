@@ -1,9 +1,10 @@
-ENEMY_TYPE_1:           equ 1
-ENEMY_SHOT_TYPE_1:      equ 2
-BIG_ENEMY_TYPE_1:       equ 3
-BIG_ENEMY_TYPE_2:       equ 4
-ITEM_P:                 equ 100
-ITEM_BOMB:              equ 101
+ENEMY_TYPE_1:               equ 1
+ENEMY_SHOT_TYPE_1:          equ 2
+BIG_ENEMY_TYPE_CHOPPER:     equ 3
+BIG_ENEMY_TYPE_TANK:        equ 4
+BIG_ENEMY_TYPE_HOVERCRAFT:  equ 5
+ITEM_P:                     equ 100
+ITEM_BOMB:                  equ 101
 
 
 ; --------------------------------
