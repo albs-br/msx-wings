@@ -51,7 +51,7 @@ PaletteCycling:
 
     ;jp      .palette_0  ; else
 
-; TODO: only ome of the 16 colors change betwwen these palettes.
+; TODO: only one of the 16 colors change between these palettes.
 ; Probably it can be optimized
 
 .palette_0:

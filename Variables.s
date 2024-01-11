@@ -367,6 +367,11 @@ StageClearAnimationVars:
 .SPRPAT_Address:        rw 1
 .SPRCOL_Address:        rw 1
 .FontSprite_16x16_Addr: rw 1
+
+; ---------------------------------------
+
+GameOverAnimation_Counter:      rb 1
+
 ; ---------------------------------------
 
 VDP_HMMM_Params_Buffer:

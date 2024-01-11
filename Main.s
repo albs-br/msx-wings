@@ -78,6 +78,8 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     INCLUDE "LevelTitleAnimation/Data.s"
 
     INCLUDE "StageClearAnimation/StageClearAnimation.s"
+    
+    INCLUDE "GameOverAnimation/GameOverAnimation.s"
 
     INCLUDE "DebugMessage.s"
 
@@ -205,6 +207,11 @@ Execute:
 ;     djnz    .loop_2
 
     ; call    LoadSpritesForGameplay
+
+    ; debug
+    ; test GAME OVER animation
+    call    GameOverAnimation
+    jp $
 
 
 

@@ -6,7 +6,7 @@
         {
             "label": "assembly",
             "type": "shell",
-            "command": "C:\\Program Files\\tniasm045\\tniasm.exe",
+            "command": "C:\\Users\\Public\\msx\\tniasm\\tniasm.exe", //"C:\\Program Files\\tniasm045\\tniasm.exe",
                 "args": [
                     {
                       "value": "Main.s",
@@ -21,7 +21,7 @@
             }
         },
         {
-            "command": "C:\\Program Files\\openMSX\\openmsx.exe",
+            "command": "C:\\Users\\Public\\msx\\openmsx\\openmsx.exe", //"C:\\Program Files\\openMSX\\openmsx.exe",
                 "args": [
                     {
                         "value": "${workspaceFolder}\\msx-wings.rom",

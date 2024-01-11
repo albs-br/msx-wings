@@ -90,6 +90,7 @@ Item_Logic:
         ; --------------------------- item animation
 
 
+        ; check if max item lifespan was reached
         ; if (Item_Temp_Frame_Counter >= 600) jp .resetItem
         ld      hl, (Item_Temp_Frame_Counter)
         ld      de, ITEM_P_MAX_LIFETIME
@@ -237,9 +238,6 @@ Item_Logic:
         ld      hl, (Item_Temp_Frame_Counter)
         inc     hl
         ld      (Item_Temp_Frame_Counter), hl
-
-        ; TODO: check if max item lifespan was reached
-
 
         ld      hl, Item_Temp_Struct                        ; source
     pop     de                                              ; destiny
