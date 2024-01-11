@@ -370,7 +370,11 @@ StageClearAnimationVars:
 
 ; ---------------------------------------
 
-GameOverAnimation_Counter:      rb 1
+GameOverAnimation_Vars:
+
+.Counter:               rb 1
+
+.sprite_0:              rb 4 ; y, x, counterStart, xEnd
 
 ; ---------------------------------------
 

@@ -2,22 +2,56 @@ GameOverAnimation:
 
     call    Wait_Vblank         ; VBlank sync
 
+    xor     a
+    ld      (GameOverAnimation_Vars.Counter), a
 
-    ld      a, (GameOverAnimation_Counter)
+    call    .initGameOverAnimation
+
+.loopAnimation:
+
+    ;ld      a, (GameOverAnimation_Vars.Counter)
 
     ; GameOverAnimation_Counter++
-    ld      hl, GameOverAnimation_Counter
+    ld      hl, GameOverAnimation_Vars.Counter
     inc     (hl)
 
-    ; if(GameOverAnimation_Counter == 0) ; testing value BEFORE increment
-    or      a
-    jp      z, .initGameOverAnimation
+    ; ; if(GameOverAnimation_Counter == 0) ; testing value BEFORE increment
+    ; or      a
+    ; jp      z, .initGameOverAnimation
 
-
+    jp      .loopAnimation
 
     ret
 
+; IX: addr of sprite structure in RAM
+.animateSprite:
 
+    ; if (Counter >= counterStart)
+    ld      a, (GameOverAnimation_Vars.Counter)
+    ld      b, (ix + 2) ; counterStart
+    cp      b
+    jp      nc, .cont_0
+
+    ; TODO
+    ; place sprite offscreen
+
+    ret
+
+.cont_0:
+    ; if (x >= xEnd) ret
+    ld      a, (ix + 1) ; x
+    ld      b, (ix + 3) ; xEnd
+    cp      b
+    ret     nc
+
+    inc     (ix + 1) ; x++
+
+
+    ; TODO
+    ; update SPRATR table
+
+
+    ret
 
 .initGameOverAnimation:
 
@@ -66,33 +100,48 @@ GameOverAnimation:
     ld      a, 0000 0001 b
     ld      hl, SPRATR
     call    SetVdp_Write
-    ld      b, GameOverAnimation_Data_SPRATR_Test.size
+    ld      b, GameOverAnimation_SPRATR_Test.size
     ld      c, PORT_0
-    ld      hl, GameOverAnimation_Data_SPRATR_Test
+    ld      hl, GameOverAnimation_SPRATR_Test
     otir
+
+    ; TODO
+    ; load initial sprite structs
 
 
     ret
 
 
-GameOverAnimation_Data_SPRATR_Test:
+GameOverAnimation_SPRATR_Test:
 
-    ; Y top = (192 - (32 + 8 + 32)) / 2 = 60
-    ; X left = (256 - (32 + 8 + 32 + 8 + 32 + 8 + 32)) / 2 = 52
+    ; Y top = (192 - (32 + 4 + 32)) / 2 = 62
+    ; X left = (256 - (32 + 4 + 32 + 4 + 32 + 4 + 32)) / 2 = 58
+    ; X left of last (rightmost) sprite = X left + (32 + 4 + 32 + 4 + 32 + 4) + 16 = 166
 
-    db   60     ,  52     ,  0 * 4, 0
-    db   60 + 16,  52     ,  1 * 4, 0
-    db   60     ,  52 + 16,  2 * 4, 0
-    db   60 + 16,  52 + 16,  3 * 4, 0
 
-    db   60     ,  92     ,  4 * 4, 0
-    db   60 + 16,  92     ,  5 * 4, 0
-    db   60     ,  92 + 16,  6 * 4, 0
-    db   60 + 16,  92 + 16,  7 * 4, 0
 
-    db   60     , 132     ,  8 * 4, 0
-    db   60 + 16, 132     ,  9 * 4, 0
-    db   60     , 132 + 16, 10 * 4, 0
-    db   60 + 16, 132 + 16, 11 * 4, 0
+    db   62     ,  58     ,  0 * 4, 0
+    db   62 + 16,  58     ,  1 * 4, 0
+    db   62     ,  58 + 16,  2 * 4, 0
+    db   62 + 16,  58 + 16,  3 * 4, 0
 
-.size: equ $ - GameOverAnimation_Data_SPRATR_Test
+    db   62     ,  94     ,  4 * 4, 0
+    db   62 + 16,  94     ,  5 * 4, 0
+    db   62     ,  94 + 16,  6 * 4, 0
+    db   62 + 16,  94 + 16,  7 * 4, 0
+
+    db   62     , 130     ,  8 * 4, 0
+    db   62 + 16, 130     ,  9 * 4, 0
+    db   62     , 130 + 16, 10 * 4, 0
+    db   62 + 16, 130 + 16, 11 * 4, 0
+
+.size: equ $ - GameOverAnimation_SPRATR_Test
+
+GameOverAnimation_SPRATR_Data:
+    ; first line
+    ;                                   xEnd    counterStart
+    ; 7th sprite: x from 0 to 150       150     0
+    ; 8th sprite: x from 0 to 166       166     0
+    
+    db  150,    16
+    db  166,    0
