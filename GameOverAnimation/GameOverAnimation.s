@@ -9,18 +9,34 @@ GameOverAnimation:
 
 .loopAnimation:
 
+    call    Wait_Vblank         ; VBlank sync
+
     ; GameOverAnimation_Counter++
     ld      hl, GameOverAnimation_Vars.Counter
     inc     (hl)
 
+    ld      a, (GameOverAnimation_Vars.Counter)
+    cp      255
+    jp      z, $ ; debug
 
     
     ld      a, 0000 0001 b
     ld      hl, SPRATR
     call    SetVdp_Write
-
     ld      ix, GameOverAnimation_Vars.sprite_0
     call    .animateSprite
+
+    ld      a, 0000 0001 b
+    ld      hl, SPRATR + 4
+    call    SetVdp_Write
+    ld      ix, GameOverAnimation_Vars.sprite_0 + 5
+    call    .animateSprite
+
+    ; ld      ix, GameOverAnimation_Vars.sprite_0 + 10
+    ; call    .animateSprite
+
+    ; ld      ix, GameOverAnimation_Vars.sprite_0 + 15
+    ; call    .animateSprite
 
 
     jp      .loopAnimation
@@ -30,16 +46,21 @@ GameOverAnimation:
 ; IX: addr of sprite structure in RAM
 .animateSprite:
 
-    ; if (Counter >= counterStart)
+    ; if (x >= xEnd) ret
+    ld      a, (ix + 1) ; x
+    cp      (ix + 3) ; xEnd
+    ret     nc
+
+    ; if (Counter >= counterStart) cont_0
     ld      a, (GameOverAnimation_Vars.Counter)
-    ld      b, (ix + 2) ; counterStart
-    cp      b
+    cp      (ix + 2) ; counterStart
     jp      nc, .cont_0
 
     ; ---- hide sprite
     ld      c, PORT_0
 
-    in      a, (c)          ; skip Y
+    ld      a, 192
+    out     (c), a          ; set Y offscreen
 
     nop                                            ; CAUTION: on V9938/58 sequential OUT's (or IN's) must be at least 15 cycles apart
     nop
@@ -59,24 +80,18 @@ GameOverAnimation:
     ret
 
 .cont_0:
-    ; if (x >= xEnd) ret
-    ld      a, (ix + 1) ; x
-    ld      b, (ix + 3) ; xEnd
-    cp      b
-    ret     nc
 
-    inc     a           ; x++
-    ld      (ix + 1), a
+    inc      (ix + 1)    ; x++
 
 
     ; ---- update SPRATR table
     ld      c, PORT_0
     
-    in      b, (c)          ; skip Y
+    ld      a, (ix + 0) ; y
+    out     (c), a          ; set y
     
-    nop                                            ; CAUTION: on V9938/58 sequential OUT's (or IN's) must be at least 15 cycles apart
-    nop
-    nop
+    ; CAUTION: on V9938/58 sequential OUT's (or IN's) must be at least 15 cycles apart
+    ld      a, (ix + 1) ; x
     out     (c), a          ; set x
     
     ld      a, (ix + 4) ; pattern
@@ -133,21 +148,49 @@ GameOverAnimation:
     dec     d
     jp      nz, .loop_1
 
-    ; load SPRATR for testing
+    ; ; load SPRATR for testing
+    ; ld      a, 0000 0001 b
+    ; ld      hl, SPRATR
+    ; call    SetVdp_Write
+    ; ld      b, GameOverAnimation_SPRATR_Test.size
+    ; ld      c, PORT_0
+    ; ld      hl, GameOverAnimation_SPRATR_Test
+    ; otir
+
+    ; load initial SPRATR
     ld      a, 0000 0001 b
     ld      hl, SPRATR
     call    SetVdp_Write
-    ld      b, GameOverAnimation_SPRATR_Test.size
+    ld      b, GameOverAnimation_SPRATR_Init.size
     ld      c, PORT_0
-    ld      hl, GameOverAnimation_SPRATR_Test
+    ld      hl, GameOverAnimation_SPRATR_Init
     otir
 
-    ; TODO
     ; load initial sprite structs
+    ld      hl, GameOverAnimation_sprite_structs_Init
+    ld      de, GameOverAnimation_Vars.sprite_0
+    ld      bc, GameOverAnimation_sprite_structs_Init.size
+    ldir
 
 
     ret
 
+
+GameOverAnimation_SPRATR_Init:
+    db   62     ,  0      ,  0 * 4, 0
+    db   62 + 16,  0      ,  1 * 4, 0
+    ; db   62     ,  0      ,  2 * 4, 0
+    ; db   62 + 16,  0      ,  3 * 4, 0
+    db  216 ; hide all other sprites
+.size: equ $ - GameOverAnimation_SPRATR_Init
+
+GameOverAnimation_sprite_structs_Init:
+    ;       y, x, counterStart, xEnd, pattern number
+    db      62     ,   0,   0,  58     ,  0 * 4
+    db      62 + 16,   0,  80,  58     ,  1 * 4
+    ; db      62     ,   0,  30,  58 + 16,  2 * 4
+    ; db      62 + 16,   0,  30,  58 + 16,  3 * 4
+.size: equ $ - GameOverAnimation_sprite_structs_Init
 
 GameOverAnimation_SPRATR_Test:
 
@@ -174,11 +217,11 @@ GameOverAnimation_SPRATR_Test:
 
 .size: equ $ - GameOverAnimation_SPRATR_Test
 
-GameOverAnimation_SPRATR_Data:
-    ; first line
-    ;                                   xEnd    counterStart
-    ; 7th sprite: x from 0 to 150       150     0
-    ; 8th sprite: x from 0 to 166       166     0
+; GameOverAnimation_Data:
+;     ; first line
+;     ;                                   xEnd    counterStart
+;     ; 7th sprite: x from 0 to 150       150     0
+;     ; 8th sprite: x from 0 to 166       166     0
     
-    db  150,    16
-    db  166,    0
+;     db  150,    16
+;     db  166,    0
