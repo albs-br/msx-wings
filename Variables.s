@@ -374,7 +374,7 @@ GameOverAnimation_Vars:
 
 .Counter:               rb 1
 
-.sprite_0:              rb 4 ; y, x, counterStart, xEnd
+.sprite_0:              rb 5 ; y, x, counterStart, xEnd, pattern number
 
 ; ---------------------------------------
 

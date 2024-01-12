@@ -9,15 +9,19 @@ GameOverAnimation:
 
 .loopAnimation:
 
-    ;ld      a, (GameOverAnimation_Vars.Counter)
-
     ; GameOverAnimation_Counter++
     ld      hl, GameOverAnimation_Vars.Counter
     inc     (hl)
 
-    ; ; if(GameOverAnimation_Counter == 0) ; testing value BEFORE increment
-    ; or      a
-    ; jp      z, .initGameOverAnimation
+
+    
+    ld      a, 0000 0001 b
+    ld      hl, SPRATR
+    call    SetVdp_Write
+
+    ld      ix, GameOverAnimation_Vars.sprite_0
+    call    .animateSprite
+
 
     jp      .loopAnimation
 
@@ -32,8 +36,25 @@ GameOverAnimation:
     cp      b
     jp      nc, .cont_0
 
-    ; TODO
-    ; place sprite offscreen
+    ; ---- hide sprite
+    ld      c, PORT_0
+
+    in      a, (c)          ; skip Y
+
+    nop                                            ; CAUTION: on V9938/58 sequential OUT's (or IN's) must be at least 15 cycles apart
+    nop
+    nop
+    in      a, (c)          ; skip X
+
+    nop
+    nop
+    ld      a, 63 * 4
+    out     (c), a          ; set empty sprite pattern
+
+    nop
+    nop
+    nop
+    in      a, (c)          ; skip unused atribute
 
     ret
 
@@ -44,11 +65,27 @@ GameOverAnimation:
     cp      b
     ret     nc
 
-    inc     (ix + 1) ; x++
+    inc     a           ; x++
+    ld      (ix + 1), a
 
 
-    ; TODO
-    ; update SPRATR table
+    ; ---- update SPRATR table
+    ld      c, PORT_0
+    
+    in      b, (c)          ; skip Y
+    
+    nop                                            ; CAUTION: on V9938/58 sequential OUT's (or IN's) must be at least 15 cycles apart
+    nop
+    nop
+    out     (c), a          ; set x
+    
+    ld      a, (ix + 4) ; pattern
+    out     (c), a          ; set pattern
+
+    nop
+    nop
+    nop
+    in      a, (c)          ; skip unused atribute
 
 
     ret
