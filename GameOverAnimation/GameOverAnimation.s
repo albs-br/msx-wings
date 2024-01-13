@@ -114,7 +114,7 @@ GameOverAnimation:
     ld      a, GAMEOVER_ANIMATION_DATA_MEGAROM_PAGE
     ld	    (Seg_P8000_SW), a
 
-    ; load sprite for chars M, O and V starting at position 0
+    ; load sprite patterns for chars M, O and V starting at position 0
     ld      a, 0000 0001 b
     ld      hl, SPRPAT
     call    SetVdp_Write
@@ -128,6 +128,45 @@ GameOverAnimation:
     jp      nz, .loop_0
 
 
+    ; set MegaROM page for STAGE CLEAR animation sprite colors (some chars will be reused)
+    ld      a, STAGE_CLEAR_ANIMATION_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
+    ; load sprite patterns for char A
+    ld      a, 0000 0001 b
+    ld      hl, SPRPAT + ((4 * 32) * 3)
+    call    SetVdp_Write
+    ld      b, 4 * 32 ; each char is 4 16x16 sprites (32 bytes for pattern)
+    ld      c, PORT_0
+    ld      hl, StageClear_Patterns_A_factor_2
+    otir
+
+    ; load sprite patterns for char G
+    ld      a, 0000 0001 b
+    ld      hl, SPRPAT + ((4 * 32) * 4)
+    call    SetVdp_Write
+    ld      b, 4 * 32 ; each char is 4 16x16 sprites (32 bytes for pattern)
+    ld      c, PORT_0
+    ld      hl, StageClear_Patterns_G_factor_2
+    otir
+
+    ; load sprite patterns for char E
+    ld      a, 0000 0001 b
+    ld      hl, SPRPAT + ((4 * 32) * 5)
+    call    SetVdp_Write
+    ld      b, 4 * 32 ; each char is 4 16x16 sprites (32 bytes for pattern)
+    ld      c, PORT_0
+    ld      hl, StageClear_Patterns_E_factor_2
+    otir
+
+    ; load sprite patterns for char R
+    ld      a, 0000 0001 b
+    ld      hl, SPRPAT + ((4 * 32) * 6)
+    call    SetVdp_Write
+    ld      b, 4 * 32 ; each char is 4 16x16 sprites (32 bytes for pattern)
+    ld      c, PORT_0
+    ld      hl, StageClear_Patterns_R_factor_2
+    otir
 
 
     ; set MegaROM page for GAME OVER animation sprite colors
@@ -148,14 +187,16 @@ GameOverAnimation:
     dec     d
     jp      nz, .loop_1
 
-    ; ; load SPRATR for testing
-    ; ld      a, 0000 0001 b
-    ; ld      hl, SPRATR
-    ; call    SetVdp_Write
-    ; ld      b, GameOverAnimation_SPRATR_Test.size
-    ; ld      c, PORT_0
-    ; ld      hl, GameOverAnimation_SPRATR_Test
-    ; otir
+    ; load SPRATR for testing
+    ld      a, 0000 0001 b
+    ld      hl, SPRATR
+    call    SetVdp_Write
+    ld      b, GameOverAnimation_SPRATR_Test.size
+    ld      c, PORT_0
+    ld      hl, GameOverAnimation_SPRATR_Test
+    otir
+    jp $ ; debug
+
 
     ; load initial SPRATR
     ld      a, 0000 0001 b
@@ -199,21 +240,53 @@ GameOverAnimation_SPRATR_Test:
     ; X left of last (rightmost) sprite = X left + (32 + 4 + 32 + 4 + 32 + 4) + 16 = 166
 
 
+    ; G
+    db   62     ,  58     , 16 * 4, 0
+    db   62 + 16,  58     , 17 * 4, 0
+    db   62     ,  58 + 16, 18 * 4, 0
+    db   62 + 16,  58 + 16, 19 * 4, 0
 
-    db   62     ,  58     ,  0 * 4, 0
-    db   62 + 16,  58     ,  1 * 4, 0
-    db   62     ,  58 + 16,  2 * 4, 0
-    db   62 + 16,  58 + 16,  3 * 4, 0
+    ; A
+    db   62     ,  94     , 12 * 4, 0
+    db   62 + 16,  94     , 13 * 4, 0
+    db   62     ,  94 + 16, 14 * 4, 0
+    db   62 + 16,  94 + 16, 15 * 4, 0
 
-    db   62     ,  94     ,  4 * 4, 0
-    db   62 + 16,  94     ,  5 * 4, 0
-    db   62     ,  94 + 16,  6 * 4, 0
-    db   62 + 16,  94 + 16,  7 * 4, 0
+    ; M
+    db   62     , 130     ,  0 * 4, 0
+    db   62 + 16, 130     ,  1 * 4, 0
+    db   62     , 130 + 16,  2 * 4, 0
+    db   62 + 16, 130 + 16,  3 * 4, 0
 
-    db   62     , 130     ,  8 * 4, 0
-    db   62 + 16, 130     ,  9 * 4, 0
-    db   62     , 130 + 16, 10 * 4, 0
-    db   62 + 16, 130 + 16, 11 * 4, 0
+    ; E
+    db   62     , 166     , 20 * 4, 0
+    db   62 + 16, 166     , 21 * 4, 0
+    db   62     , 166 + 16, 22 * 4, 0
+    db   62 + 16, 166 + 16, 23 * 4, 0
+
+    ; O
+    db   98     ,  58     ,  4 * 4, 0
+    db   98 + 16,  58     ,  5 * 4, 0
+    db   98     ,  58 + 16,  6 * 4, 0
+    db   98 + 16,  58 + 16,  7 * 4, 0
+
+    ; V
+    db   98     ,  94     ,  8 * 4, 0
+    db   98 + 16,  94     ,  9 * 4, 0
+    db   98     ,  94 + 16, 10 * 4, 0
+    db   98 + 16,  94 + 16, 11 * 4, 0
+
+    ; E
+    db   98     , 130     , 20 * 4, 0
+    db   98 + 16, 130     , 21 * 4, 0
+    db   98     , 130 + 16, 22 * 4, 0
+    db   98 + 16, 130 + 16, 23 * 4, 0
+
+    ; R
+    db   98     , 166     , 24 * 4, 0
+    db   98 + 16, 166     , 25 * 4, 0
+    db   98     , 166 + 16, 26 * 4, 0
+    db   98 + 16, 166 + 16, 27 * 4, 0
 
 .size: equ $ - GameOverAnimation_SPRATR_Test
 
