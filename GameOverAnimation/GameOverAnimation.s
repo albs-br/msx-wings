@@ -20,21 +20,42 @@ GameOverAnimation:
     jp      z, $ ; debug
 
     
-    ld      a, 0000 0001 b
     ld      hl, SPRATR
-    call    SetVdp_Write
     ld      ix, GameOverAnimation_Vars.sprite_0
-    call    .animateSprite
+    ld      b, 16 ; number of sprites
+.loop_10:
+        push    bc
+            push    hl
+                push    ix
+    
+                    call    .animateSprite
+                
+                pop     ix
+                ld      bc, 5
+                add     ix, bc
 
-    ld      a, 0000 0001 b
-    ld      hl, SPRATR + 4
-    call    SetVdp_Write
-    ld      ix, GameOverAnimation_Vars.sprite_0 + 5
-    call    .animateSprite
+            pop     hl
+            ld      bc, 4
+            add     hl, bc
 
+        pop     bc
+
+    djnz    .loop_10
+
+
+    ; ld      hl, SPRATR + 0
+    ; ld      ix, GameOverAnimation_Vars.sprite_0
+    ; call    .animateSprite
+
+    ; ld      hl, SPRATR + 4
+    ; ld      ix, GameOverAnimation_Vars.sprite_0 + 5
+    ; call    .animateSprite
+
+    ; ld      hl, SPRATR + 8
     ; ld      ix, GameOverAnimation_Vars.sprite_0 + 10
     ; call    .animateSprite
 
+    ; ld      hl, SPRATR + 12
     ; ld      ix, GameOverAnimation_Vars.sprite_0 + 15
     ; call    .animateSprite
 
@@ -43,8 +64,12 @@ GameOverAnimation:
 
     ret
 
+; HL: SPRATR addr
 ; IX: addr of sprite structure in RAM
 .animateSprite:
+
+    ld      a, 0000 0001 b
+    call    SetVdp_Write
 
     ; if (x >= xEnd) ret
     ld      a, (ix + 1) ; x
@@ -81,6 +106,7 @@ GameOverAnimation:
 
 .cont_0:
 
+    inc      (ix + 1)    ; x++
     inc      (ix + 1)    ; x++
 
 
@@ -187,15 +213,15 @@ GameOverAnimation:
     dec     d
     jp      nz, .loop_1
 
-    ; load SPRATR for testing
-    ld      a, 0000 0001 b
-    ld      hl, SPRATR
-    call    SetVdp_Write
-    ld      b, GameOverAnimation_SPRATR_Test.size
-    ld      c, PORT_0
-    ld      hl, GameOverAnimation_SPRATR_Test
-    otir
-    jp $ ; debug
+    ; ; load SPRATR for testing
+    ; ld      a, 0000 0001 b
+    ; ld      hl, SPRATR
+    ; call    SetVdp_Write
+    ; ld      b, GameOverAnimation_SPRATR_Test.size
+    ; ld      c, PORT_0
+    ; ld      hl, GameOverAnimation_SPRATR_Test
+    ; otir
+    ; jp $ ; debug
 
 
     ; load initial SPRATR
@@ -218,77 +244,126 @@ GameOverAnimation:
 
 
 GameOverAnimation_SPRATR_Init:
-    db   62     ,  0      ,  0 * 4, 0
-    db   62 + 16,  0      ,  1 * 4, 0
-    ; db   62     ,  0      ,  2 * 4, 0
-    ; db   62 + 16,  0      ,  3 * 4, 0
-    db  216 ; hide all other sprites
+    db  192, 0, 0, 0 ;62     ,  0      , 0, 0 ;16 * 4, 0
+    db  192, 0, 0, 0 ;192    ,  0      , 0, 0 ;17 * 4, 0
+    db  192, 0, 0, 0 ;62     ,  0      , 0, 0 ;18 * 4, 0
+    db  192, 0, 0, 0 ;192    ,  0      , 0, 0 ;19 * 4, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    db  192, 0, 0, 0
+    ;db  216 ; hide all other sprites
 .size: equ $ - GameOverAnimation_SPRATR_Init
 
 GameOverAnimation_sprite_structs_Init:
-    ;       y, x, counterStart, xEnd, pattern number
-    db      62     ,   0,   0,  58     ,  0 * 4
-    db      62 + 16,   0,  80,  58     ,  1 * 4
-    ; db      62     ,   0,  30,  58 + 16,  2 * 4
-    ; db      62 + 16,   0,  30,  58 + 16,  3 * 4
-.size: equ $ - GameOverAnimation_sprite_structs_Init
-
-GameOverAnimation_SPRATR_Test:
-
-    ; Y top = (192 - (32 + 4 + 32)) / 2 = 62
-    ; X left = (256 - (32 + 4 + 32 + 4 + 32 + 4 + 32)) / 2 = 58
-    ; X left of last (rightmost) sprite = X left + (32 + 4 + 32 + 4 + 32 + 4) + 16 = 166
-
-
+    ;             y,   x, counterStart, xEnd, pattern number
+    
     ; G
-    db   62     ,  58     , 16 * 4, 0
-    db   62 + 16,  58     , 17 * 4, 0
-    db   62     ,  58 + 16, 18 * 4, 0
-    db   62 + 16,  58 + 16, 19 * 4, 0
+    db      62     ,   0,       0,  58     , 16 * 4
+    db      62 + 16,   0,      20,  58     , 17 * 4
+    db      62     ,   0,   0 + 4,  58 + 16, 18 * 4
+    db      62 + 16,   0,  20 + 4,  58 + 16, 19 * 4
 
     ; A
-    db   62     ,  94     , 12 * 4, 0
-    db   62 + 16,  94     , 13 * 4, 0
-    db   62     ,  94 + 16, 14 * 4, 0
-    db   62 + 16,  94 + 16, 15 * 4, 0
+    db      62     ,   0,       4,  94     , 12 * 4
+    db      62 + 16,   0,      24,  94     , 13 * 4
+    db      62     ,   0,   4 + 4,  94 + 16, 14 * 4
+    db      62 + 16,   0,  24 + 4,  94 + 16, 15 * 4
 
     ; M
-    db   62     , 130     ,  0 * 4, 0
-    db   62 + 16, 130     ,  1 * 4, 0
-    db   62     , 130 + 16,  2 * 4, 0
-    db   62 + 16, 130 + 16,  3 * 4, 0
+    db      62     ,   0,       8, 130     ,  0 * 4
+    db      62 + 16,   0,      28, 130     ,  1 * 4
+    db      62     ,   0,   8 + 4, 130 + 16,  2 * 4
+    db      62 + 16,   0,  28 + 4, 130 + 16,  3 * 4
 
     ; E
-    db   62     , 166     , 20 * 4, 0
-    db   62 + 16, 166     , 21 * 4, 0
-    db   62     , 166 + 16, 22 * 4, 0
-    db   62 + 16, 166 + 16, 23 * 4, 0
+    db      62     ,   0,      12, 166     , 20 * 4
+    db      62 + 16,   0,      32, 166     , 21 * 4
+    db      62     ,   0,  12 + 4, 166 + 16, 22 * 4
+    db      62 + 16,   0,  32 + 4, 166 + 16, 23 * 4
 
-    ; O
-    db   98     ,  58     ,  4 * 4, 0
-    db   98 + 16,  58     ,  5 * 4, 0
-    db   98     ,  58 + 16,  6 * 4, 0
-    db   98 + 16,  58 + 16,  7 * 4, 0
+.size: equ $ - GameOverAnimation_sprite_structs_Init
 
-    ; V
-    db   98     ,  94     ,  8 * 4, 0
-    db   98 + 16,  94     ,  9 * 4, 0
-    db   98     ,  94 + 16, 10 * 4, 0
-    db   98 + 16,  94 + 16, 11 * 4, 0
+; GameOverAnimation_SPRATR_Test:
 
-    ; E
-    db   98     , 130     , 20 * 4, 0
-    db   98 + 16, 130     , 21 * 4, 0
-    db   98     , 130 + 16, 22 * 4, 0
-    db   98 + 16, 130 + 16, 23 * 4, 0
+;     ; Y top = (192 - (32 + 4 + 32)) / 2 = 62
+;     ; X left = (256 - (32 + 4 + 32 + 4 + 32 + 4 + 32)) / 2 = 58
+;     ; X left of last (rightmost) sprite = X left + (32 + 4 + 32 + 4 + 32 + 4) + 16 = 166
 
-    ; R
-    db   98     , 166     , 24 * 4, 0
-    db   98 + 16, 166     , 25 * 4, 0
-    db   98     , 166 + 16, 26 * 4, 0
-    db   98 + 16, 166 + 16, 27 * 4, 0
 
-.size: equ $ - GameOverAnimation_SPRATR_Test
+;     ; G
+;     db   62     ,  58     , 16 * 4, 0
+;     db   62 + 16,  58     , 17 * 4, 0
+;     db   62     ,  58 + 16, 18 * 4, 0
+;     db   62 + 16,  58 + 16, 19 * 4, 0
+
+;     ; A
+;     db   62     ,  94     , 12 * 4, 0
+;     db   62 + 16,  94     , 13 * 4, 0
+;     db   62     ,  94 + 16, 14 * 4, 0
+;     db   62 + 16,  94 + 16, 15 * 4, 0
+
+;     ; M
+;     db   62     , 130     ,  0 * 4, 0
+;     db   62 + 16, 130     ,  1 * 4, 0
+;     db   62     , 130 + 16,  2 * 4, 0
+;     db   62 + 16, 130 + 16,  3 * 4, 0
+
+;     ; E
+;     db   62     , 166     , 20 * 4, 0
+;     db   62 + 16, 166     , 21 * 4, 0
+;     db   62     , 166 + 16, 22 * 4, 0
+;     db   62 + 16, 166 + 16, 23 * 4, 0
+
+;     ; O
+;     db   98     ,  58     ,  4 * 4, 0
+;     db   98 + 16,  58     ,  5 * 4, 0
+;     db   98     ,  58 + 16,  6 * 4, 0
+;     db   98 + 16,  58 + 16,  7 * 4, 0
+
+;     ; V
+;     db   98     ,  94     ,  8 * 4, 0
+;     db   98 + 16,  94     ,  9 * 4, 0
+;     db   98     ,  94 + 16, 10 * 4, 0
+;     db   98 + 16,  94 + 16, 11 * 4, 0
+
+;     ; E
+;     db   98     , 130     , 20 * 4, 0
+;     db   98 + 16, 130     , 21 * 4, 0
+;     db   98     , 130 + 16, 22 * 4, 0
+;     db   98 + 16, 130 + 16, 23 * 4, 0
+
+;     ; R
+;     db   98     , 166     , 24 * 4, 0
+;     db   98 + 16, 166     , 25 * 4, 0
+;     db   98     , 166 + 16, 26 * 4, 0
+;     db   98 + 16, 166 + 16, 27 * 4, 0
+
+; .size: equ $ - GameOverAnimation_SPRATR_Test
 
 ; GameOverAnimation_Data:
 ;     ; first line
