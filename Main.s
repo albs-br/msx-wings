@@ -72,14 +72,14 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     ; INCLUDE "EnemyData/EnemyShotData.s"     ; moved to a MegaROM page
     INCLUDE "Sound/Sfx/PlaySfx.s"
 
-    INCLUDE "PauseAnimation/PauseAnimation.s"
+    INCLUDE "Animations/PauseAnimation/PauseAnimation.s"
 
-    INCLUDE "LevelTitleAnimation/LevelTitleAnimation.s"
-    INCLUDE "LevelTitleAnimation/Data.s"
+    INCLUDE "Animations/LevelTitleAnimation/LevelTitleAnimation.s"
+    INCLUDE "Animations/LevelTitleAnimation/Data.s"
 
-    INCLUDE "StageClearAnimation/StageClearAnimation.s"
+    INCLUDE "Animations/StageClearAnimation/StageClearAnimation.s"
     
-    INCLUDE "GameOverAnimation/GameOverAnimation.s"
+    INCLUDE "Animations/GameOverAnimation/GameOverAnimation.s"
 
     INCLUDE "DebugMessage.s"
 

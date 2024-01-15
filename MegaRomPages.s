@@ -1078,7 +1078,7 @@ STAGE_CLEAR_ANIMATION_DATA_MEGAROM_PAGE_1:        equ 247
 GAMEOVER_ANIMATION_DATA_MEGAROM_PAGE:			  equ 247
 ; ------- Page 247
 	org	0x8000, 0xBFFF
-    INCLUDE "StageClearAnimation/SPRATR_Data.s"
+    INCLUDE "Animations/StageClearAnimation/SPRATR_Data.s"
     INCLUDE "Graphics/Sprites/GameOverAnimation/GameOverAnimation.s"
 MEGAROM_PAGE_247_size:          equ $ - 0x8000
 	ds PAGE_SIZE - ($ - 0x8000), 255
@@ -1105,7 +1105,7 @@ SPRITE_PATTERNS_DATA_MEGAROM_PAGE:      equ 249
 
 ; ------- Page 249
 	org	0x8000, 0xBFFF
-    INCLUDE "PauseAnimation/PauseAnimation_Data.s"
+    INCLUDE "Animations/PauseAnimation/PauseAnimation_Data.s"
     INCLUDE "Graphics/Sprites/SpritePatterns.s"
 MEGAROM_PAGE_249_size:          equ $ - 0x8000
 	ds PAGE_SIZE - ($ - 0x8000), 255
