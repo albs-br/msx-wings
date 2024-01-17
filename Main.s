@@ -66,7 +66,7 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     ; INCLUDE "GameLogic/BossLogic/Boss_Reset.s"
     ; INCLUDE "GameLogic/BossLogic/Boss_Logic.s"
 
-    INCLUDE "LevelData/LoadLevel.s"
+    INCLUDE "Data/LevelData/LoadLevel.s"
     ; INCLUDE "LevelData/Level_1.s"         ; moved to a MegaROM page
     ; INCLUDE "EnemyData/EnemyData_1.s"     ; moved to a MegaROM page
     ; INCLUDE "EnemyData/EnemyShotData.s"     ; moved to a MegaROM page

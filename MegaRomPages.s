@@ -1021,11 +1021,11 @@ ENEMY_SHOT_DATA_MEGAROM_PAGE:           equ 242
 
 ; ------- Page 242
 	org	0x8000, 0xBFFF
-    INCLUDE "EnemyData/EnemyPlane/EnemyPlane_Data.s"
-    INCLUDE "EnemyData/EnemyPlaneTurning/EnemyPlaneTurning_Data.s"
-    INCLUDE "EnemyData/BigEnemy/Chopper_Data.s"
-    INCLUDE "EnemyData/BigEnemy/Tank_Data.s"
-    INCLUDE "EnemyData/EnemyShotData.s"
+    INCLUDE "Data/EnemyData/EnemyPlane/EnemyPlane_Data.s"
+    INCLUDE "Data/EnemyData/EnemyPlaneTurning/EnemyPlaneTurning_Data.s"
+    INCLUDE "Data/EnemyData/BigEnemy/Chopper_Data.s"
+    INCLUDE "Data/EnemyData/BigEnemy/Tank_Data.s"
+    INCLUDE "Data/EnemyData/EnemyShotData.s"
     ; INCLUDE "Sound/Sfx/MsxWingsSfx_Bank.s" ; ATTENTION: MOVED BACK cos it was causing bug (sound tone keeps playing after sfx ended)   
 MEGAROM_PAGE_242_size:          equ $ - 0x8000
 	ds PAGE_SIZE - ($ - 0x8000), 255
@@ -1089,12 +1089,12 @@ LEVEL_DATA_MEGAROM_PAGE:                equ 248
 
 ; ------- Page 248
 	org	0x8000, 0xBFFF
-    INCLUDE "LevelData/Level_1.s"
-    INCLUDE "LevelData/Level_2.s"
-    INCLUDE "LevelData/Level_3.s"
-    INCLUDE "LevelData/Level_4.s"
-    INCLUDE "LevelData/Level_5.s"
-    INCLUDE "LevelData/Level_6.s"
+    INCLUDE "Data/LevelData/Level_1.s"
+    INCLUDE "Data/LevelData/Level_2.s"
+    INCLUDE "Data/LevelData/Level_3.s"
+    INCLUDE "Data/LevelData/Level_4.s"
+    INCLUDE "Data/LevelData/Level_5.s"
+    INCLUDE "Data/LevelData/Level_6.s"
 MEGAROM_PAGE_248_size:          equ $ - 0x8000
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
