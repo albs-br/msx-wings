@@ -31,11 +31,11 @@ GameOverAnimation:
                     call    .animateSprite
                 
                 pop     ix
-                ld      bc, 5
+                ld      bc, 7 ; size of sprite struct
                 add     ix, bc
 
             pop     hl
-            ld      bc, 4
+            ld      bc, 4 ; next sprite on SPRATR table
             add     hl, bc
 
         pop     bc
@@ -48,15 +48,15 @@ GameOverAnimation:
     ; call    .animateSprite
 
     ; ld      hl, SPRATR + 4
-    ; ld      ix, GameOverAnimation_Vars.sprite_0 + 5
+    ; ld      ix, GameOverAnimation_Vars.sprite_0 + 7
     ; call    .animateSprite
 
     ; ld      hl, SPRATR + 8
-    ; ld      ix, GameOverAnimation_Vars.sprite_0 + 10
+    ; ld      ix, GameOverAnimation_Vars.sprite_0 + 14
     ; call    .animateSprite
 
     ; ld      hl, SPRATR + 12
-    ; ld      ix, GameOverAnimation_Vars.sprite_0 + 15
+    ; ld      ix, GameOverAnimation_Vars.sprite_0 + 21
     ; call    .animateSprite
 
 
@@ -71,15 +71,22 @@ GameOverAnimation:
     ld      a, 0000 0001 b
     call    SetVdp_Write
 
-    ; if (x >= xEnd) ret
-    ld      a, (ix + 1) ; x
-    cp      (ix + 3) ; xEnd
-    ret     nc
+    ; get look up table addr
+    ld      l, (ix + 5)
+    ld      h, (ix + 6)
+
+    ; get Y from look up table
+    ld      a, (hl)
+    
+    ; if (Y == 217) ret
+    cp      217
+    ret     z
+
 
     ; if (Counter >= counterStart) cont_0
     ld      a, (GameOverAnimation_Vars.Counter)
     cp      (ix + 2) ; counterStart
-    jp      nc, .cont_0
+    jp      nc, .cont_2
 
     ; ---- hide sprite
     ld      c, PORT_0
@@ -104,22 +111,31 @@ GameOverAnimation:
 
     ret
 
-.cont_0:
 
-    inc      (ix + 1)    ; x++
-    inc      (ix + 1)    ; x++
+.cont_2:
 
-
-    ; ---- update SPRATR table
     ld      c, PORT_0
-    
-    ld      a, (ix + 0) ; y
-    out     (c), a          ; set y
-    
-    ; CAUTION: on V9938/58 sequential OUT's (or IN's) must be at least 15 cycles apart
-    ld      a, (ix + 1) ; x
-    out     (c), a          ; set x
-    
+
+    ; get Y from look up table
+    ld      a, (hl)
+
+    ; y += yEnd - 83
+    add     (ix + 0) ; yEnd
+    sub     83 ; last y value on look up table
+
+
+    out     (c), a          ; set Y
+
+    ; get X from look up table
+    inc     hl
+    ld      a, (hl)
+
+    ; x += xEnd - 72
+    add     (ix + 3) ; xEnd
+    sub     72 ; last x value on look up table
+
+    out     (c), a          ; set X
+
     ld      a, (ix + 4) ; pattern
     out     (c), a          ; set pattern
 
@@ -129,7 +145,82 @@ GameOverAnimation:
     in      a, (c)          ; skip unused atribute
 
 
+    ; update look up table addr
+    ld      l, (ix + 5)
+    ld      h, (ix + 6)
+    inc     hl
+    inc     hl
+    ld      (ix + 5), l
+    ld      (ix + 6), h
+
     ret
+
+; ; HL: SPRATR addr
+; ; IX: addr of sprite structure in RAM
+; .animateSprite_old:
+
+;     ld      a, 0000 0001 b
+;     call    SetVdp_Write
+
+;     ; if (x >= xEnd) ret
+;     ld      a, (ix + 1) ; x
+;     cp      (ix + 3) ; xEnd
+;     ret     nc
+
+;     ; if (Counter >= counterStart) cont_0
+;     ld      a, (GameOverAnimation_Vars.Counter)
+;     cp      (ix + 2) ; counterStart
+;     jp      nc, .cont_0
+
+;     ; ---- hide sprite
+;     ld      c, PORT_0
+
+;     ld      a, 192
+;     out     (c), a          ; set Y offscreen
+
+;     nop                                            ; CAUTION: on V9938/58 sequential OUT's (or IN's) must be at least 15 cycles apart
+;     nop
+;     nop
+;     in      a, (c)          ; skip X
+
+;     nop
+;     nop
+;     ld      a, 63 * 4
+;     out     (c), a          ; set empty sprite pattern
+
+;     nop
+;     nop
+;     nop
+;     in      a, (c)          ; skip unused atribute
+
+;     ret
+
+; .cont_0:
+
+;     inc      (ix + 1)    ; x++
+;     inc      (ix + 1)    ; x++
+
+
+;     ; ---- update SPRATR table
+;     ld      c, PORT_0
+    
+;     ld      a, (ix + 0) ; y
+;     out     (c), a          ; set y
+    
+;     ; CAUTION: on V9938/58 sequential OUT's (or IN's) must be at least 15 cycles apart
+;     ld      a, (ix + 1) ; x
+;     out     (c), a          ; set x
+    
+;     ld      a, (ix + 4) ; pattern
+;     out     (c), a          ; set pattern
+
+;     nop
+;     nop
+;     nop
+;     in      a, (c)          ; skip unused atribute
+
+
+;     ret
 
 .initGameOverAnimation:
 
@@ -226,12 +317,18 @@ GameOverAnimation:
 
     ; load initial SPRATR
     ld      a, 0000 0001 b
-    ld      hl, SPRATR
     call    SetVdp_Write
-    ld      b, GameOverAnimation_SPRATR_Init.size
-    ld      c, PORT_0
-    ld      hl, GameOverAnimation_SPRATR_Init
-    otir
+    ld      hl, SPRATR
+    ld      b, 32 ; 32 sprites
+.loop_3:
+        push    bc
+            ld      b, GameOverAnimation_SPRATR_Init.size
+            ld      c, PORT_0
+            ld      hl, GameOverAnimation_SPRATR_Init
+            otir
+        pop     bc
+
+    djnz    .loop_3
 
     ; load initial sprite structs
     ld      hl, GameOverAnimation_sprite_structs_Init
@@ -244,67 +341,39 @@ GameOverAnimation:
 
 
 GameOverAnimation_SPRATR_Init:
-    db  192, 0, 0, 0 ;62     ,  0      , 0, 0 ;16 * 4, 0
-    db  192, 0, 0, 0 ;192    ,  0      , 0, 0 ;17 * 4, 0
-    db  192, 0, 0, 0 ;62     ,  0      , 0, 0 ;18 * 4, 0
-    db  192, 0, 0, 0 ;192    ,  0      , 0, 0 ;19 * 4, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
-    db  192, 0, 0, 0
     db  192, 0, 0, 0
     ;db  216 ; hide all other sprites
 .size: equ $ - GameOverAnimation_SPRATR_Init
 
 GameOverAnimation_sprite_structs_Init:
-    ;             y,   x, counterStart, xEnd, pattern number
+
+; (*) unused
+
+    ;          yEnd, (*), counterStart,     xEnd, pattern number
     
     ; G
-    db      62     ,   0,       0,  58     , 16 * 4
-    db      62 + 16,   0,      20,  58     , 17 * 4
-    db      62     ,   0,   0 + 4,  58 + 16, 18 * 4
-    db      62 + 16,   0,  20 + 4,  58 + 16, 19 * 4
-
-    ; A
-    db      62     ,   0,       4,  94     , 12 * 4
-    db      62 + 16,   0,      24,  94     , 13 * 4
-    db      62     ,   0,   4 + 4,  94 + 16, 14 * 4
-    db      62 + 16,   0,  24 + 4,  94 + 16, 15 * 4
-
-    ; M
-    db      62     ,   0,       8, 130     ,  0 * 4
-    db      62 + 16,   0,      28, 130     ,  1 * 4
-    db      62     ,   0,   8 + 4, 130 + 16,  2 * 4
-    db      62 + 16,   0,  28 + 4, 130 + 16,  3 * 4
-
-    ; E
-    db      62     ,   0,      12, 166     , 20 * 4
-    db      62 + 16,   0,      32, 166     , 21 * 4
-    db      62     ,   0,  12 + 4, 166 + 16, 22 * 4
-    db      62 + 16,   0,  32 + 4, 166 + 16, 23 * 4
+    db      62     ,   0,            0,  58     , 16 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62 + 16,   0,           20,  58     , 17 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62     ,   0,        0 + 4,  58 + 16, 18 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62 + 16,   0,       20 + 4,  58 + 16, 19 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+     
+    ; A     
+    db      62     ,   0,            4,  94     , 12 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62 + 16,   0,           24,  94     , 13 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62     ,   0,        4 + 4,  94 + 16, 14 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62 + 16,   0,       24 + 4,  94 + 16, 15 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+     
+    ; M     
+    db      62     ,   0,            8, 130     ,  0 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62 + 16,   0,           28, 130     ,  1 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62     ,   0,        8 + 4, 130 + 16,  2 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62 + 16,   0,       28 + 4, 130 + 16,  3 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+     
+    ; E     
+    db      62     ,   0,           12, 166     , 20 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62 + 16,   0,           32, 166     , 21 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62     ,   0,       12 + 4, 166 + 16, 22 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62 + 16,   0,       32 + 4, 166 + 16, 23 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
 
 .size: equ $ - GameOverAnimation_sprite_structs_Init
 

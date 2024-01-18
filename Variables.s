@@ -374,7 +374,7 @@ GameOverAnimation_Vars:
 
 .Counter:               rb 1
 
-.sprite_0:              rb 5 * 32 ; y, x, counterStart, xEnd, pattern number
+.sprite_0:              rb 7 * 32 ; y, x, counterStart, xEnd, pattern number, look up table addr (word)
 
 ; ---------------------------------------
 
