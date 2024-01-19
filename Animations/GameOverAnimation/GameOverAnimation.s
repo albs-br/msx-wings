@@ -33,7 +33,7 @@ GameOverAnimation:
                     call    .animateSprite
                 
                 pop     ix
-                ld      bc, 7 ; size of sprite struct
+                ld      bc, 6 ; size of sprite struct
                 add     ix, bc
 
             pop     hl
@@ -50,15 +50,15 @@ GameOverAnimation:
     ; call    .animateSprite
 
     ; ld      hl, SPRATR + 4
-    ; ld      ix, GameOverAnimation_Vars.sprite_0 + 7
+    ; ld      ix, GameOverAnimation_Vars.sprite_0 + 6
     ; call    .animateSprite
 
     ; ld      hl, SPRATR + 8
-    ; ld      ix, GameOverAnimation_Vars.sprite_0 + 14
+    ; ld      ix, GameOverAnimation_Vars.sprite_0 + 12
     ; call    .animateSprite
 
     ; ld      hl, SPRATR + 12
-    ; ld      ix, GameOverAnimation_Vars.sprite_0 + 21
+    ; ld      ix, GameOverAnimation_Vars.sprite_0 + 18
     ; call    .animateSprite
 
 
@@ -74,8 +74,8 @@ GameOverAnimation:
     call    SetVdp_Write
 
     ; get look up table addr
-    ld      l, (ix + 5)
-    ld      h, (ix + 6)
+    ld      l, (ix + 4)
+    ld      h, (ix + 5)
 
     ; get Y from look up table
     ld      a, (hl)
@@ -87,7 +87,7 @@ GameOverAnimation:
 
     ; if (Counter >= counterStart) cont_0
     ld      a, (GameOverAnimation_Vars.Counter)
-    cp      (ix + 2) ; counterStart
+    cp      (ix + 1) ; counterStart
     jp      nc, .cont_2
 
     ; ---- hide sprite
@@ -133,12 +133,12 @@ GameOverAnimation:
     ld      a, (hl)
 
     ; x += xEnd - 72
-    add     (ix + 3) ; xEnd
+    add     (ix + 2) ; xEnd
     sub     72 ; last x value on look up table
 
     out     (c), a          ; set X
 
-    ld      a, (ix + 4) ; pattern
+    ld      a, (ix + 3) ; pattern
     out     (c), a          ; set pattern
 
     nop
@@ -148,85 +148,19 @@ GameOverAnimation:
 
 
     ; update look up table addr
-    ld      l, (ix + 5)
-    ld      h, (ix + 6)
+    ld      l, (ix + 4)
+    ld      h, (ix + 5)
     inc     hl
     inc     hl
-    ld      (ix + 5), l
-    ld      (ix + 6), h
+    ld      (ix + 4), l
+    ld      (ix + 5), h
 
     ret
 
-; ; HL: SPRATR addr
-; ; IX: addr of sprite structure in RAM
-; .animateSprite_old:
 
-;     ld      a, 0000 0001 b
-;     call    SetVdp_Write
-
-;     ; if (x >= xEnd) ret
-;     ld      a, (ix + 1) ; x
-;     cp      (ix + 3) ; xEnd
-;     ret     nc
-
-;     ; if (Counter >= counterStart) cont_0
-;     ld      a, (GameOverAnimation_Vars.Counter)
-;     cp      (ix + 2) ; counterStart
-;     jp      nc, .cont_0
-
-;     ; ---- hide sprite
-;     ld      c, PORT_0
-
-;     ld      a, 192
-;     out     (c), a          ; set Y offscreen
-
-;     nop                                            ; CAUTION: on V9938/58 sequential OUT's (or IN's) must be at least 15 cycles apart
-;     nop
-;     nop
-;     in      a, (c)          ; skip X
-
-;     nop
-;     nop
-;     ld      a, 63 * 4
-;     out     (c), a          ; set empty sprite pattern
-
-;     nop
-;     nop
-;     nop
-;     in      a, (c)          ; skip unused atribute
-
-;     ret
-
-; .cont_0:
-
-;     inc      (ix + 1)    ; x++
-;     inc      (ix + 1)    ; x++
-
-
-;     ; ---- update SPRATR table
-;     ld      c, PORT_0
-    
-;     ld      a, (ix + 0) ; y
-;     out     (c), a          ; set y
-    
-;     ; CAUTION: on V9938/58 sequential OUT's (or IN's) must be at least 15 cycles apart
-;     ld      a, (ix + 1) ; x
-;     out     (c), a          ; set x
-    
-;     ld      a, (ix + 4) ; pattern
-;     out     (c), a          ; set pattern
-
-;     nop
-;     nop
-;     nop
-;     in      a, (c)          ; skip unused atribute
-
-
-;     ret
 
 .initGameOverAnimation:
-
-
+    
     ; --------------- load GAME OVER string sprite patterns and colors
     
     ; set MegaROM page for GAME OVER animation sprite patterns
@@ -349,57 +283,55 @@ GameOverAnimation_SPRATR_Init:
 
 GameOverAnimation_sprite_structs_Init:
 
-; (*) unused
-
-    ;          yEnd, (*), counterStart,     xEnd, pattern number
+    ;          yEnd, counterStart,     xEnd, pattern number
     
     ; G
-    db      62     ,   0,            0,  58     , 16 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      62 + 16,   0,           20,  58     , 17 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      62     ,   0,        0 + 4,  58 + 16, 18 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      62 + 16,   0,       20 + 4,  58 + 16, 19 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62     ,            0,  58     , 16 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62 + 16,           20,  58     , 17 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62     ,        0 + 4,  58 + 16, 18 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62 + 16,       20 + 4,  58 + 16, 19 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
      
     ; A     
-    db      62     ,   0,            4,  94     , 12 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      62 + 16,   0,           24,  94     , 13 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      62     ,   0,        4 + 4,  94 + 16, 14 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      62 + 16,   0,       24 + 4,  94 + 16, 15 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62     ,            4,  94     , 12 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62 + 16,           24,  94     , 13 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62     ,        4 + 4,  94 + 16, 14 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62 + 16,       24 + 4,  94 + 16, 15 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
      
     ; M     
-    db      62     ,   0,            8, 130     ,  0 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      62 + 16,   0,           28, 130     ,  1 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      62     ,   0,        8 + 4, 130 + 16,  2 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      62 + 16,   0,       28 + 4, 130 + 16,  3 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62     ,            8, 130     ,  0 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62 + 16,           28, 130     ,  1 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62     ,        8 + 4, 130 + 16,  2 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62 + 16,       28 + 4, 130 + 16,  3 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
      
     ; E     
-    db      62     ,   0,           12, 166     , 20 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      62 + 16,   0,           32, 166     , 21 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      62     ,   0,       12 + 4, 166 + 16, 22 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      62 + 16,   0,       32 + 4, 166 + 16, 23 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62     ,           12, 166     , 20 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62 + 16,           32, 166     , 21 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62     ,       12 + 4, 166 + 16, 22 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      62 + 16,       32 + 4, 166 + 16, 23 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
 
     ; O
-    db      98     ,   0,           16,  58     ,  4 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      98 + 16,   0,           36,  58     ,  5 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      98     ,   0,       16 + 4,  58 + 16,  6 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      98 + 16,   0,       36 + 4,  58 + 16,  7 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98     ,           16,  58     ,  4 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98 + 16,           36,  58     ,  5 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98     ,       16 + 4,  58 + 16,  6 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98 + 16,       36 + 4,  58 + 16,  7 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
 
     ; V
-    db      98     ,   0,           20,  94     ,  8 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      98 + 16,   0,           40,  94     ,  9 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      98     ,   0,       20 + 4,  94 + 16, 10 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      98 + 16,   0,       40 + 4,  94 + 16, 11 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98     ,           20,  94     ,  8 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98 + 16,           40,  94     ,  9 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98     ,       20 + 4,  94 + 16, 10 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98 + 16,       40 + 4,  94 + 16, 11 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
 
     ; E
-    db      98     ,   0,           24, 130     , 20 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      98 + 16,   0,           44, 130     , 21 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      98     ,   0,       24 + 4, 130 + 16, 22 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      98 + 16,   0,       44 + 4, 130 + 16, 23 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98     ,           24, 130     , 20 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98 + 16,           44, 130     , 21 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98     ,       24 + 4, 130 + 16, 22 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98 + 16,       44 + 4, 130 + 16, 23 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
 
     ; R
-    db      98     ,   0,           28, 166     , 24 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      98 + 16,   0,           48, 166     , 25 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      98     ,   0,       28 + 4, 166 + 16, 26 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
-    db      98 + 16,   0,       48 + 4, 166 + 16, 27 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98     ,           28, 166     , 24 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98 + 16,           48, 166     , 25 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98     ,       28 + 4, 166 + 16, 26 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98 + 16,       48 + 4, 166 + 16, 27 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
 
 .size: equ $ - GameOverAnimation_sprite_structs_Init
 
@@ -459,12 +391,3 @@ GameOverAnimation_sprite_structs_Init:
 ;     db   98 + 16, 166 + 16, 27 * 4, 0
 
 ; .size: equ $ - GameOverAnimation_SPRATR_Test
-
-; GameOverAnimation_Data:
-;     ; first line
-;     ;                                   xEnd    counterStart
-;     ; 7th sprite: x from 0 to 150       150     0
-;     ; 8th sprite: x from 0 to 166       166     0
-    
-;     db  150,    16
-;     db  166,    0
