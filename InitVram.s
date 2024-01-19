@@ -733,3 +733,39 @@ Load_6x8_BitmapFromRAMToVRAM:
 ;     ;ex      de, hl
 
 ;     ret
+
+
+
+HideAllSprites:
+    ; ---------- hide all sprites
+
+    ld      a, 0000 0001 b
+    ld      hl, SPRATR
+    call    SetVdp_Write
+    ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
+
+    ld      b, 32           ; 32 sprites on SPRATR
+.loop_HideAllSprites:
+    ld      a, 216
+    nop
+    nop
+    out     (c), a          ; set Y to 216 hides all sprites from here onwards
+
+    ld      a, 255
+    nop
+    nop
+    out     (c), a          ; X
+
+    ld      a, EMPTY_SPR_PAT_NUMBER
+    nop
+    nop
+    out     (c), a          ; pattern
+
+    xor     a
+    nop
+    nop
+    out     (c), a          ; not used
+
+    djnz    .loop_HideAllSprites
+
+    ret

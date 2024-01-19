@@ -1,5 +1,7 @@
 GameOverAnimation:
 
+    call    HideAllSprites
+
     call    Wait_Vblank         ; VBlank sync
 
     xor     a
@@ -22,7 +24,7 @@ GameOverAnimation:
     
     ld      hl, SPRATR
     ld      ix, GameOverAnimation_Vars.sprite_0
-    ld      b, 16 ; number of sprites
+    ld      b, 8 * 4 ; number of sprites (number of chars * 4)
 .loop_10:
         push    bc
             push    hl
@@ -374,6 +376,30 @@ GameOverAnimation_sprite_structs_Init:
     db      62 + 16,   0,           32, 166     , 21 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
     db      62     ,   0,       12 + 4, 166 + 16, 22 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
     db      62 + 16,   0,       32 + 4, 166 + 16, 23 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+
+    ; O
+    db      98     ,   0,           16,  58     ,  4 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98 + 16,   0,           36,  58     ,  5 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98     ,   0,       16 + 4,  58 + 16,  6 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98 + 16,   0,       36 + 4,  58 + 16,  7 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+
+    ; V
+    db      98     ,   0,           20,  94     ,  8 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98 + 16,   0,           40,  94     ,  9 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98     ,   0,       20 + 4,  94 + 16, 10 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98 + 16,   0,       40 + 4,  94 + 16, 11 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+
+    ; E
+    db      98     ,   0,           24, 130     , 20 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98 + 16,   0,           44, 130     , 21 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98     ,   0,       24 + 4, 130 + 16, 22 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98 + 16,   0,       44 + 4, 130 + 16, 23 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+
+    ; R
+    db      98     ,   0,           28, 166     , 24 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98 + 16,   0,           48, 166     , 25 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98     ,   0,       28 + 4, 166 + 16, 26 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
+    db      98 + 16,   0,       48 + 4, 166 + 16, 27 * 4     dw LOOKUP_TABLE_CIRCLE_MOV
 
 .size: equ $ - GameOverAnimation_sprite_structs_Init
 

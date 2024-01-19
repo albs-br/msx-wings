@@ -13,6 +13,13 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
 
     ; Common
     INCLUDE "Include/RomHeader.s"
+
+    ; code to force ASCII16 mapper auto detection on openMSX (not working)
+    ; https://www.msx.org/forum/msx-talk/development/how-to-create-a-long-rom-file?page=2#comment-456529
+    ;db 0x32, 0, 0x70, 0x32, 0xFF, 0x77
+    ; ld (7000h),a
+    ; ld (77ffh),a
+
     INCLUDE "Include/MsxBios.s"
     INCLUDE "Include/MsxConstants.s"
     INCLUDE "Include/CommonRoutines.s"
