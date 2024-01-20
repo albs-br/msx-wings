@@ -2,6 +2,10 @@ GameOverAnimation:
 
     call    HideAllSprites
 
+    ; restore default palette (one blue color is constantly being changed)
+    ld      hl, PaletteData_0
+    call    LoadPalette
+
     call    Wait_Vblank         ; VBlank sync
 
     xor     a
@@ -93,7 +97,11 @@ GameOverAnimation:
     ; ---- hide sprite
     ld      c, PORT_0
 
+    ld      a, (VerticalScroll) ; adjust to scroll
+    ld      b, a
     ld      a, 192
+    add     b
+    or      0000 0001 b ; force Y to be an odd number, to avoid 216 value on Y, which hides this and all following sprites
     out     (c), a          ; set Y offscreen
 
     nop                                            ; CAUTION: on V9938/58 sequential OUT's (or IN's) must be at least 15 cycles apart
@@ -103,7 +111,7 @@ GameOverAnimation:
 
     nop
     nop
-    ld      a, 63 * 4
+    ld      a, EMPTY_SPR_PAT_NUMBER
     out     (c), a          ; set empty sprite pattern
 
     nop
@@ -118,6 +126,10 @@ GameOverAnimation:
 
     ld      c, PORT_0
 
+
+    ld      a, (VerticalScroll) ; adjust to scroll
+    ld      b, a
+
     ; get Y from look up table
     ld      a, (hl)
 
@@ -125,8 +137,13 @@ GameOverAnimation:
     add     (ix + 0) ; yEnd
     sub     83 ; last y value on look up table
 
+    add     b ; adjust to scroll
+
+    or      0000 0001 b ; force Y to be an odd number, to avoid 216 value on Y, which hides this and all following sprites
 
     out     (c), a          ; set Y
+
+
 
     ; get X from look up table
     inc     hl

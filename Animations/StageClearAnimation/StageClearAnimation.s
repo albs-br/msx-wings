@@ -217,8 +217,11 @@ StageClearAnimation:
                 cp      216
                 jp      z, .skip_300
                 add     d
+                or      0000 0001 b ; force Y to be an odd number, to avoid 216 value on Y, which hides this and all following sprites
+
             .skip_300:
-                ; cp      216 ; TODO (this may be necessary depending on VerticalScroll value + Y)
+                ; cp      216 ; NOT TODO (this may be necessary depending on VerticalScroll value + Y)
+                ; (*) 216 value here is intentional, to hide unused sprites
                 out     (PORT_0), a
                 inc     hl
                 ; outi
