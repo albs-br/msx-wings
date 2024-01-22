@@ -111,7 +111,8 @@ EnemyShot_Init:
     ld      c, PORT_0        ; you can also write ld bc,#nn9B, which is faster
     ld      hl, SpriteColors_EnemyShot_0_to_2
     ; 16x OUTI
-    outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    call    OUTI_x16
+    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
 
 
 .return:

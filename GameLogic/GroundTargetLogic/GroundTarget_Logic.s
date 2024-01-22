@@ -300,10 +300,11 @@ GroundTarget_Logic:
     ld      c, PORT_0
     ld      hl, SpriteColors_Explosion_Frames_0_to_2
     ; 16x OUTI
-    outi outi outi outi
-    outi outi outi outi
-    outi outi outi outi
-    outi outi outi outi 
+    call    OUTI_x16
+    ; outi outi outi outi
+    ; outi outi outi outi
+    ; outi outi outi outi
+    ; outi outi outi outi 
 
 
     ld      a, (GroundTarget_Temp_Status)      ; get Status

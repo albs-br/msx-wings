@@ -314,7 +314,8 @@ LoadPlayerColors_Center:
     call    SetVdp_Write
     ld      hl, SpriteColors_PlayerPlane_2_and_3
     ; 12x outi
-    outi outi outi outi outi outi outi outi outi outi outi outi 
+    call    OUTI_x12
+    ;outi outi outi outi outi outi outi outi outi outi outi outi 
 
     
     ; Spr 3 colors
@@ -323,7 +324,8 @@ LoadPlayerColors_Center:
     call    SetVdp_Write
     ld      hl, SpriteColors_PlayerPlane_2_and_3 + 16
     ; 12x outi
-    outi outi outi outi outi outi outi outi outi outi outi outi 
+    call    OUTI_x12
+    ; outi outi outi outi outi outi outi outi outi outi outi outi 
 
     ret
 

@@ -304,7 +304,8 @@ Load_PlayerShot_Pattern_And_Colors:
 .loop:
         push    hl
             ; 16x outi
-            outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+            call    OUTI_x16
+            ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
         pop     hl
     dec     d
     jp      nz, .loop

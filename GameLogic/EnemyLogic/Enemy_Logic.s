@@ -269,10 +269,11 @@ Enemy_Logic:
     ld      c, PORT_0
     ld      hl, SpriteColors_Explosion_Frames_0_to_2
     ; 16x OUTI
-    outi outi outi outi
-    outi outi outi outi
-    outi outi outi outi
-    outi outi outi outi 
+    call    OUTI_x16
+    ; outi outi outi outi
+    ; outi outi outi outi
+    ; outi outi outi outi
+    ; outi outi outi outi 
 
     ; load explosion colors (second sprite)
     ld      hl, (Enemy_Temp_SPRCOL_Addr)
@@ -283,10 +284,11 @@ Enemy_Logic:
     ld      c, PORT_0
     ld      hl, SpriteColors_Explosion_Frames_0_to_2 + 16
     ; 16x OUTI
-    outi outi outi outi
-    outi outi outi outi
-    outi outi outi outi
-    outi outi outi outi 
+    call    OUTI_x16
+    ; outi outi outi outi
+    ; outi outi outi outi
+    ; outi outi outi outi
+    ; outi outi outi outi 
 
     jp      .return
 

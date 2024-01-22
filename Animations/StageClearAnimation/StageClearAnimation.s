@@ -296,7 +296,8 @@ StageClearAnimation:
         ; otir
         .innerLoop_colors:
             ; 16x outi
-            outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+            call    OUTI_x16
+            ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
             dec     a
             jp      nz, .innerLoop_colors
 
