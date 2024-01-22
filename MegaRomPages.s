@@ -1079,6 +1079,7 @@ GAMEOVER_ANIMATION_DATA_MEGAROM_PAGE:			  equ 247
 ; ------- Page 247
 	org	0x8000, 0xBFFF
     INCLUDE "Animations/StageClearAnimation/SPRATR_Data.s"
+    INCLUDE "Animations/GameOverAnimation/GameOverAnimation_Data.s"
     INCLUDE "Graphics/Sprites/GameOverAnimation/GameOverAnimation.s"
 MEGAROM_PAGE_247_size:          equ $ - 0x8000
 	ds PAGE_SIZE - ($ - 0x8000), 255

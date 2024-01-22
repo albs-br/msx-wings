@@ -82,20 +82,21 @@ DEBUG:          equ 255             ; defines debug mode, value is irrelevant (c
     INCLUDE "Animations/PauseAnimation/PauseAnimation.s"
 
     INCLUDE "Animations/LevelTitleAnimation/LevelTitleAnimation.s"
-    INCLUDE "Animations/LevelTitleAnimation/Data.s"
+    INCLUDE "Animations/LevelTitleAnimation/Data.s" ; 125 bytes
 
     INCLUDE "Animations/StageClearAnimation/StageClearAnimation.s"
     
     INCLUDE "Animations/GameOverAnimation/GameOverAnimation.s"
+    ; INCLUDE "Animations/GameOverAnimation/GameOverAnimation_Data.s" ; moved to a MegaROM page
 
     INCLUDE "DebugMessage.s"
 
-    INCLUDE "Graphics/Sprites/Fonts/FontsTest.s"
+    ; INCLUDE "Graphics/Sprites/Fonts/FontsTest.s" ; 269 bytes ; commented out to save space
     INCLUDE "Graphics/Sprites/Fonts/Fonts_CommonRoutines.s"
     INCLUDE "Graphics/Sprites/Fonts/Fonts_Constants.s"
 
-    INCLUDE "TitleScreen/TitleScreen.s"
-    INCLUDE "TitleScreen/Data.s"
+    INCLUDE "TitleScreen/TitleScreen.s" ; 1034 bytes
+    INCLUDE "TitleScreen/Data.s" ; 79 bytes
 
     ; Assets
     INCLUDE "Graphics/Sprites/SpritePalettes.s"
@@ -215,10 +216,10 @@ Execute:
 
     ; call    LoadSpritesForGameplay
 
-    ; debug
-    ; test GAME OVER animation
-    call    GameOverAnimation
-    jp $
+    ; ; debug
+    ; ; test GAME OVER animation
+    ; call    GameOverAnimation
+    ; jp $
 
 
 

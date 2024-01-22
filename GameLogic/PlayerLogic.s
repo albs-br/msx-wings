@@ -1,3 +1,131 @@
+PlayerLogic:
+
+    ld      a, (Player_Status)
+
+    or      a ; if (Player_Status == 0)
+    jp      z, .playerIsDead
+
+    cp      1 ; if (Player_Status == 1)
+    jp      z, .playerIsAlive
+
+    cp      20 + 1 ; if (Player_Status <= 20)
+    jp      c, .playerExplosion
+
+    cp      201 + 1 ; if (Player_Status <= 201)
+    jp      c, .playerRespawnInvencibility
+    
+    ; if (Player_Status >= 202) { Player_Status = 1; ret }
+    ld      a, 1
+    ld      (Player_Status), a
+    ret
+
+.playerIsDead:
+    ; ---- player just died
+
+    ; if no extra lives, then GameOver
+    ld      a, (Player_Lives)
+    or      a
+    jp      z, GameOverAnimation
+
+    ; Player_Lives--
+    dec     a
+    ld      (Player_Lives), a
+
+    ; start explosion animation
+    ld      a, 2
+    ld      (Player_Status), a
+
+    ret
+
+.playerExplosion:
+
+    ;Player_Status++
+    ld      hl, Player_Status
+    inc     (hl)
+
+    ld      a, (Player_Status)      ; get Status
+    cp      3 ; first frame of explosion (don't change it)
+    jp      z, .loadExplosionFrame_0
+    cp      7
+    jp      z, .loadExplosionFrame_1
+    cp      11
+    jp      z, .loadExplosionFrame_2
+    cp      15
+    jp      z, .loadExplosionFrame_3
+    ;jp      .return
+
+    ret
+
+.loadExplosionFrame_0:
+    ld      a, EXPLOSION_SPR_PAT_0_NUMBER
+    ld      (Player_SpritePatternNumber), a
+    
+    ; load explosion colors
+    ld      hl, SPRCOL ; addr of SPRCOL for first sprite of plane
+    ld      a, 0000 0001 b
+    call    SetVdp_Write
+    ld      c, PORT_0
+
+    ld      a, 8 ; color yellow
+    ld      b, 16
+.loop_1001:
+    nop
+    out     (c), a
+    djnz    .loop_1001
+
+    ld      a, 12 ; color light orange
+    ld      b, 16
+.loop_1002:
+    nop
+    out     (c), a
+    djnz    .loop_1002
+
+    ld      a, 4 ; color dark orange
+    ld      b, 16 + 16 ; 2 sprites here
+.loop_1003:
+    nop
+    out     (c), a
+    djnz    .loop_1003
+
+    ret
+
+.loadExplosionFrame_1:
+    ld      a, EXPLOSION_SPR_PAT_1_NUMBER
+    ld      (Player_SpritePatternNumber), a
+
+    ret
+
+.loadExplosionFrame_2:
+    ld      a, EXPLOSION_SPR_PAT_2_NUMBER
+    ld      (Player_SpritePatternNumber), a
+
+    ret
+
+.loadExplosionFrame_3:
+    ld      a, EMPTY_SPR_PAT_NUMBER
+    ld      (Player_SpritePatternNumber), a
+
+    ret
+
+
+.playerRespawnInvencibility:
+
+
+jp $ ;debug
+
+    ;Player_Status++
+    ld      hl, Player_Status
+    inc     (hl)
+
+    ret
+
+.playerIsAlive:
+
+    call    PlayerSprite
+    call    PlayerEngineAnimation
+
+    ret
+
 
 PlayerEngineAnimation:
 

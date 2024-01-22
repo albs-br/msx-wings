@@ -1,5 +1,8 @@
 InitVariables_PlayerStart:
 
+    ld      a, 1
+    ld      (Player_Status), a
+
     ld      a, PLAYER_INITIAL_X
     ld      (Player_X), a
 

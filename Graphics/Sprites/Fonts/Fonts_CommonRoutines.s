@@ -87,3 +87,59 @@ ConvertNumberToSpriteChar_SmallFont:
     add     hl, de
     djnz    .loop
     ret
+
+
+
+; Inputs:
+;   A: ascii code ('A'-'Z')
+; Output:
+;   HL: ROM base addr of font pattern (2x 16x16 sprite patterns). 
+Get_SmallFont_PatternAddr:
+    sub     65 - 37 ; 65 = ASCII code for 'A'; 37 = 'A' char position on fonts file
+    ld      b, a
+
+    ld      hl, SmallFont_Patterns
+
+    ; HL = HL + (64 * B)
+    ld      de, 64
+.loop:
+    add     hl, de
+    djnz    .loop
+
+    ret
+
+; Inputs:
+;   A: ascii code ('A'-'Z')
+; Output:
+;   HL: ROM base addr of font pattern (2x 16x16 sprite patterns). 
+Get_MediumFont_PatternAddr:
+    sub     65 - 10 ; 65 = ASCII code for 'A'; 10 = 'A' char position on fonts file
+    ld      b, a
+
+    ld      hl, MediumFont_Patterns
+
+    ; HL = HL + (64 * B)
+    ld      de, 64
+.loop:
+    add     hl, de
+    djnz    .loop
+
+    ret
+
+; Inputs:
+;   A: ascii code ('A'-'Z')
+; Output:
+;   HL: ROM base addr of font pattern (2x 16x16 sprite patterns). 
+Get_LargeFont_PatternAddr:
+    sub     65 - 10 ; 65 = ASCII code for 'A'; 10 = 'A' char position on fonts file
+    ld      b, a
+
+    ld      hl, LargeFont_Patterns
+
+    ; HL = HL + (64 * B)
+    ld      de, 64
+.loop:
+    add     hl, de
+    djnz    .loop
+
+    ret

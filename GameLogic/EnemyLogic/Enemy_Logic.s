@@ -166,6 +166,12 @@ Enemy_Logic:
         ; ld      a, (Enemy_Temp_Y_Static)
         ; ld      c, a
 
+        ; if (Player_Status != 1) return
+        ld      a, (Player_Status)
+        cp      1
+        jp      nz, .return
+
+
         ; check col. between current enemy and plane
         ld      a, (Player_X)
         add     2                           ; adjust the 16x16 collision box to the center of the plane
@@ -399,6 +405,10 @@ CheckCol_Enemy_PlayerPlane:
 ;.collision:
     ; ld      b, 30       ; 1/2 second
     ; call    Wait_B_Vblanks
+
+    ; set player status to dead
+    xor     a
+    ld      (Player_Status), a
 
     ld      hl, Enemy_Temp_Struct
     call    Enemy_StartExplosionAnimation

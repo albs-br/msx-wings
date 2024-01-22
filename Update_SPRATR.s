@@ -104,7 +104,13 @@ Update_SPRATR:
     ld      e, 216  ; Y value that hides the sprite and all sprites after
 
 
-; ================================== PLAYER PLANE ===================================
+
+    ; show player plane or explosion
+    ld      a, (Player_Status)
+    cp      1
+    jp      nz, .playerPlaneExplosion
+
+; ================================== PLAYER PLANE ALIVE ===================================
 
     ; Sprite # 0
     ld      a, (Player_Y)
@@ -211,6 +217,108 @@ Update_SPRATR:
     nop
     nop
     out     (c), d
+
+; ----------------------------------------
+
+    jp      .continue_1
+
+
+.playerPlaneExplosion:
+
+; ================================== PLAYER PLANE EXPLOSION ===================================
+
+    ; Sprite # 0
+    ld      a, (Player_Y)
+    cp      e           ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
+    out     (PORT_0), a
+    
+    nop
+    ld      a, (Player_X)
+    out     (PORT_0), a
+
+    nop
+    ld      a, (Player_SpritePatternNumber)
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+; ----------------------------------------
+
+    ; Sprite # 1
+    ld      a, (Player_Y)
+    cp      e           ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
+    out     (PORT_0), a
+
+    ld      a, (Player_X)
+    add     16
+    out     (PORT_0), a
+
+    nop
+    ld      a, (Player_SpritePatternNumber)
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+; ----------------------------------------
+
+    ; Sprite # 2
+    ld      a, (Player_Y)
+    add     16
+    cp      e           ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
+    out     (PORT_0), a
+
+    ld      a, (Player_X)
+    nop
+    out     (PORT_0), a
+
+    nop
+    ld      a, (Player_SpritePatternNumber)
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+; ----------------------------------------
+
+    ; Sprite # 3
+    ld      a, (Player_Y)
+    add     16
+    cp      e           ; if (Y == 216) Y++
+    jp      nz, $+4     ; jp nz is 3 bytes long, inc a is 1 byte long
+    inc     a
+    out     (PORT_0), a
+
+    ld      a, (Player_X)
+    add     16
+    out     (PORT_0), a
+
+    nop
+    ld      a, (Player_SpritePatternNumber)
+    out     (PORT_0), a
+
+    nop
+    nop
+    nop
+    out     (c), d
+
+; ----------------------------------------
+
+
+.continue_1:
 
 ; ================================== PLAYER SHOTS ===================================
 

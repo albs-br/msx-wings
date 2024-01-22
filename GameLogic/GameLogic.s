@@ -15,10 +15,13 @@ GameLogic:
     ; ld      hl, PlayerShot_5_Struct
     ; call    PlayerShot_Logic
 
+    ; -------------------------------------------
 
-    call    PlayerSprite
-    call    PlayerEngineAnimation
 
+    call    PlayerLogic
+
+
+    ; -------------------------------------------
 
 
     call    PlayerBombLogic

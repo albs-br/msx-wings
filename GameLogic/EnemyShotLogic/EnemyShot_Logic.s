@@ -128,9 +128,15 @@ EnemyShot_Logic:
         ld      a, ENEMY_SHOT_SPR_PAT_1_NUMBER
         ld      (EnemyShot_Temp_Pattern), a
 
-        ; --------------------------- check collision  -------------------------
+        ; --------------------------- check collision between enemy shot and player -------------------------
 
     .checkCollision:
+
+        ; if (Player_Status != 1) return
+        ld      a, (Player_Status)
+        cp      1 ; TODO: may use DEC A to save cycles
+        jp      nz, .return
+
 
         ld      a, (EnemyShot_Temp_X)
         ;add     2
@@ -152,6 +158,12 @@ EnemyShot_Logic:
         jp      .return
 
     .playerHit:
+
+        ; set player status to dead
+        xor     a
+        ld      (Player_Status), a
+
+
         ;jp .playerHit ; debug
         ; ld      b, 30       ; 1/2 second
         ; call    Wait_B_Vblanks
