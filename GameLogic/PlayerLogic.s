@@ -22,15 +22,6 @@ PlayerLogic:
 .playerIsDead:
     ; ---- player just died
 
-    ; if no extra lives, then GameOver
-    ld      a, (Player_Lives)
-    or      a
-    jp      z, GameOverAnimation
-
-    ; Player_Lives--
-    dec     a
-    ld      (Player_Lives), a
-
     ; start explosion animation
     ld      a, 2
     ld      (Player_Status), a
@@ -110,11 +101,27 @@ PlayerLogic:
 
 .playerRespawnInvencibility:
     
+
+
+
     ; if (Player_Status == 21)
     ld      a, (Player_Status)
     cp      21
     jp      nz, .continue_9
-    
+
+
+    ; ---- code run only on respawn entry
+
+    ; if no extra lives, then GameOver
+    ld      a, (Player_Lives)
+    or      a
+    jp      z, GameOverAnimation
+
+    ; Player_Lives--
+    dec     a
+    ld      (Player_Lives), a
+
+
     call    InitVariables_PlayerRespawn
     call    PlayerSprite ; set sprite patterns
 
@@ -241,21 +248,35 @@ PlayerSprite:
     cp      PLAYER_SIDE_MOVEMENT_CENTER
     jp      z, .centeredPlane
     
-    cp      PLAYER_SIDE_MOVEMENT_CENTER - 1 ; 127
-    jp      z, .planeLeft_1
-    cp      PLAYER_SIDE_MOVEMENT_CENTER - PLAYER_SIDE_MOVEMENT_INTERMEDIATE ; 118
-    jp      z, .planeLeft_1
-    cp      PLAYER_SIDE_MOVEMENT_CENTER - PLAYER_SIDE_MOVEMENT_INTERMEDIATE - 1 ; 117
-    jp      z, .planeLeft_0
+    ; if (Player_SideMovementCounter <= 117) left_0
+    cp      PLAYER_SIDE_MOVEMENT_CENTER - PLAYER_SIDE_MOVEMENT_INTERMEDIATE - 1 + 1 ; 117 + 1
+    jp      c, .planeLeft_0
+    ; if (Player_SideMovementCounter <= 127) left_1
+    cp      PLAYER_SIDE_MOVEMENT_CENTER - 1 + 1 ; 127 + 1
+    jp      c, .planeLeft_1
 
-    cp      PLAYER_SIDE_MOVEMENT_CENTER + 1 ; 129
-    jp      z, .planeRight_1
-    cp      PLAYER_SIDE_MOVEMENT_CENTER + PLAYER_SIDE_MOVEMENT_INTERMEDIATE - 1 ; 137
-    jp      z, .planeRight_1
-    cp      PLAYER_SIDE_MOVEMENT_CENTER + PLAYER_SIDE_MOVEMENT_INTERMEDIATE ; 138
-    jp      z, .planeRight_0
+    ; if (Player_SideMovementCounter <= 137) right_0
+    cp      PLAYER_SIDE_MOVEMENT_CENTER + PLAYER_SIDE_MOVEMENT_INTERMEDIATE - 1 + 1 ; 137 + 1
+    jp      c, .planeRight_1
 
-    ret
+    ; else
+    jp      .planeRight_0
+
+    ; cp      PLAYER_SIDE_MOVEMENT_CENTER - 1 ; 127
+    ; jp      z, .planeLeft_1
+    ; cp      PLAYER_SIDE_MOVEMENT_CENTER - PLAYER_SIDE_MOVEMENT_INTERMEDIATE ; 118
+    ; jp      z, .planeLeft_1
+    ; cp      PLAYER_SIDE_MOVEMENT_CENTER - PLAYER_SIDE_MOVEMENT_INTERMEDIATE - 1 ; 117
+    ; jp      z, .planeLeft_0
+
+    ; cp      PLAYER_SIDE_MOVEMENT_CENTER + 1 ; 129
+    ; jp      z, .planeRight_1
+    ; cp      PLAYER_SIDE_MOVEMENT_CENTER + PLAYER_SIDE_MOVEMENT_INTERMEDIATE - 1 ; 137
+    ; jp      z, .planeRight_1
+    ; cp      PLAYER_SIDE_MOVEMENT_CENTER + PLAYER_SIDE_MOVEMENT_INTERMEDIATE ; 138
+    ; jp      z, .planeRight_0
+
+    ; ret
 
 .centeredPlane:
 

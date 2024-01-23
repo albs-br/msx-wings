@@ -23,7 +23,7 @@ GameOverAnimation:
 
     ld      a, (GameOverAnimation_Vars.Counter)
     cp      255
-    jp      z, $ ; debug
+    jp      z, Execute
 
     
     ld      hl, SPRATR
