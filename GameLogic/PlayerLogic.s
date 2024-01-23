@@ -128,7 +128,7 @@ PlayerLogic:
 
     ; logic to blink plane while on respawn invencibility
     ld      a, (BIOS_JIFFY)
-    and     0000 0001 b
+    and     0000 0010 b
     jp      z, .hidePlayerSprites
 
     call    PlayerSprite ; reset sprite patterns & colors
@@ -228,6 +228,13 @@ ColorsPlayerPlaneEngine_Frame_1:
 ; Read the Player_SideMovementCounter and update the 
 ; player sprite pattern and colors based on its value
 PlayerSprite:
+
+    ; Player_SideMovementCounter value:
+    ; 108 ---- 115 116 ---- 127  128 129 ---- 139 140 ---- 148
+    ;  |        |   |        |    |   |        |   |        | 
+    ;  |        |   |        |    |   |        |   |        | 
+    ;  |________|   |________|    |   |________|   |________| 
+    ;    left_0       left_1   center   right_1      right_0   
 
     ; if (Player_SideMovementCounter == 128)
     ld      a, (Player_SideMovementCounter)

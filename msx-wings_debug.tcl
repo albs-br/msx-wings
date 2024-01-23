@@ -1,6 +1,7 @@
 #ram_watch   add     0xc001      -type byte      -desc Player_Y             -format dec
 #ram_watch   add     0xc002      -type byte      -desc Player_Y_Static      -format dec
-#ram_watch   add     0xc003      -type byte      -desc Player_SideMovementCounter      -format dec
+
+ram_watch   add     0xc008      -type byte      -desc Player_SideMovementCounter      -format dec
 
 #ram_watch   add     0xc005      -type byte       -desc Player_Shot_Level      -format dec
 #ram_watch   add     0xc006      -type byte       -desc Player_Shot_Width      -format dec
