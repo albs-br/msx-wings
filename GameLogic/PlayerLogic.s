@@ -109,13 +109,45 @@ PlayerLogic:
 
 
 .playerRespawnInvencibility:
+    
+    ; if (Player_Status == 21)
+    ld      a, (Player_Status)
+    cp      21
+    jp      nz, .continue_9
+    
+    call    InitVariables_PlayerRespawn
+    call    PlayerSprite ; set sprite patterns
 
-
-jp $ ;debug
+.continue_9:
 
     ;Player_Status++
     ld      hl, Player_Status
     inc     (hl)
+
+
+
+    ; logic to blink plane while on respawn invencibility
+    ld      a, (BIOS_JIFFY)
+    and     0000 0001 b
+    jp      z, .hidePlayerSprites
+
+    call    PlayerSprite ; reset sprite patterns & colors
+
+    ret
+
+.hidePlayerSprites:
+    ; ---- set all sprite player plane colors to 0 (transparent)
+    ; Spr 0 to 3 colors
+    ld      a, 0000 0001 b
+    ld      hl, SPRCOL
+    call    SetVdp_Write
+    xor     a ; color transparent (0)
+    ld      c, PORT_0
+    ld      b, 16 * 4 ; 4 sprites, 16 colors per sprite
+.loop_9:
+    out     (c), a
+    nop
+    djnz    .loop_9
 
     ret
 

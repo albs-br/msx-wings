@@ -105,12 +105,18 @@ Update_SPRATR:
 
 
 
-    ; show player plane or explosion
+    ; show player plane or explosion   
+    ; if (Player_Status >= 2 && Player_Status <= 20) playerPlaneExplosion
     ld      a, (Player_Status)
-    cp      1
-    jp      nz, .playerPlaneExplosion
+    cp      2
+    jp      c, .playerPlaneNormal ; if (A < 2) playerPlaneAlive
+    cp      20 + 1
+    jp      c, .playerPlaneExplosion ; if (A < 20) playerPlaneExplosion
+    ; jp      .playerPlaneNormal
 
-; ================================== PLAYER PLANE ALIVE ===================================
+; ================================== PLAYER PLANE ALIVE/RESPAWN ===================================
+
+.playerPlaneNormal:
 
     ; Sprite # 0
     ld      a, (Player_Y)

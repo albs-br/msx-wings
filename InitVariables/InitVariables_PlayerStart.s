@@ -1,14 +1,25 @@
 InitVariables_PlayerStart:
 
-    ld      a, 1
+    ld      a, 1 ; set status = alive
+
+    jp      InitVariables_continue
+
+InitVariables_PlayerRespawn:
+
+    ld      a, 21 ; set status = respawn
+
+InitVariables_continue:
     ld      (Player_Status), a
 
     ld      a, PLAYER_INITIAL_X
     ld      (Player_X), a
 
     ld      a, PLAYER_INITIAL_Y
-    ld      (Player_Y), a
     ld      (Player_Y_Static), a
+    ld      b, a
+    ld      a, (VerticalScroll) ; adjust to scroll
+    add     b
+    ld      (Player_Y), a
 
     ld      a, 0
     ld      (Player_Shot_Level), a
