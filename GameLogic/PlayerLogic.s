@@ -230,11 +230,11 @@ ColorsPlayerPlaneEngine_Frame_1:
 PlayerSprite:
 
     ; Player_SideMovementCounter value:
-    ; 108 ---- 115 116 ---- 127  128 129 ---- 139 140 ---- 148
-    ;  |        |   |        |    |   |        |   |        | 
-    ;  |        |   |        |    |   |        |   |        | 
-    ;  |________|   |________|    |   |________|   |________| 
-    ;    left_0       left_1   center   right_1      right_0   
+    ; 108 ---- 117 118 ---- 127  128  129 ---- 137 138 ---- 148
+    ;  |        |   |        |    |    |        |   |        | 
+    ;  |        |   |        |    |    |        |   |        | 
+    ;  |________|   |________|    |    |________|   |________| 
+    ;    left_0       left_1   center    right_1      right_0   
 
     ; if (Player_SideMovementCounter == 128)
     ld      a, (Player_SideMovementCounter)
@@ -243,16 +243,16 @@ PlayerSprite:
     
     cp      PLAYER_SIDE_MOVEMENT_CENTER - 1 ; 127
     jp      z, .planeLeft_1
-    cp      PLAYER_SIDE_MOVEMENT_CENTER - PLAYER_SIDE_MOVEMENT_INTERMEDIATE ; 116
+    cp      PLAYER_SIDE_MOVEMENT_CENTER - PLAYER_SIDE_MOVEMENT_INTERMEDIATE ; 118
     jp      z, .planeLeft_1
-    cp      PLAYER_SIDE_MOVEMENT_CENTER - PLAYER_SIDE_MOVEMENT_INTERMEDIATE - 1 ; 115
+    cp      PLAYER_SIDE_MOVEMENT_CENTER - PLAYER_SIDE_MOVEMENT_INTERMEDIATE - 1 ; 117
     jp      z, .planeLeft_0
 
     cp      PLAYER_SIDE_MOVEMENT_CENTER + 1 ; 129
     jp      z, .planeRight_1
-    cp      PLAYER_SIDE_MOVEMENT_CENTER + PLAYER_SIDE_MOVEMENT_INTERMEDIATE - 1 ; 139
+    cp      PLAYER_SIDE_MOVEMENT_CENTER + PLAYER_SIDE_MOVEMENT_INTERMEDIATE - 1 ; 137
     jp      z, .planeRight_1
-    cp      PLAYER_SIDE_MOVEMENT_CENTER + PLAYER_SIDE_MOVEMENT_INTERMEDIATE ; 140
+    cp      PLAYER_SIDE_MOVEMENT_CENTER + PLAYER_SIDE_MOVEMENT_INTERMEDIATE ; 138
     jp      z, .planeRight_0
 
     ret
