@@ -23,10 +23,10 @@ PauseAnimation:
     ; if(PauseAnimation_Counter == END_PAUSE_ANIMATION_STEP_2)
     cp      END_PAUSE_ANIMATION_STEP_2
     jp      z, .resetAnimation
-    ; else 
-    jp      .animationStep_2
+    ; else
+    jp      .alternateColors_TopScore
 
-    ret
+    ; ret
 
 
 
@@ -209,7 +209,7 @@ PauseAnimation:
     cp      16 + 8 ; 24 frames, started in -16, it will stop when Y = 8
     jp      nc, .endTopScreenAnimation
 
-    ; Read Y coord of Bombs number sprite (sprite #5), increment and save it
+    ; Read Y coord of Lives/Bombs number sprite (sprite #5), increment and save it
     ld      a, 0000 0001 b
     ld      hl, SPRATR + (4 * 5)
     call    SetVdp_Read
@@ -224,6 +224,8 @@ PauseAnimation:
     
 .endTopScreenAnimation:
 
+    call    .alternateColors_TopScore
+
     ; set PauseAnimation_TempAddr to next frame of animation
     ; PauseAnimation_TempAddr++
     ld      ix, (PauseAnimation_TempAddr)
@@ -234,7 +236,7 @@ PauseAnimation:
 
 
 
-.animationStep_2:
+.alternateColors_TopScore:
     ; alternate sprite colors based on PauseAnimation_Counter
     ld      a, (PauseAnimation_Counter)
     and     0000 0100 b
@@ -261,7 +263,7 @@ PauseAnimation:
     ret
 
 
-
+; keep animation counter running between (END_PAUSE_ANIMATION_STEP_1 + 1) and 255
 .resetAnimation:
     ; PauseAnimation_Counter = END_PAUSE_ANIMATION_STEP_1 + 1
     ld      a, END_PAUSE_ANIMATION_STEP_1 + 1
