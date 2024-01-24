@@ -7,7 +7,7 @@
 ;       14      10-23       Enemies (*) (**)
 ;       7       24-30       Enemy shots (7x 16x16 single sprites) or player bomb sprites (14 sprites alternating 7 per frame)(***)
 ;       1       31          Ground target (sprite used only to blink when shot), 
-;                           this is shared by all ground targets, as only one is being shot at a time
+;                           this is shared by all ground targets, as only one is being shot at a time (****)
 
 ; (*)
 ; SMALL_ENEMIES: 7x two 16x16 or-color sprites enemies (18x24 total size aprox)
@@ -24,6 +24,8 @@
 ; even frames:
 ; X X X X X X X
 ; horizontal spacing between sprites: 18 pixels (18 x 14 = 252)
+
+; (****) also used for "1000 points" sprite
 
 PLAYER_SPR_PAT_0_NUMBER:                equ 0 * 4
 PLAYER_SPR_PAT_1_NUMBER:                equ 1 * 4

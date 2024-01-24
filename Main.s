@@ -95,7 +95,7 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     INCLUDE "Graphics/Sprites/Fonts/Fonts_CommonRoutines.s"
     INCLUDE "Graphics/Sprites/Fonts/Fonts_Constants.s"
 
-    INCLUDE "TitleScreen/TitleScreen.s" ; 1034 bytes
+    INCLUDE "TitleScreen/TitleScreen.s" ; 759 bytes
     INCLUDE "TitleScreen/Data.s" ; 79 bytes
 
     ; Assets
