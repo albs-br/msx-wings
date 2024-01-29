@@ -112,10 +112,7 @@ GroundTarget_Logic:
     call    SetVdp_Write
     ld      c, PORT_0
     ld      hl, SpriteColors_GroundTarget_0
-    ; 32x OUTI
-    call    OUTI_x32
-    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
-    ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+    call    OUTI_x16
 
 
 
@@ -205,7 +202,28 @@ GroundTarget_Logic:
     ld      a, POINTS_1000_PAT_NUMBER
     ld      (GroundTarget_Sprite.PatternNumber), a        
 
-    ; TODO: is necessary to load sprite colors too?
+
+
+    ; ---- update SPRCOL table (blink "1000 points" sprite)
+    ld      hl, GROUND_TARGET_SPRCOL_ADDR
+    ld      a, 0000 0001 b
+    call    SetVdp_Write
+    
+    ld      a, (BIOS_JIFFY)
+    and     0000 0011 b ; get value between 0 and 3
+    ld      hl, Points_1000_Colors
+    ld      d, 0
+    ld      e, a
+    add     hl, de ; HL += A
+
+    ld      c, PORT_0
+    ld      b, 16 ; 16 bytes on SPRCOL
+.loop_30:
+    ld      a, (hl)
+    out     (c), a
+    djnz    .loop_30
+
+
 
     ; Status++
     ld      a, (GroundTarget_Temp_Status)
@@ -501,3 +519,14 @@ DrawGroundTargetDestroyed:
     call    Copy16x16ImageFromRAMToVRAM
 
     ret
+
+
+Points_1000_Colors:
+	; db	0x05    ; blue
+	; db	0x0f    ; medium gray
+	; db	0x09    ; light blue
+	; db	0x0d    ; white
+	db	0x05    ; blue
+	db	0x05    ; blue
+	db	0x0d    ; white
+	db	0x0d    ; white

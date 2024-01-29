@@ -50,4 +50,15 @@ GroundTarget_Reset:
     ld      (GroundTarget_Sprite.PatternNumber), a
 
 
+
+
+    ; Load ground target colors (reset colors)
+    ld      a, 0000 0001 b
+    ld      hl, GROUND_TARGET_SPRCOL_ADDR
+    call    SetVdp_Write
+    ld      c, PORT_0
+    ld      hl, SpriteColors_GroundTarget_0
+    call    OUTI_x16
+
+
     ret
