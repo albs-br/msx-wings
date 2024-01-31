@@ -385,6 +385,7 @@ BigEnemy_Logic:
     ld      (BigEnemy_Temp_Pattern_6), a
 
  
+    ; --- explosion sfx is played twice for Big Enemies
      ;ld      a, 200          ; volume
     ld      a, SFX_EXPLOSION    ; number of sfx in the bank
     ld      c, 1                ; sound priority
@@ -542,7 +543,7 @@ BigEnemy_StartExplosionAnimation:
     ld      (hl), a                         ; Y6
     inc     hl
 
-
+    ; --- explosion sfx is played twice for Big Enemies
     ;ld      a, 200          ; volume
     ld      a, SFX_EXPLOSION    ; number of sfx in the bank
     ld      c, 1                ; sound priority
