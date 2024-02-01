@@ -263,6 +263,24 @@ GroundTarget_Logic:
     ld      a, 40
     ld      (GroundTarget_Temp_Status), a
 
+    ; increment score by 1000 points
+    ; todo: PUT IT ON SUBROUTINE (value to be added passed by B register)
+    ld      hl, (Player_Score)
+    ld      a, l
+    inc     a   ; 1000 points
+    daa         ; decimal adjust A (BCD coded)
+    ld      l, a
+    ; TODO: check if is necessary to inc H also
+;     or      a
+;     jp      nz, .notCarry_Score
+;     ld      a, h
+;     inc     a
+;     daa         ; decimal adjust A (BCD coded)
+;     ld      h, a
+; .notCarry_Score:
+    ld      (Player_Score), hl
+
+
     ;jp      GroundTarget_Logic.groundTargetReset
     jp      .return
 

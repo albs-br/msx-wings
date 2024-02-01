@@ -19,6 +19,7 @@ ram_watch   add     0xc008      -type byte      -desc Player_SideMovementCounter
 #ram_watch   add     0xc3cd      -type byte       -desc LevelInitAnimation_Counter      -format dec
 
 ram_watch   add     0xc00f      -type byte       -desc Player_Lives      -format dec
+ram_watch   add     0xc010      -type word       -desc Score             -format hex
 
 
 

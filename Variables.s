@@ -21,6 +21,8 @@ Player_Bomb_Y:                      rb 1
 Player_Bomb_Y_Static:               rb 1
 Player_Lives:                       rb 1
 
+Player_Score:                       rw 1 ; BCD coded (0-9999) range. Will be shown on screen x1000
+
 ; ---------------------------------------
 
 PlayerShot_Temp_Struct:

@@ -28,6 +28,9 @@ InitVariables_GameStart:
     ld      a, 3
     ld      (Player_BombsNumber), a
 
+    ld      hl, 0x0000
+    ld      (Player_Score), hl
+
     ; xor     a
     ; ld      (GameOverAnimation_Vars.Counter), a
 
