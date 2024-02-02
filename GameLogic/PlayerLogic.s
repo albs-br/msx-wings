@@ -489,3 +489,26 @@ LoadPlayerColors_Right_1:
     
     ret
 
+
+; Input:
+;   B: points to be added (x1000)
+PlayerLogic_AddToScore:
+
+    xor     a ; clear carry flag
+    ld      hl, (Player_Score)
+
+    ; low byte
+    ld      a, l
+    add     b
+    daa         ; decimal adjust A (BCD coded)
+    ld      l, a
+
+    ; high byte
+    ld      a, h
+    adc     0   ; add carry from previous byte
+    daa         ; decimal adjust A (BCD coded)
+    ld      h, a
+
+    ld      (Player_Score), hl
+    
+    ret

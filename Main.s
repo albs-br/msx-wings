@@ -125,17 +125,19 @@ Execute:
 	ld	    (Seg_P8000_SW), a
 
 
+    call    ClearRam
 
-    call    TitleScreen
+
+    ; call    TitleScreen ; debug
 
 
 
     ; install the interrupt routine
 	di
-	ld	    a, 0xc3 ; opcode for "JP nn"
-	ld	    (HTIMI), a
-	ld	    hl, HOOK
-	ld	    (HTIMI + 1), hl
+        ld	    a, 0xc3 ; opcode for "JP nn"
+        ld	    (HTIMI), a
+        ld	    hl, HOOK
+        ld	    (HTIMI + 1), hl
 	ei
 
 
@@ -151,7 +153,7 @@ Execute:
 
 
 ; ---------------------
-    call    ClearRam
+    ; call    ClearRam
 
 
     call    InitVariables_GameStart
