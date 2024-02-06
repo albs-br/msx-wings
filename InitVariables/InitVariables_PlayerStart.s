@@ -33,6 +33,9 @@ InitVariables_continue:
     ld      a, PLAYER_SPR_PAT_0_NUMBER      ; set sprite pattern for plane still (not moving sideways)
     ld      (Player_SpritePatternNumber), a
 
+    ld      a, 1
+    ld      (Player_Controls_Enabled), a
+
     ld      hl, PlayerShot_0_Struct
     call    PlayerShot_Reset
     ld      hl, PlayerShot_1_Struct

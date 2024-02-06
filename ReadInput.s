@@ -36,6 +36,11 @@ ReadInput:
 
     ld      c, 0    ; control variable to check left/right press
 
+    ; if (Player_Controls_Enabled == 0) ignoreLeftAndRightControls
+    ld      a, (Player_Controls_Enabled)
+    or      a
+    jp      z, .ignoreLeftAndRightControls
+
     ld      a, e
     bit     4, a                    ; 4th bit (key left)
     call    z, .playerLeft
@@ -43,7 +48,9 @@ ReadInput:
     ld      a, e
     bit     7, a                    ; 7th bit (key right)
     call    z, .playerRight
-    
+
+.ignoreLeftAndRightControls:    
+
     ; if neither left nor right pressed, slowly return Player_SideMovementCounter to 0
     ld      a, c
     or      a

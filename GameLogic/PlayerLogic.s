@@ -26,6 +26,14 @@ PlayerLogic:
     ld      a, 2
     ld      (Player_Status), a
 
+    xor     a
+    ld      (Player_Controls_Enabled), a
+
+     ;ld      a, 200          ; volume
+    ld      a, SFX_EXPLOSION    ; number of sfx in the bank
+    ld      c, 1                ; sound priority
+    call    PlaySfx
+
     ret
 
 .playerExplosion:
