@@ -11,10 +11,10 @@ PlayerLogic:
     cp      20 + 1 ; if (Player_Status <= 20)
     jp      c, .playerExplosion
 
-    cp      201 + 1 ; if (Player_Status <= 201)
+    cp      250 + 1 ; if (Player_Status <= 250)
     jp      c, .playerRespawnInvencibility
     
-    ; if (Player_Status >= 202) { Player_Status = 1; ret }
+    ; if (Player_Status >= 251) { Player_Status = 1; ret }
     ld      a, 1
     ld      (Player_Status), a
     ret
@@ -51,6 +51,12 @@ PlayerLogic:
     jp      z, .loadExplosionFrame_2
     cp      15
     jp      z, .loadExplosionFrame_3
+    ; cp      23
+    ; jp      z, .loadExplosionFrame_4
+    ; cp      28
+    ; jp      z, .loadExplosionFrame_5
+    ; cp      33
+    ; jp      z, .loadExplosionFrame_6
     ;jp      .return
 
     ret
@@ -101,10 +107,28 @@ PlayerLogic:
     ret
 
 .loadExplosionFrame_3:
-    ld      a, EMPTY_SPR_PAT_NUMBER
+    ld      a, EXPLOSION_SPR_PAT_0_NUMBER
     ld      (Player_SpritePatternNumber), a
 
     ret
+
+; .loadExplosionFrame_4:
+;     ld      a, EXPLOSION_SPR_PAT_1_NUMBER
+;     ld      (Player_SpritePatternNumber), a
+
+;     ret
+
+; .loadExplosionFrame_5:
+;     ld      a, EXPLOSION_SPR_PAT_2_NUMBER
+;     ld      (Player_SpritePatternNumber), a
+
+;     ret
+
+; .loadExplosionFrame_6:
+;     ld      a, EMPTY_SPR_PAT_NUMBER
+;     ld      (Player_SpritePatternNumber), a
+
+;     ret
 
 
 .playerRespawnInvencibility:

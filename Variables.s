@@ -1,7 +1,8 @@
 Seed:                               rw 1
 
 
-Player_Status:                      rb 1    ; 0: dead, 1: alive, 2-20: explosion animation, 21-201: respawn invencibility
+;Player_Status:                   rb 1    ; 0: dead, 1: alive, 2-20: explosion animation, 21-201: respawn invencibility
+Player_Status:                    rb 1    ; 0: dead, 1: alive, 2-20: explosion animation, 21-250: respawn invencibility
 
 Player_X:                           rb 1
 Player_Y:                           rb 1

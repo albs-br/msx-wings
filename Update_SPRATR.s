@@ -111,10 +111,10 @@ Update_SPRATR:
     ; if (Player_Status >= 2 && Player_Status <= 20) playerPlaneExplosion
     ld      a, (Player_Status)
     cp      2
-    jp      c, .playerPlaneNormal ; if (A < 2) playerPlaneAlive
+    jp      c, .playerPlaneNormal ; if (A < 2) playerPlaneNormal
     cp      20 + 1
     jp      c, .playerPlaneExplosion ; if (A < 20) playerPlaneExplosion
-    ; jp      .playerPlaneNormal
+    ; jp      .playerPlaneNormal ; else playerPlaneNormal
 
 ; ================================== PLAYER PLANE ALIVE/RESPAWN ===================================
 
@@ -146,7 +146,7 @@ Update_SPRATR:
     ld      a, (Player_SpritePatternNumber)
     out     (PORT_0), a
 
-    ; TODO: these 3 NOP's can be changed by
+    ; TODO: these 3 NOP's can be changed to
     ; ld        a, (Player_Y)
     ; cp        e
     ; (code of next sprite). Worse for legibilty, better for performance
