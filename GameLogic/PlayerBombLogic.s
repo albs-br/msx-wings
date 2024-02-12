@@ -47,47 +47,83 @@ PlayerBombLogic:
     ; ---- check collision with enemies (only Y axis)
     ld      ix, Enemy_0_Struct
     call    .checkCollision_PlayerBomb_Enemy
-    call    c, .collision
+    call    c, .collision_with_Enemy
 
     ld      ix, Enemy_1_Struct
     call    .checkCollision_PlayerBomb_Enemy
-    call    c, .collision
+    call    c, .collision_with_Enemy
 
     ld      ix, Enemy_2_Struct
     call    .checkCollision_PlayerBomb_Enemy
-    call    c, .collision
+    call    c, .collision_with_Enemy
 
     ld      ix, Enemy_3_Struct
     call    .checkCollision_PlayerBomb_Enemy
-    call    c, .collision
+    call    c, .collision_with_Enemy
 
     ld      ix, Enemy_4_Struct
     call    .checkCollision_PlayerBomb_Enemy
-    call    c, .collision
+    call    c, .collision_with_Enemy
 
     ld      ix, Enemy_5_Struct
     call    .checkCollision_PlayerBomb_Enemy
-    call    c, .collision
+    call    c, .collision_with_Enemy
 
     ld      ix, Enemy_6_Struct
     call    .checkCollision_PlayerBomb_Enemy
-    call    c, .collision
+    call    c, .collision_with_Enemy
+
+
+
+    ; TODO
+    ; ---- check collision with big enemies (only Y axis)
+
+
+
+    ; ---- check collision with ground targets (only Y axis)
+    ld      ix, GroundTarget_0_Struct
+    call    .checkCollision_PlayerBomb_GroundTarget
+    call    c, .collision_with_GroundTarget
+
+    ld      ix, GroundTarget_1_Struct
+    call    .checkCollision_PlayerBomb_GroundTarget
+    call    c, .collision_with_GroundTarget
+
+    ld      ix, GroundTarget_2_Struct
+    call    .checkCollision_PlayerBomb_GroundTarget
+    call    c, .collision_with_GroundTarget
+
+    ld      ix, GroundTarget_3_Struct
+    call    .checkCollision_PlayerBomb_GroundTarget
+    call    c, .collision_with_GroundTarget
+
+    ld      ix, GroundTarget_4_Struct
+    call    .checkCollision_PlayerBomb_GroundTarget
+    call    c, .collision_with_GroundTarget
+
+    ld      ix, GroundTarget_5_Struct
+    call    .checkCollision_PlayerBomb_GroundTarget
+    call    c, .collision_with_GroundTarget
+
 
 
     ret
 
-.collision:
-    ; call    PlayerShot_Reset
+.collision_with_Enemy:
     push    ix ; HL = IX
     pop     hl
-    ; ld      hl, Enemy_Temp_Struct
     call    Enemy_StartExplosionAnimation
     
     ret
 
-;  Calculates whether a collision occurs between player bomb and enemy (only Y axis)
+.collision_with_GroundTarget:
+    call    GroundTarget_StartExplosionAnimation_from_IX
+    
+    ret
+
+;  Calculates whether a collision occurs between player bomb and an enemy (only Y axis)
 ; IN: 
-;    HL: enemy struct addr
+;    IX: enemy struct addr
 ; OUT: Carry set if collision
 ; CHANGES: AF
 .checkCollision_PlayerBomb_Enemy:
@@ -114,6 +150,40 @@ PlayerBombLogic:
 
     sub     16                          ; compare with size 2
     ret                                 ; return collision or no collision
+
+
+
+;  Calculates whether a collision occurs between player bomb and a ground target (only Y axis)
+; IN: 
+;    IX: ground target struct addr
+; OUT: Carry set if collision
+; CHANGES: AF
+.checkCollision_PlayerBomb_GroundTarget:
+    ld      a, (ix)         ; get ground target status
+    ; or      a
+    ; ret     z               ; if (Status == 0) ret
+    ; cp      255             ; if (Status == 255) ret (means that this enemy was turned into item)
+    ; ret     z
+    cp      1       ; check collision only if ground status is alive (status = 1)
+    scf         ; set carry flag
+    ccf         ; complement carry flag
+    ret     nz
+
+    ; get ground target Y static
+    ld      c, (ix + 3)
+
+    ld      a, (Player_Bomb_Y_Static)   ; get y2
+    sub     c                           ; calculate y2 - y1
+    jr      c, .y1IsLarger_0            ; jump if y2 < y1
+    sub     16                          ; compare with size 1
+    ret                                 ; return collision or no collision
+.y1IsLarger_0:
+    neg                                 ; use negative value (Z80)
+
+    sub     16                          ; compare with size 2
+    ret                                 ; return collision or no collision
+
+
 
 .resetPlayerBomb:
     xor     a

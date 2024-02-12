@@ -396,7 +396,7 @@ CheckCol_GroundTarget_PlayerShot:
     ld      a, (GroundTarget_Temp_Health)
     dec     a
     ld      (GroundTarget_Temp_Health), a
-    call    z, .startExplosionAnimation
+    call    z, GroundTarget_StartExplosionAnimation
 
 
 
@@ -414,7 +414,12 @@ CheckCol_GroundTarget_PlayerShot:
 
     ret
 
-.startExplosionAnimation:
+GroundTarget_StartExplosionAnimation_from_IX:
+    ld      a, 2
+    ld      (ix), a                         ; status
+    jp      GroundTarget_StartExplosionAnimation.continue
+
+GroundTarget_StartExplosionAnimation:
     ; ld      hl, GroundTarget_Temp_Struct
     ; call    StartExplosionAnimation
 
@@ -422,7 +427,7 @@ CheckCol_GroundTarget_PlayerShot:
     ld      (GroundTarget_Temp_Status), a                         ; status
     ; ld      (hl), a                         ; status
 
-
+.continue:
 
     ;ld      a, 200          ; volume
     ld      a, SFX_EXPLOSION    ; number of sfx in the bank
