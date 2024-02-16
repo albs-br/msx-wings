@@ -41,6 +41,7 @@ BigEnemy_Init:
         ld      a, (BigEnemy_Temp_Status)      ; get Status
         cp      1
     .debugTrap:
+        ; ld      hl, STRING_DEBUG_BIG_ENEMY_INIT_ERROR
         ld      hl, STRING_DEBUG_ENEMY_INIT_ERROR
         JP      z, DebugMessage
     ENDIF    

@@ -123,4 +123,13 @@ EnemyShot_Init:
     ldir                                                        ; Copy BC bytes from HL to DE
 
 
+
+    ; TODO: use specific sfx for enemy shots
+    ;ld      a, 100           ; volume
+    ld      a, SFX_SHOT     ; number of sfx in the bank
+    ld      c, 15            ; sound priority
+    call    PlaySfx
+
+
+
     ret

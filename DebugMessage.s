@@ -1,4 +1,5 @@
 STRING_DEBUG_ENEMY_INIT_ERROR:          db "Enemy is being initialized before its lifecycle ends", 0
+;STRING_DEBUG_BIG_ENEMY_INIT_ERROR:      db "Big enemy is being initialized before its lifecycle ends", 0
 STRING_DEBUG_ENEMY_SHOT_INIT_ERROR:     db "Enemy shot is being initialized before its lifecycle ends", 0
 
 
