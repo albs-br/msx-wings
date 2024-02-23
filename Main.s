@@ -128,7 +128,7 @@ Execute:
     call    ClearRam
 
 
-    ; call    TitleScreen ; debug
+    call    TitleScreen
 
 
 

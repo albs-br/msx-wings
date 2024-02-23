@@ -1108,22 +1108,24 @@ Execute_VDP_HMMM:
     ei
     out     (PORT_1), a     ; loop if vdp not ready (CE)
     jp      c, .vdpReady
-    outi            ; 15x OUTI
-    outi            ; (faster than OTIR)
-    outi
-    outi
-    outi
-    outi
-    outi
-    outi
-    outi
-    outi
-    outi
-    outi
-    outi
-    outi
-    outi
-    ret
+    
+    jp      OUTI_x15
+    ; outi            ; 15x OUTI
+    ; outi            ; (faster than OTIR)
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; ret ; ret directly from OUTIxXX subrotine
 
 ;   Input:  HL = pointer to 11-byte VDP command data
 ;   Output: HL = updated
@@ -1152,18 +1154,21 @@ Execute_VDP_HMMV:
     ei
     out     (PORT_1), a     ; loop if vdp not ready (CE)
     jp      c, .vdpReady
-    outi            ; 11x OUTI
-    outi            ; (faster than OTIR)
-    outi
-    outi
-    outi
-    outi
-    outi
-    outi
-    outi
-    outi
-    outi
-    ret
+
+    jp      OUTI_x11
+    
+    ; outi            ; 11x OUTI
+    ; outi            ; (faster than OTIR)
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; ret ; ret directly from OUTIxXX subrotine
 
 
 ;   Input:  HL = pointer to 13-byte VDP command data
@@ -1190,20 +1195,22 @@ Execute_VDP_YMMM:
     ei
     out     (PORT_1), a     ; loop if vdp not ready (CE)
     jp      c, .vdpReady
-    outi            ; 13x OUTI
-    outi            ; (faster than OTIR)
-    outi
-    outi
-    outi
-    outi
-    outi
-    outi
-    outi
-    outi
-    outi
-    outi
-    outi
-    ret
+
+    jp      OUTI_x13
+    ; outi            ; 13x OUTI
+    ; outi            ; (faster than OTIR)
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; outi
+    ; ret ; ret directly from OUTIxXX subrotine
 
 VDP_COMMAND_HMMC:       equ 1111 0000 b	; High speed move CPU to VRAM (copies data from your ram to the vram)
 VDP_COMMAND_YMMM:       equ 1110 0000 b	; High speed move VRAM to VRAM, Y coordinate only
@@ -1310,9 +1317,15 @@ OUTI_x32:
     outi outi outi outi
     outi outi outi outi 
 OUTI_x16:
-    outi outi outi outi
+    outi
+OUTI_x15:
+    outi outi
+OUTI_x13:    
+    outi
 OUTI_x12:
-    outi outi outi outi
+    outi 
+OUTI_x11:
+    outi outi outi
     outi outi outi outi
     outi outi outi outi 
     ret
