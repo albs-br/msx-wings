@@ -93,9 +93,6 @@ ExecuteScroll:
     ret     nz
 
 
-    ; TODO: use VDP command to gain speed
-
-
     IFDEF DEBUG
         ; Start profiling a section with in a,(2ch), end with out (2ch),a. ID in A.
         xor a
@@ -130,6 +127,13 @@ ExecuteScroll:
     dec     d
     jp      nz, .loopOUTI
 
+
+
+    ; TODO: use VDP command to gain speed (HMMC copies data from your ram to the vram)
+    ; info: HMMC VDP command currently is not working, check msx-tests POC
+    ; 
+    ; ld      hl, LMMM_Parameters
+    ; call    Execute_VDP_LMMM        ; Logical move CPU to VRAM (copies data from your ram to the vram)
 
 
 

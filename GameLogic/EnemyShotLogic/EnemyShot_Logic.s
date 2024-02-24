@@ -134,7 +134,7 @@ EnemyShot_Logic:
 
         ; if (Player_Status != 1) return
         ld      a, (Player_Status)
-        cp      1 ; TODO: may use DEC A to save cycles
+        cp      1
         jp      nz, .return
 
 

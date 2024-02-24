@@ -22,6 +22,8 @@ ram_watch   add     0xc00f      -type byte       -desc Player_Lives      -format
 ram_watch   add     0xc010      -type word       -desc Score             -format hex
 ram_watch   add     0xc002      -type byte       -desc Player_Status     -format dec
 
+ram_watch   add     0xFC4A      -type word       -desc HIMEM             -format hex
+
 
 
 

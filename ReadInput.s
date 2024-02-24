@@ -10,6 +10,9 @@ PLAYER_SIDE_MOVEMENT_INTERMEDIATE:  equ 10
 
 
 ReadInput:
+
+    ; TODO: implement joystick support
+
     ; read keyboard
     ld      a, 8                    ; 8th line
     call    BIOS_SNSMAT             ; Read Data Of Specified Line From Keyboard Matrix
