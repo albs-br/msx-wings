@@ -11,60 +11,73 @@ PLAYER_SIDE_MOVEMENT_INTERMEDIATE:  equ 10
 
 ReadInput:
 
-    ; TODO: implement joystick support
 
     ; read keyboard
     ld      a, 8                    ; 8th line
     call    BIOS_SNSMAT             ; Read Data Of Specified Line From Keyboard Matrix
     ld      e, a                    ; save value
 
-
     push    de
-        bit     0, a                ; 0th bit (space bar)
-        call    z, .shot
-    pop     de
-    
-    ; if the subrotine is simple and will not change 
-    ; E register there is no need to PUSH/POP DE
-    ld      a, e
-    bit     3, a                    ; 3rd bit (DELETE key)
-    call    z, .bomb
-
-    push    de
-        ld      a, e
-        bit     1, a                    ; 1st bit (HOME key)
+        ;ld      a, e
+        bit     1, e                    ; 1st bit (HOME key)
         call    z, .pause
     pop     de
 
 
+    ; TODO:
+    ; if (Player_Tnput == KEYBOARD) 
+
+
+.readJoystick:
+    ; TODO: implement joystick support
+    ; ; read joystick
+    ; ld a, 1                 ; 1: joystick 1
+    ; call BIOS_GTSTCK
+    ; cp 0
+    ; jp nz, .readJoystick    ; if joystick status is <> 0 (no direction), skip to check joystick
+
+
+.readKeyboard:
+
+    push    de
+        bit     0, e                ; 0th bit (space bar)
+        call    z, .shot
+    pop     de
+    
+    push    de
+        bit     3, e                ; 3rd bit (DELETE key)
+        call    z, .bomb
+    pop     de
+
+
+
     ld      c, 0    ; control variable to check left/right press
 
-    ; if (Player_Controls_Enabled == 0) ignoreLeftAndRightControls
+    ; if (Player_Controls_Enabled == 0) ret
     ld      a, (Player_Controls_Enabled)
     or      a
-    jp      z, .ignoreLeftAndRightControls
+    ret     z
 
-    ld      a, e
-    bit     4, a                    ; 4th bit (key left)
+    ; ld      a, e
+    bit     4, e                    ; 4th bit (key left)
     call    z, .playerLeft
 
-    ld      a, e
-    bit     7, a                    ; 7th bit (key right)
+    ; ld      a, e
+    bit     7, e                    ; 7th bit (key right)
     call    z, .playerRight
 
-.ignoreLeftAndRightControls:    
 
     ; if neither left nor right pressed, slowly return Player_SideMovementCounter to 0
     ld      a, c
     or      a
     call    z, .playerNotPressedLeftRight
 
-    ld      a, e
-    bit     5, a                    ; 5th bit (key up)
+    ; ld      a, e
+    bit     5, e                    ; 5th bit (key up)
     call    z, .playerUp
 
-    ld      a, e
-    bit     6, a                    ; 6th bit (key down)
+    ; ld      a, e
+    bit     6, e                    ; 6th bit (key down)
     call    z, .playerDown
 
     ret
