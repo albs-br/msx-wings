@@ -237,13 +237,31 @@ SetVdp_Write:
 
 	    ; write the other address bits to VDP PORT_1
 	    ld      a, l
-	    nop
+ 	    nop ; TODO is it necessary? https://map.grauw.nl/articles/vdp_tut.php
 	    out     (PORT_1), a
 	    ld      a, h
 	    or      64
     ei
     out     (PORT_1),a
     ret
+
+; Function to set VDP to write VRAM, using untreated address on AHL
+; and bit 6 of H set
+; SetVdp_Write_Fast:
+
+;     ld  c, PORT_1
+;     di
+; 	    ; write bits a14-16 of address to R#14
+; 	    out     (PORT_1), a
+; 	    ld      a, 14 + 128
+; 	    out     (PORT_1), a
+
+; 	    ; write the other address bits + READ/WRITE flag to VDP PORT_1
+; 	    out     (c), l
+;     ei
+;     out     (c), h
+;     ret
+
 
 ;
 ; Set VDP address counter to read from address AHL (17-bit)
@@ -257,13 +275,13 @@ SetVdp_Read:
     srl     h
     srl     h
     di
-    out     (PORT_1), a
-    ld      a, 14 + 128
-    out     (PORT_1), a
-    ld      a, l
-    nop
-    out     (PORT_1), a
-    ld      a, h
+        out     (PORT_1), a
+        ld      a, 14 + 128
+        out     (PORT_1), a
+        ld      a, l
+        nop  ; TODO is it necessary? https://map.grauw.nl/articles/vdp_tut.php
+        out     (PORT_1), a
+        ld      a, h
     ei
     out     (PORT_1), a
     ret

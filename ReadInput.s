@@ -34,7 +34,7 @@ ReadInput:
     ; ld a, 1                 ; 1: joystick 1
     ; call BIOS_GTSTCK
     ; cp 0
-    ; jp nz, .readJoystick    ; if joystick status is <> 0 (no direction), skip to check joystick
+    ; jp nz, .readJoystick    ; if joystick status is <> 0 (no direction), skip checking joystick
 
 
 .readKeyboard:
