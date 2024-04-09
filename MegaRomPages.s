@@ -1110,3 +1110,20 @@ SPRITE_PATTERNS_DATA_MEGAROM_PAGE:      equ 249
     INCLUDE "Graphics/Sprites/SpritePatterns.s"
 MEGAROM_PAGE_249_size:          equ $ - 0x8000
 	ds PAGE_SIZE - ($ - 0x8000), 255
+
+; ------------------------------------------------------------------------
+
+CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE:      equ 250
+
+; ------- Page 250
+	org	0x8000, 0xBFFF
+
+PlaneRotating_Palette:
+    INCBIN "ChooseInputScreen/PlaneRotating.pal"
+
+PlaneRotating_Images:
+.frame_0:
+	INCBIN "ChooseInputScreen/zx0_images/plane_rotating_0_size_103x71_position_5_3.SC5_small.zx0"
+
+MEGAROM_PAGE_250_size:          equ $ - 0x8000
+	ds PAGE_SIZE - ($ - 0x8000), 255

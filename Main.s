@@ -98,6 +98,8 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     INCLUDE "TitleScreen/TitleScreen.s" ; 759 bytes
     INCLUDE "TitleScreen/Data.s" ; 79 bytes
 
+    INCLUDE "ChooseInputScreen/ChooseInputScreen.s" ; ? bytes
+
     ; Assets
     INCLUDE "Graphics/Sprites/SpritePalettes.s"
     ; INCLUDE "Graphics/Sprites/SpritePatterns.s" ; moved to a MegaROM page
@@ -130,6 +132,8 @@ Execute:
 
     call    TitleScreen
 
+
+    call    ChooseInputScreen
 
 
     ; install the interrupt routine
