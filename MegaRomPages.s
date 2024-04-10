@@ -1124,6 +1124,26 @@ PlaneRotating_Palette:
 PlaneRotating_Images:
 .frame_0:
 	INCBIN "ChooseInputScreen/zx0_images/plane_rotating_0_size_103x71_position_5_3.SC5_small.zx0"
+.frame_1:
+	INCBIN "ChooseInputScreen/zx0_images/plane_rotating_1_size_104x72_position_139_2.sc5_small.zx0"
+.frame_2:
+	INCBIN "ChooseInputScreen/zx0_images/plane_rotating_2_size_103x71_position_270_2.sc5_small.zx0"
+.frame_3:
+	INCBIN "ChooseInputScreen/zx0_images/plane_rotating_3_size_102x69_position_400_2.sc5_small.zx0"
+
+; TODO: move it to a separate file
+PLANE_ROTATING_DATA_STRUCT_SIZE: equ 6
+PlaneRotating_Data:
+	;   +--- Addr of zx0 packed frame data
+	;   |                                  +--- image width in bytes (SC5)
+	;   |                                  |   +--- image height in pixels
+	;   |                                  |   |       +--- lines at top of screen before image (in bytes SC5)
+	;   |                                  |   |       |
+	dw	PlaneRotating_Images.frame_0 	db 52, 71	dw 3 * 128
+	dw	PlaneRotating_Images.frame_1 	db 52, 72	dw 2 * 128
+	dw	PlaneRotating_Images.frame_2 	db 52, 71	dw 2 * 128
+	dw	PlaneRotating_Images.frame_3 	db 51, 69	dw 2 * 128
+.end: equ $
 
 MEGAROM_PAGE_250_size:          equ $ - 0x8000
 	ds PAGE_SIZE - ($ - 0x8000), 255

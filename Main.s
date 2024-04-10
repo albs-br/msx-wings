@@ -138,7 +138,7 @@ Execute:
     ; call    TitleScreen ; debug
 
 
-    ; call    ChooseInputScreen ; debug
+    call    ChooseInputScreen
 
 
     ; install the interrupt routine
