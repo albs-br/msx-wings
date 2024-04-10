@@ -1027,22 +1027,22 @@ ENEMY_SHOT_DATA_MEGAROM_PAGE:           equ 242
     INCLUDE "Data/EnemyData/BigEnemy/Tank_Data.s"
     INCLUDE "Data/EnemyData/EnemyShotData.s"
     ; INCLUDE "Sound/Sfx/MsxWingsSfx_Bank.s" ; ATTENTION: MOVED BACK cos it was causing bug (sound tone keeps playing after sfx ended)   
-MEGAROM_PAGE_242_size:          equ $ - 0x8000
+MEGAROM_PAGE_242_size:          equ $ - 0x8000 ; 0x31a0 bytes (12704 bytes)
 	ds PAGE_SIZE - ($ - 0x8000), 255
-
-; WARNING MEGAROM_PAGE_242_size: equ 03cb8h ; almost full!
 
 ; ------------------------------------------------------------------------
 
-FONTS_DATA_MEGAROM_PAGE:                equ 243
-SPRITE_COLORS_CONT_DATA_MEGAROM_PAGE:   equ 243
+FONTS_DATA_MEGAROM_PAGE:                	equ 243
+SPRITE_COLORS_CONT_DATA_MEGAROM_PAGE:   	equ 243
+GROUND_TARGET_DESTROYED_DATA_MEGAROM_PAGE:  equ 243
 
 
 ; ------- Page 243
 	org	0x8000, 0xBFFF
     INCLUDE "Graphics/Sprites/Fonts/Fonts.s"
     INCLUDE "Graphics/Sprites/SpriteColors_cont.s"
-MEGAROM_PAGE_243_size:          equ $ - 0x8000 ; 0x31b0 bytes (aprox 12.5 kb)
+	INCLUDE "Graphics/Bitmaps/GroundTargetDestroyed.s" ; 448 bytes
+MEGAROM_PAGE_243_size:          equ $ - 0x8000 ; 0x34c0 bytes (aprox 13.5 kb)
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
 ; ------------------------------------------------------------------------
@@ -1069,7 +1069,7 @@ STAGE_CLEAR_ANIMATION_DATA_MEGAROM_PAGE:        equ 246
 ; ------- Page 246
 	org	0x8000, 0xBFFF
     INCLUDE "Graphics/Sprites/StageClearAnimation/StageClearAnimation.s"
-MEGAROM_PAGE_246_size:          equ $ - 0x8000
+MEGAROM_PAGE_246_size:          equ $ - 0x8000 ; 0x36e0 bytes
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
 ; ------------------------------------------------------------------------
@@ -1081,7 +1081,7 @@ GAMEOVER_ANIMATION_DATA_MEGAROM_PAGE:			  equ 247
     INCLUDE "Animations/StageClearAnimation/SPRATR_Data.s"
     INCLUDE "Animations/GameOverAnimation/GameOverAnimation_Data.s"
     INCLUDE "Graphics/Sprites/GameOverAnimation/GameOverAnimation.s"
-MEGAROM_PAGE_247_size:          equ $ - 0x8000
+MEGAROM_PAGE_247_size:          equ $ - 0x8000 ; 0x12f8 bytes
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
 ; ------------------------------------------------------------------------
@@ -1096,7 +1096,7 @@ LEVEL_DATA_MEGAROM_PAGE:                equ 248
     INCLUDE "Data/LevelData/Level_4.s"
     INCLUDE "Data/LevelData/Level_5.s"
     INCLUDE "Data/LevelData/Level_6.s"
-MEGAROM_PAGE_248_size:          equ $ - 0x8000
+MEGAROM_PAGE_248_size:          equ $ - 0x8000 ; 0x0cc3 bytes
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
 ; ------------------------------------------------------------------------

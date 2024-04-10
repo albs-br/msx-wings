@@ -658,6 +658,10 @@ GROUND_TARGET_SPRCOL_ADDR:  equ SPRCOL + (16 * 31)
 
     ; load $ char bitmaps on second page, to be used by HMMM command
 
+    ; set MegaROM page for Ground Targe Destroyed data
+    ld      a, GROUND_TARGET_DESTROYED_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
     ld      de, GroundTargetDestroyed_Dollar_0              ; ROM source addr
     ld      hl, GROUND_TARGET_DESTROYED_DOLLAR_0_VRAM_ADDR  ; VRAM destiny addr (lower 16 bits)
     call    Load_6x8_BitmapFromRAMToVRAM

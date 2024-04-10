@@ -85,7 +85,9 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     INCLUDE "Animations/LevelTitleAnimation/LevelTitleAnimation.s"
     INCLUDE "Animations/LevelTitleAnimation/Data.s" ; 125 bytes
 
-    INCLUDE "Animations/StageClearAnimation/StageClearAnimation.s"
+    INCLUDE "Animations/StageClearAnimation/StageClearAnimation.s" ; 905 bytes
+    ;INCLUDE "Animations/StageClearAnimation/SPRATR_Data.s" ; moved to a MegaROM page
+    ;INCLUDE "Graphics/Sprites/StageClearAnimation/StageClearAnimation.s" ; moved to a MegaROM page
     
     INCLUDE "Animations/GameOverAnimation/GameOverAnimation.s"
     ; INCLUDE "Animations/GameOverAnimation/GameOverAnimation_Data.s" ; moved to a MegaROM page
@@ -104,10 +106,12 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     ; Assets
     INCLUDE "Graphics/Sprites/SpritePalettes.s"
     ; INCLUDE "Graphics/Sprites/SpritePatterns.s" ; moved to a MegaROM page
+SpriteColors_start:    
     INCLUDE "Graphics/Sprites/SpriteColors.s"
+SpriteColors_size: equ $ - SpriteColors_start ; 0x3d0 = 976 bytes (it is not easy to move to a MegaROM page cos it is referenced in many places)
     ; INCLUDE "Graphics/Sprites/Fonts/Fonts.s"     ; moved to a MegaROM page
     INCLUDE "Sound/Sfx/MsxWingsSfx_Bank.s" ;moved to a MegaROM page ATTENTION: MOVED BACK cos it was causing bug (sound tone keeps playing after sfx ended)
-	INCLUDE "Graphics/Bitmaps/GroundTargetDestroyed.s"
+	; INCLUDE "Graphics/Bitmaps/GroundTargetDestroyed.s" ; moved to a MegaROM page
     ; background bitmaps are on MegaRomPages.s
 
 
@@ -134,7 +138,7 @@ Execute:
     ; call    TitleScreen ; debug
 
 
-    call    ChooseInputScreen
+    ; call    ChooseInputScreen ; debug
 
 
     ; install the interrupt routine
@@ -376,9 +380,9 @@ End:
 
 
 
-    db      "End ROM started at 0x4000"
+    ; db      "End ROM started at 0x4000"
 
-PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3e48 bytes (? bytes)
+PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3c79 bytes (903 bytes livres)
 	ds PAGE_SIZE - ($ - 0x4000), 255	; Fill the unused area with 0xFF
 
 

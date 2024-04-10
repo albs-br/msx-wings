@@ -524,6 +524,10 @@ DrawGroundTargetDestroyed:
     ld      c, a
     add     hl, bc
 
+    ; set MegaROM page for Ground Targe Destroyed data
+    ld      a, GROUND_TARGET_DESTROYED_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
     ; ld      de, .TestDrawBg
     ld      de, GroundTargetDestroyed
     call    Copy16x16ImageFromRAMToVRAM
