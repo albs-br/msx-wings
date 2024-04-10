@@ -425,3 +425,13 @@ PauseAnimation_SPRCOL_Bkp:  rb 32 * 16 ; = 512
 .size:  equ $ - PauseAnimation_SPRCOL_Bkp
 
 PauseAnimation_TempAddr:    rw 1
+
+; ----------------------------------------
+
+UncompressedData:       rb 4 * 1024 ; 4 kb for uncompressed data buffer
+
+; ----------------------------------------
+
+; vars for Choose Input Screen
+CurrentVRAMpage:        rb 1 ; 0 or 1
+

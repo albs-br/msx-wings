@@ -25,6 +25,7 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     INCLUDE "Include/CommonRoutines.s"
     INCLUDE "Include/CommonRoutines_SC11.s"
     INCLUDE "Include/ayFXReplayer.s"
+    INCLUDE "Include/dzx0_standard.asm"
 
     ; Game
     INCLUDE "HTIMI_Hook.s"
@@ -130,7 +131,7 @@ Execute:
     call    ClearRam
 
 
-    call    TitleScreen
+    ; call    TitleScreen ; debug
 
 
     call    ChooseInputScreen
@@ -377,7 +378,7 @@ End:
 
     db      "End ROM started at 0x4000"
 
-PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3c61 bytes (? bytes)
+PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3e48 bytes (? bytes)
 	ds PAGE_SIZE - ($ - 0x4000), 255	; Fill the unused area with 0xFF
 
 
@@ -390,7 +391,11 @@ PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3c61 bytes (? bytes)
 ; RAM
 	org     0xc000, 0xe5ff                   ; for machines with 16kb of RAM (use it if you need 16kb RAM, will crash on 8kb machines, such as the Casio PV-7)
 
+; 0xc000 = 49152
+; 0xe5ff = 58879
+
+; total =  9727 bytes
 RamStart:
     INCLUDE "Variables.s"
 RamEnd:
-Ram_size:          equ $ - RamStart ; 0EF5h (3829 bytes)
+Ram_size:          equ $ - RamStart ; 1fc3h (8131 bytes)

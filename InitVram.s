@@ -25,6 +25,7 @@ InitVram:
 
     call    SetColor0ToTransparent
 
+    call    EnableSprites
 
 
 
