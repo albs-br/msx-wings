@@ -89,7 +89,7 @@ ChooseInputScreen:
 
     ; put Uncompressed image on page 1 NAMTBL (inactive page)
     ld      de, SC5_NAMTBL_PAGE_1
-    call    DrawImage
+    call    ChooseInputScreen_DrawImage
 
     ld      a, 1
     ld      (CurrentVRAMpage), a
@@ -109,7 +109,7 @@ ChooseInputScreen:
 
     ; put Uncompressed image on page 0 NAMTBL (inactive page)
     ld      de, SC5_NAMTBL_PAGE_0
-    call    DrawImage
+    call    ChooseInputScreen_DrawImage
 
     ld      a, 0
     ld      (CurrentVRAMpage), a
@@ -143,7 +143,7 @@ ChooseInputScreen:
 
 ; Inputs:
 ;   DE: VRAM destiny addr (lowest 16 bits)
-DrawImage:
+ChooseInputScreen_DrawImage:
     ld      hl, (PlaneRotating_Data_CurrentFrame_Addr)
     inc     hl
     inc     hl
@@ -151,6 +151,22 @@ DrawImage:
     ld      ixh, a      ;   IXH: image width in bytes
     inc     hl
     ld      b, (hl)     ;   B: image height in pixels
+
+
+    ; put image horizontally centralized
+    ; DE += ((128/2) - IXh/2)
+    push    bc
+        ld      a, 64
+        ld      c, ixh
+        srl     c                 ; shift right C
+        sub     c
+        ld      c, a
+        ld      b, 0
+        ex      de, hl
+        add     hl, bc
+        ex      de, hl
+    pop     bc
+
 
     ld		hl, UncompressedData   				    ; RAM address (source)
     ; ld		de, SC5_NAMTBL_PAGE_0                   ; VRAM address (destiny)
