@@ -58,26 +58,12 @@ ChooseInputScreen:
 
     call    Wait_Vblank
 
-    ; TODO:
-    ; VDP fill command to clear top screen area (no need to wait it ends)
-
-    ; unpack next frame using zx0 standard decompressor
-    ; ld      hl, PlaneRotating_Images.frame_0
-    ld      hl, (PlaneRotating_Data_CurrentFrame_Addr)
-    ld      a, (hl)
-    ld      e, a
-    inc     hl
-    ld      a, (hl)
-    ld      d, a
-    ex      de, hl
-    ld      de, UncompressedData
-    call    dzx0_standard
-
     ld      a, (CurrentVRAMpage)
     or      a
     jp      nz, .showPage_1
 
 .showPage_0:
+
     ; --- set current NAMTBL to page 0 (0x00000)
     ; bits:    16 15        7
     ;           | |         |
@@ -86,6 +72,13 @@ ChooseInputScreen:
     ld      b, 0001 1111 b  ; data
     ld      c, 2            ; register #
     call    BIOS_WRTVDP
+
+    ; clear page 1 top area
+    ; VDP fill command to clear top screen area (no need to wait it ends)
+    ld      hl, ClearTopScreenArea_Page_1_HMMV_Parameters
+    call    Execute_VDP_HMMV        ; High speed move VDP to VRAM (fills an area with one single color)
+
+    call    .unpackFrame
 
     ; put Uncompressed image on page 1 NAMTBL (inactive page)
     ld      de, SC5_NAMTBL_PAGE_1
@@ -98,6 +91,7 @@ ChooseInputScreen:
 
 
 .showPage_1:
+    
     ; --- set current NAMTBL to page 1 (0x00000)
     ; bits:    16 15        7
     ;           | |         |
@@ -106,6 +100,13 @@ ChooseInputScreen:
     ld      b, 0011 1111 b  ; data
     ld      c, 2            ; register #
     call    BIOS_WRTVDP
+
+    ; clear page 0 top area
+    ; VDP fill command to clear top screen area (no need to wait it ends)
+    ld      hl, ClearTopScreenArea_Page_0_HMMV_Parameters
+    call    Execute_VDP_HMMV        ; High speed move VDP to VRAM (fills an area with one single color)
+
+    call    .unpackFrame
 
     ; put Uncompressed image on page 0 NAMTBL (inactive page)
     ld      de, SC5_NAMTBL_PAGE_0
@@ -134,11 +135,24 @@ ChooseInputScreen:
     jp      .loop
 
     ; -------------------
+    ret
 
+.unpackFrame:
 
-
+    ; unpack next frame using zx0 standard decompressor
+    ; ld      hl, PlaneRotating_Images.frame_0
+    ld      hl, (PlaneRotating_Data_CurrentFrame_Addr)
+    ld      a, (hl)
+    ld      e, a
+    inc     hl
+    ld      a, (hl)
+    ld      d, a
+    ex      de, hl
+    ld      de, UncompressedData
+    call    dzx0_standard
 
     ret
+
 
 
 ; Inputs:
@@ -163,7 +177,7 @@ ChooseInputScreen_DrawImage:
         ld      c, a
         ld      b, 0
         ex      de, hl
-        add     hl, bc
+            add     hl, bc
         ex      de, hl
     pop     bc
 
@@ -180,7 +194,7 @@ ChooseInputScreen_DrawImage:
                 call    SetVdp_Write
             ex      de, hl
             ; ld      b, 52                       ; width in bytes
-            ld      b, ixh
+            ld      b, ixh                       ; width in bytes
             ld      c, PORT_0
             otir
         pop     de

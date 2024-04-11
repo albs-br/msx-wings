@@ -1145,5 +1145,19 @@ PlaneRotating_Data:
 	dw	PlaneRotating_Images.frame_3 	db 51, 69	dw 2 * 128
 .end: equ $
 
+; TODO: X and width can be optimized
+ClearTopScreenArea_Page_0_HMMV_Parameters:    ; R#36 to R#46
+   dw    0, 0 	    ; Destiny X (9 bits), Destiny Y (10 bits)
+   dw    256, 75	; number of cols (9 bits), number of lines (10 bits)
+   db    0x11       ; color of the fill
+   db    0, VDP_COMMAND_HMMV
+
+; TODO: X and width can be optimized
+ClearTopScreenArea_Page_1_HMMV_Parameters:    ; R#36 to R#46
+   dw    0, 256	    ; Destiny X (9 bits), Destiny Y (10 bits)
+   dw    256, 75	; number of cols (9 bits), number of lines (10 bits)
+   db    0x11       ; color of the fill
+   db    0, VDP_COMMAND_HMMV
+
 MEGAROM_PAGE_250_size:          equ $ - 0x8000
 	ds PAGE_SIZE - ($ - 0x8000), 255
