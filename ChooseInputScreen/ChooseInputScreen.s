@@ -166,6 +166,17 @@ ChooseInputScreen_DrawImage:
     inc     hl
     ld      b, (hl)     ;   B: image height in pixels
 
+    ; adjust image vertically
+    ; DE += "lines at top of screen before image"
+    push    bc
+        inc     hl
+        ld      c, (hl)
+        inc     hl
+        ld      b, (hl)     ; BC = lines at top of screen before image (word)
+        ex      de, hl
+            add     hl, bc
+        ex      de, hl
+    pop     bc
 
     ; put image horizontally centralized
     ; DE += ((128/2) - IXh/2)
