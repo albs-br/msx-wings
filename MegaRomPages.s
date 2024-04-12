@@ -1113,15 +1113,17 @@ MEGAROM_PAGE_249_size:          equ $ - 0x8000
 
 ; ------------------------------------------------------------------------
 
-CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE:      equ 250
+CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0:      equ 250
 
 ; ------- Page 250
 	org	0x8000, 0xBFFF
 
+    INCLUDE "ChooseInputScreen/ChooseInputScreen_Data.s"
+
 PlaneRotating_Palette:
     INCBIN "ChooseInputScreen/PlaneRotating.pal"
 
-PlaneRotating_Images:
+PlaneRotating_Images_0:
 .frame_0:
         INCBIN "ChooseInputScreen/zx0_images/plane_rotating_0_size_103x71_position_5_3.sc5_small.zx0"
 .frame_1:
@@ -1149,8 +1151,33 @@ PlaneRotating_Images:
 .frame_12:
         INCBIN "ChooseInputScreen/zx0_images/plane_rotating_12_size_142x51_position_1690_12.sc5_small.zx0"
 
-
-    INCLUDE "ChooseInputScreen/ChooseInputScreen_Data.s"
-
 MEGAROM_PAGE_250_size:          equ $ - 0x8000
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+; ------------------------------------------------------------------------
+
+CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1:      equ 251
+
+; ------- Page 251
+	org	0x8000, 0xBFFF
+
+PlaneRotating_Images_1:
+; .frame_?:
+;         INCBIN "ChooseInputScreen/zx0_images/plane_rotating_0_size_103x71_position_5_3.sc5_small.zx0"
+
+MEGAROM_PAGE_251_size:          equ $ - 0x8000
+	ds PAGE_SIZE - ($ - 0x8000), 255
+
+; ------------------------------------------------------------------------
+
+CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_2:      equ 252
+
+; ------- Page 252
+	org	0x8000, 0xBFFF
+
+PlaneRotating_Images_2:
+; .frame_?:
+;         INCBIN "ChooseInputScreen/zx0_images/plane_rotating_0_size_103x71_position_5_3.sc5_small.zx0"
+
+MEGAROM_PAGE_252_size:          equ $ - 0x8000
 	ds PAGE_SIZE - ($ - 0x8000), 255

@@ -29,7 +29,7 @@ ChooseInputScreen:
 
 
     ; set MegaROM page for Choose Input Screen data
-    ld      a, CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE
+    ld      a, CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0
     ld	    (Seg_P8000_SW), a
 
 
