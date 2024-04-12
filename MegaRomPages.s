@@ -1123,13 +1123,31 @@ PlaneRotating_Palette:
 
 PlaneRotating_Images:
 .frame_0:
-	INCBIN "ChooseInputScreen/zx0_images/plane_rotating_0_size_103x71_position_5_3.SC5_small.zx0"
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_0_size_103x71_position_5_3.sc5_small.zx0"
 .frame_1:
-	INCBIN "ChooseInputScreen/zx0_images/plane_rotating_1_size_104x72_position_139_2.sc5_small.zx0"
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_1_size_104x72_position_139_2.sc5_small.zx0"
 .frame_2:
-	INCBIN "ChooseInputScreen/zx0_images/plane_rotating_2_size_103x71_position_270_2.sc5_small.zx0"
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_2_size_103x71_position_270_2.sc5_small.zx0"
 .frame_3:
-	INCBIN "ChooseInputScreen/zx0_images/plane_rotating_3_size_102x69_position_400_2.sc5_small.zx0"
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_3_size_102x69_position_400_2.sc5_small.zx0"
+.frame_4:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_4_size_106x67_position_528_2.sc5_small.zx0"
+.frame_5:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_5_size_115x63_position_658_3.sc5_small.zx0"
+.frame_6:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_6_size_124x59_position_793_4.sc5_small.zx0"
+.frame_7:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_7_size_133x55_position_933_5.sc5_small.zx0"
+.frame_8:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_8_size_141x51_position_1076_6.sc5_small.zx0"
+.frame_9:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_9_size_145x52_position_1225_7.sc5_small.zx0"
+.frame_10:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_10_size_147x52_position_1378_9.sc5_small.zx0"
+.frame_11:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_11_size_146x52_position_1533_10.sc5_small.zx0"
+.frame_12:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_12_size_142x51_position_1690_12.sc5_small.zx0"
 
 ; TODO: move it to a separate file
 PLANE_ROTATING_DATA_STRUCT_SIZE: equ 6
@@ -1137,13 +1155,21 @@ PlaneRotating_Data:
 	;   +--- Addr of zx0 packed frame data
 	;   |                                  +--- image width in bytes (SC5)
 	;   |                                  |   +--- image height in pixels
-	;   |                                  |   |       +--- lines at top of screen before image (in bytes SC5)
-	;   |                                  |   |       |
-	dw	PlaneRotating_Images.frame_0 	db 52, 71	dw 3 * 128
-	dw	PlaneRotating_Images.frame_1 	db 52, 72	dw 2 * 128
-	dw	PlaneRotating_Images.frame_2 	db 52, 71	dw 2 * 128
-	dw	PlaneRotating_Images.frame_3 	db 51, 69	dw 2 * 128
-.end: equ $
+	;   |                                  |   |           +--- lines at top of screen before image (in bytes SC5)
+	;   |                                  |   |           |
+  dw    PlaneRotating_Images.frame_0    db 52, 71       dw 3 * 128
+  dw    PlaneRotating_Images.frame_1    db 52, 72       dw 2 * 128
+  dw    PlaneRotating_Images.frame_2    db 52, 71       dw 2 * 128
+  dw    PlaneRotating_Images.frame_3    db 51, 69       dw 2 * 128
+  dw    PlaneRotating_Images.frame_4    db 53, 67       dw 2 * 128
+  dw    PlaneRotating_Images.frame_5    db 58, 63       dw 3 * 128
+  dw    PlaneRotating_Images.frame_6    db 62, 59       dw 4 * 128
+  dw    PlaneRotating_Images.frame_7    db 67, 55       dw 5 * 128
+  dw    PlaneRotating_Images.frame_8    db 71, 51       dw 6 * 128
+  dw    PlaneRotating_Images.frame_9    db 73, 52       dw 7 * 128
+  dw    PlaneRotating_Images.frame_10   db 74, 52       dw 9 * 128
+  dw    PlaneRotating_Images.frame_11   db 73, 52       dw 10 * 128
+  dw    PlaneRotating_Images.frame_12   db 71, 51       dw 12 * 128.end: equ $
 
 ; TODO: X and width can be optimized
 ClearTopScreenArea_Page_0_HMMV_Parameters:    ; R#36 to R#46
