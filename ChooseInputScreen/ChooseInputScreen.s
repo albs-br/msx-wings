@@ -43,8 +43,11 @@ ChooseInputScreen:
     xor     a
     ld      (CurrentVRAMpage), a
 
+    ; set MegaROM page for Choose Input Screen data
+    ld      a, CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0
+    ld	    (Seg_P8000_SW), a
+
     ld      hl, PlaneRotating_Data
-    ;ld      hl, PlaneRotating_Images.frame_0; debug
     ld      (PlaneRotating_Data_CurrentFrame_Addr), hl
 
     ; TODO: clear UncompressedData RAM area
@@ -142,13 +145,21 @@ ChooseInputScreen:
     ; unpack next frame using zx0 standard decompressor
     ; ld      hl, PlaneRotating_Images.frame_0
     ld      hl, (PlaneRotating_Data_CurrentFrame_Addr)
-    ld      a, (hl)
+    ld      b, (hl) ; get MegaRom page
+
+    inc     hl
+    ld      a, (hl) ; get address low byte
     ld      e, a
     inc     hl
-    ld      a, (hl)
+    ld      a, (hl) ; get address high byte
     ld      d, a
-    ex      de, hl
+    ex      de, hl  
     ld      de, UncompressedData
+
+    ; set MegaROM page for current frame data
+    ld      a, b
+    ld	    (Seg_P8000_SW), a
+
     call    dzx0_standard
 
     ret
@@ -158,9 +169,18 @@ ChooseInputScreen:
 ; Inputs:
 ;   DE: VRAM destiny addr (lowest 16 bits)
 ChooseInputScreen_DrawImage:
+
+    ; set MegaROM page for Choose Input Screen data
+    ld      a, CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0
+    ld	    (Seg_P8000_SW), a
+
     ld      hl, (PlaneRotating_Data_CurrentFrame_Addr)
+
+    inc     hl          ; skip packed frame data MegaROM page 
+
     inc     hl
-    inc     hl
+    inc     hl          ; skip packed frame data address 
+
     ld      a, (hl)
     ld      ixh, a      ;   IXH: image width in bytes
     inc     hl
