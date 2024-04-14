@@ -1191,6 +1191,15 @@ PlaneRotating_Images_1:
 .frame_26:
         INCBIN "ChooseInputScreen/zx0_images/plane_rotating_26_size_109x46_position_1837_20.sc5_small.zx0"
 
+.frame_27:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_27_size_110x45_position_11_20.sc5_small.zx0"
+.frame_28:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_28_size_116x45_position_162_18.sc5_small.zx0"
+.frame_29:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_29_size_125x46_position_311_16.sc5_small.zx0"
+.frame_30:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_30_size_132x48_position_463_15.sc5_small.zx0"
+
 MEGAROM_PAGE_251_size:          equ $ - 0x8000
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
@@ -1202,8 +1211,34 @@ CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_2:      equ 252
 	org	0x8000, 0xBFFF
 
 PlaneRotating_Images_2:
-; .frame_?:
-;         INCBIN "ChooseInputScreen/zx0_images/plane_rotating_0_size_103x71_position_5_3.sc5_small.zx0"
+.frame_31:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_31_size_136x49_position_616_13.sc5_small.zx0"
+.frame_32:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_32_size_139x51_position_770_11.sc5_small.zx0"
+.frame_33:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_33_size_142x51_position_923_9.sc5_small.zx0"
+.frame_34:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_34_size_146x52_position_1077_7.sc5_small.zx0"
+.frame_35:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_35_size_147x52_position_1234_6.sc5_small.zx0"
+.frame_36:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_36_size_145x53_position_1393_4.sc5_small.zx0"
+.frame_37:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_37_size_141x51_position_1552_3.sc5_small.zx0"
+.frame_38:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_38_size_134x55_position_1711_2.sc5_small.zx0"
+.frame_39:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_39_size_124x59_position_7_2.sc5_small.zx0"
+.frame_40:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_40_size_115x63_position_162_1.sc5_small.zx0"
+.frame_41:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_41_size_106x67_position_316_0.sc5_small.zx0"
+.frame_42:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_42_size_102x69_position_465_0.sc5_small.zx0"
+.frame_43:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_43_size_103x71_position_606_0.sc5_small.zx0"
+.frame_44:
+        INCBIN "ChooseInputScreen/zx0_images/plane_rotating_44_size_103x72_position_745_0.sc5_small.zx0"
 
 MEGAROM_PAGE_252_size:          equ $ - 0x8000
 	ds PAGE_SIZE - ($ - 0x8000), 255

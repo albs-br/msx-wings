@@ -35,6 +35,26 @@ PlaneRotating_Data:
   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_25   db 56, 47       dw 19 * 128
   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_26   db 55, 46       dw 20 * 128  
 
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_27   db 55, 45       dw 20 * 128
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_28   db 58, 45       dw 18 * 128
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_29   db 63, 46       dw 16 * 128
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_30   db 66, 48       dw 15 * 128
+
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_2    dw PlaneRotating_Images_2.frame_31   db 68, 49       dw 13 * 128
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_2    dw PlaneRotating_Images_2.frame_32   db 70, 51       dw 11 * 128
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_2    dw PlaneRotating_Images_2.frame_33   db 71, 51       dw 9 * 128
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_2    dw PlaneRotating_Images_2.frame_34   db 73, 52       dw 7 * 128
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_2    dw PlaneRotating_Images_2.frame_35   db 74, 52       dw 6 * 128
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_2    dw PlaneRotating_Images_2.frame_36   db 73, 53       dw 4 * 128
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_2    dw PlaneRotating_Images_2.frame_37   db 71, 51       dw 3 * 128
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_2    dw PlaneRotating_Images_2.frame_38   db 67, 55       dw 2 * 128
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_2    dw PlaneRotating_Images_2.frame_39   db 62, 59       dw 2 * 128
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_2    dw PlaneRotating_Images_2.frame_40   db 58, 63       dw 1 * 128
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_2    dw PlaneRotating_Images_2.frame_41   db 53, 67       dw 0 * 128
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_2    dw PlaneRotating_Images_2.frame_42   db 51, 69       dw 0 * 128
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_2    dw PlaneRotating_Images_2.frame_43   db 52, 71       dw 0 * 128
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_2    dw PlaneRotating_Images_2.frame_44   db 52, 72       dw 0 * 128
+
 .end: equ $
 
 ; TODO: X and width can be optimized (not really necessary, unpacking takes far longer)
