@@ -1096,7 +1096,8 @@ LEVEL_DATA_MEGAROM_PAGE:                equ 248
     INCLUDE "Data/LevelData/Level_4.s"
     INCLUDE "Data/LevelData/Level_5.s"
     INCLUDE "Data/LevelData/Level_6.s"
-MEGAROM_PAGE_248_size:          equ $ - 0x8000 ; 0x0cc3 bytes
+    ; this is gonna increase a lot with all levels production data
+MEGAROM_PAGE_248_size:          equ $ - 0x8000 ; 0x0cc3 bytes (more than 12 kb free)
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
 ; ------------------------------------------------------------------------
@@ -1108,7 +1109,7 @@ SPRITE_PATTERNS_DATA_MEGAROM_PAGE:      equ 249
 	org	0x8000, 0xBFFF
     INCLUDE "Animations/PauseAnimation/PauseAnimation_Data.s"
     INCLUDE "Graphics/Sprites/SpritePatterns.s"
-MEGAROM_PAGE_249_size:          equ $ - 0x8000
+MEGAROM_PAGE_249_size:          equ $ - 0x8000 ; 0x10d8 (aprox 12 kb free)
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
 ; ------------------------------------------------------------------------
@@ -1155,7 +1156,7 @@ PlaneRotating_Images_0:
 .frame_14:
         INCBIN "ChooseInputScreen/zx0_images/plane_rotating_14_size_136x49_position_158_13.sc5_small.zx0"
 
-MEGAROM_PAGE_250_size:          equ $ - 0x8000
+MEGAROM_PAGE_250_size:          equ $ - 0x8000 ; 0x3f09
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
 ; ------------------------------------------------------------------------
@@ -1200,7 +1201,7 @@ PlaneRotating_Images_1:
 .frame_30:
         INCBIN "ChooseInputScreen/zx0_images/plane_rotating_30_size_132x48_position_463_15.sc5_small.zx0"
 
-MEGAROM_PAGE_251_size:          equ $ - 0x8000
+MEGAROM_PAGE_251_size:          equ $ - 0x8000 ; 0x3de9
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
 ; ------------------------------------------------------------------------
@@ -1240,5 +1241,5 @@ PlaneRotating_Images_2:
 .frame_44:
         INCBIN "ChooseInputScreen/zx0_images/plane_rotating_44_size_103x72_position_745_0.sc5_small.zx0"
 
-MEGAROM_PAGE_252_size:          equ $ - 0x8000
+MEGAROM_PAGE_252_size:          equ $ - 0x8000 ; size: 0x3908 (1784 bytes free)
 	ds PAGE_SIZE - ($ - 0x8000), 255
