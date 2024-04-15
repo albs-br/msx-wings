@@ -47,6 +47,8 @@ ChooseInputScreen:
     ldir                                    ; Copy BC bytes from HL to DE
 
 
+    xor     a
+    ld      (CurrentVRAMpage), a
 
 .init:
 
@@ -73,8 +75,6 @@ ChooseInputScreen:
     otir
     ; ---- debug
 
-    xor     a
-    ld      (CurrentVRAMpage), a
 
     ; set MegaROM page for Choose Input Screen data
     ld      a, CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0
@@ -162,11 +162,12 @@ ChooseInputScreen:
     add     hl, bc
     ld      (PlaneRotating_Data_CurrentFrame_Addr), hl
 
-
     ; if (PlaneRotating_Data_CurrentFrame_Addr >= PlaneRotating_Data.end) { jp .init; }
+    ; ld      hl, (PlaneRotating_Data_CurrentFrame_Addr)
     ld      de, PlaneRotating_Data.end
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
-    jp      nc, .init   ; TODO: fix bug (last frame is not being shown)
+    jp      nc, .init
+
 
 
     jp      .loop

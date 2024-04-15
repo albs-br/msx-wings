@@ -1961,7 +1961,7 @@ SpritePattern_PlayerPlane_Right_Frame_0_Bottom: equ 08238h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_10.frame_6: equ 08FD7h ; last def. pass 3
 BIOS_RTPROG: equ 0F955h ; last def. pass 3
 BIOS_INIT32: equ 06Fh ; last def. pass 3
-ChooseInputScreen.init: equ 0769Eh ; last def. pass 3
+ChooseInputScreen.init: equ 076A2h ; last def. pass 3
 BIOS_MLTCGP: equ 0F3D5h ; last def. pass 3
 PlayerSprite.planeRight_1: equ 05686h ; last def. pass 3
 BIOS_MEXBIH: equ 0FB07h ; last def. pass 3
