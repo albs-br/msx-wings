@@ -435,5 +435,5 @@ UncompressedData:       rb 4 * 1024 ; 4 kb for uncompressed data buffer
 
 ; vars for Choose Input Screen
 CurrentVRAMpage:        rb 1 ; 0 or 1
-
+CurrentFrameNumber:     rb 1
 PlaneRotating_Data_CurrentFrame_Addr: rw 1

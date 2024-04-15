@@ -38,12 +38,24 @@ ChooseInputScreen:
 
     call    BIOS_ENASCR
 
+    ; clear UncompressedData RAM area
+    ld      hl, UncompressedData            ; source
+    xor     a
+    ld      (hl), a
+    ld      de, UncompressedData + 1        ; destiny
+    ld      bc, UncompressedData.size - 1   ; size
+    ldir                                    ; Copy BC bytes from HL to DE
 
 
 
 .init:
 
+
+
     ; ---- debug
+    ld      a, -1 ; must be started at -1 (because of the double buffering, the frame current shown is actually the previous processed)
+    ld      (CurrentFrameNumber), a
+
     ld      a, 0000 0000 b                      ; highest bit of VRAM addr (bit 16)
     ld      hl, 0x0000 + 64
     call    SetVdp_Write
@@ -70,15 +82,6 @@ ChooseInputScreen:
 
     ld      hl, PlaneRotating_Data
     ld      (PlaneRotating_Data_CurrentFrame_Addr), hl
-
-    ; clear UncompressedData RAM area
-    ld      hl, UncompressedData            ; source
-    xor     a
-    ld      (hl), a
-    ld      de, UncompressedData + 1        ; destiny
-    ld      bc, UncompressedData.size - 1   ; size
-    ldir                                    ; Copy BC bytes from HL to DE
-
 
     ; --------------------------------------
 
@@ -150,6 +153,9 @@ ChooseInputScreen:
 
 .continue:
 
+    ld      hl, CurrentFrameNumber
+    inc     (hl)
+
     ; go to next PlaneRotating_Data
     ld      hl, (PlaneRotating_Data_CurrentFrame_Addr)
     ld      bc, PLANE_ROTATING_DATA_STRUCT_SIZE
@@ -160,13 +166,16 @@ ChooseInputScreen:
     ; if (PlaneRotating_Data_CurrentFrame_Addr >= PlaneRotating_Data.end) { jp .init; }
     ld      de, PlaneRotating_Data.end
     call    BIOS_DCOMPR                 ; Compares HL with DE. Zero flag set if HL and DE are equal. Carry flag set if HL is less than DE.
-    jp      nc, .init
+    jp      nc, .init   ; TODO: fix bug (last frame is not being shown)
 
 
     jp      .loop
 
     ; -------------------
     ret
+
+; .setInitFlag:
+;     ld      (InitFlag)
 
 .unpackFrame:
 
@@ -214,6 +223,13 @@ ChooseInputScreen_DrawImage:
     inc     hl
     ld      b, (hl)     ;   B: image height in pixels
 
+    inc     hl
+    ld      a, (hl)
+    ld      iyl, a      ;   IYl: delta x to centralize image (low byte)
+    inc     hl
+    ld      a, (hl)
+    ld      iyh, a      ;   IYh: delta x to centralize image (high byte)
+
     ; adjust image vertically
     ; DE += "lines at top of screen before image"
     push    bc
@@ -240,6 +256,14 @@ ChooseInputScreen_DrawImage:
         ex      de, hl
     pop     bc
 
+    ;DE += IY
+    push    bc
+        push    iy
+        pop     bc
+        ex      de, hl
+            add     hl, bc
+        ex      de, hl
+    pop     bc
 
     ld		hl, UncompressedData   				    ; RAM address (source)
     ; ld		de, SC5_NAMTBL_PAGE_0                   ; VRAM address (destiny)
