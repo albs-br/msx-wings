@@ -59,14 +59,16 @@ PlaneRotating_Data:
 
 ; TODO: X and width can be optimized (not really necessary, unpacking takes far longer)
 ClearTopScreenArea_Page_0_HMMV_Parameters:    ; R#36 to R#46
-   dw    0, 0 	    ; Destiny X (9 bits), Destiny Y (10 bits)
+   dw    0, 0+1 	    ; debug
+   ; dw    0, 0 	    ; Destiny X (9 bits), Destiny Y (10 bits)
    dw    256, 75	; number of cols (9 bits), number of lines (10 bits)
    db    0x11       ; color of the fill
    db    0, VDP_COMMAND_HMMV
 
 ; TODO: X and width can be optimized (not really necessary, unpacking takes far longer)
 ClearTopScreenArea_Page_1_HMMV_Parameters:    ; R#36 to R#46
-   dw    0, 256	    ; Destiny X (9 bits), Destiny Y (10 bits)
+   dw    0, 256+1	    ; debug
+   ; dw    0, 256      ; Destiny X (9 bits), Destiny Y (10 bits)
    dw    256, 75	; number of cols (9 bits), number of lines (10 bits)
    db    0x11       ; color of the fill
    db    0, VDP_COMMAND_HMMV

@@ -38,7 +38,28 @@ ChooseInputScreen:
 
     call    BIOS_ENASCR
 
+
+
+
 .init:
+
+    ; ---- debug
+    ld      a, 0000 0000 b                      ; highest bit of VRAM addr (bit 16)
+    ld      hl, 0x0000 + 64
+    call    SetVdp_Write
+    ld      b, 8
+    ld      c, PORT_0
+    ld      hl, TEST_PIXELS
+    otir
+
+    ld      a, 0000 0000 b                      ; highest bit of VRAM addr (bit 16)
+    ld      hl, 0x8000 + 64
+    call    SetVdp_Write
+    ld      b, 8
+    ld      c, PORT_0
+    ld      hl, TEST_PIXELS
+    otir
+    ; ---- debug
 
     xor     a
     ld      (CurrentVRAMpage), a
@@ -50,7 +71,14 @@ ChooseInputScreen:
     ld      hl, PlaneRotating_Data
     ld      (PlaneRotating_Data_CurrentFrame_Addr), hl
 
-    ; TODO: clear UncompressedData RAM area
+    ; clear UncompressedData RAM area
+    ld      hl, UncompressedData            ; source
+    xor     a
+    ld      (hl), a
+    ld      de, UncompressedData + 1        ; destiny
+    ld      bc, UncompressedData.size - 1   ; size
+    ldir                                    ; Copy BC bytes from HL to DE
+
 
     ; --------------------------------------
 
@@ -242,3 +270,6 @@ ChooseInputScreen_DrawImage:
 
     djnz    .loop
     ret
+
+; ---- debug
+TEST_PIXELS: db 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0
