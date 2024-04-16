@@ -5,7 +5,7 @@ PlaneRotating_Data:
 	;   |                                          |                                    +--- image width in bytes (SC5)
 	;   |                                          |                                    |   +--- image height in pixels
 	;   |                                          |                                    |   |           +--- lines at top of screen before image (in bytes SC5)
-	;   |                                          |                                    |   |           |              +--- manual x adjust, to make the plane rotate over a fixed pivot
+	;   |                                          |                                    |   |           |              +--- manual x adjust, to make the plane rotate over a fixed pivot (in bytes SC5)
 	;   |                                          |                                    |   |           |              |
   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0    dw PlaneRotating_Images_0.frame_0    db 52, 71       dw 3 * 128     dw 0
   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0    dw PlaneRotating_Images_0.frame_1    db 52, 72       dw 2 * 128     dw -1
@@ -20,17 +20,17 @@ PlaneRotating_Data:
   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0    dw PlaneRotating_Images_0.frame_10   db 74, 52       dw 9 * 128     dw 0
   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0    dw PlaneRotating_Images_0.frame_11   db 73, 52       dw 10 * 128    dw -1
   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0    dw PlaneRotating_Images_0.frame_12   db 71, 51       dw 12 * 128    dw -2
-;   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0    dw PlaneRotating_Images_0.frame_13   db 70, 51       dw 11 * 128    dw 0
-;   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0    dw PlaneRotating_Images_0.frame_14   db 68, 49       dw 13 * 128    dw 0
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0    dw PlaneRotating_Images_0.frame_13   db 70, 51       dw 12 * 128    dw -2 ; lines manually adjusted (was 11 * 128)
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0    dw PlaneRotating_Images_0.frame_14   db 68, 49       dw 13 * 128    dw -6
   
-;   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_15   db 66, 48       dw 15 * 128    dw 0
-;   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_16   db 63, 46       dw 16 * 128    dw 0
-;   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_17   db 58, 45       dw 18 * 128    dw 0
-;   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_18   db 55, 45       dw 20 * 128    dw 0
-;   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_19   db 55, 47       dw 19 * 128    dw 0
-;   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_20   db 56, 47       dw 19 * 128    dw 0
-;   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_21   db 57, 47       dw 19 * 128    dw 0
-;   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_22   db 58, 47       dw 18 * 128    dw 0
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_15   db 66, 48       dw 15 * 128    dw -7
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_16   db 63, 46       dw 16 * 128    dw -8
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_17   db 58, 45       dw 18 * 128    dw -8
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_18   db 55, 45       dw 20 * 128    dw -11
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_19   db 55, 47       dw 19 * 128    dw -8
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_20   db 56, 47       dw 19 * 128    dw -5
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_21   db 57, 47       dw 19 * 128    dw -4
+  db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_22   db 58, 47       dw 18 * 128    dw -1
 ;   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_23   db 58, 47       dw 18 * 128    dw 0
 ;   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_24   db 57, 47       dw 19 * 128    dw 0
 ;   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_1    dw PlaneRotating_Images_1.frame_25   db 56, 47       dw 19 * 128    dw 0

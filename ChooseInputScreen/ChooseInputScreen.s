@@ -61,7 +61,7 @@ ChooseInputScreen:
     ld      a, 0000 0000 b                      ; highest bit of VRAM addr (bit 16)
     ld      hl, 0x0000 + 64
     call    SetVdp_Write
-    ld      b, 8
+    ld      b, 16
     ld      c, PORT_0
     ld      hl, TEST_PIXELS
     otir
@@ -69,7 +69,7 @@ ChooseInputScreen:
     ld      a, 0000 0000 b                      ; highest bit of VRAM addr (bit 16)
     ld      hl, 0x8000 + 64
     call    SetVdp_Write
-    ld      b, 8
+    ld      b, 16
     ld      c, PORT_0
     ld      hl, TEST_PIXELS
     otir
@@ -297,4 +297,6 @@ ChooseInputScreen_DrawImage:
     ret
 
 ; ---- debug
-TEST_PIXELS: db 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0
+TEST_PIXELS: 
+    db 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0
+    db 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0
