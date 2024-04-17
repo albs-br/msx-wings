@@ -52,28 +52,28 @@ ChooseInputScreen:
 
 .init:
 
-
-
-    ; ---- debug
     ld      a, -1 ; must be started at -1 (because of the double buffering, the frame current shown is actually the previous processed)
     ld      (CurrentFrameNumber), a
 
-    ld      a, 0000 0000 b                      ; highest bit of VRAM addr (bit 16)
-    ld      hl, 0x0000 + 64
-    call    SetVdp_Write
-    ld      b, 16
-    ld      c, PORT_0
-    ld      hl, TEST_PIXELS
-    otir
 
-    ld      a, 0000 0000 b                      ; highest bit of VRAM addr (bit 16)
-    ld      hl, 0x8000 + 64
-    call    SetVdp_Write
-    ld      b, 16
-    ld      c, PORT_0
-    ld      hl, TEST_PIXELS
-    otir
-    ; ---- debug
+    ; ; ---- debug
+
+    ; ld      a, 0000 0000 b                      ; highest bit of VRAM addr (bit 16)
+    ; ld      hl, 0x0000 + 64
+    ; call    SetVdp_Write
+    ; ld      b, 16
+    ; ld      c, PORT_0
+    ; ld      hl, TEST_PIXELS
+    ; otir
+
+    ; ld      a, 0000 0000 b                      ; highest bit of VRAM addr (bit 16)
+    ; ld      hl, 0x8000 + 64
+    ; call    SetVdp_Write
+    ; ld      b, 16
+    ; ld      c, PORT_0
+    ; ld      hl, TEST_PIXELS
+    ; otir
+    ; ; ---- debug
 
 
     ; set MegaROM page for Choose Input Screen data
@@ -296,7 +296,7 @@ ChooseInputScreen_DrawImage:
     djnz    .loop
     ret
 
-; ---- debug
-TEST_PIXELS: 
-    db 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0
-    db 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0
+; ; ---- debug
+; TEST_PIXELS: 
+;     db 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0
+;     db 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0
