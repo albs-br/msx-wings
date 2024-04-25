@@ -25,7 +25,7 @@ ChooseInputScreen:
     call    SetColor0ToTransparent
 
     ; disable sprites to improve VDP commands speed
-    call    DisableSprites
+    ; call    DisableSprites
 
 
     ; set MegaROM page for Choose Input Screen data
@@ -36,7 +36,51 @@ ChooseInputScreen:
     ld      hl, PlaneRotating_Palette
     call    LoadPalette
 
+
+    ; ------------------------------------------------------------------------
+
+    ; test sprite chars
+
+    ; set MegaROM page for Fonts data
+    ld      a, FONTS_DATA_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
+    ; load "JOYSTICK" and "KEYBOARD" 8x8 char patterns to SPRATR
+    ld      a, 0000 0000 b
+    ld      hl, SC5_SPRPAT
+    call    SetVdp_Write
+    ld      b, 8;SpritePattern_PlayerPlane_0_and_1.size
+    ld      c, PORT_0
+    ; ld      hl, SpritePattern_PlayerPlane_0_and_1
+    ld      a, 65 ; ASCII code 
+    call    Get_SmallFont_PatternAddr
+    otir
+
+    ; set SPRCOL
+    ld      a, 0000 0000 b
+    ld      hl, SC5_SPRCOL
+    call    SetVdp_Write
+    ld      c, PORT_0
+    ld      b, 32*16 ; 32 sprites x 16 color
+.loop_1:
+        ld      a, 0x0d ; color
+        out     (c), a
+    djnz    .loop_1
+
+    ;show sprite #0
+    ld      a, 0000 0000 b
+    ld      hl, SC5_SPRATR
+    call    SetVdp_Write
+    ld      b, TEST_SPRATR.size
+    ld      c, PORT_0
+    ld      hl, TEST_SPRATR
+    otir
+    ; ------------------------------------------------------------------------
+
+
     call    BIOS_ENASCR
+
+; jp $
 
     ; clear UncompressedData RAM area
     ld      hl, UncompressedData            ; source
@@ -46,6 +90,7 @@ ChooseInputScreen:
     ld      bc, UncompressedData.size - 1   ; size
     ldir                                    ; Copy BC bytes from HL to DE
 
+; ---- plane animation
 
     xor     a
     ld      (CurrentVRAMpage), a
@@ -300,3 +345,8 @@ ChooseInputScreen_DrawImage:
 ; TEST_PIXELS: 
 ;     db 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0
 ;     db 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0
+
+TEST_SPRATR:
+    db 160, 128, 0, 0
+    db 160, 128+8, 0, 0
+.size: equ $ - TEST_SPRATR
