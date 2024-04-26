@@ -80,16 +80,16 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     ; INCLUDE "EnemyData/EnemyShotData.s"     ; moved to a MegaROM page
     INCLUDE "Sound/Sfx/PlaySfx.s"
 
-    INCLUDE "Animations/PauseAnimation/PauseAnimation.s"
+    INCLUDE "Animations/PauseAnimation/PauseAnimation.s" ; 623 bytes ; candidate to be moved to CODE_TO_BE_RELOCATED_MEGAROM_PAGE
 
-    INCLUDE "Animations/LevelTitleAnimation/LevelTitleAnimation.s"
-    INCLUDE "Animations/LevelTitleAnimation/Data.s" ; 125 bytes
+    INCLUDE "Animations/LevelTitleAnimation/LevelTitleAnimation.s" ; 437 bytes ; candidate to be moved to CODE_TO_BE_RELOCATED_MEGAROM_PAGE
+    INCLUDE "Animations/LevelTitleAnimation/Data.s" ; 125 bytes ; candidate to be moved to CODE_TO_BE_RELOCATED_MEGAROM_PAGE
 
-    INCLUDE "Animations/StageClearAnimation/StageClearAnimation.s" ; 905 bytes
+    INCLUDE "Animations/StageClearAnimation/StageClearAnimation.s" ; 905 bytes ; candidate to be moved to CODE_TO_BE_RELOCATED_MEGAROM_PAGE
     ;INCLUDE "Animations/StageClearAnimation/SPRATR_Data.s" ; moved to a MegaROM page
     ;INCLUDE "Graphics/Sprites/StageClearAnimation/StageClearAnimation.s" ; moved to a MegaROM page
     
-    INCLUDE "Animations/GameOverAnimation/GameOverAnimation.s"
+    INCLUDE "Animations/GameOverAnimation/GameOverAnimation.s" ; 347 bytes ; candidate to be moved to CODE_TO_BE_RELOCATED_MEGAROM_PAGE
     ; INCLUDE "Animations/GameOverAnimation/GameOverAnimation_Data.s" ; moved to a MegaROM page
 
     INCLUDE "DebugMessage.s"
@@ -98,8 +98,9 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     INCLUDE "Graphics/Sprites/Fonts/Fonts_CommonRoutines.s"
     INCLUDE "Graphics/Sprites/Fonts/Fonts_Constants.s"
 
-    INCLUDE "TitleScreen/TitleScreen.s" ; 759 bytes
-    INCLUDE "TitleScreen/Data.s" ; 79 bytes
+    ; moved to MegaROM page, to be relocated to RAM later
+    ; INCLUDE "TitleScreen/TitleScreen.s" ; 759 bytes
+    ; INCLUDE "TitleScreen/Data.s" ; 79 bytes
 
     INCLUDE "ChooseInputScreen/ChooseInputScreen.s" ; ? bytes
 
@@ -115,7 +116,21 @@ SpriteColors_size: equ $ - SpriteColors_start ; 0x3d0 = 976 bytes (it is not eas
     ; background bitmaps are on MegaRomPages.s
 
 
+;  caller for relocated code (maybe should be put on own file)
+TitleScreen_RAM_Code:
 
+    ; set MegaROM page for Code to be relocated
+    ld      a, CODE_TO_BE_RELOCATED_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
+    ld      hl, TitleScreen_Start
+    ld      de, RAM_Code
+    ld      bc, TitleScreen_size
+    ldir
+
+    call    TitleScreen
+
+    ret
 
 Execute:
     ; init interrupt mode and stack pointer (in case the ROM isn't the first thing to be loaded)
@@ -135,10 +150,11 @@ Execute:
     call    ClearRam
 
 
-    ; call    TitleScreen ; debug
+    ; call    TitleScreen ; old
+    call    TitleScreen_RAM_Code
 
 
-    call    ChooseInputScreen
+    ; call    ChooseInputScreen ; debug
 
 
     ; install the interrupt routine
@@ -382,7 +398,7 @@ End:
 
     ; db      "End ROM started at 0x4000"
 
-PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3c79 bytes (903 bytes livres)
+PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3a45 bytes (1467 free bytes)
 	ds PAGE_SIZE - ($ - 0x4000), 255	; Fill the unused area with 0xFF
 
 

@@ -61,11 +61,15 @@ ChooseInputScreen:
     ld      hl, SC5_SPRCOL
     call    SetVdp_Write
     ld      c, PORT_0
-    ld      b, 32*16 ; 32 sprites x 16 color
-.loop_1:
+    ld      b, 0 ; 0=256
+.loop_1: ; iterate 256 times
         ld      a, 0x0d ; color
         out     (c), a
     djnz    .loop_1
+.loop_2: ; iterate 256 times
+        ld      a, 0x0d ; color
+        out     (c), a
+    djnz    .loop_2
 
     ;show sprite #0
     ld      a, 0000 0000 b

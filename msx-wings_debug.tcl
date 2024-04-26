@@ -18,11 +18,11 @@ ram_watch   add     0xc008      -type byte      -desc Player_SideMovementCounter
 
 #ram_watch   add     0xc3cd      -type byte       -desc LevelInitAnimation_Counter      -format dec
 
-ram_watch   add     0xc00f      -type byte       -desc Player_Lives      -format dec
-ram_watch   add     0xc010      -type word       -desc Score             -format hex
-ram_watch   add     0xc002      -type byte       -desc Player_Status     -format dec
-
-ram_watch   add     0xFC4A      -type word       -desc HIMEM             -format hex
+# ram_watch   add     0xc00f      -type byte       -desc Player_Lives      -format dec
+# ram_watch   add     0xc010      -type word       -desc Score             -format hex
+# ram_watch   add     0xc002      -type byte       -desc Player_Status     -format dec
+# 
+# ram_watch   add     0xFC4A      -type word       -desc HIMEM             -format hex
 
 
 
@@ -87,8 +87,8 @@ ram_watch   add     0xFC4A      -type word       -desc HIMEM             -format
 
 #ram_watch   add     0xC40e      -type byte      -desc PauseAnim_Counter            -format dec
 
-ram_watch   add     0xC02a      -type byte      -desc EnemyMode            -format dec
-ram_watch   add     0xdfc3      -type byte      -desc CurrentFrameNumber            -format dec
+#ram_watch   add     0xC02a      -type byte      -desc EnemyMode            -format dec
+#ram_watch   add     0xdfc3      -type byte      -desc CurrentFrameNumber            -format dec
 
 
 

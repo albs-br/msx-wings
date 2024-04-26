@@ -1,3 +1,5 @@
+RAM_Code:                           rb 1024 ; space reserved to copy some code from MegaROM pages (to save space at page 0x4000)
+
 Seed:                               rw 1
 
 

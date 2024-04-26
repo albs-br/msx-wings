@@ -1104,12 +1104,23 @@ MEGAROM_PAGE_248_size:          equ $ - 0x8000 ; 0x0cc3 bytes (more than 12 kb f
 
 PAUSE_ANIMATION_DATA_MEGAROM_PAGE:      equ 249
 SPRITE_PATTERNS_DATA_MEGAROM_PAGE:      equ 249
+CODE_TO_BE_RELOCATED_MEGAROM_PAGE:      equ 249
 
 ; ------- Page 249
 	org	0x8000, 0xBFFF
     INCLUDE "Animations/PauseAnimation/PauseAnimation_Data.s"
     INCLUDE "Graphics/Sprites/SpritePatterns.s"
-MEGAROM_PAGE_249_size:          equ $ - 0x8000 ; 0x10d8 (aprox 12 kb free)
+
+; code that needs to be realocated later need to be PHASE'd and DEPHASE'd 
+; in order to solve correctly the labels
+TitleScreen_Start:
+    PHASE   0xc000
+        INCLUDE "TitleScreen/TitleScreen.s" ; 759 bytes
+        INCLUDE "TitleScreen/Data.s" ; 79 bytes
+    DEPHASE
+TitleScreen_Size: equ $ - TitleScreen_Start
+
+MEGAROM_PAGE_249_size:          equ $ - 0x8000 ; 0x141e (aprox 11 kb free)
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
 ; ------------------------------------------------------------------------
