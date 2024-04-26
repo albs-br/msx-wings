@@ -94,7 +94,7 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
 
     INCLUDE "DebugMessage.s"
 
-    ; INCLUDE "Graphics/Sprites/Fonts/FontsTest.s" ; 269 bytes ; commented out to save space
+    ; INCLUDE "Graphics/Sprites/Fonts/FontsTest.s" ; 353 bytes ; commented out to save space
     INCLUDE "Graphics/Sprites/Fonts/Fonts_CommonRoutines.s"
     INCLUDE "Graphics/Sprites/Fonts/Fonts_Constants.s"
 
@@ -150,8 +150,7 @@ Execute:
     call    ClearRam
 
 
-    ; call    TitleScreen ; old
-    call    TitleScreen_RAM_Code
+    ; call    TitleScreen_RAM_Code ; debug
 
 
     ; call    ChooseInputScreen ; debug
@@ -210,16 +209,14 @@ Execute:
     ld      (CurrentLevelNumber), a
     call    LoadLevel
 
-    ; call    InitVariables_LevelStart
-    ; call    InitVariables_PlayerStart
 
+
+    ; ; fonts test
     ; call    BIOS_ENASCR
-
-
-
     ; call    TestFonts_8x8   ; [debug]
     ; call    TestFonts_8x16   ; [debug]
     ; call    TestFonts_16x16   ; [debug]
+    ; jp $
 
 ; DEBUG_ResetCircleLoopTest:
 
@@ -398,7 +395,7 @@ End:
 
     ; db      "End ROM started at 0x4000"
 
-PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3a45 bytes (1467 free bytes)
+PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3baa bytes (mote than 1kb free)
 	ds PAGE_SIZE - ($ - 0x4000), 255	; Fill the unused area with 0xFF
 
 
@@ -418,4 +415,4 @@ PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3a45 bytes (1467 free bytes)
 RamStart:
     INCLUDE "Variables.s"
 RamEnd:
-Ram_size:          equ $ - RamStart ; 1fc3h (8131 bytes)
+Ram_size:          equ $ - RamStart ; 0x23c6 (9158 bytes)

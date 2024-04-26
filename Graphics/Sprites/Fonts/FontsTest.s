@@ -72,7 +72,7 @@ TestFonts_16x16:
     ; 8 left pixels of the chars
     ld      hl, LargeFont_Patterns
     ld      iy, LargeFont_Colors
-    ld      de, NAMTBL + (256 * 64)                 ; skip 48 lines
+    ld      de, NAMTBL + (256 * 64)                 ; skip 64 lines
     ld      b, 16                                   ; number of chars
     ld      ixh, 16                                 ; font width in pixels
     ld      ixl, 16                                 ; font height in pixels
@@ -81,8 +81,48 @@ TestFonts_16x16:
     ; 8 right pixels of the chars
     ld      hl, LargeFont_Patterns + 16
     ld      iy, LargeFont_Colors
-    ld      de, NAMTBL + (256 * 64) + 8             ; skip 48 lines (+ 8 pixels)
+    ld      de, NAMTBL + (256 * 64) + 8             ; skip 64 lines (+ 8 pixels)
     ld      b, 16                                   ; number of chars
+    ld      ixh, 16                                 ; font width in pixels
+    ld      ixl, 16                                 ; font height in pixels
+    call    TestFonts_WriteLine
+
+
+
+    ; 8 left pixels of the chars
+    ld      hl, LargeFont_Patterns + (64 * 16)
+    ld      iy, LargeFont_Colors
+    ld      de, NAMTBL + (256 * 80)                 ; skip 80 lines
+    ld      b, 16                                   ; number of chars
+    ld      ixh, 16                                 ; font width in pixels
+    ld      ixl, 16                                 ; font height in pixels
+    call    TestFonts_WriteLine
+
+    ; 8 right pixels of the chars
+    ld      hl, LargeFont_Patterns + (64 * 16) + 16
+    ld      iy, LargeFont_Colors
+    ld      de, NAMTBL + (256 * 80) + 8             ; skip 80 lines (+ 8 pixels)
+    ld      b, 16                                   ; number of chars
+    ld      ixh, 16                                 ; font width in pixels
+    ld      ixl, 16                                 ; font height in pixels
+    call    TestFonts_WriteLine
+
+
+
+    ; 8 left pixels of the chars
+    ld      hl, LargeFont_Patterns + (64 * 32)
+    ld      iy, LargeFont_Colors
+    ld      de, NAMTBL + (256 * 96)                 ; skip 96 lines
+    ld      b, 14                                   ; number of chars
+    ld      ixh, 16                                 ; font width in pixels
+    ld      ixl, 16                                 ; font height in pixels
+    call    TestFonts_WriteLine
+
+    ; 8 right pixels of the chars
+    ld      hl, LargeFont_Patterns + (64 * 32) + 16
+    ld      iy, LargeFont_Colors
+    ld      de, NAMTBL + (256 * 96) + 8             ; skip 96 lines (+ 8 pixels)
+    ld      b, 14                                   ; number of chars
     ld      ixh, 16                                 ; font width in pixels
     ld      ixl, 16                                 ; font height in pixels
     call    TestFonts_WriteLine
