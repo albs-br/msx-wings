@@ -85,7 +85,7 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     INCLUDE "Animations/LevelTitleAnimation/LevelTitleAnimation.s" ; 437 bytes ; candidate to be moved to CODE_TO_BE_RELOCATED_MEGAROM_PAGE
     INCLUDE "Animations/LevelTitleAnimation/Data.s" ; 125 bytes ; candidate to be moved to CODE_TO_BE_RELOCATED_MEGAROM_PAGE
 
-    INCLUDE "Animations/StageClearAnimation/StageClearAnimation.s" ; 905 bytes ; candidate to be moved to CODE_TO_BE_RELOCATED_MEGAROM_PAGE
+    ; INCLUDE "Animations/StageClearAnimation/StageClearAnimation.s" ; 905 bytes ; ; moved to MegaROM page, to be relocated to RAM later
     ;INCLUDE "Animations/StageClearAnimation/SPRATR_Data.s" ; moved to a MegaROM page
     ;INCLUDE "Graphics/Sprites/StageClearAnimation/StageClearAnimation.s" ; moved to a MegaROM page
     
@@ -115,22 +115,9 @@ SpriteColors_size: equ $ - SpriteColors_start ; 0x3d0 = 976 bytes (it is not eas
 	; INCLUDE "Graphics/Bitmaps/GroundTargetDestroyed.s" ; moved to a MegaROM page
     ; background bitmaps are on MegaRomPages.s
 
+    INCLUDE "Relocated_Code_Callers.s"
 
-;  caller for relocated code (maybe should be put on own file)
-TitleScreen_RAM_Code:
 
-    ; set MegaROM page for Code to be relocated
-    ld      a, CODE_TO_BE_RELOCATED_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
-
-    ld      hl, TitleScreen_Start
-    ld      de, RAM_Code
-    ld      bc, TitleScreen_size
-    ldir
-
-    call    TitleScreen
-
-    ret
 
 Execute:
     ; init interrupt mode and stack pointer (in case the ROM isn't the first thing to be loaded)
@@ -216,33 +203,6 @@ Execute:
     ; call    TestFonts_8x8   ; [debug]
     ; call    TestFonts_8x16   ; [debug]
     ; call    TestFonts_16x16   ; [debug]
-    ; jp $
-
-; DEBUG_ResetCircleLoopTest:
-
-    ; ld      a, (CurrentLevelNumber) ; debug
-    ; call    LevelTitleAnimation
-    
-    ; call    StageClearAnimation ; DEBUG
-
-    ; jp      DEBUG_ResetCircleLoopTest
-    ; call    InitVram
-    ; call    BIOS_ENASCR
-
-;     ; clear SPRATR_Buffer
-;     xor     a
-;     ld      hl, SPRATR_Buffer
-;     ld      b, 32 * 4
-; .loop_2:
-;     ld      (hl), a
-;     inc     hl
-;     djnz    .loop_2
-
-    ; call    LoadSpritesForGameplay
-
-    ; ; debug
-    ; ; test GAME OVER animation
-    ; call    GameOverAnimation
     ; jp $
 
 
@@ -395,7 +355,7 @@ End:
 
     ; db      "End ROM started at 0x4000"
 
-PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3baa bytes (mote than 1kb free)
+PAGE_0x4000_size:          equ $ - 0x4000   ; 0x36d2 bytes (more than 2kb free)
 	ds PAGE_SIZE - ($ - 0x4000), 255	; Fill the unused area with 0xFF
 
 

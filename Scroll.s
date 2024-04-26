@@ -198,7 +198,7 @@ ExecuteScroll:
     ret
 
 .stopScroll:
-    call    StageClearAnimation
+    call    StageClearAnimation_RAM_Code
     call    NextLevel
     ret
 

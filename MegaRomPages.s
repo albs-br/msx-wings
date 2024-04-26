@@ -1120,7 +1120,13 @@ TitleScreen_Start:
     DEPHASE
 TitleScreen_Size: equ $ - TitleScreen_Start
 
-MEGAROM_PAGE_249_size:          equ $ - 0x8000 ; 0x141e (aprox 11 kb free)
+StageClearAnimation_Start:
+    PHASE   0xc000
+		INCLUDE "Animations/StageClearAnimation/StageClearAnimation.s"  ; 905 bytes
+    DEPHASE
+StageClearAnimation_Size: equ $ - StageClearAnimation_Start
+
+MEGAROM_PAGE_249_size:          equ $ - 0x8000 ; 0x17b6 (aprox 10 kb free)
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
 ; ------------------------------------------------------------------------

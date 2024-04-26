@@ -84,12 +84,11 @@ ChooseInputScreen:
 
     call    BIOS_ENASCR
 
-; jp $
 
     ; clear UncompressedData RAM area
     ld      hl, UncompressedData            ; source
     xor     a
-    ld      (hl), a
+    ld      (hl), a                         ; clear first byte
     ld      de, UncompressedData + 1        ; destiny
     ld      bc, UncompressedData.size - 1   ; size
     ldir                                    ; Copy BC bytes from HL to DE
