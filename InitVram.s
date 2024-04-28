@@ -58,12 +58,13 @@ InitVram:
 NAMTBL:     equ 0x0000
 
 ; second page (0x10000 to 0x1ffff):
-SPRPAT:     equ 0xf000 ; actually 0x1f000, but 17 bits address are not accepted
-SPRCOL:     equ 0xf800
-SPRATR:     equ 0xfa00
+SPRPAT:     equ 0xf000 ; 0x1f000 - 0x1f7ff ; 64 * 32 = 2048 bytes                       ; actually 0x1f000, but 17 bits address are not accepted
+SPRCOL:     equ 0xf800 ; 0x1f800 - 0x1f9ff ; 32 * 16 = 512 bytes
+SPRATR:     equ 0xfa00 ; 0x1fa00 - 0x1fa7f ; 4 * 32 = 128 bytes
 
+                       ; 0x1fa80 - 0x1ffff = 1408 bytes free (5.5 last lines)
 ; --------------------------
-
+r
 
 
     ld      hl, PaletteData_0
