@@ -64,7 +64,7 @@ SPRATR:     equ 0xfa00 ; 0x1fa00 - 0x1fa7f ; 4 * 32 = 128 bytes
 
                        ; 0x1fa80 - 0x1ffff = 1408 bytes free (5.5 last lines)
 ; --------------------------
-r
+
 
 
     ld      hl, PaletteData_0

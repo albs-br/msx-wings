@@ -140,7 +140,7 @@ Execute:
     ; call    TitleScreen_RAM_Code ; debug
 
 
-    ; call    ChooseInputScreen ; debug
+    call    ChooseInputScreen ; debug
 
 
     ; install the interrupt routine

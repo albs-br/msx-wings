@@ -1,0 +1,41 @@
+strategy for compressing background bitmaps
+
+ex. level 1
+
+
+unpacked: 16 pages of 16 kb = 256kb
+
+
+1) 4 pages (0-3) packed with zx0 and unpacked before level start, to VRAM (page 0)
+
+2) 3 pages (4-6) packed with zx0 and unpacked before level start, to VRAM (page 1), leaving space to sprites at the bottom
+
+3) 3 pages (7-9) packed with zx0 and unpacked before level start, to RAM (pages 0-2 0x0000 to 0xbfff), Scroll code will be needed to run in RAM (0xc000)
+
+4) 6 pages (10-15) packed with custom compressor and unpacked during gameplay
+
+
+
+compression rate:
+0-9 = 25%
+10-15 = 50%
+
+total = 40%
+
+--------------------------------------------------------------------------------------
+
+64kb (or 48kb) of VRAM used as sliding window for packing.
+packing a new line (256 bytes) by searching blocks of repeated bytes (4 up to 127)
+
+format:
+
+size of block/size of literal:  1 byte	
+	bit 7: 0: literal; 1: repeat block
+
+offset addr:			2 bytes (1 word)
+
+
+
+ex:
+0x07, 1, 4, 190, 0, 0, 1, 19 : 	7 literal bytes (1 to 19)
+1000 1111 b, 0x409f :		repeat 15 bytes started at 0x409f

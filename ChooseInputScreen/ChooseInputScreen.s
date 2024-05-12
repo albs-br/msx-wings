@@ -49,11 +49,18 @@ ChooseInputScreen:
     ld      a, 0000 0000 b
     ld      hl, SC5_SPRPAT
     call    SetVdp_Write
-    ld      b, 8;SpritePattern_PlayerPlane_0_and_1.size
     ld      c, PORT_0
     ; ld      hl, SpritePattern_PlayerPlane_0_and_1
-    ld      a, 65 ; ASCII code 
-    call    Get_SmallFont_PatternAddr
+    ld      a, 'J' ; ASCII code 
+    call    Get_MediumFont_PatternAddr
+    ld      b, 16;SpritePattern_PlayerPlane_0_and_1.size
+    otir
+
+    ld      c, PORT_0
+    ; ld      hl, SpritePattern_PlayerPlane_0_and_1
+    ld      a, 'O' ; ASCII code 
+    call    Get_MediumFont_PatternAddr
+    ld      b, 16;SpritePattern_PlayerPlane_0_and_1.size
     otir
 
     ; set SPRCOL
@@ -350,6 +357,9 @@ ChooseInputScreen_DrawImage:
 ;     db 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0
 
 TEST_SPRATR:
-    db 160, 128, 0, 0
-    db 160, 128+8, 0, 0
+    db 160, 40, 0, 0
+    db 160, 40+16, 0, 0
 .size: equ $ - TEST_SPRATR
+
+STRING_JOYSTICK:    db 'JOYSTICK', 0
+STRING_KEYBOARD:    db 'KEYBOARD', 0
