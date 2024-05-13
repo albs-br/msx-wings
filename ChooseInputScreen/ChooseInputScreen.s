@@ -39,31 +39,34 @@ ChooseInputScreen:
 
     ; ------------------------------------------------------------------------
 
-    ; test sprite chars
+    ; --- load sprite chars
 
     ; set MegaROM page for Fonts data
     ld      a, FONTS_DATA_MEGAROM_PAGE
     ld	    (Seg_P8000_SW), a
 
-    ; load "JOYSTICK" and "KEYBOARD" 8x8 char patterns to SPRATR
-    ld      a, 0000 0000 b
-    ld      hl, SC5_SPRPAT
-    call    SetVdp_Write
-    ld      c, PORT_0
-    ; ld      hl, SpritePattern_PlayerPlane_0_and_1
-    ld      a, 'J' ; ASCII code 
-    call    Get_MediumFont_PatternAddr
-    ld      b, 16;SpritePattern_PlayerPlane_0_and_1.size
-    otir
+    ; load "JOYSTICK" and "KEYBOARD" 8x16 char patterns to SPRATR
+    ld      hl, STRING_JOYSTICK_AND_KEYBOARD
+    push    hl
+        ld      a, 0000 0000 b
+        ld      hl, SC5_SPRPAT
+        call    SetVdp_Write
+    pop     hl
+.loop_LoadSPRPAT:
+    ld      a, (hl) ; get char from string
+    or      a       ; check for end of string (value 0)
+    jp      z, .end_LoadSPRPAT
+    push    hl
+        call    Get_MediumFont_PatternAddr
+        ld      b, 16 ; load only half of 16x16 sprite (left or right 8x16 half)
+        ld      c, PORT_0
+        otir
+    pop     hl
+    inc     hl
+    jp      .loop_LoadSPRPAT
+.end_LoadSPRPAT:
 
-    ld      c, PORT_0
-    ; ld      hl, SpritePattern_PlayerPlane_0_and_1
-    ld      a, 'O' ; ASCII code 
-    call    Get_MediumFont_PatternAddr
-    ld      b, 16;SpritePattern_PlayerPlane_0_and_1.size
-    otir
-
-    ; set SPRCOL
+    ; set SPRCOL (32 sprites x 16 lines = 512 bytes)
     ld      a, 0000 0000 b
     ld      hl, SC5_SPRCOL
     call    SetVdp_Write
@@ -78,7 +81,7 @@ ChooseInputScreen:
         out     (c), a
     djnz    .loop_2
 
-    ;show sprite #0
+    ; show sprites
     ld      a, 0000 0000 b
     ld      hl, SC5_SPRATR
     call    SetVdp_Write
@@ -357,9 +360,17 @@ ChooseInputScreen_DrawImage:
 ;     db 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0
 
 TEST_SPRATR:
-    db 160, 40, 0, 0
-    db 160, 40+16, 0, 0
+    ; joystick
+    db 160,  40-8,        0 * 4, 0
+    db 160,  40-8+16,     1 * 4, 0
+    db 160,  40-8+32,     2 * 4, 0
+    db 160,  40-8+48,     3 * 4, 0
+
+    ; keyboard
+    db 160, 152+8,        4 * 4, 0
+    db 160, 152+8+16,     5 * 4, 0
+    db 160, 152+8+32,     6 * 4, 0
+    db 160, 152+8+48,     7 * 4, 0
 .size: equ $ - TEST_SPRATR
 
-STRING_JOYSTICK:    db 'JOYSTICK', 0
-STRING_KEYBOARD:    db 'KEYBOARD', 0
+STRING_JOYSTICK_AND_KEYBOARD:    db 'JOYSTICKKEYBOARD', 0
