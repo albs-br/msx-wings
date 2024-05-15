@@ -72,12 +72,11 @@ ChooseInputScreen:
     call    SetVdp_Write
     ld      c, PORT_0
     ld      b, 0 ; 0=256
+    ld      a, 0x0f ; color
 .loop_1: ; iterate 256 times
-        ld      a, 0x0d ; color
         out     (c), a
     djnz    .loop_1
 .loop_2: ; iterate 256 times
-        ld      a, 0x0d ; color
         out     (c), a
     djnz    .loop_2
 
@@ -156,6 +155,11 @@ ChooseInputScreen:
 
 .showPage_0:
 
+    ; set color 15 to light red
+    ld      a, 15
+    ld      bc, 0x6202
+    call    SetPaletteColor ; A: Color number;   B: high nibble: red 0-7; low nibble: blue 0-7;   C: high nibble: 0000; low nibble:  green 0-7
+
     ; --- set current NAMTBL to page 0 (0x00000)
     ; bits:    16 15        7
     ;           | |         |
@@ -184,6 +188,11 @@ ChooseInputScreen:
 
 .showPage_1:
     
+    ; set color 15 to dark red
+    ld      a, 15
+    ld      bc, 0x4101
+    call    SetPaletteColor ; A: Color number;   B: high nibble: red 0-7; low nibble: blue 0-7;   C: high nibble: 0000; low nibble:  green 0-7
+
     ; --- set current NAMTBL to page 1 (0x00000)
     ; bits:    16 15        7
     ;           | |         |
