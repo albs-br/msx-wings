@@ -30,6 +30,7 @@ Player_Lives:                       rb 1
 Player_Score:                       rw 1 ; BCD coded (0-9999) range. Will be shown on screen x1000
 
 Player_Controls_Enabled:            rb 1 ; 0: disabled; 1: enabled
+Player_Tnput:                       rb 1 ; 0: keyboard; 1: joystick
 
 ; ---------------------------------------
 

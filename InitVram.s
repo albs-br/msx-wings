@@ -1,8 +1,8 @@
 InitVram:
 
-    ; disable keyboard click
-    xor     a
-    ld 		(BIOS_CLIKSW), a     ; Key Press Click Switch 0:Off 1:On (1B/RW)
+    ; ; disable keyboard click
+    ; xor     a
+    ; ld 		(BIOS_CLIKSW), a     ; Key Press Click Switch 0:Off 1:On (1B/RW)
 
     ; define screen colors
     ld 		a, 1      	            ; Foreground color

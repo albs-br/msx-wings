@@ -1,12 +1,12 @@
 PLANE_ROTATING_DATA_STRUCT_SIZE: equ 9
 PlaneRotating_Data:
 	;   +--- Megarom page number
-	;   |                                          +--- Addr of zx0 packed frame data
-	;   |                                          |                                    +--- image width in bytes (SC5)
-	;   |                                          |                                    |   +--- image height in pixels
-	;   |                                          |                                    |   |           +--- lines at top of screen before image (in bytes SC5)
-	;   |                                          |                                    |   |           |              +--- manual x adjust, to make the plane rotate over a fixed pivot (in bytes SC5)
-	;   |                                          |                                    |   |           |              |
+	;   |                                            +--- Addr of zx0 packed frame data
+	;   |                                            |                                    +--- image width in bytes (SC5)
+	;   |                                            |                                    |   +--- image height in pixels
+	;   |                                            |                                    |   |           +--- lines at top of screen before image (in bytes SC5)
+	;   |                                            |                                    |   |           |              +--- manual X adjust, to make the plane rotate over a fixed pivot (in bytes SC5)
+	;   |                                            |                                    |   |           |              |
   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0    dw PlaneRotating_Images_0.frame_0    db 52, 71       dw 3 * 128     dw 0
   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0    dw PlaneRotating_Images_0.frame_1    db 52, 72       dw 2 * 128     dw -1
   db CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0    dw PlaneRotating_Images_0.frame_2    db 52, 71       dw 2 * 128     dw -2

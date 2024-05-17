@@ -36,6 +36,15 @@ ChooseInputScreen:
     ld      hl, PlaneRotating_Palette
     call    LoadPalette
 
+    ; init some vars / sprite colors
+    ld      a, JOYSTICK
+    ld      (Player_Tnput), a
+
+    ld      d, 0x0f ; color of joystick sprites
+    ld      e, 0x02 ; color of keyboard sprites
+    call    .update_SPRCOL
+
+
 
     ; ------------------------------------------------------------------------
 
@@ -66,27 +75,27 @@ ChooseInputScreen:
     jp      .loop_LoadSPRPAT
 .end_LoadSPRPAT:
 
-    ; set SPRCOL (32 sprites x 16 lines = 512 bytes)
-    ld      a, 0000 0000 b
-    ld      hl, SC5_SPRCOL
-    call    SetVdp_Write
-    ld      c, PORT_0
-    ld      b, 0 ; 0=256
-    ld      a, 0x0f ; color
-.loop_1: ; iterate 256 times
-        out     (c), a
-    djnz    .loop_1
-.loop_2: ; iterate 256 times
-        out     (c), a
-    djnz    .loop_2
+;     ; set SPRCOL (32 sprites x 16 lines = 512 bytes)
+;     ld      a, 0000 0000 b
+;     ld      hl, SC5_SPRCOL
+;     call    SetVdp_Write
+;     ld      c, PORT_0
+;     ld      b, 0 ; 0=256
+;     ld      a, 0x0f ; color
+; .loop_1: ; iterate 256 times
+;         out     (c), a
+;     djnz    .loop_1
+; .loop_2: ; iterate 256 times
+;         out     (c), a
+;     djnz    .loop_2
 
     ; show sprites
     ld      a, 0000 0000 b
     ld      hl, SC5_SPRATR
     call    SetVdp_Write
-    ld      b, TEST_SPRATR.size
+    ld      b, CHOOSE_INPUT_SPRATR.size
     ld      c, PORT_0
-    ld      hl, TEST_SPRATR
+    ld      hl, CHOOSE_INPUT_SPRATR
     otir
     ; ------------------------------------------------------------------------
 
@@ -149,6 +158,26 @@ ChooseInputScreen:
 
     call    Wait_Vblank
 
+
+
+    ; read keyboard
+    ld      a, 8                    ; 8th line
+    call    BIOS_SNSMAT             ; Read Data Of Specified Line From Keyboard Matrix
+    ld      e, a                    ; save value
+
+    bit     0, e                    ; 0th bit (space bar)
+    ret     z
+
+    bit     4, e                    ; 4th bit (key left)
+    jp      z, .keyLeft
+
+    ; ld      a, e
+    bit     7, e                    ; 7th bit (key right)
+    jp      z, .keyRight
+
+.readInput_cont:
+
+
     ld      a, (CurrentVRAMpage)
     or      a
     jp      nz, .showPage_1
@@ -193,10 +222,10 @@ ChooseInputScreen:
     ld      bc, 0x4101
     call    SetPaletteColor ; A: Color number;   B: high nibble: red 0-7; low nibble: blue 0-7;   C: high nibble: 0000; low nibble:  green 0-7
 
-    ; --- set current NAMTBL to page 1 (0x00000)
+    ; --- set current NAMTBL to page 1 (0x08000)
     ; bits:    16 15        7
     ;           | |         |
-    ; 0x00000 = 0 0000 0000 0000 0000
+    ; 0x08000 = 0 1000 0000 0000 0000
     ; R#2 : 0 a16 a15 1 1 1 1 1
     ld      b, 0011 1111 b  ; data
     ld      c, 2            ; register #
@@ -240,7 +269,54 @@ ChooseInputScreen:
     jp      .loop
 
     ; -------------------
+
+.keyLeft:
+    ld      a, JOYSTICK
+    ld      (Player_Tnput), a
+
+    ld      d, 0x0f ; color of joystick sprites
+    ld      e, 0x02 ; color of keyboard sprites
+    call    .update_SPRCOL
+
+    jp      .readInput_cont
+
+.keyRight:
+    ld      a, KEYBOARD
+    ld      (Player_Tnput), a
+
+    ld      d, 0x02 ; color of joystick sprites
+    ld      e, 0x0f ; color of keyboard sprites
+    call    .update_SPRCOL
+
+    jp      .readInput_cont
+
+
+
+.update_SPRCOL:
+
+    ; update joystick SPRCOL (16 sprites x 16 lines = 256 bytes)
+    ld      a, 0000 0000 b
+    ld      hl, SC5_SPRCOL
+    call    SetVdp_Write
+    ld      c, PORT_0
+    ld      b, 0 ; 0=256
+    ; ld      a, 0x0f ; color
+.loop_10: ; iterate 256 times
+        nop
+        out     (c), d
+    djnz    .loop_10
+
+    ; update keyboard SPRCOL (16 sprites x 16 lines = 256 bytes)
+    ld      b, 0 ; 0=256
+    ; ld      a, 0x02 ; color
+.loop_20: ; iterate 256 times
+        nop
+        out     (c), e
+    djnz    .loop_20
+
     ret
+
+
 
 ; .setInitFlag:
 ;     ld      (InitFlag)
@@ -368,18 +444,50 @@ ChooseInputScreen_DrawImage:
 ;     db 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0
 ;     db 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0, 0xe0
 
-TEST_SPRATR:
+CHOOSE_INPUT_SPRATR:
     ; joystick
+
+    db 160-48,  40-8,        0 * 4, 0
+    db 160-48,  40-8+16,     1 * 4, 0
+    db 160-48,  40-8+32,     2 * 4, 0
+    db 160-48,  40-8+48,     3 * 4, 0
+
+    db 160-32,  40-8,        0 * 4, 0
+    db 160-32,  40-8+16,     1 * 4, 0
+    db 160-32,  40-8+32,     2 * 4, 0
+    db 160-32,  40-8+48,     3 * 4, 0
+
+    db 160-16,  40-8,        0 * 4, 0
+    db 160-16,  40-8+16,     1 * 4, 0
+    db 160-16,  40-8+32,     2 * 4, 0
+    db 160-16,  40-8+48,     3 * 4, 0
+    ; joystick string
     db 160,  40-8,        0 * 4, 0
     db 160,  40-8+16,     1 * 4, 0
     db 160,  40-8+32,     2 * 4, 0
     db 160,  40-8+48,     3 * 4, 0
 
-    ; keyboard
+
+    ; keyboard 
+    db 160-48, 152+8,        4 * 4, 0
+    db 160-48, 152+8+16,     5 * 4, 0
+    db 160-48, 152+8+32,     6 * 4, 0
+    db 160-48, 152+8+48,     7 * 4, 0
+
+    db 160-32, 152+8,        4 * 4, 0
+    db 160-32, 152+8+16,     5 * 4, 0
+    db 160-32, 152+8+32,     6 * 4, 0
+    db 160-32, 152+8+48,     7 * 4, 0
+
+    db 160-16, 152+8,        4 * 4, 0
+    db 160-16, 152+8+16,     5 * 4, 0
+    db 160-16, 152+8+32,     6 * 4, 0
+    db 160-16, 152+8+48,     7 * 4, 0
+    ; keyboard string
     db 160, 152+8,        4 * 4, 0
     db 160, 152+8+16,     5 * 4, 0
     db 160, 152+8+32,     6 * 4, 0
     db 160, 152+8+48,     7 * 4, 0
-.size: equ $ - TEST_SPRATR
+.size: equ $ - CHOOSE_INPUT_SPRATR
 
 STRING_JOYSTICK_AND_KEYBOARD:    db 'JOYSTICKKEYBOARD', 0

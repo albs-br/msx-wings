@@ -126,6 +126,11 @@ Execute:
     ld      sp, (BIOS_HIMEM)    ; init SP
 
 
+    ; disable keyboard click
+    xor     a
+    ld 		(BIOS_CLIKSW), a     ; Key Press Click Switch 0:Off 1:On (1B/RW)
+
+
     call    EnableRomPage2
 
 
@@ -137,7 +142,10 @@ Execute:
     call    ClearRam
 
 
-    ; call    TitleScreen_RAM_Code ; debug
+
+
+
+    ;call    TitleScreen_RAM_Code ; debug
 
 
     call    ChooseInputScreen ; debug

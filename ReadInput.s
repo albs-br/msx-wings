@@ -9,6 +9,10 @@ PLAYER_SIDE_MOVEMENT_LIMIT:         equ 20
 PLAYER_SIDE_MOVEMENT_INTERMEDIATE:  equ 10
 
 
+
+KEYBOARD:   equ 0
+JOYSTICK:   equ 1
+
 ReadInput:
 
 
