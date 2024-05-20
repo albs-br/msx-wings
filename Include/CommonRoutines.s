@@ -1143,7 +1143,7 @@ Execute_VDP_HMMM:
     ; outi
     ; outi
     ; outi
-    ; ret ; ret directly from OUTIxXX subrotine
+    ; ret ; ret directly from OUTIxXX subroutine
 
 ;   Input:  HL = pointer to 11-byte VDP command data
 ;   Output: HL = updated
@@ -1186,7 +1186,7 @@ Execute_VDP_HMMV:
     ; outi
     ; outi
     ; outi
-    ; ret ; ret directly from OUTIxXX subrotine
+    ; ret ; ret directly from OUTIxXX subroutine
 
 
 ;   Input:  HL = pointer to 13-byte VDP command data
@@ -1228,7 +1228,7 @@ Execute_VDP_YMMM:
     ; outi
     ; outi
     ; outi
-    ; ret ; ret directly from OUTIxXX subrotine
+    ; ret ; ret directly from OUTIxXX subroutine
 
 VDP_COMMAND_HMMC:       equ 1111 0000 b	; High speed move CPU to VRAM (copies data from your ram to the vram)
 VDP_COMMAND_YMMM:       equ 1110 0000 b	; High speed move VRAM to VRAM, Y coordinate only

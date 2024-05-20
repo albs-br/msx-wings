@@ -145,7 +145,7 @@ Execute:
 
 
 
-    ;call    TitleScreen_RAM_Code ; debug
+    call    TitleScreen_RAM_Code ; debug
 
 
     call    ChooseInputScreen ; debug

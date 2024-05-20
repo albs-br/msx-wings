@@ -840,20 +840,31 @@ BorderWhiteAndLeftAdjustFor5Frames:
     ret
 
 ReadSpaceBar:
-    push    bc
-        ; read space bar
-        ld      a, 8                    ; 8th line
-        call    BIOS_SNSMAT
-        ; call    SNSMAT_NO_DI_EI         ; Read Data Of Specified Line From Keyboard Matrix
-        bit     0, a                    ; 0th bit (space bar)
-    
-        jp      nz, .return
+    push    hl, bc, de
+
+        call    BIOS_KILBUF
+
+        ld      a, 0                    ; read spacebar
+        call    BIOS_GTTRIG
+        jp      nz, .triggerPressed
+
+        ld      a, 1                    ; read button A of joystick 1
+        call    BIOS_GTTRIG
+        jp      nz, .triggerPressed
+
+        ld      a, 3                    ; read button B of joystick 1
+        call    BIOS_GTTRIG
+        jp      nz, .triggerPressed
+
+        jp      .return
+
+.triggerPressed:
 
         ld      a, 1
         ld      (TitleScreen_SpaceBarPressed), a
 
 .return:
-    pop     bc
+    pop     de, bc, hl
     ret
 
 ; ;-------------------

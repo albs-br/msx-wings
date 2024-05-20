@@ -159,20 +159,39 @@ ChooseInputScreen:
     call    Wait_Vblank
 
 
+    
+    ld      a, 0                    ; read spacebar
+    call    BIOS_GTTRIG
+    ret     nz
 
-    ; read keyboard
+    ld      a, 1                    ; read button A of joystick 1
+    call    BIOS_GTTRIG
+    ret     nz
+
+    ld      a, 3                    ; read button B of joystick 1
+    call    BIOS_GTTRIG
+    ret     nz
+
+    ; --- read keyboard
     ld      a, 8                    ; 8th line
     call    BIOS_SNSMAT             ; Read Data Of Specified Line From Keyboard Matrix
     ld      e, a                    ; save value
-
-    bit     0, e                    ; 0th bit (space bar)
-    ret     z
 
     bit     4, e                    ; 4th bit (key left)
     jp      z, .keyLeft
 
     ; ld      a, e
     bit     7, e                    ; 7th bit (key right)
+    jp      z, .keyRight
+
+    ; --- read joystick
+    ld      a, 1                    ; read direction of joystick 1
+    call    BIOS_GTSTCK
+    
+    cp      7                       ; joystick left
+    jp      z, .keyLeft
+
+    cp      3                       ; joystick right
     jp      z, .keyRight
 
 .readInput_cont:
