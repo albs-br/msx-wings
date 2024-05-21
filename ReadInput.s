@@ -39,10 +39,6 @@ ReadInput:
     jp      z, .readKeyboard
 
 .readJoystick:
-    ; ld a, 1                 ; 1: joystick 1
-    ; call BIOS_GTSTCK
-    ; cp 0
-    ; jp nz, .readJoystick    ; if joystick status is <> 0 (no direction), skip checking joystick
 
     ld      a, 1                    ; read button A of joystick 1
     call    BIOS_GTTRIG
@@ -59,6 +55,9 @@ ReadInput:
     ld      e, a                    ; save value
 
     ld      c, 0    ; control variable to check left/right press
+
+    or      a
+    jp      z, .skipJoystickDirections      ; if joystick status is 0 (no direction), skip checking directions
 
     cp      7                       ; joystick left
     call    z, .playerLeft
@@ -82,6 +81,8 @@ ReadInput:
     ld      a, e
     cp      8                       ; joystick up-left
     call    z, .playerUpLeft
+
+.skipJoystickDirections:
 
     ; if neither left nor right pressed, slowly return Player_SideMovementCounter to 0
     ld      a, c
