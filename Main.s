@@ -145,7 +145,7 @@ Execute:
 
 
 
-    call    TitleScreen_RAM_Code ; debug
+    ; call    TitleScreen_RAM_Code ; debug
 
 
     call    ChooseInputScreen ; debug
@@ -200,7 +200,7 @@ Execute:
     ; 6: Paris
     ; 7: Sidney
     ; 8: Mexico
-    ld      a, 1                        ; level number (1-8)
+    ld      a, 5                        ; level number (1-8)
     ld      (CurrentLevelNumber), a
     call    LoadLevel
 

@@ -28,18 +28,75 @@ ReadInput:
     pop     de
 
 
-    ; TODO:
-    ; if (Player_Tnput == KEYBOARD) 
+    ; if (Player_Controls_Enabled == 0) ret
+    ld      a, (Player_Controls_Enabled)
+    or      a
+    ret     z
 
+    ; if (Player_Tnput == KEYBOARD) readKeyboard; else readJoystick;
+    ld      a, (Player_Tnput)
+    or      a ; cp KEYBOARD
+    jp      z, .readKeyboard
 
 .readJoystick:
-    ; TODO: implement joystick support
-    ; ; read joystick
     ; ld a, 1                 ; 1: joystick 1
     ; call BIOS_GTSTCK
     ; cp 0
     ; jp nz, .readJoystick    ; if joystick status is <> 0 (no direction), skip checking joystick
 
+    ld      a, 1                    ; read button A of joystick 1
+    call    BIOS_GTTRIG
+    call    nz, .shot
+
+    ld      a, 3                    ; read button B of joystick 1
+    call    BIOS_GTTRIG
+    call    nz, .bomb
+
+
+
+    ld      a, 1                    ; read direction of joystick 1
+    call    BIOS_GTSTCK
+    ld      e, a                    ; save value
+
+    ld      c, 0    ; control variable to check left/right press
+
+    cp      7                       ; joystick left
+    call    z, .playerLeft
+
+    ld      a, e
+    cp      3                       ; joystick right
+    call    z, .playerRight
+
+    ld      a, e
+    cp      2                       ; joystick up-right
+    call    z, .playerUpRight
+
+    ld      a, e
+    cp      4                       ; joystick down-right
+    call    z, .playerDownRight
+
+    ld      a, e
+    cp      6                       ; joystick down-left
+    call    z, .playerDownLeft
+
+    ld      a, e
+    cp      8                       ; joystick up-left
+    call    z, .playerUpLeft
+
+    ; if neither left nor right pressed, slowly return Player_SideMovementCounter to 0
+    ld      a, c
+    or      a
+    call    z, .playerNotPressedLeftRight
+
+    ld      a, e
+    cp      1                       ; joystick up
+    call    z, .playerUp
+
+    ld      a, e
+    cp      5                       ; joystick down
+    call    z, .playerDown
+
+    ret
 
 .readKeyboard:
 
@@ -56,11 +113,6 @@ ReadInput:
 
 
     ld      c, 0    ; control variable to check left/right press
-
-    ; if (Player_Controls_Enabled == 0) ret
-    ld      a, (Player_Controls_Enabled)
-    or      a
-    ret     z
 
     ; ld      a, e
     bit     4, e                    ; 4th bit (key left)
@@ -131,6 +183,26 @@ ReadInput:
 
     ret
 
+.playerUpRight:
+    call    .playerUp
+    call    .playerRight
+    ret
+
+.playerDownRight:
+    call    .playerDown
+    call    .playerRight
+    ret
+
+.playerDownLeft:
+    call    .playerDown
+    call    .playerLeft
+    ret
+
+.playerUpLeft:
+    call    .playerUp
+    call    .playerLeft
+    ret
+
 .playerNotPressedLeftRight:
     ; if (Player_SideMovementCounter == 128) ret
     ld      a, (Player_SideMovementCounter)
@@ -152,7 +224,7 @@ ReadInput:
     ; else if (Player_SideMovementCounter > 128) Player_SideMovementCounter--    (== 128 has been blocked before)
     jp      nc, .playerNotPressedLeftRight.greaterThan             ; if (a >= n)
 
-    ret
+    ret ; TODO: WARNING: this line will never be reached
 
 .playerNotPressedLeftRight.lessThan:
     inc     a
