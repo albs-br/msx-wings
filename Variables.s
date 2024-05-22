@@ -434,7 +434,7 @@ PauseAnimation_TempAddr:    rw 1
 
 ; ----------------------------------------
 
-UncompressedData:       rb 4 * 1024 ; 4 kb for uncompressed data buffer
+UncompressedData:       rb 4 * 1024 ; 4 kb for uncompressed data buffer / temporary data
 .size: equ $ - UncompressedData
 
 ; ----------------------------------------

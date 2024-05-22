@@ -13,16 +13,16 @@ Copy16x16ImageFromRAMToVRAM:
         push    de
             push    hl
                 ; read current bg line and save it to a temp array
-                ld      a, 0000 0000 b
+                xor     a ; ld      a, 0000 0000 b
                 call    SetVdp_Read
                 ld      c, PORT_0
                 ld      hl, CurrentLineBGPixels
                 ; 16x INI
-                ini ini ini ini ini ini ini ini ini ini ini ini ini ini ini ini 
+                ini ini ini ini ini ini ini ini ini ini ini ini ini ini ini ini ; as this is inside a loop (which will run at gameplay - ground target), speed is more critical than space, so using unrolled INIs makes sense
             pop     hl
             push    hl
                 ; copy source line to current bg line unless bg == 0 (keep bg)
-                ld      a, 0000 0000 b
+                xor     a ; ld      a, 0000 0000 b
                 call    SetVdp_Write
                 ld      c, PORT_0
                 ;ld      hl, .TestDrawBg
