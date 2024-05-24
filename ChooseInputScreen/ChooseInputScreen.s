@@ -103,26 +103,53 @@ ChooseInputScreen:
     ; ---- draw "choose input" string with 16x16 chars
     ; starting line 85
 
-    ; HL: pointer to sprite patterns on RAM (32 bytes for pattern 0, 32 bytes for pattern 1)
-    ; IX: pointer to sprite colors on RAM (16 bytes for color 0, 16 bytes for color 1)
-    ; DE: destiny addr on RAM
-    ; B:  font height in pixels
-    ld      hl, LargeFont_Patterns ; + LARGE_FONT_CHAR_C 
-    ld      ix, LargeFont_Colors
-    ld      de, UncompressedData
-    ld      b, 16
-    call    ConvertMsx2SpritesToSc5
+    ;ld      hl, LargeFont_Patterns + LARGE_FONT_CHAR_H
+    ld      ix, ChooseInputString_Char_Addresses
+    ld      de, SC5_NAMTBL_PAGE_0 + (128 * 85) + (((256-(12*16))/2)/2) ; line 85, column ?
 
-    ; DE: source on RAM
-    ; HL: destiny on VRAM
-    ld      de, UncompressedData
-    ld      hl, SC5_NAMTBL_PAGE_0 + (128 * 85) + ((256-(12*16))/2)/2 ; line 85, column ?
-    call    Copy16x16ImageFromRAMToVRAM_SC5
+    ld      b, 12 ; size of string
+.loop_ChooseInputString:
+    push    bc
+        
+        ; HL = (IX)
+        ld      l, (ix)
+        ld      h, (ix + 1)
+        
+        push    ix
 
-    ld      de, UncompressedData
-    ld      hl, SC5_NAMTBL_PAGE_1 + (128 * 85) + ((256-(12*16))/2)/2 ; line 85, column ?
-    call    Copy16x16ImageFromRAMToVRAM_SC5
+            call    .drawHalfChar
 
+
+            ; DE += 4 (8 pixels on SC5)
+            push    hl
+                ex      de, hl ; HL = DE
+                    ld      bc, 4
+                    add     hl, bc
+                ex      de, hl ; DE = HL
+            pop     hl
+            
+            ; HL += 16 (second half, 8x16 of the sprite)
+            ld      bc, 16
+            add     hl, bc
+
+            push    de
+                call    .drawHalfChar
+            pop     de
+
+            ; DE += 4 (8 pixels on SC5)
+            ex      de, hl ; HL = DE
+                ld      bc, 4
+                add     hl, bc
+            ex      de, hl ; DE = HL
+
+        pop     ix
+
+        ; next char address
+        inc     ix
+        inc     ix
+
+    pop     bc
+    djnz    .loop_ChooseInputString
 
     ; ------------------------------------------------------------------------
 
@@ -391,6 +418,33 @@ ChooseInputScreen:
     ret
 
 
+.drawHalfChar:
+    push    hl, de
+        push    de
+            ld      ix, ChooseInputScreen_LargeFont_Colors
+            ld      de, UncompressedData
+            ld      b, 16
+            call    ConvertMsx2SpritesToSc5
+
+            ld      de, UncompressedData
+        pop     hl ; from DE to HL
+        ; ld      hl, SC5_NAMTBL_PAGE_0 + (128 * 85) + (((256-(12*16))/2)/2) ; line 85, column ?
+        push    hl
+            ; DE: source on RAM
+            ; HL: destiny on VRAM
+            call    Copy16x16ImageFromRAMToVRAM_SC5
+        pop     hl
+
+        ; HL += 32768 (go to page 1)
+        ld      de, 32768
+        add     hl, de
+
+        ld      de, UncompressedData
+        call    Copy16x16ImageFromRAMToVRAM_SC5
+    pop     de, hl
+    ret
+
+
 
 ; Inputs:
 ;   DE: VRAM destiny addr (lowest 16 bits)
@@ -536,3 +590,54 @@ CHOOSE_INPUT_SPRATR:
 .size: equ $ - CHOOSE_INPUT_SPRATR
 
 STRING_JOYSTICK_AND_KEYBOARD:    db 'JOYSTICKKEYBOARD', 0
+
+ChooseInputString_Char_Addresses:
+    dw  LargeFont_Patterns + LARGE_FONT_CHAR_C
+    dw  LargeFont_Patterns + LARGE_FONT_CHAR_H
+    dw  LargeFont_Patterns + LARGE_FONT_CHAR_O
+    dw  LargeFont_Patterns + LARGE_FONT_CHAR_O
+    dw  LargeFont_Patterns + LARGE_FONT_CHAR_S
+    dw  LargeFont_Patterns + LARGE_FONT_CHAR_E
+    dw  LargeFont_Patterns + LARGE_FONT_CHAR_Z
+    dw  LargeFont_Patterns + LARGE_FONT_CHAR_I
+    dw  LargeFont_Patterns + LARGE_FONT_CHAR_N
+    dw  LargeFont_Patterns + LARGE_FONT_CHAR_P
+    dw  LargeFont_Patterns + LARGE_FONT_CHAR_U
+    dw  LargeFont_Patterns + LARGE_FONT_CHAR_T
+
+ChooseInputScreen_LargeFont_Colors:
+; ------ color 0
+	db	0x05
+	db	0x05
+	db	0x0e
+	db	0x0e
+	db	0x09
+	db	0x09
+	db	0x0d
+	db	0x0d
+	db	0x04
+	db	0x04
+	db	0x0c
+	db	0x0c
+	db	0x08
+	db	0x08
+	db	0x0d
+	db	0x0d
+; ------ color 1
+	db	0x03
+	db	0x03
+	db	0x03
+	db	0x03
+	db	0x03
+	db	0x03
+	db	0x03
+	db	0x03
+	db	0x03
+	db	0x03
+	db	0x03
+	db	0x03
+	db	0x03
+	db	0x03
+	db	0x03
+	db	0x03
+
