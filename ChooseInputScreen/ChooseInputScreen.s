@@ -120,27 +120,11 @@ ChooseInputScreen:
             call    .drawHalfChar
 
 
-            ; DE += 4 (8 pixels on SC5)
-            push    hl
-                ex      de, hl ; HL = DE
-                    ld      bc, 4
-                    add     hl, bc
-                ex      de, hl ; DE = HL
-            pop     hl
-            
             ; HL += 16 (second half, 8x16 of the sprite)
             ld      bc, 16
             add     hl, bc
 
-            push    de
-                call    .drawHalfChar
-            pop     de
-
-            ; DE += 4 (8 pixels on SC5)
-            ex      de, hl ; HL = DE
-                ld      bc, 4
-                add     hl, bc
-            ex      de, hl ; DE = HL
+            call    .drawHalfChar
 
         pop     ix
 
@@ -419,6 +403,12 @@ ChooseInputScreen:
 
 
 .drawHalfChar:
+
+    ; if(H == 0xff) skipDrawChar
+    ld      a, h
+    or      a ; cp 0x00
+    jp      z, .skipDrawChar ; efectivelly is like a space on string
+
     push    hl, de
         push    de
             ld      ix, ChooseInputScreen_LargeFont_Colors
@@ -442,6 +432,16 @@ ChooseInputScreen:
         ld      de, UncompressedData
         call    Copy16x16ImageFromRAMToVRAM_SC5
     pop     de, hl
+
+.skipDrawChar:
+    ; DE += 4 (8 pixels on SC5)
+    push    hl
+        ex      de, hl ; HL = DE
+            ld      bc, 4
+            add     hl, bc
+        ex      de, hl ; DE = HL
+    pop     hl
+
     ret
 
 
@@ -598,7 +598,7 @@ ChooseInputString_Char_Addresses:
     dw  LargeFont_Patterns + LARGE_FONT_CHAR_O
     dw  LargeFont_Patterns + LARGE_FONT_CHAR_S
     dw  LargeFont_Patterns + LARGE_FONT_CHAR_E
-    dw  LargeFont_Patterns + LARGE_FONT_CHAR_Z
+    dw  0x0000 ; space
     dw  LargeFont_Patterns + LARGE_FONT_CHAR_I
     dw  LargeFont_Patterns + LARGE_FONT_CHAR_N
     dw  LargeFont_Patterns + LARGE_FONT_CHAR_P
