@@ -85,7 +85,7 @@ Copy16x16ImageFromRAMToVRAM:
 
 
             pop     hl
-            ld      bc, 256  ; next line on screen 11
+            ld      bc, 256  ; next line on screen 11 ; TODO: may be changed to a simple INC H
             add     hl, bc
         pop     de
         
@@ -104,6 +104,7 @@ Copy16x16ImageFromRAMToVRAM:
 
 
 ; Convert MSX2 sprites (or-color) to SC 11 format to be plotted on screen
+; warning: only 8 pixels wide, so must be called twice for a 16x16 sprite
 ; Input:
 ;   HL: pointer to sprite patterns on RAM (32 bytes for pattern 0, 32 bytes for pattern 1)
 ;   IX: pointer to sprite colors on RAM (16 bytes for color 0, 16 bytes for color 1)
@@ -142,10 +143,13 @@ ConvertMsx2SpritesToSc11:
                 ld      b, 8    ; number of pixels on destiny
             .loop:
                 push    bc
-                    push    hl
+                    ; push    hl ; not really necessary, HL is not touched
 
                         ; RL: Rotates arg1 register to the left with the carry's value put into bit 0 and bit 7 is put into the carry.
                         ; RLA: same, but faster
+
+                        ; TODO: improve speed by changing Bit_Pattern_0 to register B (already shifted 1 bit left)
+                        ; and Bit_Pattern_1 to register A
 
                         ld      a, (Pattern_0)
                         rla
@@ -173,14 +177,14 @@ ConvertMsx2SpritesToSc11:
                         ; if (Bit_Pattern_0 == 0 && Bit_Pattern_1 == 0) Output = 0
                         ; else if (Bit_Pattern_0 == 1 && Bit_Pattern_1 == 0) Output = Color_0
                         ; else if (Bit_Pattern_0 == 0 && Bit_Pattern_1 == 1) Output = Color_1
-                        ; else Output = Color_1 | Color_1 ; or-color
+                        ; else Output = Color_0 | Color_1 ; or-color
                         ld      a, (Bit_Pattern_0)
                         sla     a
                         ld      b, a
                         ld      a, (Bit_Pattern_1)
                         or      b
 
-                        or      a
+                        ; or      a ; is it necessary?
                         jp      z, .setOutput_0
                         cp      0000 0010 b
                         jp      z, .setOutput_Color_0
@@ -205,19 +209,26 @@ ConvertMsx2SpritesToSc11:
 
                     .setOutput_Color_1:
                         ld      a, (Color_1)
-                        jp      .saveOutput_differentFrom_0
+                        ; jp      .saveOutput_differentFrom_0
 
                     .saveOutput_differentFrom_0:
-                        sla     a       ; TODO: improve speed (using RLA)
-                        sla     a
-                        sla     a
-                        sla     a
-                        or      0000 1000 b
+                        ; sla     a       ; 40 cycles
+                        ; sla     a
+                        ; sla     a
+                        ; sla     a
+                        ; scf ; set carry flag                        ; 30 cycles ; this will run once per bit, so on a 16x16 sprite is 10 x 16 x 16 cycles saved (2560!)
+                        ; ccf ; complement (invert) carry flag
+                        or      a ; clear carry preserving A            ; 25 cycles ; this will run once per bit, so on a 16x16 sprite is 15 x 16 x 16 cycles saved (3840!)
+                        rla
+                        rla
+                        rla
+                        rla
+                        or      0000 1000 b     ; mask for SC 11 pixel format
 
                     .saveOutput:
                         ;ld      (Output), a
 
-                    pop     hl
+                    ; pop     hl ; not really necessary, HL is not touched
                     
                     ld      (hl), a
                     inc     hl
@@ -244,6 +255,6 @@ ConvertMsx2SpritesToSc11:
 
     
     dec     b
-    jp      nz, .outerLoop
+    jp      nz, .outerLoop ; djnz not possible (destiny is more than 128 bytes away)
 
     ret

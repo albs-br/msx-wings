@@ -24,6 +24,7 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     INCLUDE "Include/MsxConstants.s"
     INCLUDE "Include/CommonRoutines.s"
     INCLUDE "Include/CommonRoutines_SC11.s"
+    INCLUDE "Include/CommonRoutines_SC5.s"
     INCLUDE "Include/ayFXReplayer.s"
     INCLUDE "Include/dzx0_standard.asm"
 
