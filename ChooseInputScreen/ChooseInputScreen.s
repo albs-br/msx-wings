@@ -100,24 +100,28 @@ ChooseInputScreen:
     ; ------------------------------------------------------------------------
 
 
-    ; ; ---- draw "choose input" string with 16x16 chars
-    ; ; starting line 85
+    ; ---- draw "choose input" string with 16x16 chars
+    ; starting line 85
 
-    ; ; HL: pointer to sprite patterns on RAM (32 bytes for pattern 0, 32 bytes for pattern 1)
-    ; ; IX: pointer to sprite colors on RAM (16 bytes for color 0, 16 bytes for color 1)
-    ; ; DE: destiny addr on RAM
-    ; ; B:  font height in pixels
-    ; ld      hl, LargeFont_Patterns ; + LARGE_FONT_CHAR_C 
-    ; ld      ix, LargeFont_Colors
-    ; ld      de, UncompressedData
-    ; ld      b, 16
-    ; call    ConvertMsx2SpritesToSc11 ; TODO: create routine to SC5
+    ; HL: pointer to sprite patterns on RAM (32 bytes for pattern 0, 32 bytes for pattern 1)
+    ; IX: pointer to sprite colors on RAM (16 bytes for color 0, 16 bytes for color 1)
+    ; DE: destiny addr on RAM
+    ; B:  font height in pixels
+    ld      hl, LargeFont_Patterns ; + LARGE_FONT_CHAR_C 
+    ld      ix, LargeFont_Colors
+    ld      de, UncompressedData
+    ld      b, 16
+    call    ConvertMsx2SpritesToSc5
 
-    ; ; DE: source on RAM
-    ; ; HL: destiny on VRAM
-    ; ld      de, UncompressedData
-    ; ld      hl, SC5_NAMTBL_PAGE_0 + (128 * 85) + 64 ; line 85, column ?
-    ; call    Copy16x16ImageFromRAMToVRAM
+    ; DE: source on RAM
+    ; HL: destiny on VRAM
+    ld      de, UncompressedData
+    ld      hl, SC5_NAMTBL_PAGE_0 + (128 * 85) + ((256-(12*16))/2)/2 ; line 85, column ?
+    call    Copy16x16ImageFromRAMToVRAM_SC5
+
+    ld      de, UncompressedData
+    ld      hl, SC5_NAMTBL_PAGE_1 + (128 * 85) + ((256-(12*16))/2)/2 ; line 85, column ?
+    call    Copy16x16ImageFromRAMToVRAM_SC5
 
 
     ; ------------------------------------------------------------------------

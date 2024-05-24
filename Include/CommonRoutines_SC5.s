@@ -153,7 +153,82 @@ ConvertMsx2SpritesToSc5:
 
 .setOutput_Color_1:
     ld      a, (Color_1)
+    ret
 
 ; .saveOutput:
+;   ret
 
-;     ret
+
+
+
+
+; Copy 16x16 bmp (SC5) from RAM to VRAM
+; Source format:
+;     ; 4 high bits: color index from palette for left pixel
+;     ; 4 low bits: color index from palette for right pixel
+;     ; 0x00: transparent (repeat background)
+; Input:
+;   DE: source on RAM
+;   HL: destiny on VRAM
+Copy16x16ImageFromRAMToVRAM_SC5:
+    ld      b, 16 ; number of lines
+.loop:
+    push    bc
+        push    de
+            push    hl
+                ; read current bg line and save it to a temp array
+                xor     a ; ld      a, 0000 0000 b
+                call    SetVdp_Read
+                ld      c, PORT_0
+                ld      hl, CurrentLineBGPixels
+                ; 8x INI
+                ini ini ini ini ini ini ini ini
+            pop     hl
+            push    hl
+                ; copy source line to current bg line unless bg == 0 (keep bg)
+                xor     a ; ld      a, 0000 0000 b
+                call    SetVdp_Write
+                ld      c, PORT_0
+                ;ld      hl, .TestDrawBg
+                ex      de, hl          ; HL <= DE (source image on RAM)
+                ; ; 16x OUTI
+                ; outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi outi 
+
+                ld      de, CurrentLineBGPixels
+                ld      b, 8
+
+
+; HL: sprite
+; DE: background
+
+;new version (117/112 cycles), 35 cycles saved, per pixel (9000 cycles total !!!)
+            .loop_1:
+                ld      a, (hl)         
+                or      a               
+                jp      nz, .continue_1         ; if (pixel == 0) ignore
+            ; .keepBGpixel:
+                ld      a, (de)
+                jp      .next_1
+            .continue_1:
+            .next_1:
+                out     (PORT_0), a
+                inc     hl                  ; TODO: if data is table aligned can be replaced by INC L, saving 2 cycles per pixel
+                inc     de                  ; TODO: if data is table aligned can be replaced by INC E, saving 2 cycles per pixel
+                djnz    .loop_1
+
+            pop     hl
+            ld      bc, 128  ; next line on screen 5
+            add     hl, bc
+        pop     de
+        
+        ; DE += 8
+        push    hl
+            ex      de, hl
+            ld      bc, 8
+            add     hl, bc
+            ex      de, hl
+        pop     hl
+    pop     bc
+    djnz    .loop
+    
+    ret
