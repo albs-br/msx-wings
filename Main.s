@@ -143,15 +143,6 @@ Execute:
     call    ClearRam
 
 
-
-
-
-    ; call    TitleScreen_RAM_Code ; debug
-
-
-    call    ChooseInputScreen ; debug
-
-
     ; install the interrupt routine
 	di
         ld	    a, 0xc3 ; opcode for "JP nn"
@@ -159,6 +150,21 @@ Execute:
         ld	    hl, HOOK
         ld	    (HTIMI + 1), hl
 	ei
+
+    call    InitAyFxVariables ; moved from InitVariables_GameStart.s
+
+    ; Setup ayFXreplayer
+    ld      hl, MsxWingsSfx_Bank
+    ld      a, 200
+    ld      (ayFX_VOLUME), a
+    call    ayFX_SETUP
+
+    ; call    TitleScreen_RAM_Code ; debug
+
+
+    call    ChooseInputScreen ; debug
+
+
 
 
 
@@ -184,12 +190,12 @@ Execute:
     ; ld      a, SFX_MEGAROM_PAGE
     ; ld	    (Seg_P8000_SW), a
 
-    ; TODO: this should be moved up (Choose Input screen is sounding weird when games restarts after)
-    ; Setup ayFXreplayer
-    ld      hl, MsxWingsSfx_Bank
-    ld      a, 200
-    ld      (ayFX_VOLUME), a
-    call    ayFX_SETUP
+    ; ; TODO: this should be moved up (Choose Input screen is sounding weird when games restarts after)
+    ; ; Setup ayFXreplayer
+    ; ld      hl, MsxWingsSfx_Bank
+    ; ld      a, 200
+    ; ld      (ayFX_VOLUME), a
+    ; call    ayFX_SETUP
 
 
 

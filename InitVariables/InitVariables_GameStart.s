@@ -36,7 +36,7 @@ InitVariables_GameStart:
 
 
 
-    call    InitAyFxVariables
+    ; call    InitAyFxVariables ; moved to main.s
 
 
 
