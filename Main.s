@@ -184,6 +184,7 @@ Execute:
     ; ld      a, SFX_MEGAROM_PAGE
     ; ld	    (Seg_P8000_SW), a
 
+    ; TODO: this should be moved up (Choose Input screen is sounding weird when games restarts after)
     ; Setup ayFXreplayer
     ld      hl, MsxWingsSfx_Bank
     ld      a, 200
