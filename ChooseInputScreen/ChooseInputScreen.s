@@ -327,6 +327,11 @@ ChooseInputScreen:
     ; -------------------
 
 .keyLeft:
+
+    ld      a, SFX_GET_DOLLAR_ITEM  ; number of sfx in the bank
+    ld      c, 15            ; sound priority
+    call    PlaySfx
+
     ld      a, JOYSTICK
     ld      (Player_Tnput), a
 
@@ -337,6 +342,11 @@ ChooseInputScreen:
     jp      .readInput_cont
 
 .keyRight:
+
+    ld      a, SFX_GET_DOLLAR_ITEM  ; number of sfx in the bank
+    ld      c, 15            ; sound priority
+    call    PlaySfx
+
     ld      a, KEYBOARD
     ld      (Player_Tnput), a
 
