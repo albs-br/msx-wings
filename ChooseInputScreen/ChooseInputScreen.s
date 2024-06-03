@@ -328,6 +328,11 @@ ChooseInputScreen:
 
 .keyLeft:
 
+    ; if joystick already selected, then returns
+    ld      a, (Player_Tnput)
+    cp      JOYSTICK
+    jp      z, .readInput_cont
+
     ld      a, SFX_GET_DOLLAR_ITEM  ; number of sfx in the bank
     ld      c, 15            ; sound priority
     call    PlaySfx
@@ -342,6 +347,12 @@ ChooseInputScreen:
     jp      .readInput_cont
 
 .keyRight:
+
+    ; if keyboard already selected, then returns
+    ld      a, (Player_Tnput)
+    cp      KEYBOARD
+    jp      z, .readInput_cont
+
 
     ld      a, SFX_GET_DOLLAR_ITEM  ; number of sfx in the bank
     ld      c, 15            ; sound priority
