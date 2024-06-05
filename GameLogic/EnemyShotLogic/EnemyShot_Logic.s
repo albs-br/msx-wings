@@ -180,6 +180,7 @@ EnemyShot_Logic:
     pop     de                                                  ; destiny
     ld      bc, EnemyShot_Temp_Struct.size                      ; size
     ldir                                                        ; Copy BC bytes from HL to DE
+    ; TODO: this (and all other LDIRs can be replaced by unrolled LDIs, saving 5 cycles/byte). It can be useful to use a macro for this.
 
 
     ret
