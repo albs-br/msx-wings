@@ -1,7 +1,43 @@
+; this is table aligned
 RAM_Code:                           rb 1024 ; space reserved to copy some code from MegaROM pages (to save space at page 0x4000)
 .size:  equ $ - RAM_Code
 
+; ----------------------------------------
+
+; UncompressedData:                   rb 4 * 1024 ; 4 kb for uncompressed data buffer / temporary data
+; .size: equ $ - UncompressedData
+
+; WARNING: UncompressedData and Pause_Animation_Vars overlaps space in RAM,
+; so they cannot be used at same time
+
+
+; this is table aligned
+UncompressedData:
+.size: equ 4 * 1024             ; 4 kb for uncompressed data buffer / temporary data
+
 ; ---------------------------------------
+
+Pause_Animation_Vars:
+
+PauseAnimation_Counter:             rb 1
+
+PauseAnimation_SPRATR_Bkp:          rb 32 * 4 ; = 128
+.size:  equ $ - PauseAnimation_SPRATR_Bkp
+
+PauseAnimation_SPRPAT_Bkp:          rb 64 * 32 ; = 2048
+.size:  equ $ - PauseAnimation_SPRPAT_Bkp
+
+PauseAnimation_SPRCOL_Bkp:          rb 32 * 16 ; = 512
+.size:  equ $ - PauseAnimation_SPRCOL_Bkp
+
+PauseAnimation_TempAddr:            rw 1
+
+Pause_Animation_Vars_size: equ $ - Pause_Animation_Vars
+
+; fill space to match UncompressedData.size
+Pause_Animation_unused_space:       rb UncompressedData.size - Pause_Animation_Vars_size
+
+; ----------------------------------------
 
 Seed:                               rw 1
 
@@ -416,26 +452,6 @@ Color_0_A:              rw 1
 Color_0_B:              rw 1
 
 LineNumberScreenSplit:  rb 1
-
-; ----------------------------------------
-
-PauseAnimation_Counter:     rb 1
-
-PauseAnimation_SPRATR_Bkp:  rb 32 * 4
-.size:  equ $ - PauseAnimation_SPRATR_Bkp
-
-PauseAnimation_SPRPAT_Bkp:  rb 64 * 32 ; = 2048
-.size:  equ $ - PauseAnimation_SPRPAT_Bkp
-
-PauseAnimation_SPRCOL_Bkp:  rb 32 * 16 ; = 512
-.size:  equ $ - PauseAnimation_SPRCOL_Bkp
-
-PauseAnimation_TempAddr:    rw 1
-
-; ----------------------------------------
-
-UncompressedData:       rb 4 * 1024 ; 4 kb for uncompressed data buffer / temporary data
-.size: equ $ - UncompressedData
 
 ; ----------------------------------------
 

@@ -159,7 +159,7 @@ Execute:
     ld      (ayFX_VOLUME), a
     call    ayFX_SETUP
 
-    ; call    TitleScreen_RAM_Code ; debug
+    call    TitleScreen_RAM_Code ; debug
 
 
     call    ChooseInputScreen ; debug
@@ -391,4 +391,4 @@ PAGE_0x4000_size:          equ $ - 0x4000   ; 0x39b2h bytes (1614 bytes free)
 RamStart:
     INCLUDE "Variables.s"
 RamEnd:
-Ram_size:          equ $ - RamStart ; 0x23c6 (9158 bytes)
+Ram_size:          equ $ - RamStart ; 0x1944 (6468 bytes)
