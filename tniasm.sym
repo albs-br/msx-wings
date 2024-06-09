@@ -483,7 +483,7 @@ Player_Shot_Level: equ 0D406h ; last def. pass 3
 BIOS_SLTTBL: equ 0FCC5h ; last def. pass 3
 BIOS_DSCTMP: equ 0F698h ; last def. pass 3
 UpdateBigEnemiesPatterns_BigEnemyTypeTank: equ 060D2h ; last def. pass 3
-End: equ 079B5h ; last def. pass 3
+End: equ 079DAh ; last def. pass 3
 START_ADDR_MEGAROM_PAGE: equ 08000h ; last def. pass 3
 PaletteData_1: equ 073DBh ; last def. pass 3
 StageClearAnimation_SPRATR_Char_3.frame_14_size: equ 05h ; last def. pass 3
@@ -685,7 +685,7 @@ StageClearAnimation_SPRATR_Char_7.frame_6_size: equ 065h ; last def. pass 3
 BIOS_GETPNT: equ 0F3FAh ; last def. pass 3
 BIOS_H_FRET: equ 0FF9Dh ; last def. pass 3
 StageClear_Patterns_A_factor_4.size: equ 0200h ; last def. pass 3
-Execute.frameSkip: equ 079B0h ; last def. pass 3
+Execute.frameSkip: equ 079BBh ; last def. pass 3
 SpriteColors_EnemyHovercraft_Frame_0_TopRight: equ 0B240h ; last def. pass 3
 BIOS_NMI: equ 066h ; last def. pass 3
 PauseAnimation.endTopScreenAnimation: equ 06ADCh ; last def. pass 3
@@ -791,7 +791,7 @@ LevelData_Temp_Data_Initial_Addr: equ 0D67Ch ; last def. pass 3
 PlayerSprite.centeredPlane: equ 05778h ; last def. pass 3
 TitleScreen.endAnimation: equ 0C193h ; last def. pass 3
 EnemyShot_6_Struct: equ 0D564h ; last def. pass 3
-DebugMessage.endlessLoop: equ 0702Dh ; last def. pass 3
+DebugMessage.endlessLoop: equ 07024h ; last def. pass 3
 VDP_COMMAND_HMMC: equ 0F0h ; last def. pass 3
 Item_Logic.set_Player_Shot_Pattern_Fat: equ 064DDh ; last def. pass 3
 StageClear_Patterns_A_factor_3.size: equ 0120h ; last def. pass 3
@@ -1124,6 +1124,7 @@ Enemy_Init.return: equ 05A93h ; last def. pass 3
 CheckCollision_8x8_16x16.y1IsLarger: equ 0423Ah ; last def. pass 3
 SC5_SPRATR: equ 07600h ; last def. pass 3
 BigEnemy_Temp_Y5: equ 0D4C9h ; last def. pass 3
+STRING_MSX_2_PLUS_OR_ABOVE_REQUIRED: equ 079C0h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_8.frame_2: equ 08C19h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_4.frame_10_size: equ 025h ; last def. pass 3
 Item_0_Struct: equ 0D580h ; last def. pass 3
@@ -1137,7 +1138,7 @@ Item_Temp_Delta_Y: equ 0D57Eh ; last def. pass 3
 StageClearAnimation.load_4x4_sprites_minimized: equ 0C297h ; last def. pass 3
 SpritePattern_EnemyHovercraft_Frame_0_TopLeft: equ 08A38h ; last def. pass 3
 BIOS_H_SNGF: equ 0FF39h ; last def. pass 3
-Execute.gameLoop: equ 07997h ; last def. pass 3
+Execute.gameLoop: equ 079A2h ; last def. pass 3
 BIOS_H_FRQI: equ 0FF93h ; last def. pass 3
 TitleScreen.loop_2: equ 0C048h ; last def. pass 3
 TitleScreen_Counter: equ 0D937h ; last def. pass 3
@@ -1458,7 +1459,7 @@ ClearTopScreenArea_Page_0_HMMV_Parameters: equ 08195h ; last def. pass 3
 AYFX_MUTE.StopCheck2: equ 0461Ah ; last def. pass 3
 ayFX_POINTER: equ 0D6AAh ; last def. pass 3
 GameOverAnimation.loop_10: equ 06E6Bh ; last def. pass 3
-PAGE_0x4000_size: equ 039B5h ; last def. pass 3
+PAGE_0x4000_size: equ 039DAh ; last def. pass 3
 PlaneRotating_Images_0.frame_10: equ 0AC98h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_4.frame_12: equ 08846h ; last def. pass 3
 BIOS_QUETAB: equ 0F959h ; last def. pass 3
@@ -1955,7 +1956,7 @@ Player_Status: equ 0D402h ; last def. pass 3
 GroundTarget_4_Struct: equ 0D651h ; last def. pass 3
 BIOS_ENASCR: equ 044h ; last def. pass 3
 StageClearAnimation.initChar_1: equ 0C052h ; last def. pass 3
-Execute.waitVBlank: equ 0799Bh ; last def. pass 3
+Execute.waitVBlank: equ 079A6h ; last def. pass 3
 BIOS_H_ERAF: equ 0FDB8h ; last def. pass 3
 PauseAnimation.animationStep_1: equ 06A98h ; last def. pass 3
 GroundTarget_Temp_Y_Static: equ 0D5FAh ; last def. pass 3
@@ -2141,6 +2142,7 @@ GroundTarget_StartExplosionAnimation.continue: equ 0681Ah ; last def. pass 3
 GroundTarget_Logic.loadExplosionFrame_0: equ 067CCh ; last def. pass 3
 BIOS_ACPAGE: equ 0FAF6h ; last def. pass 3
 SpritePattern_PlayerPlane_Right_Frame_0_Bottom.size: equ 040h ; last def. pass 3
+PrintString: equ 07027h ; last def. pass 3
 BIOS_RSFCB: equ 0FB04h ; last def. pass 3
 BIOS_LINTTB: equ 0FBB2h ; last def. pass 3
 EnemyData_0.patternNumber: equ 08100h ; last def. pass 3

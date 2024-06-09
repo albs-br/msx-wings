@@ -132,6 +132,16 @@ Execute:
     ld 		(BIOS_CLIKSW), a     ; Key Press Click Switch 0:Off 1:On (1B/RW)
 
 
+    ; 0 = MSX 1
+    ; 1 = MSX 2
+    ; 2 = MSX 2+
+    ; 3 = MSX turbo R
+    ld	    a, (MSXID3)
+	cp	    2
+	ld      hl, STRING_MSX_2_PLUS_OR_ABOVE_REQUIRED
+    call    c, DebugMessage
+
+
     call    EnableRomPage2
 
 
@@ -315,6 +325,9 @@ Execute:
     ld      hl, FramesSkipped
     inc     (hl)
     ret
+
+
+STRING_MSX_2_PLUS_OR_ABOVE_REQUIRED: db "MSX 2+ or above required.", 0
 
 End:
 

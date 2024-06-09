@@ -21,13 +21,18 @@ DebugMessage:
     pop     hl
 
 .mainLoop:
-    ld      a, (hl)
-    cp      0
-    ; ret     z
-    jp      z, .endlessLoop
-    call    BIOS_CHPUT
-    inc     hl
-    jr      .mainLoop
+    call    PrintString
 
 .endlessLoop:
     jp      .endlessLoop
+
+
+; Input: 
+;   HL: addr of zero-terminated string
+PrintString:
+    ld      a, (hl)
+    or      a ; cp      0
+    ret     z
+    call    BIOS_CHPUT
+    inc     hl
+    jr      PrintString
