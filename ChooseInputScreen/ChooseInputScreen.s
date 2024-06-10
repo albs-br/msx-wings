@@ -199,15 +199,15 @@ ChooseInputScreen:
     
     ld      a, 0                    ; read spacebar
     call    BIOS_GTTRIG
-    ret     nz
+    jp      nz, .triggerPressed
 
     ld      a, 1                    ; read button A of joystick 1
     call    BIOS_GTTRIG
-    ret     nz
+    jp      nz, .triggerPressed
 
     ld      a, 3                    ; read button B of joystick 1
     call    BIOS_GTTRIG
-    ret     nz
+    jp      nz, .triggerPressed
 
     ; --- read keyboard
     ld      a, 8                    ; 8th line
@@ -326,6 +326,12 @@ ChooseInputScreen:
 
     ; -------------------
 
+.triggerPressed:
+    ld      a, SFX_EXPLOSION  ; number of sfx in the bank
+    ld      c, 15            ; sound priority
+    call    PlaySfx
+    ret     ; return, exiting this screen
+    
 .keyLeft:
 
     ; if joystick already selected, then returns
