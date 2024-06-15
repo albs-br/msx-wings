@@ -1,0 +1,19 @@
+!type
+msx1
+#Slot 0
+...FFFFFFFFF....
+..FF........F...
+.FF..........F..
+F.F..........FF.
+F.F....F......F.
+F.F...FF.....F..
+F.F..FFFFF....F.
+F.F...FF.....F..
+F.F....F......F.
+F.F..........F..
+F.F...........F.
+F.FF.........F..
+F.F.F.F.F.F.F.F.
+.F.F.F.F.F.F.F..
+..FFFFFFFFFFF...
+................

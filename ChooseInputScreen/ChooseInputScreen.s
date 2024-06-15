@@ -240,7 +240,7 @@ ChooseInputScreen:
 
 .showPage_0:
 
-    ; set color 15 to light red
+    ; set color 15 to light red (color of the keyboard/joystick logos blinking)
     ld      a, 15
     ld      bc, 0x6202
     call    SetPaletteColor ; A: Color number;   B: high nibble: red 0-7; low nibble: blue 0-7;   C: high nibble: 0000; low nibble:  green 0-7
@@ -273,7 +273,7 @@ ChooseInputScreen:
 
 .showPage_1:
     
-    ; set color 15 to dark red
+    ; set color 15 to dark red (color of the keyboard/joystick logos blinking)
     ld      a, 15
     ld      bc, 0x4101
     call    SetPaletteColor ; A: Color number;   B: high nibble: red 0-7; low nibble: blue 0-7;   C: high nibble: 0000; low nibble:  green 0-7
@@ -373,7 +373,7 @@ ChooseInputScreen:
 
     jp      .readInput_cont
 
-
+; --------------------------------------------
 
 .update_SPRCOL:
 
@@ -428,6 +428,7 @@ ChooseInputScreen:
 
     ret
 
+; --------------------------------------------
 
 .drawHalfChar:
 
