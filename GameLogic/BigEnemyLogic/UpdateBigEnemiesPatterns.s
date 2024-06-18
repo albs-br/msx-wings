@@ -114,7 +114,8 @@ UpdateBigEnemiesPatterns_cont_1:
 
             ; set MegaROM page for Big Enemy sprite patterns data
             ld      a, SPRITE_PATTERNS_DATA_MEGAROM_PAGE
-            ld	    (Seg_P8000_SW), a
+            ; ld	    (Seg_P8000_SW), a
+            call    Set_and_Save_MegaROM_Page
 
             ; load patterns
             ld      a, 0000 0001 b
@@ -137,7 +138,8 @@ UpdateBigEnemiesPatterns_cont_1:
 
     ; set MegaROM page for Big Enemy sprite colors data
     ld      a, SPRITE_COLORS_CONT_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
 
     ; ld      hl, SpriteColors_EnemyChopper_Frame_2_TopLeft

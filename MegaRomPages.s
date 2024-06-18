@@ -1017,7 +1017,7 @@
 
 ENEMY_DATA_MEGAROM_PAGE:                equ 242
 ENEMY_SHOT_DATA_MEGAROM_PAGE:           equ 242
-; SFX_MEGAROM_PAGE:               equ 242 ; ATTENTION: MOVED BACK cos it was causing bug (sound tone keeps playing after sfx ended)
+SFX_MEGAROM_PAGE:               		equ 242
 
 ; ------- Page 242
 	org	0x8000, 0xBFFF
@@ -1026,8 +1026,8 @@ ENEMY_SHOT_DATA_MEGAROM_PAGE:           equ 242
     INCLUDE "Data/EnemyData/BigEnemy/Chopper_Data.s"
     INCLUDE "Data/EnemyData/BigEnemy/Tank_Data.s"
     INCLUDE "Data/EnemyData/EnemyShotData.s"
-    ; INCLUDE "Sound/Sfx/MsxWingsSfx_Bank.s" ; ATTENTION: MOVED BACK cos it was causing bug (sound tone keeps playing after sfx ended)   
-MEGAROM_PAGE_242_size:          equ $ - 0x8000 ; 0x31a0 bytes (12704 bytes)
+    INCLUDE "Sound/Sfx/MsxWingsSfx_Bank.s"
+MEGAROM_PAGE_242_size:          equ $ - 0x8000 ; 0x32cb bytes (13003 bytes)
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
 ; ------------------------------------------------------------------------

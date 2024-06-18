@@ -191,7 +191,8 @@ StageClearAnimation:
 
     ; set MegaROM page for SPRATR Stage clear animation sprites data
     ld      a, STAGE_CLEAR_ANIMATION_DATA_MEGAROM_PAGE_1
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     ; load from HL to SPRATR table (all 32 sprites)
     push    bc, hl, de
@@ -245,7 +246,8 @@ StageClearAnimation:
 
     ; set MegaROM page for SPRPAT/SPRCOL Stage clear animation sprites data
     ld      a, STAGE_CLEAR_ANIMATION_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     push    bc, de
         
@@ -649,7 +651,8 @@ StageClearAnimation:
 
     ; set MegaROM page for Fonts data
     ld      a, FONTS_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     ; 8 left pixels of the chars
     ld      hl, (StageClearAnimationVars.FontSprite_16x16_Addr)
@@ -679,7 +682,8 @@ StageClearAnimation:
 
     ; set MegaROM page for SPRATR Stage clear animation sprites data
     ld      a, STAGE_CLEAR_ANIMATION_DATA_MEGAROM_PAGE_1
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     ; adjust HL to sprite y position
     ld      de, 256

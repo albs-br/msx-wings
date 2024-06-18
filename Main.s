@@ -25,8 +25,21 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     INCLUDE "Include/CommonRoutines.s"
     INCLUDE "Include/CommonRoutines_SC11.s"
     INCLUDE "Include/CommonRoutines_SC5.s"
-    INCLUDE "Include/ayFXReplayer.s"
     INCLUDE "Include/dzx0_standard.asm"
+
+    ; INCLUDES from msxlib:
+	include	"include/msxlib/asm.asm"
+
+    ; -----------------------------------------------------------------------------
+    ; Replayer routines
+
+    ; PT3-based implementation
+	include	"include/replayer_pt3.asm"
+
+    ; ayFX REPLAYER v1.31
+	include	"include/ayFX-ROM.tniasm.asm"
+    ; -----------------------------------------------------------------------------
+
 
     ; Game
     INCLUDE "HTIMI_Hook.s"
@@ -79,6 +92,7 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     ; INCLUDE "LevelData/Level_1.s"         ; moved to a MegaROM page
     ; INCLUDE "EnemyData/EnemyData_1.s"     ; moved to a MegaROM page
     ; INCLUDE "EnemyData/EnemyShotData.s"     ; moved to a MegaROM page
+
     INCLUDE "Sound/Sfx/PlaySfx.s"
 
     INCLUDE "Animations/PauseAnimation/PauseAnimation.s" ; 623 bytes ; candidate to be moved to CODE_TO_BE_RELOCATED_MEGAROM_PAGE
@@ -103,7 +117,7 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     ; INCLUDE "TitleScreen/TitleScreen.s" ; 759 bytes
     ; INCLUDE "TitleScreen/Data.s" ; 79 bytes
 
-    INCLUDE "ChooseInputScreen/ChooseInputScreen.s" ; ? bytes
+    INCLUDE "ChooseInputScreen/ChooseInputScreen.s" ; 807 bytes (not finished yet) <-- can be relocated to RAM
 
     ; Assets
     INCLUDE "Graphics/Sprites/SpritePalettes.s"
@@ -112,19 +126,55 @@ SpriteColors_start:
     INCLUDE "Graphics/Sprites/SpriteColors.s"
 SpriteColors_size: equ $ - SpriteColors_start ; 0x3d0 = 976 bytes (it is not easy to move to a MegaROM page cos it is referenced in many places)
     ; INCLUDE "Graphics/Sprites/Fonts/Fonts.s"     ; moved to a MegaROM page
-    INCLUDE "Sound/Sfx/MsxWingsSfx_Bank.s" ;moved to a MegaROM page ATTENTION: MOVED BACK cos it was causing bug (sound tone keeps playing after sfx ended)
-	; INCLUDE "Graphics/Bitmaps/GroundTargetDestroyed.s" ; moved to a MegaROM page
+
+SONG_TABLE:
+; 	dw	.PT3_Music_sample
+; 	dw	.ShuffleOne
+; 	dw	.YouWin1
+; 	dw	.empty
+; .PT3_Music_sample:
+;     INCBIN "Sound/StayorGo.pt3"
+; .ShuffleOne:
+; 	incbin	"Sound/RUN23_ShuffleOne.pt3"
+; .YouWin1:
+; 	incbin	"Sound/RUN23_YouWin1.pt3"
+; .empty:
+; 	incbin	"Sound/empty.pt3"
+	
+    ; INCLUDE "Graphics/Bitmaps/GroundTargetDestroyed.s" ; moved to a MegaROM page
     ; background bitmaps are on MegaRomPages.s
 
     INCLUDE "Relocated_Code_Callers.s"
 
-
+; --- Megarom subroutine
+; Input:
+;   A: MegaROM page number (1-255)
+Set_and_Save_MegaROM_Page:
+    ld	    (Current_MegaROM_Page), a
+    ld	    (Seg_P8000_SW), a
+    ret
 
 Execute:
     ; init interrupt mode and stack pointer (in case the ROM isn't the first thing to be loaded)
 	di                          ; disable interrupts
 	im      1                   ; interrupt mode 1
     ld      sp, (BIOS_HIMEM)    ; init SP
+
+    ; call    BIOS_DISSCR
+
+    call    ClearRam
+
+    ; PSG: silence
+	call	BIOS_GICINI
+
+    ; set MegaROM page for SFX data
+    ld      a, SFX_MEGAROM_PAGE
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
+
+    ; Initializes the replayer
+	call	REPLAYER.RESET
+
 
 
     ; disable keyboard click
@@ -150,7 +200,7 @@ Execute:
 	ld	    (Seg_P8000_SW), a
 
 
-    call    ClearRam
+    ; call    ClearRam
 
 
     ; install the interrupt routine
@@ -161,18 +211,23 @@ Execute:
         ld	    (HTIMI + 1), hl
 	ei
 
-    call    InitAyFxVariables ; moved from InitVariables_GameStart.s
 
-    ; Setup ayFXreplayer
-    ld      hl, MsxWingsSfx_Bank
-    ld      a, 200
-    ld      (ayFX_VOLUME), a
-    call    ayFX_SETUP
-
-    call    TitleScreen_RAM_Code ; debug
+    ; ; Starts the music
+    ;     ld      a, 0 			; index of music on SONG_TABLE
+    ;  	call	REPLAYER.PLAY 	; param a: liiiiiii, where l (MSB) is the loop flag (0 = loop), and iiiiiii is the 0-based song index (0, 1, 2...)
 
 
-    call    ChooseInputScreen ; debug
+
+
+    ; ; Stops the music
+    ; 	jp	REPLAYER.STOP
+
+
+
+    call    TitleScreen_RAM_Code ; commented out for debug
+
+
+    call    ChooseInputScreen ; commented out for debug
 
 
 
@@ -194,18 +249,6 @@ Execute:
 
     call    InitVariables_GameStart
 
-
-
-    ; ; set MegaROM page for SFX data
-    ; ld      a, SFX_MEGAROM_PAGE
-    ; ld	    (Seg_P8000_SW), a
-
-    ; ; TODO: this should be moved up (Choose Input screen is sounding weird when games restarts after)
-    ; ; Setup ayFXreplayer
-    ; ld      hl, MsxWingsSfx_Bank
-    ; ld      a, 200
-    ; ld      (ayFX_VOLUME), a
-    ; call    ayFX_SETUP
 
 
 
@@ -384,7 +427,7 @@ End:
 
     ; db      "End ROM started at 0x4000"
 
-PAGE_0x4000_size:          equ $ - 0x4000   ; 0x39b2h bytes (1614 bytes free)
+PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3ee7 bytes (281 bytes free)
 	ds PAGE_SIZE - ($ - 0x4000), 255	; Fill the unused area with 0xFF
 
 
@@ -404,4 +447,4 @@ PAGE_0x4000_size:          equ $ - 0x4000   ; 0x39b2h bytes (1614 bytes free)
 RamStart:
     INCLUDE "Variables.s"
 RamEnd:
-Ram_size:          equ $ - RamStart ; 0x1944 (6468 bytes)
+Ram_size:          equ $ - RamStart ; 0x1AB5 (6837 bytes)

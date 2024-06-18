@@ -30,7 +30,8 @@ ChooseInputScreen:
 
     ; set MegaROM page for Choose Input Screen data
     ld      a, CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
 
     ld      hl, PlaneRotating_Palette
@@ -52,7 +53,8 @@ ChooseInputScreen:
 
     ; set MegaROM page for Fonts data
     ld      a, FONTS_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     ; load "JOYSTICK" and "KEYBOARD" 8x16 char patterns to SPRATR
     ld      hl, STRING_JOYSTICK_AND_KEYBOARD
@@ -181,7 +183,8 @@ ChooseInputScreen:
 
     ; set MegaROM page for Choose Input Screen data
     ld      a, CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     ld      hl, PlaneRotating_Data
     ld      (PlaneRotating_Data_CurrentFrame_Addr), hl
@@ -406,6 +409,11 @@ ChooseInputScreen:
 
 .unpackFrame:
 
+    ; set MegaROM page for Choose Input Screen data
+    ld      a, CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
+
     ; unpack next frame using zx0 standard decompressor
     ; ld      hl, PlaneRotating_Images.frame_0
     ld      hl, (PlaneRotating_Data_CurrentFrame_Addr)
@@ -422,7 +430,8 @@ ChooseInputScreen:
 
     ; set MegaROM page for current frame data
     ld      a, b
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     call    dzx0_standard
 
@@ -480,7 +489,8 @@ ChooseInputScreen_DrawImage:
 
     ; set MegaROM page for Choose Input Screen data
     ld      a, CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     ld      hl, (PlaneRotating_Data_CurrentFrame_Addr)
 

@@ -128,7 +128,8 @@ GameLogic:
 
     ; set MegaROM page for Level 1 data
     ld      a, LEVEL_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
 
     ;ld      hl, Level_1_Data

@@ -340,24 +340,6 @@ Temp_Addr:                  rw 1
 
 ; ---------------------------------------
 
-;ayFX variables:
-ayFX_Variables:
-AYREGS:		    rb 14
-ayFX_MODE:      rb 1 ;				; ayFX mode
-ayFX_BANK:      rb 2 ;				; Current ayFX Bank
-ayFX_PRIORITY:  rb 1 ;				; Current ayFX stream priotity
-ayFX_POINTER:   rb 2 ;				; Pointer to the current ayFX stream
-ayFX_TONE:      rb 2 ;				; Current tone of the ayFX stream
-ayFX_NOISE:	    rb 1 ;				; Current noise of the ayFX stream
-ayFX_VOLUME: 	rb 1 ;				; Current volume of the ayFX stream
-ayFX_CHANNEL: 	rb 1 ;				; PSG channel to play the ayFX stream
-ayFX_VT: 	    rb 2 ;				; ayFX relative volume table pointer
-VARayFXEND:     rb 1 ; 
-ayFX_Variables.size:     equ $ - ayFX_Variables
-
-
-
-; ---------------------------------------
 
 ; some vars for debugging purposes
 
@@ -459,3 +441,22 @@ LineNumberScreenSplit:  rb 1
 CurrentVRAMpage:        rb 1 ; 0 or 1
 CurrentFrameNumber:     rb 1
 PlaneRotating_Data_CurrentFrame_Addr: rw 1
+
+; -----------------------------------------------------------------------------
+; replayer variables
+
+	include	"include/PT3-RAM.tniasm.asm"
+
+	include	"include/ayFX-RAM.tniasm.asm"
+
+; 60Hz replayer synchronization
+replayer.frameskip:		rb	1
+
+; Refresh rate in Hertzs (50Hz/60Hz) and related convenience vars
+frame_rate:				rb	1
+
+frames_per_tenth:		rb	1
+
+; ---------------------------------------------------------------------------
+
+Current_MegaROM_Page:   rb 1

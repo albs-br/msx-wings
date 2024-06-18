@@ -7,5 +7,6 @@ SFX_GET_DOLLAR_ITEM:    equ 3
 ; SFX_PAUSE:              equ ?
 ; SFX_ENEMY_SHOT:         equ ?
 
-MsxWingsSfx_Bank:
+SOUND_BANK:
+; MsxWingsSfx_Bank:
     INCBIN "Sound/Sfx/MsxWingsSfx_Bank.afb"

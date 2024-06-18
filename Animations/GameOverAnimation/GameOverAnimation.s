@@ -182,7 +182,8 @@ GameOverAnimation:
     
     ; set MegaROM page for GAME OVER animation sprite patterns
     ld      a, GAMEOVER_ANIMATION_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     ; load sprite patterns for chars M, O and V starting at position 0
     ld      a, 0000 0001 b
@@ -200,7 +201,8 @@ GameOverAnimation:
 
     ; set MegaROM page for STAGE CLEAR animation sprite colors (some chars will be reused)
     ld      a, STAGE_CLEAR_ANIMATION_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     ; load sprite patterns for char A
     ld      a, 0000 0001 b
@@ -241,7 +243,8 @@ GameOverAnimation:
 
     ; set MegaROM page for GAME OVER animation sprite colors
     ld      a, STAGE_CLEAR_ANIMATION_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     ; load colors for all 32 sprites
     ld      a, 0000 0001 b
@@ -285,7 +288,8 @@ GameOverAnimation:
 
     ; set MegaROM page for GAME OVER animation data
     ld      a, GAMEOVER_ANIMATION_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     ; load initial sprite structs
     ld      hl, GameOverAnimation_sprite_structs_Init

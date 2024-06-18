@@ -198,7 +198,8 @@ PlayerBombLogic:
 
     ; set MegaROM page for Sprite Patterns data
     ld      a, SPRITE_PATTERNS_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     ld      a, 0000 0001 b
     ld      hl, SPRPAT + (32 * 10) ; Sprite pattern #10

@@ -2,9 +2,14 @@
 ;   A: number of sfx in the bank
 ;   C: sound priority (0-15) of sample. 0: min, 15: max
 PlaySfx:
-    ; ; set MegaROM page for SFX data
-    ; ld      a, SFX_MEGAROM_PAGE
-    ; ld	    (Seg_P8000_SW), a
+
+    ld      b, a ; save A
+
+    ; set MegaROM page for SFX data
+    ld      a, SFX_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
+    ld      a, b ; restore A
 
     ; ld      hl, MsxWingsSfx_Bank
     ; ;ld      a, 200
@@ -16,20 +21,11 @@ PlaySfx:
     ;ld      a, b
     call    ayFX_INIT
     
+    ; restore previous MegaROM page
+    ld	    a, (Current_MegaROM_Page)
+    ld	    (Seg_P8000_SW), a
+
     ; xor     a
     ; ld      (ayFX_VOLUME), a
 
-    ret
-
-
-
-InitAyFxVariables:
-    ; Init all vars with 255 to avoid noise
-    ld      a, 255
-    ld      hl, ayFX_Variables
-    ld      b, ayFX_Variables.size
-.loop:
-    ld      (hl), a
-    inc     hl
-    djnz    .loop    
     ret

@@ -193,7 +193,8 @@ Item_Logic:
 
         ; set MegaROM page for Sprite Patterns data
         ld      a, SPRITE_PATTERNS_DATA_MEGAROM_PAGE
-        ld	    (Seg_P8000_SW), a
+        ; ld	    (Seg_P8000_SW), a
+        call    Set_and_Save_MegaROM_Page
 
         ; if(Player_Shot_Level == PLAYER_SHOT_LEVEL_2) {
         ;   Set_Player_Shot_Pattern_Thin

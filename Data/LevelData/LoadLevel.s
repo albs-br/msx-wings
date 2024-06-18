@@ -181,7 +181,8 @@ LoadLevel:
     ld      hl, CurrentLevelLastScreen
     ld      a, (CurrentLevelFirstScreen)
 .loop:
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     ; read some bytes
     ld      de, (0x8000)        ; TODO: check on real hardware again

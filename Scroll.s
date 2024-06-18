@@ -44,7 +44,9 @@ LoadFirstScreen:
     push    af
         ; -- Load top part of first image on top 64 lines
         ;ld	    a, 14
-        ld	    (Seg_P8000_SW), a
+        ; ld	    (Seg_P8000_SW), a
+        call    Set_and_Save_MegaROM_Page
+
         ; write to VRAM bitmap area
         ld		hl, START_ADDR_MEGAROM_PAGE ; ImageData_14        			    ; RAM address (source)
         ld		de, NAMTBL + (0 * (256 * 64))                ; VRAM address (destiny)
@@ -56,7 +58,9 @@ LoadFirstScreen:
     push    af
         ; -- Load middle part of first image on middle 64 lines
         ;ld	    a, 15
-        ld	    (Seg_P8000_SW), a
+        ; ld	    (Seg_P8000_SW), a
+        call    Set_and_Save_MegaROM_Page
+
         ; write to VRAM bitmap area
         ld		hl, START_ADDR_MEGAROM_PAGE ; ImageData_15      				    ; RAM address (source)
         ld		de, NAMTBL + (1 * (256 * 64))                ; VRAM address (destiny)
@@ -68,7 +72,9 @@ LoadFirstScreen:
     push    af
         ; -- Load bottom part of first image on last 64 lines
         ;ld	    a, 16
-        ld	    (Seg_P8000_SW), a
+        ; ld	    (Seg_P8000_SW), a
+        call    Set_and_Save_MegaROM_Page
+
         ; write to VRAM bitmap area
         ld		hl, START_ADDR_MEGAROM_PAGE ; ImageData_16      				    ; RAM address (source)
         ld		de, NAMTBL + (2 * (256 * 64))                ; VRAM address (destiny)
@@ -103,7 +109,8 @@ ExecuteScroll:
     ; load next line from bitmap on the last line of virtual screen (256 lines)
     ; that will be the next to be shown on top of screen
     ld	    a, (CurrentMegaROMPage)
-	ld	    (Seg_P8000_SW), a
+	; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     ; old (slow)
     ; ld      hl, (CurrentAddrLineScroll)             ; RAM address (source)

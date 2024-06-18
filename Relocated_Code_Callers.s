@@ -21,7 +21,8 @@ StageClearAnimation_RAM_Code:
 
     ; set MegaROM page for Code to be relocated
     ld      a, CODE_TO_BE_RELOCATED_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     ld      hl, StageClearAnimation_Start
     ld      de, RAM_Code

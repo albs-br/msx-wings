@@ -80,7 +80,8 @@ TitleScreen:
     call    SetVDP_Write
 
     ld	    a, TITLE_SCREEN_FIRST_MEGAROM_PAGE
-	ld	    (Seg_P8000_SW), a
+	; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
     ld      hl, 0x8000      ;TitleScreen_Image
     ld      c, PORT_0
     ld      d, 64               ; 64 x 256 = 16kb
@@ -96,7 +97,8 @@ TitleScreen:
     call    SetVDP_Write
 
     ld	    a, TITLE_SCREEN_FIRST_MEGAROM_PAGE + 1
-	ld	    (Seg_P8000_SW), a
+	; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
     ld      hl, 0x8000      ;TitleScreen_Image
     ld      c, PORT_0
     ld      d, 32               ; 32 x 256 = 8kb
@@ -425,7 +427,8 @@ InitLoopRoundPalette:
 
     ; set MegaROM page for Fonts data
     ld      a, FONTS_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
 
 

@@ -17,7 +17,9 @@ LevelTitleAnimation:
 
         ; set MegaROM page for Fonts data
         ld      a, FONTS_DATA_MEGAROM_PAGE
-        ld	    (Seg_P8000_SW), a
+        ; ld	    (Seg_P8000_SW), a
+        call    Set_and_Save_MegaROM_Page
+        
     pop     af
 
 

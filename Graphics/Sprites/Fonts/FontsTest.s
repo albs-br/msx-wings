@@ -3,7 +3,8 @@ TestFonts_8x8:
 
     ; set MegaROM page for Fonts data
     ld      a, FONTS_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     ld      hl, SmallFont_Patterns
     ld      iy, SmallFont_Colors
@@ -43,7 +44,8 @@ TestFonts_8x16:
 
     ; set MegaROM page for Fonts data
     ld      a, FONTS_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     ld      hl, MediumFont_Patterns
     ld      iy, MediumFont_Colors
@@ -67,7 +69,8 @@ TestFonts_16x16:
 
     ; set MegaROM page for Fonts data
     ld      a, FONTS_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     ; 8 left pixels of the chars
     ld      hl, LargeFont_Patterns
@@ -147,7 +150,8 @@ TestFonts_WriteLine:
 
                         ; set MegaROM page for Fonts data
                         ld      a, FONTS_DATA_MEGAROM_PAGE
-                        ld	    (Seg_P8000_SW), a
+                        ; ld	    (Seg_P8000_SW), a
+                        call    Set_and_Save_MegaROM_Page
 
                         ;ld      hl, SmallFont_Patterns
                         ld      b, ixl
@@ -187,7 +191,8 @@ TestFonts_WriteLine:
 DrawString:
     ; set MegaROM page for Fonts data
     ld      a, FONTS_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     ld      hl, SmallFont_Patterns
     ld      iy, SmallFont_Colors

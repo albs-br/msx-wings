@@ -9,7 +9,8 @@ EnemyShot_Logic:
 
     ; set MegaROM page for Enemy Shot data
     ld      a, ENEMY_SHOT_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     push    hl
 

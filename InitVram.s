@@ -78,7 +78,8 @@ LoadSpritesForGameplay:
 
     ; set MegaROM page for Sprite Patterns data
     ld      a, SPRITE_PATTERNS_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
 ; --------- Load sprite patterns
 
@@ -661,7 +662,8 @@ GROUND_TARGET_SPRCOL_ADDR:  equ SPRCOL + (16 * 31)
 
     ; set MegaROM page for Ground Targe Destroyed data
     ld      a, GROUND_TARGET_DESTROYED_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     ld      de, GroundTargetDestroyed_Dollar_0              ; ROM source addr
     ld      hl, GROUND_TARGET_DESTROYED_DOLLAR_0_VRAM_ADDR  ; VRAM destiny addr (lower 16 bits)

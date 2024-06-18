@@ -43,7 +43,8 @@ ItemAnimation:
 
     ; set MegaROM page for Sprite Patterns data
     ld      a, SPRITE_PATTERNS_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     ; update Item P animation pattern
     ld      hl, SpritePattern_Item_P_Frames_0_to_7

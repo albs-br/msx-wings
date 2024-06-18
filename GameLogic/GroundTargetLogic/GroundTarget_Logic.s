@@ -526,7 +526,8 @@ DrawGroundTargetDestroyed:
 
     ; set MegaROM page for Ground Targe Destroyed data
     ld      a, GROUND_TARGET_DESTROYED_DATA_MEGAROM_PAGE
-    ld	    (Seg_P8000_SW), a
+    ; ld	    (Seg_P8000_SW), a
+    call    Set_and_Save_MegaROM_Page
 
     ; ld      de, .TestDrawBg
     ld      de, GroundTargetDestroyed
