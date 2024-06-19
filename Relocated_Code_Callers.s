@@ -1,4 +1,4 @@
-;  -------------------- callers for relocated code (maybe should be put on own file)
+;  -------------------- callers for relocated code
 
 TitleScreen_RAM_Code:
 
@@ -12,6 +12,23 @@ TitleScreen_RAM_Code:
     ldir
 
     call    TitleScreen
+
+    call    Clear_RAM_Code_Area
+
+    ret
+
+ChooseInputScreen_RAM_Code:
+
+    ; set MegaROM page for Code to be relocated
+    ld      a, CODE_TO_BE_RELOCATED_MEGAROM_PAGE
+    ld	    (Seg_P8000_SW), a
+
+    ld      hl, ChooseInputScreen_Start
+    ld      de, RAM_Code
+    ld      bc, ChooseInputScreen_size
+    ldir
+
+    call    ChooseInputScreen
 
     call    Clear_RAM_Code_Area
 

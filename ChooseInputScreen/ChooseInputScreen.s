@@ -1,3 +1,5 @@
+
+; CAUTION: THIS ROUTINE CANNOT BE MORE THAN 1 KB LONG, BECAUSE IT WILL BE REALOCATED TO RAM!
 ChooseInputScreen:
 
     ; change to screen 5

@@ -116,8 +116,7 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     ; moved to MegaROM page, to be relocated to RAM later
     ; INCLUDE "TitleScreen/TitleScreen.s" ; 759 bytes
     ; INCLUDE "TitleScreen/Data.s" ; 79 bytes
-
-    INCLUDE "ChooseInputScreen/ChooseInputScreen.s" ; 807 bytes (not finished yet) <-- can be relocated to RAM
+    ; INCLUDE "ChooseInputScreen/ChooseInputScreen.s"
 
     ; Assets
     INCLUDE "Graphics/Sprites/SpritePalettes.s"
@@ -227,7 +226,7 @@ Execute:
     call    TitleScreen_RAM_Code ; commented out for debug
 
 
-    call    ChooseInputScreen ; commented out for debug
+    call    ChooseInputScreen_RAM_Code ; commented out for debug
 
 
 
@@ -427,7 +426,7 @@ End:
 
     ; db      "End ROM started at 0x4000"
 
-PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3ee7 bytes (281 bytes free)
+PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3bd3 bytes (1069 bytes free)
 	ds PAGE_SIZE - ($ - 0x4000), 255	; Fill the unused area with 0xFF
 
 
