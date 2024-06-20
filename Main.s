@@ -94,6 +94,7 @@ Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 
     ; INCLUDE "EnemyData/EnemyShotData.s"     ; moved to a MegaROM page
 
     INCLUDE "Sound/Sfx/PlaySfx.s"
+    INCLUDE "Sound/Music/PlayMusic.s"
 
     INCLUDE "Animations/PauseAnimation/PauseAnimation.s" ; 623 bytes ; candidate to be moved to CODE_TO_BE_RELOCATED_MEGAROM_PAGE
 
@@ -126,19 +127,6 @@ SpriteColors_start:
 SpriteColors_size: equ $ - SpriteColors_start ; 0x3d0 = 976 bytes (it is not easy to move to a MegaROM page cos it is referenced in many places)
     ; INCLUDE "Graphics/Sprites/Fonts/Fonts.s"     ; moved to a MegaROM page
 
-SONG_TABLE:
-; 	dw	.PT3_Music_sample
-; 	dw	.ShuffleOne
-; 	dw	.YouWin1
-; 	dw	.empty
-; .PT3_Music_sample:
-;     INCBIN "Sound/StayorGo.pt3"
-; .ShuffleOne:
-; 	incbin	"Sound/RUN23_ShuffleOne.pt3"
-; .YouWin1:
-; 	incbin	"Sound/RUN23_YouWin1.pt3"
-; .empty:
-; 	incbin	"Sound/empty.pt3"
 	
     ; INCLUDE "Graphics/Bitmaps/GroundTargetDestroyed.s" ; moved to a MegaROM page
     ; background bitmaps are on MegaRomPages.s
@@ -211,23 +199,25 @@ Execute:
 	ei
 
 
+
+    ; ; set MegaROM page for SFX data
+    ; ld      a, SFX_MEGAROM_PAGE
+    ; ld	    (Seg_P8000_SW), a
+    ; ; call    Set_and_Save_MegaROM_Page
+
     ; ; Starts the music
-    ;     ld      a, 0 			; index of music on SONG_TABLE
-    ;  	call	REPLAYER.PLAY 	; param a: liiiiiii, where l (MSB) is the loop flag (0 = loop), and iiiiiii is the 0-based song index (0, 1, 2...)
+    ; ld      a, 1 			; index of music on SONG_TABLE
+    ; call	REPLAYER.PLAY 	; param a: liiiiiii, where l (MSB) is the loop flag (0 = loop), and iiiiiii is the 0-based song index (0, 1, 2...)
 
-
-
-
-    ; ; Stops the music
-    ; 	jp	REPLAYER.STOP
-
+    ; ; restore previous MegaROM page
+    ; ld	    a, (Current_MegaROM_Page)
+    ; ld	    (Seg_P8000_SW), a
 
 
     call    TitleScreen_RAM_Code ; commented out for debug
 
 
     call    ChooseInputScreen_RAM_Code ; commented out for debug
-
 
 
 
