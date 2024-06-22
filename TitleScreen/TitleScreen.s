@@ -688,7 +688,8 @@ InitLoopRoundPalette:
 
     ld      a, (TitleScreen_SpaceBarPressed)
     or      a
-    ret     nz
+    ; ret     nz
+    jp      nz, ExitTitleScreen
 
     ; ; LineNumberScreenSplit++
     ; ld      hl, LineNumberScreenSplit
@@ -822,7 +823,8 @@ BorderWhiteAndLeftAdjustFor5Frames:
 
     ld      a, (TitleScreen_SpaceBarPressed)
     or      a
-    ret     nz
+    ; ret     nz
+    jp      nz, ExitTitleScreen
 
     djnz    .loop
     
@@ -869,6 +871,17 @@ ReadSpaceBar:
 .return:
     pop     de, bc, hl
     ret
+
+
+
+ExitTitleScreen:
+    ld      a, SFX_EXPLOSION  ; number of sfx in the bank
+    ld      c, 15            ; sound priority
+    call    PlaySfx
+
+    ret ; exit this screen
+
+
 
 ; ;-------------------
 ; LineInterruptHook:
