@@ -15,7 +15,7 @@
 ; BOSS: 1x 14 16x16 sprites (80x64 total size)
 
 ; (**)
-; 21 sprites for enemy shots (range 10-30), bosses made of static background bitmap
+; 21 sprites for enemy shots (range 10-30), for some bosses made of static background bitmap
 
 ; (***)
 ; player bomb sprites
