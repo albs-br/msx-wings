@@ -214,7 +214,7 @@ Execute:
     ; ld	    (Seg_P8000_SW), a
 
 
-    call    TitleScreen_RAM_Code ; commented out for debug
+    ;call    TitleScreen_RAM_Code ; commented out for debug
 
 
     call    ChooseInputScreen_RAM_Code ; commented out for debug
@@ -432,8 +432,8 @@ PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3bd3 bytes (1069 bytes free)
 ; 0xc000 = 49152
 ; 0xe5ff = 58879
 
-; total =  9727 bytes
+; max available =  9727 bytes
 RamStart:
     INCLUDE "Variables.s"
 RamEnd:
-Ram_size:          equ $ - RamStart ; 0x1AB5 (6837 bytes)
+Ram_size:          equ $ - RamStart ; used: 0x1AB5 (6837 bytes)
