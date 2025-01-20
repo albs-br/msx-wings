@@ -79,6 +79,22 @@ ChooseInputScreen:
     jp      .loop_LoadSPRPAT
 .end_LoadSPRPAT:
 
+
+    ; --- load joytick sprite patterns
+
+    ; set MegaROM page for joystick sprite patterns
+    ld      a, CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_2
+    call    Set_and_Save_MegaROM_Page
+
+    ld      a, 0000 0000 b
+    ld      hl, SC5_SPRPAT + (8 * 32)
+    call    SetVdp_Write
+
+    ld      hl, Joystick_SpritePatterns
+    ld      b, 32*4 ; 32 bytes/sprite = 256 bytes (B=0)
+    ld      c, PORT_0
+    otir
+
 ;     ; set SPRCOL (32 sprites x 16 lines = 512 bytes)
 ;     ld      a, 0000 0000 b
 ;     ld      hl, SC5_SPRCOL
@@ -106,6 +122,10 @@ ChooseInputScreen:
 
     ; ---- draw "choose input" string with 16x16 chars
     ; starting line 90
+
+    ; set MegaROM page for Fonts data
+    ld      a, FONTS_DATA_MEGAROM_PAGE
+    call    Set_and_Save_MegaROM_Page
 
     ;ld      hl, LargeFont_Patterns + LARGE_FONT_CHAR_H
     ld      ix, ChooseInputString_Char_Addresses
@@ -586,20 +606,20 @@ ChooseInputScreen_DrawImage:
 CHOOSE_INPUT_SPRATR:
     ; joystick
 
-    db 176-48,  40-8,        0 * 4, 0
-    db 176-48,  40-8+16,     1 * 4, 0
-    db 176-48,  40-8+32,     2 * 4, 0
-    db 176-48,  40-8+48,     3 * 4, 0
+    db 176-48,  40-8,       31 * 4, 0
+    db 176-48,  40-8+16,     8 * 4, 0
+    db 176-48,  40-8+32,     9 * 4, 0
+    db 176-48,  40-8+48,    31 * 4, 0
 
-    db 176-32,  40-8,        0 * 4, 0
-    db 176-32,  40-8+16,     1 * 4, 0
-    db 176-32,  40-8+32,     2 * 4, 0
-    db 176-32,  40-8+48,     3 * 4, 0
+    db 176-32,  40-8,       31 * 4, 0
+    db 176-32,  40-8+16,    10 * 4, 0
+    db 176-32,  40-8+32,    11 * 4, 0
+    db 176-32,  40-8+48,    31 * 4, 0
 
-    db 176-16,  40-8,        0 * 4, 0
-    db 176-16,  40-8+16,     1 * 4, 0
-    db 176-16,  40-8+32,     2 * 4, 0
-    db 176-16,  40-8+48,     3 * 4, 0
+    db 176-16,  40-8,       31 * 4, 0
+    db 176-16,  40-8+16,    31 * 4, 0
+    db 176-16,  40-8+32,    31 * 4, 0
+    db 176-16,  40-8+48,    31 * 4, 0
     ; joystick string
     db 176,  40-8,        0 * 4, 0
     db 176,  40-8+16,     1 * 4, 0
