@@ -82,16 +82,25 @@ ChooseInputScreen:
 
     ; --- load joytick sprite patterns
 
-    ; set MegaROM page for joystick sprite patterns
+    ; set MegaROM page for joystick/keyboard sprite patterns
     ld      a, CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_2
     call    Set_and_Save_MegaROM_Page
 
     ld      a, 0000 0000 b
-    ld      hl, SC5_SPRPAT + (8 * 32)
+    ld      hl, SC5_SPRPAT + (8 * 32) ; start on sprite #7
     call    SetVdp_Write
 
     ld      hl, Joystick_SpritePatterns
     ld      b, 32*4 ; 32 bytes/sprite = 256 bytes (B=0)
+    ld      c, PORT_0
+    otir
+
+    ld      hl, Keyboard_SpritePatterns
+    ld      b, 32*4 ; 32 bytes/sprite = 256 bytes (B=0)
+    ld      c, PORT_0
+    otir
+    ;ld      hl, Keyboard_SpritePatterns + 256
+    ld      b, 32*2 ; 32 bytes/sprite
     ld      c, PORT_0
     otir
 
@@ -628,20 +637,20 @@ CHOOSE_INPUT_SPRATR:
 
 
     ; keyboard 
-    db 176-48, 152+8,        4 * 4, 0
-    db 176-48, 152+8+16,     5 * 4, 0
-    db 176-48, 152+8+32,     6 * 4, 0
-    db 176-48, 152+8+48,     7 * 4, 0
+    db 176-48, 8+152+8,       12 * 4, 0
+    db 176-48, 8+152+8+16,    13 * 4, 0
+    db 176-48, 8+152+8+32,    16 * 4, 0
+    db 176-48, 8+152+8+48,    31 * 4, 0
 
-    db 176-32, 152+8,        4 * 4, 0
-    db 176-32, 152+8+16,     5 * 4, 0
-    db 176-32, 152+8+32,     6 * 4, 0
-    db 176-32, 152+8+48,     7 * 4, 0
+    db 176-32, 8+152+8,       14 * 4, 0
+    db 176-32, 8+152+8+16,    15 * 4, 0
+    db 176-32, 8+152+8+32,    17 * 4, 0
+    db 176-32, 8+152+8+48,    31 * 4, 0
 
-    db 176-16, 152+8,        4 * 4, 0
-    db 176-16, 152+8+16,     5 * 4, 0
-    db 176-16, 152+8+32,     6 * 4, 0
-    db 176-16, 152+8+48,     7 * 4, 0
+    db 176-16, 8+152+8,       31 * 4, 0
+    db 176-16, 8+152+8+16,    31 * 4, 0
+    db 176-16, 8+152+8+32,    31 * 4, 0
+    db 176-16, 8+152+8+48,    31 * 4, 0
     ; keyboard string
     db 176, 152+8,        4 * 4, 0
     db 176, 152+8+16,     5 * 4, 0
