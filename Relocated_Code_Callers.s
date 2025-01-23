@@ -4,7 +4,6 @@ TitleScreen_RAM_Code:
 
     ; set MegaROM page for Code to be relocated
     ld      a, CODE_TO_BE_RELOCATED_MEGAROM_PAGE
-    ;ld	    (Seg_P8000_SW), a
     call    Set_and_Save_MegaROM_Page
 
     ld      hl, TitleScreen_Start
@@ -37,7 +36,6 @@ ChooseInputScreen_RAM_Code:
 
     ; set MegaROM page for Code to be relocated
     ld      a, CODE_TO_BE_RELOCATED_MEGAROM_PAGE
-    ; ld	    (Seg_P8000_SW), a
     call    Set_and_Save_MegaROM_Page
 
     ld      hl, ChooseInputScreen_Start
@@ -45,9 +43,23 @@ ChooseInputScreen_RAM_Code:
     ld      bc, ChooseInputScreen_size
     ldir
 
+
+
+    ; Starts the music
+    ld      a, MUSIC_YOU_WIN_1 			; index of music on SONG_TABLE
+    call	StartMusic 	                    ; param a: liiiiiii, where l (MSB) is the loop flag (0 = loop), and iiiiiii is the 0-based song index (0, 1, 2...)
+
+
     call    ChooseInputScreen
 
     call    Clear_RAM_Code_Area
+
+
+
+    ; Stops the music
+    call    StopMusic
+
+
 
     ret
 

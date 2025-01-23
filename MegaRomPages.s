@@ -1018,6 +1018,7 @@
 ENEMY_DATA_MEGAROM_PAGE:                equ 242
 ENEMY_SHOT_DATA_MEGAROM_PAGE:           equ 242
 SFX_MEGAROM_PAGE:               		equ 242
+MUSIC_MEGAROM_PAGE:               		equ 242
 
 ; ------- Page 242
 	org	0x8000, 0xBFFF
@@ -1027,7 +1028,8 @@ SFX_MEGAROM_PAGE:               		equ 242
     INCLUDE "Data/EnemyData/BigEnemy/Tank_Data.s"
     INCLUDE "Data/EnemyData/EnemyShotData.s"
     INCLUDE "Sound/Sfx/MsxWingsSfx_Bank.s"
-MEGAROM_PAGE_242_size:          equ $ - 0x8000 ; 0x32cb bytes (13003 bytes)
+    INCLUDE "Sound/Music/MsxWingsMusic_Bank.s"
+MEGAROM_PAGE_242_size:          equ $ - 0x8000 ; 0x3789 bytes (14727 bytes)
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
 ; ------------------------------------------------------------------------

@@ -3,7 +3,7 @@
 StartMusic:
     push    af
         ; set MegaROM page for SFX/Music data
-        ld      a, SFX_MEGAROM_PAGE
+        ld      a, MUSIC_MEGAROM_PAGE
         ld	    (Seg_P8000_SW), a
         ;call    Set_and_Save_MegaROM_Page
     pop     af
@@ -17,7 +17,7 @@ StartMusic:
 StopMusic:
 
     ; set MegaROM page for SFX data
-    ld      a, SFX_MEGAROM_PAGE
+    ld      a, MUSIC_MEGAROM_PAGE
     ld	    (Seg_P8000_SW), a
 
     ; Stops the music

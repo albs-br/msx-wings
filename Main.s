@@ -214,7 +214,7 @@ Execute:
     ; ld	    (Seg_P8000_SW), a
 
 
-    ; call    TitleScreen_RAM_Code ; commented out for debug
+    call    TitleScreen_RAM_Code ; commented out for debug
 
 
     call    ChooseInputScreen_RAM_Code ; commented out for debug
@@ -416,7 +416,7 @@ End:
 
     ; db      "End ROM started at 0x4000"
 
-PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3bd3 bytes (1069 bytes free)
+PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3BED bytes (aprox 1000 bytes free)
 	ds PAGE_SIZE - ($ - 0x4000), 255	; Fill the unused area with 0xFF
 
 
