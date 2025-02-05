@@ -1128,6 +1128,12 @@ ChooseInputScreen_Start:
     DEPHASE
 ChooseInputScreen_Size: equ $ - ChooseInputScreen_Start
 
+HowToPlayScreen_Start:
+    PHASE   0xc000
+    	INCLUDE "HowToPlayScreen/HowToPlayScreen.s" ; ? bytes (not finished yet)
+    DEPHASE
+HowToPlayScreen_Size: equ $ - HowToPlayScreen_Start
+
 StageClearAnimation_Start:
     PHASE   0xc000
 		INCLUDE "Animations/StageClearAnimation/StageClearAnimation.s"  ; 905 bytes

@@ -32,6 +32,8 @@ TitleScreen_RAM_Code:
 
     ret
 
+
+
 ChooseInputScreen_RAM_Code:
 
     ; set MegaROM page for Code to be relocated
@@ -62,6 +64,41 @@ ChooseInputScreen_RAM_Code:
 
 
     ret
+
+
+
+HowToPlayScreen_RAM_Code:
+
+    ; set MegaROM page for Code to be relocated
+    ld      a, CODE_TO_BE_RELOCATED_MEGAROM_PAGE
+    call    Set_and_Save_MegaROM_Page
+
+    ld      hl, HowToPlayScreen_Start
+    ld      de, RAM_Code
+    ld      bc, HowToPlayScreen_size
+    ldir
+
+
+
+    ; Starts the music
+    ld      a, MUSIC_YOU_WIN_1 			; index of music on SONG_TABLE
+    call	StartMusic 	                    ; param a: liiiiiii, where l (MSB) is the loop flag (0 = loop), and iiiiiii is the 0-based song index (0, 1, 2...)
+
+
+    call    HowToPlayScreen
+
+    call    Clear_RAM_Code_Area
+
+
+
+    ; Stops the music
+    call    StopMusic
+
+
+
+    ret
+
+
 
 StageClearAnimation_RAM_Code:
 

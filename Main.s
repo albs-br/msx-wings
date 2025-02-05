@@ -214,10 +214,13 @@ Execute:
     ; ld	    (Seg_P8000_SW), a
 
 
-    call    TitleScreen_RAM_Code ; commented out for debug
+    call    TitleScreen_RAM_Code ; comment it out for debug
 
 
-    call    ChooseInputScreen_RAM_Code ; commented out for debug
+    call    ChooseInputScreen_RAM_Code ; comment it out for debug
+    
+    
+    call    HowToPlayScreen_RAM_Code ; comment it out for debug
 
 
 
