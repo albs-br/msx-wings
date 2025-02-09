@@ -1281,3 +1281,16 @@ Keyboard_SpritePatterns:
 
 MEGAROM_PAGE_252_size:          equ $ - 0x8000 ; size: 0x3988 (aprox 1500 bytes free)
 	ds PAGE_SIZE - ($ - 0x8000), 255
+
+; ------------------------------------------------------------------------
+
+CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_3:      equ 253
+
+; ------- Page 253
+	org	0x8000, 0xBFFF
+
+ChooseInputScreenBg_Image:
+        INCBIN "HowToPlayScreen/sea_bg.sc5" ; image is 256x72
+
+MEGAROM_PAGE_253_size:          equ $ - 0x8000 ; size: ? (aprox ? bytes free)
+	ds PAGE_SIZE - ($ - 0x8000), 255

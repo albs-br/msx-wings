@@ -7,11 +7,11 @@ ChooseInputScreen:
     call    BIOS_CHGMOD
 
 
-    ld 		a, 4      	            ; Foreground color
+    ld 		a, 1      	            ; Foreground color
     ld 		(BIOS_FORCLR), a    
-    ld 		a, 4  		            ; Background color
+    ld 		a, 1  		            ; Background color
     ld 		(BIOS_BAKCLR), a     
-    ld 		a, 4      	            ; Border color
+    ld 		a, 1      	            ; Border color
     ld 		(BIOS_BDRCLR), a    
     call 	BIOS_CHGCLR        		; Change Screen Color
 
@@ -169,6 +169,36 @@ ChooseInputScreen:
     djnz    .loop_ChooseInputString
 
     ; ------------------------------------------------------------------------
+    
+    ; ------ load bg for screen bottom
+
+    ; set MegaROM page for Choose Input Screen data
+    ld      a, CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_3
+    call    Set_and_Save_MegaROM_Page
+
+    ld      a, 0000 0000 b
+    ld      hl, SC5_NAMTBL_PAGE_0 + ((192-72) * 128)
+    call    SetVdp_Write
+    ld      hl, ChooseInputScreenBg_Image
+    ld      d, 36               ; 36 x 256 = 9216
+    ld      b, 0                ; 
+.loop_30:
+    otir
+    dec     d
+    jp      nz, .loop_30
+
+    ld      a, 0000 0000 b
+    ld      hl, SC5_NAMTBL_PAGE_1 + ((192-72) * 128)
+    call    SetVdp_Write
+    ld      hl, ChooseInputScreenBg_Image
+    ld      d, 36               ; 36 x 256 = 9216
+    ld      b, 0                ; 
+.loop_31:
+    otir
+    dec     d
+    jp      nz, .loop_31
+
+    ; ------------------------------------------------------------------------
 
     call    BIOS_ENASCR
 
@@ -214,7 +244,6 @@ ChooseInputScreen:
 
     ; set MegaROM page for Choose Input Screen data
     ld      a, CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0
-    ; ld	    (Seg_P8000_SW), a
     call    Set_and_Save_MegaROM_Page
 
     ld      hl, PlaneRotating_Data
@@ -615,47 +644,47 @@ ChooseInputScreen_DrawImage:
 CHOOSE_INPUT_SPRATR:
     ; joystick
 
-    db 176-48,  40-8,       31 * 4, 0
-    db 176-48,  40-8+16,     8 * 4, 0
-    db 176-48,  40-8+32,     9 * 4, 0
-    db 176-48,  40-8+48,    31 * 4, 0
+    db 176-48-8,  40-8,       31 * 4, 0
+    db 176-48-8,  40-8+16,     8 * 4, 0
+    db 176-48-8,  40-8+32,     9 * 4, 0
+    db 176-48-8,  40-8+48,    31 * 4, 0
 
-    db 176-32,  40-8,       31 * 4, 0
-    db 176-32,  40-8+16,    10 * 4, 0
-    db 176-32,  40-8+32,    11 * 4, 0
-    db 176-32,  40-8+48,    31 * 4, 0
+    db 176-32-8,  40-8,       31 * 4, 0
+    db 176-32-8,  40-8+16,    10 * 4, 0
+    db 176-32-8,  40-8+32,    11 * 4, 0
+    db 176-32-8,  40-8+48,    31 * 4, 0
 
-    db 176-16,  40-8,       31 * 4, 0
-    db 176-16,  40-8+16,    31 * 4, 0
-    db 176-16,  40-8+32,    31 * 4, 0
-    db 176-16,  40-8+48,    31 * 4, 0
+    db 176-16-8,  40-8,       31 * 4, 0
+    db 176-16-8,  40-8+16,    31 * 4, 0
+    db 176-16-8,  40-8+32,    31 * 4, 0
+    db 176-16-8,  40-8+48,    31 * 4, 0
     ; joystick string
-    db 176,  40-8,        0 * 4, 0
-    db 176,  40-8+16,     1 * 4, 0
-    db 176,  40-8+32,     2 * 4, 0
-    db 176,  40-8+48,     3 * 4, 0
+    db 176-8,  40-8,        0 * 4, 0
+    db 176-8,  40-8+16,     1 * 4, 0
+    db 176-8,  40-8+32,     2 * 4, 0
+    db 176-8,  40-8+48,     3 * 4, 0
 
 
     ; keyboard 
-    db 176-48, 8+152+8,       12 * 4, 0
-    db 176-48, 8+152+8+16,    13 * 4, 0
-    db 176-48, 8+152+8+32,    16 * 4, 0
-    db 176-48, 8+152+8+48,    31 * 4, 0
+    db 176-48-8, 8+152+8,       12 * 4, 0
+    db 176-48-8, 8+152+8+16,    13 * 4, 0
+    db 176-48-8, 8+152+8+32,    16 * 4, 0
+    db 176-48-8, 8+152+8+48,    31 * 4, 0
 
-    db 176-32, 8+152+8,       14 * 4, 0
-    db 176-32, 8+152+8+16,    15 * 4, 0
-    db 176-32, 8+152+8+32,    17 * 4, 0
-    db 176-32, 8+152+8+48,    31 * 4, 0
+    db 176-32-8, 8+152+8,       14 * 4, 0
+    db 176-32-8, 8+152+8+16,    15 * 4, 0
+    db 176-32-8, 8+152+8+32,    17 * 4, 0
+    db 176-32-8, 8+152+8+48,    31 * 4, 0
 
-    db 176-16, 8+152+8,       31 * 4, 0
-    db 176-16, 8+152+8+16,    31 * 4, 0
-    db 176-16, 8+152+8+32,    31 * 4, 0
-    db 176-16, 8+152+8+48,    31 * 4, 0
+    db 176-16-8, 8+152+8,       31 * 4, 0
+    db 176-16-8, 8+152+8+16,    31 * 4, 0
+    db 176-16-8, 8+152+8+32,    31 * 4, 0
+    db 176-16-8, 8+152+8+48,    31 * 4, 0
     ; keyboard string
-    db 176, 152+8,        4 * 4, 0
-    db 176, 152+8+16,     5 * 4, 0
-    db 176, 152+8+32,     6 * 4, 0
-    db 176, 152+8+48,     7 * 4, 0
+    db 176-8, 152+8,        4 * 4, 0
+    db 176-8, 152+8+16,     5 * 4, 0
+    db 176-8, 152+8+32,     6 * 4, 0
+    db 176-8, 152+8+48,     7 * 4, 0
 .size: equ $ - CHOOSE_INPUT_SPRATR
 
 STRING_JOYSTICK_AND_KEYBOARD:    db 'JOYSTICKKEYBOARD', 0
