@@ -26,36 +26,30 @@
                     {
                         "value": "${workspaceFolder}\\msx-wings.rom",
                         //"value": "${fileBasenameNoExtension}.rom",
-                        "quoting": "strong"
+                        "quoting": "weak"
                     },
-                    {
-                        // When changing this, it's necessary to first save this file before build, it will not work with
-                        // the "auto save all unsaved files before build" feature of VS Code (it executes this file before save)
-                        
-                        //"value": "-machine Gradiente_Expert_GPC-1",     // MSX 1
-                        //"value": "-machine Yamaha_CX11",                // MSX 1 with V9938
-                        //"value": "-machine Sony_HB-F1XD",               // MSX 2
-                        "value": "-machine Sony_HB-F1XDJ",                // MSX 2+
-                        //"value": "-machine Panasonic_FS-A1WSX",         // MSX 2+ with turbo
-                        //"value": "-machine Panasonic_FS-A1GT",          // MSX Turbo R
+                    
+                    //     // When changing this, it's necessary to first save this file before build, it will not work with
+                    //     // the "auto save all unsaved files before build" feature of VS Code (it executes this file before save)
+                  
+                    {   "value": "-machine", "quoting": "escape" },
+                    {   
+                        //"value": "Gradiente_Expert_GPC-1",     // MSX 1
+                        //"value": "Yamaha_CX11",                // MSX 1 with V9938
+                        //"value": "Sony_HB-F1XD",               // MSX 2
+                        // "value": "Sony_HB-F1XDJ",                // MSX 2+
+                        "value": "Panasonic_FS-A1WSX",         // MSX 2+ with turbo
+                        //"value": "Panasonic_FS-A1GT",          // MSX Turbo R
 
-                        
+                        "quoting": "weak" 
+                    },
 
-                        "quoting": "weak"
-                    },
-                    {
-                        "value": "-romtype ASCII16",
-                        "quoting": "weak"
-                    },
-                    {
-                        //"value": "-script ${workspaceFolder}\\msx-wings_debug.tcl",
-                        "value": "-script ${workspaceFolder}\\profiler.tcl",
-                        "quoting": "weak"
-                    },
-                    {
-                        "value": "-script ${workspaceFolder}\\msx-wings_debug.tcl",
-                        "quoting": "weak"
-                    }
+                    {   "value": "-romtype", "quoting": "escape" },
+                    {   "value": "ASCII16", "quoting": "weak" },
+
+ 
+                    {   "value": "-script", "quoting": "escape" },
+                    {   "value": "${workspaceFolder}\\msx-wings_debug.tcl", "quoting": "weak" },
                 ],
             "label": "run openmsx",
             "type": "shell",
