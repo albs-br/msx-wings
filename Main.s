@@ -214,7 +214,7 @@ Execute:
     ; ld	    (Seg_P8000_SW), a
 
 
-    ; call    TitleScreen_RAM_Code ; comment it out for debug
+    call    TitleScreen_RAM_Code ; comment it out for debug
 
 
     call    ChooseInputScreen_RAM_Code ; comment it out for debug
@@ -233,6 +233,15 @@ Execute:
 
     call    InitVram
 
+
+; ---------------------
+
+    ; ; fonts test
+    ; call    BIOS_ENASCR
+    ; call    TestFonts_8x8   ; [debug]
+    ; call    TestFonts_8x16   ; [debug]
+    ; call    TestFonts_16x16   ; [debug]
+    ; jp $
 
 
 ; ---------------------
@@ -253,18 +262,12 @@ Execute:
     ; 6: Paris
     ; 7: Sidney
     ; 8: Mexico
-    ld      a, 1                        ; level number (1-8)
+    ld      a, 3                        ; level number (1-8)
     ld      (CurrentLevelNumber), a
     call    LoadLevel
 
 
 
-    ; ; fonts test
-    ; call    BIOS_ENASCR
-    ; call    TestFonts_8x8   ; [debug]
-    ; call    TestFonts_8x16   ; [debug]
-    ; call    TestFonts_16x16   ; [debug]
-    ; jp $
 
 
 

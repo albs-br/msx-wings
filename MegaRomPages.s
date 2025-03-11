@@ -1092,6 +1092,7 @@ LEVEL_DATA_MEGAROM_PAGE:                equ 248
 
 ; ------- Page 248
 	org	0x8000, 0xBFFF
+    INCLUDE "Data/LevelData/Level_Constants.s"
     INCLUDE "Data/LevelData/Level_1.s"
     INCLUDE "Data/LevelData/Level_2.s"
     INCLUDE "Data/LevelData/Level_3.s"
@@ -1290,7 +1291,7 @@ CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_3:      equ 253
 	org	0x8000, 0xBFFF
 
 ChooseInputScreenBg_Image:
-        INCBIN "HowToPlayScreen/sea_bg.sc5" ; image is 256x72
+        INCBIN "ChooseInputScreen/choose_input_screen_bg.sc5" ; image is 256x72
 
 MEGAROM_PAGE_253_size:          equ $ - 0x8000 ; size: ? (aprox ? bytes free)
 	ds PAGE_SIZE - ($ - 0x8000), 255
