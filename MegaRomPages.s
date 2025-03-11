@@ -1026,10 +1026,11 @@ MUSIC_MEGAROM_PAGE:               		equ 242
     INCLUDE "Data/EnemyData/EnemyPlaneTurning/EnemyPlaneTurning_Data.s"
     INCLUDE "Data/EnemyData/BigEnemy/Chopper_Data.s"
     INCLUDE "Data/EnemyData/BigEnemy/Tank_Data.s"
-    INCLUDE "Data/EnemyData/EnemyShotData.s"
+    INCLUDE "Data/EnemyData/EnemyShot/EnemyShotData_Fast.s"
+    INCLUDE "Data/EnemyData/EnemyShot/EnemyShotData_Slow.s"
     INCLUDE "Sound/Sfx/MsxWingsSfx_Bank.s"
     INCLUDE "Sound/Music/MsxWingsMusic_Bank.s"
-MEGAROM_PAGE_242_size:          equ $ - 0x8000 ; 0x3789 bytes (14727 bytes)
+MEGAROM_PAGE_242_size:          equ $ - 0x8000 ; 0x2dc5 bytes (11717 bytes)
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
 ; ------------------------------------------------------------------------

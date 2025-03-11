@@ -262,7 +262,7 @@ Execute:
     ; 6: Paris
     ; 7: Sidney
     ; 8: Mexico
-    ld      a, 3                        ; level number (1-8)
+    ld      a, 1                        ; level number (1-8)
     ld      (CurrentLevelNumber), a
     call    LoadLevel
 

@@ -27,7 +27,7 @@ EnemyShot_Logic:
 
         ; --------------------------- enemy shot movement -------------------------
 
-        ; Delta X
+        ; --- Delta X
         ld      hl, (EnemyShot_Temp_Delta_X_Current_Addr)                 ; Delta X
         ; ld      a, l
         ; or      h                       ; if (Delta X addr == 0) ----  not necessary, as Delta X is mandatory
@@ -44,9 +44,22 @@ EnemyShot_Logic:
         ld      (EnemyShot_Temp_X), a   ; save it
 
         inc     hl                      ; next Delta X addr
-        ld      (EnemyShot_Temp_Delta_X_Current_Addr), hl
         
-        ; Delta Y
+        ; if (next Delta X addr == 255) returnToFirst()
+        ld      a, (hl)
+        inc     a
+        jp      z, .returnToFirst_Delta_X
+        jp      .cont_10
+
+.returnToFirst_Delta_X:
+        dec     hl
+        dec     hl
+
+.cont_10:
+        ld      (EnemyShot_Temp_Delta_X_Current_Addr), hl
+
+
+        ; --- Delta Y
         ld      hl, (EnemyShot_Temp_Delta_Y_Current_Addr)                 ; Delta Y
 
         ld      a, (EnemyShot_Temp_Y_Static)    ; get current Y static value
@@ -62,6 +75,18 @@ EnemyShot_Logic:
         ld      (EnemyShot_Temp_Y), a
 
         inc     hl                      ; next Delta Y addr
+
+        ; if (next Delta Y addr == 255) returnToFirst()
+        ld      a, (hl)
+        inc     a
+        jp      z, .returnToFirst_Delta_Y
+        jp      .cont_20
+
+.returnToFirst_Delta_Y:
+        dec     hl
+        dec     hl
+
+.cont_20:
         ld      (EnemyShot_Temp_Delta_Y_Current_Addr), hl
 
     ; .ignoreDeltaX:
