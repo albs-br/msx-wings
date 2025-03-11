@@ -22,6 +22,9 @@ InitVariables_GameStart:
 
 
 
+    ld      a, KEYBOARD
+    ld      (Player_Tnput), a
+    
     ld      a, 3
     ld      (Player_Lives), a
 

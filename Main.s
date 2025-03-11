@@ -5,7 +5,7 @@ PAGE_SIZE:	    equ	0x4000	        ; 16kB
 Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 16k Mapper, same for 8k Mapper)
 
 
-; DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
+DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
 
 
 ; Compilation address
@@ -214,13 +214,13 @@ Execute:
     ; ld	    (Seg_P8000_SW), a
 
 
-    call    TitleScreen_RAM_Code ; comment it out for debug
+    ; call    TitleScreen_RAM_Code ; comment it out for debug
 
 
-    call    ChooseInputScreen_RAM_Code ; comment it out for debug
+    ; call    ChooseInputScreen_RAM_Code ; comment it out for debug
     
     
-    call    HowToPlayScreen_RAM_Code ; comment it out for debug
+    ; call    HowToPlayScreen_RAM_Code ; comment it out for debug
 
 
 

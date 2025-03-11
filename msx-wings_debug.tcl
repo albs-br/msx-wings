@@ -1,12 +1,14 @@
 #ram_watch   add     0xc001      -type byte      -desc Player_Y             -format dec
 #ram_watch   add     0xc002      -type byte      -desc Player_Y_Static      -format dec
 
-ram_watch   add     0xc008      -type byte      -desc Player_SideMovementCounter      -format dec
+#ram_watch   add     0xc008      -type byte      -desc Player_SideMovementCounter      -format dec
 
 #ram_watch   add     0xc005      -type byte       -desc Player_Shot_Level      -format dec
 #ram_watch   add     0xc006      -type byte       -desc Player_Shot_Width      -format dec
 
-#ram_watch   add     0xC223      -type word       -desc LevelCounter      -format dec
+ram_watch   add     0xd68a      -type word       -desc LevelCounter      -format dec
+
+#LevelCounter: equ 0D68Ah ; last def. pass 3
 
 
 #ram_watch   add     0xC3fa      -type word       -desc SPRPAT_Address      -format hex
@@ -19,7 +21,10 @@ ram_watch   add     0xc008      -type byte      -desc Player_SideMovementCounter
 #ram_watch   add     0xc3cd      -type byte       -desc LevelInitAnimation_Counter      -format dec
 
 # ram_watch   add     0xc00f      -type byte       -desc Player_Lives      -format dec
-# ram_watch   add     0xc010      -type word       -desc Score             -format hex
+
+ram_watch   add     0xd410      -type word       -desc Score             -format hex
+#Player_Score: equ 0D410h ; last def. pass 3
+
 # ram_watch   add     0xc002      -type byte       -desc Player_Status     -format dec
 # 
 # ram_watch   add     0xFC4A      -type word       -desc HIMEM             -format hex
