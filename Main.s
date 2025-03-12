@@ -254,6 +254,9 @@ Execute:
 
 
 
+    ; Levels 1-4 use slow enemy bullets
+    ; Levels 5-8 use fast enemy bullets
+
     ; 1: Tokyo
     ; 2: USSR
     ; 3: Japan classic
