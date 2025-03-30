@@ -28,11 +28,11 @@ Enemy_Init:
     ; TODO: possibly this check should be removed to avoid players cheating by
     ; not getting the item to block new enemies from entering the screen
 
-    ; return if this enemy is now an item
-    ; if (Enemy_Temp_Status == 255) ret     ; Status = 255 means that this enemy was turned into item
-    ld      a, (Enemy_Temp_Status)      ; get Status
-    cp      255
-    ret     z
+    ; ; return if this enemy is now an item
+    ; ; if (Enemy_Temp_Status == 255) ret     ; Status = 255 means that this enemy was turned into item
+    ; ld      a, (Enemy_Temp_Status)      ; get Status
+    ; cp      255
+    ; ret     z
 
 
     IFDEF DEBUG
