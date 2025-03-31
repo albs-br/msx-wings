@@ -14,28 +14,28 @@ BIOS_PLYCNT: equ 0FB40h ; last def. pass 3
 LARGE_FONT_CHAR_O: equ 0600h ; last def. pass 3
 BIOS_CHRCNT: equ 0FAF9h ; last def. pass 3
 BIOS_FCALL: equ 0FFCAh ; last def. pass 3
-StageClearAnimation.initChar_2: equ 0C05Eh ; last def. pass 3
+StageClearAnimation.initChar_2: equ 0C060h ; last def. pass 3
 BIOS_SAVTXT: equ 0F6AFh ; last def. pass 3
 Wait_Vblank: equ 040B7h ; last def. pass 3
 BIOS_WRSLT: equ 014h ; last def. pass 3
 BigEnemy_Temp_Y6: equ 0D4CBh ; last def. pass 3
 BIOS_PTRFIL: equ 0F864h ; last def. pass 3
 PlaneRotating_Images_0.frame_7: equ 09FD4h ; last def. pass 3
-StageClearAnimation.nextSPRPAT: equ 0C1BFh ; last def. pass 3
+StageClearAnimation.nextSPRPAT: equ 0C1C1h ; last def. pass 3
 PlaneRotating_Images_1.frame_29: equ 0B5FFh ; last def. pass 3
 PD_LP2: equ 04706h ; last def. pass 3
 BIOS_H_ONGO: equ 0FDEAh ; last def. pass 3
 PlaneRotating_Images_2.frame_38: equ 09BC8h ; last def. pass 3
 BigEnemy_Logic.ignoreDeltaX: equ 0650Bh ; last def. pass 3
 StageClearAnimation_SPRATR_Char_3.frame_8_size: equ 041h ; last def. pass 3
-StageClearAnimation.initChar_9: equ 0C0B2h ; last def. pass 3
+StageClearAnimation.initChar_9: equ 0C0B4h ; last def. pass 3
 PlayerBombLogic.collision_with_GroundTarget: equ 05F69h ; last def. pass 3
 BigEnemy_Logic.isOffScreen: equ 0648Eh ; last def. pass 3
 SpriteColors_EnemyPlane_Frame_4_Patterns_0_and_1: equ 07953h ; last def. pass 3
 PlaneRotating_Images_2.frame_39: equ 09FFAh ; last def. pass 3
 BIOS_H_FIEL: equ 0FE2Bh ; last def. pass 3
 BIOS_FILNM2: equ 0F871h ; last def. pass 3
-StageClearAnimation.initChar_4: equ 0C076h ; last def. pass 3
+StageClearAnimation.initChar_4: equ 0C078h ; last def. pass 3
 SpritePattern_Explosion_Frames_0_to_2: equ 08BF8h ; last def. pass 3
 ReadInput.shot: equ 05A02h ; last def. pass 3
 BIOS_RAWPRT: equ 0F418h ; last def. pass 3
@@ -71,6 +71,7 @@ EnemyShotDeltaX_45_degrees_right_fast: equ 0A7B8h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_3.frame_12_size: equ 011h ; last def. pass 3
 BIOS_WINWID: equ 0FCA5h ; last def. pass 3
 PauseAnimation_SPRPAT_Bkp: equ 0C481h ; last def. pass 3
+Level_2_Data.Enemy_Wave_2: equ 0C8h ; last def. pass 3
 Item_Temp_Y_Static: equ 0D572h ; last def. pass 3
 EMPTYSAMORN: equ 04ACFh ; last def. pass 3
 BIOS_H_ERRP: equ 0FEFDh ; last def. pass 3
@@ -91,6 +92,7 @@ BIOS_MLTNAM: equ 0F3D1h ; last def. pass 3
 LevelInitAnimation_Char_2_LookupTable_Addr: equ 0D836h ; last def. pass 3
 Item_Logic.playerGotItemType_P: equ 06B08h ; last def. pass 3
 BIOS_PINLIN: equ 0AEh ; last def. pass 3
+Level_2_Data.Enemy_Wave_1: equ 00h ; last def. pass 3
 Screen11: equ 04114h ; last def. pass 3
 VT_: equ 0D9A6h ; last def. pass 3
 SPCCOMS: equ 04844h ; last def. pass 3
@@ -239,7 +241,7 @@ GameOverAnimation_SPRATR_Init.size: equ 04h ; last def. pass 3
 SpritePattern_PlayerPlane_Left_Frame_0_Top: equ 080F8h ; last def. pass 3
 BIOS_ENASLT: equ 024h ; last def. pass 3
 TitleColor_1_Last: equ 0C348h ; last def. pass 3
-StageClearAnimation.innerLoop_colors: equ 0C179h ; last def. pass 3
+StageClearAnimation.innerLoop_colors: equ 0C17Bh ; last def. pass 3
 Pause_Animation_Vars_size: equ 0A83h ; last def. pass 3
 PT3_PDSP: equ 0D931h ; last def. pass 3
 BIOS_H_BAKU: equ 0FEADh ; last def. pass 3
@@ -252,7 +254,7 @@ EnemyData_0.deltaY: equ 08080h ; last def. pass 3
 BIOS_CSAVEA: equ 0F942h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_10.frame_4_size: equ 025h ; last def. pass 3
 CHOOSE_INPUT_SCREEN_DATA_MEGAROM_PAGE_0: equ 0FAh ; last def. pass 3
-StageClearAnimation.initChar_5: equ 0C082h ; last def. pass 3
+StageClearAnimation.initChar_5: equ 0C084h ; last def. pass 3
 ENEMY_3_SPRCOL_ADDR: equ 0F900h ; last def. pass 3
 EnemyShot_Init.debugTrap: equ 067D2h ; last def. pass 3
 LEVEL_1_LAST_SCREEN_PAGE: equ 01h ; last def. pass 3
@@ -319,7 +321,7 @@ BIOS_DISINT: equ 0FFCFh ; last def. pass 3
 @@CH_SMPS: equ 048B3h ; last def. pass 3
 BIOS_ATRBYT: equ 0F3F2h ; last def. pass 3
 PT3_CrPsPtr: equ 0D92Bh ; last def. pass 3
-Level_5_Data: equ 09016h ; last def. pass 3
+Level_5_Data: equ 092C8h ; last def. pass 3
 GameLogic.loop: equ 05C0Eh ; last def. pass 3
 SpriteColors_EnemyPlaneTurning_Frame_4_Patterns_0_and_1: equ 07A13h ; last def. pass 3
 SpritePattern_EnemyChopper_Frame_2_BottomRight: equ 08918h ; last def. pass 3
@@ -337,7 +339,7 @@ LARGE_FONT_CHAR_G: equ 0400h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_9.frame_8_size: equ 041h ; last def. pass 3
 @@CH_SVAM: equ 0493Ch ; last def. pass 3
 dzx0s_elias_skip: equ 04545h ; last def. pass 3
-MEGAROM_PAGE_249_size: equ 01B86h ; last def. pass 3
+MEGAROM_PAGE_249_size: equ 01B8Eh ; last def. pass 3
 StageClearAnimation_SPRATR_Char_3.frame_14: equ 086ABh ; last def. pass 3
 CHNPRM_NtSkCn: equ 01Bh ; last def. pass 3
 GroundTarget_Temp_Struct: equ 0D5F7h ; last def. pass 3
@@ -369,6 +371,7 @@ BIOS_H_WIDT: equ 0FF84h ; last def. pass 3
 PlayerEngineAnimation: equ 05D2Bh ; last def. pass 3
 ItemAnimation.loop: equ 06BDAh ; last def. pass 3
 Enemy_Temp_Y1: equ 0D43Bh ; last def. pass 3
+Level_4_Data.Enemy_Wave_1: equ 00h ; last def. pass 3
 GameOverAnimation.loop_3: equ 075E9h ; last def. pass 3
 BIOS_GRPNAM: equ 0F3C7h ; last def. pass 3
 EnemyShot_Logic.cont_10: equ 068ADh ; last def. pass 3
@@ -461,7 +464,7 @@ BIOS_CYOFF: equ 0F947h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_6.frame_0: equ 0885Ch ; last def. pass 3
 SC5_NAMTBL_PAGE_0: equ 00h ; last def. pass 3
 CHNPRM_OffOnD: equ 0Ch ; last def. pass 3
-StageClearAnimation.initChar_0: equ 0C046h ; last def. pass 3
+StageClearAnimation.initChar_0: equ 0C048h ; last def. pass 3
 Enemy_Reset: equ 060D0h ; last def. pass 3
 BIOS_CXOFF: equ 0F945h ; last def. pass 3
 LevelTitleAnimation.circleLoop_waitVBlank: equ 0730Dh ; last def. pass 3
@@ -492,7 +495,7 @@ StageClearAnimation_SPRATR_Char_2.frame_10_size: equ 025h ; last def. pass 3
 PlayerLogic: equ 05C62h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_8.frame_4_size: equ 025h ; last def. pass 3
 SpriteColors_GroundTarget_0.size: equ 010h ; last def. pass 3
-StageClearAnimation.load_1x1_sprite_minimized: equ 0C31Eh ; last def. pass 3
+StageClearAnimation.load_1x1_sprite_minimized: equ 0C320h ; last def. pass 3
 @@CH_NOK: equ 04898h ; last def. pass 3
 Item_Logic.showItem: equ 06AD0h ; last def. pass 3
 ayFX_CHANNEL: equ 0DAB0h ; last def. pass 3
@@ -564,7 +567,7 @@ BigEnemy_Logic.loop_1002: equ 065B8h ; last def. pass 3
 Wait_15_Vblanks.waitVBlank: equ 040ABh ; last def. pass 3
 BIOS_PUTPNT: equ 0F3F8h ; last def. pass 3
 @@INITV1: equ 0464Ch ; last def. pass 3
-StageClearAnimation.nextSPRATR: equ 0C1CFh ; last def. pass 3
+StageClearAnimation.nextSPRATR: equ 0C1D1h ; last def. pass 3
 ColorsPlayerPlaneEngine_Frame_0: equ 05D7Dh ; last def. pass 3
 BIOS_LPTPOS: equ 0F415h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_7: equ 08A08h ; last def. pass 3
@@ -591,9 +594,9 @@ StageClearAnimation_SPRATR_Char_4.frame_2_size: equ 041h ; last def. pass 3
 PlaneRotating_Images_1.frame_20: equ 0928Ah ; last def. pass 3
 StageClearAnimation_SPRATR_Char_2.frame_12: equ 084EEh ; last def. pass 3
 BIOS_ESCCNT: equ 0FCA7h ; last def. pass 3
-StageClearAnimation.hideAllSprites: equ 0C375h ; last def. pass 3
+StageClearAnimation.hideAllSprites: equ 0C377h ; last def. pass 3
 BIOS_RTYCNT: equ 0FC9Ah ; last def. pass 3
-Level_3_Data: equ 08DE7h ; last def. pass 3
+Level_3_Data: equ 09030h ; last def. pass 3
 BIOS_MEMSIZ: equ 0F672h ; last def. pass 3
 VDP_HMMM_Params_Buffer.Lines: equ 0D916h ; last def. pass 3
 StageClear_Colors_factor_3: equ 08090h ; last def. pass 3
@@ -606,7 +609,7 @@ ADD_DE_A: equ 04553h ; last def. pass 3
 HMMM_Parameters.Destiny_Y: equ 0C321h ; last def. pass 3
 StageClear_Patterns_S_factor_4.size: equ 0200h ; last def. pass 3
 BIOS_H_FORM: equ 0FFACh ; last def. pass 3
-StageClearAnimation.exit: equ 0C18Ch ; last def. pass 3
+StageClearAnimation.exit: equ 0C18Eh ; last def. pass 3
 Player_X: equ 0D403h ; last def. pass 3
 Title_PaletteData_1: equ 0C34Ch ; last def. pass 3
 Enemy_Temp_ItemStruct_Addr: equ 0D43Eh ; last def. pass 3
@@ -648,7 +651,7 @@ SpritePattern_EnemyTank_Frame_0_TopRight: equ 08998h ; last def. pass 3
 SpritePattern_EnemyPlaneTurning_Frame_6_Patterns_0_and_1.size: equ 040h ; last def. pass 3
 SpritePattern_EnemyChopper_Frame_2_TopRight.size: equ 020h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_9.frame_6_size: equ 065h ; last def. pass 3
-StageClearAnimation.animationLoop: equ 0C0D3h ; last def. pass 3
+StageClearAnimation.animationLoop: equ 0C0D5h ; last def. pass 3
 LevelInitAnimation_Counter_1: equ 0D840h ; last def. pass 3
 SpriteColors_EnemyPlane_Frame_3_Patterns_0_and_1: equ 07933h ; last def. pass 3
 BIOS_INTCNT: equ 0FCA2h ; last def. pass 3
@@ -727,7 +730,7 @@ EnemyShot_Logic.return: equ 06983h ; last def. pass 3
 TitleScreen.frameSkip: equ 0C19Dh ; last def. pass 3
 LARGE_FONT_CHAR_P: equ 0640h ; last def. pass 3
 ReadInput.pause: equ 05A83h ; last def. pass 3
-StageClearAnimation.loop_10: equ 0C15Ch ; last def. pass 3
+StageClearAnimation.loop_10: equ 0C15Eh ; last def. pass 3
 SpritePattern_PlayerPlane_Left_Frame_0_Bottom.size: equ 040h ; last def. pass 3
 JP_TABLE_2.HL_OK: equ 04570h ; last def. pass 3
 ReadInput.playerLeft: equ 05979h ; last def. pass 3
@@ -747,6 +750,7 @@ SpritePattern_EnemyPlane_Frame_0_Patterns_0_and_1.size: equ 040h ; last def. pas
 BIOS_INIGRP: equ 072h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_7.frame_6_size: equ 065h ; last def. pass 3
 BIOS_GETPNT: equ 0F3FAh ; last def. pass 3
+Level_2_Data.Enemy_Wave_4: equ 0258h ; last def. pass 3
 BIOS_H_FRET: equ 0FF9Dh ; last def. pass 3
 StageClear_Patterns_A_factor_4.size: equ 0200h ; last def. pass 3
 Execute.frameSkip: equ 07C57h ; last def. pass 3
@@ -845,7 +849,7 @@ InitVariables_PlayerRespawn: equ 0571Dh ; last def. pass 3
 StageClearAnimation_SPRATR_Char_10.frame_14: equ 090B3h ; last def. pass 3
 PlayerLogic.loadExplosionFrame_2: equ 05CDCh ; last def. pass 3
 BIOS_TEMPST: equ 0F67Ah ; last def. pass 3
-StageClearAnimation.load_5x5_sprites_maximized: equ 0C1D7h ; last def. pass 3
+StageClearAnimation.load_5x5_sprites_maximized: equ 0C1D9h ; last def. pass 3
 SpriteColors_EnemyChopper_Frame_2_BottomLeft.size: equ 020h ; last def. pass 3
 AR_TonC: equ 04h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_3: equ 08504h ; last def. pass 3
@@ -892,7 +896,7 @@ BIOS_H_COMP: equ 0FF57h ; last def. pass 3
 Enemy_StartExplosionAnimation: equ 06276h ; last def. pass 3
 StageClear_Patterns_S_factor_5.size: equ 0320h ; last def. pass 3
 FOR_EACH_ARRAY_IX.LOOP: equ 04595h ; last def. pass 3
-StageClearAnimation.load_4x4_sprites_maximized: equ 0C204h ; last def. pass 3
+StageClearAnimation.load_4x4_sprites_maximized: equ 0C206h ; last def. pass 3
 PlayerShot_Reset: equ 0601Ch ; last def. pass 3
 TitleColor_0_Size: equ 010h ; last def. pass 3
 PT3_SAMPTRS: equ 0D92Dh ; last def. pass 3
@@ -964,7 +968,7 @@ SpriteColors_EnemyChopper_Frame_0_TopRight: equ 0B080h ; last def. pass 3
 Current_MegaROM_Page: equ 0DAB4h ; last def. pass 3
 PLAYER_RIGHT_FRAME_1_TOP_SPR_PAT_0_NUMBER: equ 088h ; last def. pass 3
 SpriteColors_PlayerShot_Thin.size: equ 010h ; last def. pass 3
-StageClearAnimation.cont_1: equ 0C0BEh ; last def. pass 3
+StageClearAnimation.cont_1: equ 0C0C0h ; last def. pass 3
 Seed: equ 0D400h ; last def. pass 3
 Item_Temp_Type: equ 0D57Fh ; last def. pass 3
 C_GLISS: equ 047C0h ; last def. pass 3
@@ -1030,7 +1034,7 @@ ENEMY_PLANE_TURNING_FRAME_0_SPR_PAT_0_NUMBER: equ 0A4h ; last def. pass 3
 StageClear_Patterns_G_factor_2: equ 09B60h ; last def. pass 3
 StageClear_Patterns_E_factor_2: equ 094A0h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_7.frame_12_size: equ 011h ; last def. pass 3
-StageClearAnimation.loop_colors: equ 0C175h ; last def. pass 3
+StageClearAnimation.loop_colors: equ 0C177h ; last def. pass 3
 BigEnemy_Temp_Y4: equ 0D4C7h ; last def. pass 3
 LevelInitAnimation_Char_4_LookupTable_Addr: equ 0D83Ah ; last def. pass 3
 PlayerShot_Init.continue_0: equ 05FE4h ; last def. pass 3
@@ -1046,7 +1050,7 @@ BIOS_VOICAQ: equ 0F975h ; last def. pass 3
 Title_PaletteData_End_1: equ 0C368h ; last def. pass 3
 BIOS_BOTTOM: equ 0FC48h ; last def. pass 3
 Screen_Y_Origin: equ 0D68Eh ; last def. pass 3
-StageClearAnimation.initChar_6: equ 0C08Eh ; last def. pass 3
+StageClearAnimation.initChar_6: equ 0C090h ; last def. pass 3
 BigEnemyGotHit.enemyKilled: equ 06638h ; last def. pass 3
 dzx0s_elias_loop: equ 0453Fh ; last def. pass 3
 LoadPalette: equ 0405Ch ; last def. pass 3
@@ -1116,6 +1120,7 @@ BIOS_RG1SAV: equ 0F3E0h ; last def. pass 3
 SpritePattern_EnemyPlaneTurning_Frame_4_Patterns_0_and_1.size: equ 040h ; last def. pass 3
 UpdateBigEnemiesPatterns_BigEnemyTypeChopper.loadFrame_1: equ 066CDh ; last def. pass 3
 SpritePattern_EnemyHovercraft_Frame_1_BottomRight: equ 08BD8h ; last def. pass 3
+Level_2_Data.Enemy_Wave_3: equ 0190h ; last def. pass 3
 C_DELAY: equ 04809h ; last def. pass 3
 PLAYER_INITIAL_X: equ 076h ; last def. pass 3
 LevelData_Temp_EnemyStruct_Addr: equ 0D67Eh ; last def. pass 3
@@ -1125,7 +1130,7 @@ REG17SAV: equ 0FFF0h ; last def. pass 3
 BIOS_H_TOTE: equ 0FDBDh ; last def. pass 3
 PD_NOTE: equ 0473Eh ; last def. pass 3
 EnemyShot_Logic.playerHit: equ 06973h ; last def. pass 3
-StageClearAnimation.nextFrame: equ 0C185h ; last def. pass 3
+StageClearAnimation.nextFrame: equ 0C187h ; last def. pass 3
 BIOS_STRTMS: equ 099h ; last def. pass 3
 BIOS_GSPSIZ: equ 08Ah ; last def. pass 3
 UpdateBigEnemiesPatterns_cont_1.loop_b: equ 06781h ; last def. pass 3
@@ -1135,7 +1140,7 @@ BIOS_NOFUNS: equ 0F7B7h ; last def. pass 3
 StageClear_Patterns_C_factor_3.size: equ 0120h ; last def. pass 3
 BIOS_VALTYP: equ 0F663h ; last def. pass 3
 ClearRamArea.loop: equ 04021h ; last def. pass 3
-StageClearAnimation.continue: equ 0C110h ; last def. pass 3
+StageClearAnimation.continue: equ 0C112h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_7.frame_2: equ 08A6Dh ; last def. pass 3
 HideAllSprites: equ 04FB1h ; last def. pass 3
 @@CH_VOL: equ 0494Eh ; last def. pass 3
@@ -1213,7 +1218,7 @@ Enemy_Temp_Pattern_1: equ 0D435h ; last def. pass 3
 BigEnemy_Temp_X2: equ 0D4C2h ; last def. pass 3
 StopMusic: equ 07005h ; last def. pass 3
 REG11SAV: equ 0FFEAh ; last def. pass 3
-StageClearAnimation.loop_200: equ 0C1B1h ; last def. pass 3
+StageClearAnimation.loop_200: equ 0C1B3h ; last def. pass 3
 BIOS_DPPAGE: equ 0FAF5h ; last def. pass 3
 TitleScreen.initLoop: equ 0C09Ah ; last def. pass 3
 StageClearAnimation_SPRATR_Char_1.frame_6: equ 08277h ; last def. pass 3
@@ -1237,7 +1242,7 @@ StageClear_Patterns_C_factor_5: equ 087A0h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_6.frame_8_size: equ 041h ; last def. pass 3
 BIOS_DIMFLG: equ 0F662h ; last def. pass 3
 Item_Temp_Delta_Y: equ 0D57Eh ; last def. pass 3
-StageClearAnimation.load_4x4_sprites_minimized: equ 0C297h ; last def. pass 3
+StageClearAnimation.load_4x4_sprites_minimized: equ 0C299h ; last def. pass 3
 SpritePattern_EnemyHovercraft_Frame_0_TopLeft: equ 08A38h ; last def. pass 3
 BIOS_H_SNGF: equ 0FF39h ; last def. pass 3
 Execute.gameLoop: equ 07C13h ; last def. pass 3
@@ -1293,6 +1298,7 @@ Pattern_1: equ 0D72Eh ; last def. pass 3
 GROUND_TARGET_PAT_0_NUMBER: equ 0A0h ; last def. pass 3
 BIOS_PARM2: equ 0F750h ; last def. pass 3
 BIOS_RG9SAV: equ 0FFE8h ; last def. pass 3
+Level_1_Data.size: equ 0D8Bh ; last def. pass 3
 CurrentAddrLineScroll: equ 0D691h ; last def. pass 3
 BIOS_H_SETF: equ 0FE53h ; last def. pass 3
 StageClear_Patterns_G_factor_4.size: equ 0200h ; last def. pass 3
@@ -1315,7 +1321,7 @@ StageClear_Patterns_S_factor_2: equ 0AFA0h ; last def. pass 3
 UpdateBigEnemiesPatterns_cont_1.loop_setColors: equ 067AEh ; last def. pass 3
 Execute_VDP_HMMM: equ 04251h ; last def. pass 3
 LEVEL_4_LAST_SCREEN_PAGE: equ 040h ; last def. pass 3
-StageClearAnimation.initChar_8: equ 0C0A6h ; last def. pass 3
+StageClearAnimation.initChar_8: equ 0C0A8h ; last def. pass 3
 Player_FramesSinceLastShot: equ 0D42Eh ; last def. pass 3
 SpriteColors_EnemyPlaneTurning_Frame_6_Patterns_0_and_1: equ 07A53h ; last def. pass 3
 PlayerShot_Logic: equ 0603Dh ; last def. pass 3
@@ -1386,7 +1392,7 @@ VARS: equ 0D949h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_1.frame_14_size: equ 05h ; last def. pass 3
 SpriteColors_EnemyChopper_Frame_1_TopLeft.size: equ 020h ; last def. pass 3
 BIOS_PRMLN2: equ 0F74Eh ; last def. pass 3
-StageClearAnimation.loop_2: equ 0C37Fh ; last def. pass 3
+StageClearAnimation.loop_2: equ 0C381h ; last def. pass 3
 LARGE_FONT_CHAR_T: equ 0740h ; last def. pass 3
 SpritePattern_EnemyPlane_Frame_1_Patterns_0_and_1: equ 08378h ; last def. pass 3
 BIOS_CPLOTF: equ 0F938h ; last def. pass 3
@@ -1421,7 +1427,7 @@ PPI.B: equ 0A9h ; last def. pass 3
 BIOS_INIMLT: equ 075h ; last def. pass 3
 ChopperData_1: equ 09FA0h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_10.frame_10_size: equ 025h ; last def. pass 3
-StageClearAnimation.load_3x3_sprites_minimized: equ 0C2C4h ; last def. pass 3
+StageClearAnimation.load_3x3_sprites_minimized: equ 0C2C6h ; last def. pass 3
 BIOS_H_FING: equ 0FF7Ah ; last def. pass 3
 BIOS_VARTAB: equ 0F6C2h ; last def. pass 3
 BIOS_H_NODE: equ 0FEB7h ; last def. pass 3
@@ -1553,7 +1559,7 @@ BIOS_OLDKEY: equ 0FBDAh ; last def. pass 3
 CheckCollision_16x16_32x16.checkVerticalCollision: equ 041E2h ; last def. pass 3
 BIOS_STKTOP: equ 0F674h ; last def. pass 3
 HOOK_SIZE: equ 05h ; last def. pass 3
-StageClearAnimation.initChar_7: equ 0C09Ah ; last def. pass 3
+StageClearAnimation.initChar_7: equ 0C09Ch ; last def. pass 3
 StageClear_Patterns_S_factor_4: equ 0AC80h ; last def. pass 3
 PlaneRotating_Images_2.frame_36: equ 09363h ; last def. pass 3
 BigEnemy_Temp_Pattern_5: equ 0D4D1h ; last def. pass 3
@@ -1609,7 +1615,7 @@ StageClearAnimation_SPRATR_Char_4.frame_14_size: equ 05h ; last def. pass 3
 PD_ORN: equ 046E2h ; last def. pass 3
 PlayerBombLogic.cont_1: equ 05ED8h ; last def. pass 3
 Item_Logic: equ 06A3Ah ; last def. pass 3
-StageClearAnimation.skip_300: equ 0C134h ; last def. pass 3
+StageClearAnimation.skip_300: equ 0C136h ; last def. pass 3
 BIOS_DONUM: equ 0F665h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_10.frame_8_size: equ 041h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_7.frame_6: equ 08AD3h ; last def. pass 3
@@ -1716,7 +1722,7 @@ BIOS_DRWSCL: equ 0FCBCh ; last def. pass 3
 BIOS_H_DSPC: equ 0FDA9h ; last def. pass 3
 Enemy_Logic.enemyReset: equ 061A0h ; last def. pass 3
 PlaneRotating_Images_2.frame_33: equ 08798h ; last def. pass 3
-StageClearAnimation_Size: equ 0398h ; last def. pass 3
+StageClearAnimation_Size: equ 03A0h ; last def. pass 3
 BIOS_WRTVDP: equ 047h ; last def. pass 3
 HMMM_Parameters.NotUsed: equ 0C327h ; last def. pass 3
 REG6SAV: equ 0F3E5h ; last def. pass 3
@@ -1733,7 +1739,7 @@ SpriteColors_PlayerPlane_2_and_3.size: equ 020h ; last def. pass 3
 EnemyShotDeltaX_45_degrees_right_slow: equ 0A7D6h ; last def. pass 3
 ENEMY_FRAME_5_SPR_PAT_0_NUMBER: equ 050h ; last def. pass 3
 PLANE_PLAYER_WIDTH: equ 015h ; last def. pass 3
-StageClearAnimation.loop_300: equ 0C12Bh ; last def. pass 3
+StageClearAnimation.loop_300: equ 0C12Dh ; last def. pass 3
 SpriteColors_EnemyPlane_Frame_1_Patterns_0_and_1: equ 078F3h ; last def. pass 3
 SmallFont_LoadSpritePatternsAndColors: equ 076BCh ; last def. pass 3
 BIOS_FLAGS: equ 0FB1Ch ; last def. pass 3
@@ -1856,7 +1862,7 @@ REPLAYER.PLAY: equ 045BBh ; last def. pass 3
 BIOS_PTRFLG: equ 0F6A9h ; last def. pass 3
 BIOS_CSCLXY: equ 0F941h ; last def. pass 3
 VDP_COMMAND_LINE: equ 070h ; last def. pass 3
-Level_4_Data: equ 08EACh ; last def. pass 3
+Level_4_Data: equ 090F5h ; last def. pass 3
 @@NO_ENSL: equ 04981h ; last def. pass 3
 BIOS_TXTCGP: equ 0F3B7h ; last def. pass 3
 PressFireChars: equ 0C312h ; last def. pass 3
@@ -1882,7 +1888,7 @@ REPLAYER.STOP: equ 045B3h ; last def. pass 3
 CHNPRM_Flags: equ 015h ; last def. pass 3
 Copy16x16ImageFromRAMToVRAM_SC5.next_1: equ 044F1h ; last def. pass 3
 SpritePattern_EnemyPlaneTurning_Frame_0_Patterns_0_and_1.size: equ 040h ; last def. pass 3
-StageClearAnimation.loop_100: equ 0C19Bh ; last def. pass 3
+StageClearAnimation.loop_100: equ 0C19Dh ; last def. pass 3
 BIOS_T32COL: equ 0F3BFh ; last def. pass 3
 Enemy_Logic.loadExplosionFrame_3: equ 0624Ch ; last def. pass 3
 StageClearAnimation_SPRATR_Char_4.frame_6_size: equ 065h ; last def. pass 3
@@ -1892,13 +1898,13 @@ EnemyShot_Logic: equ 0687Dh ; last def. pass 3
 SONG_TABLE: equ 0A907h ; last def. pass 3
 RET_NOT_ZERO: equ 045A7h ; last def. pass 3
 BIOS_H_INLI: equ 0FDE5h ; last def. pass 3
-StageClearAnimation.nextSPRCOL: equ 0C1C7h ; last def. pass 3
+StageClearAnimation.nextSPRCOL: equ 0C1C9h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_2.frame_6: equ 08423h ; last def. pass 3
 StageClearAnimationVars.SPRATR_Address: equ 0D843h ; last def. pass 3
 BIOS_ENSTOP: equ 0FBB0h ; last def. pass 3
 GroundTarget_Logic.loop_30: equ 06DA9h ; last def. pass 3
 StageClear_Patterns_L_factor_2.size: equ 080h ; last def. pass 3
-StageClearAnimation.load_5x5_sprites_minimized: equ 0C26Ah ; last def. pass 3
+StageClearAnimation.load_5x5_sprites_minimized: equ 0C26Ch ; last def. pass 3
 BIOS_DSPFNK: equ 0CFh ; last def. pass 3
 PLAYER_SPR_PAT_0_NUMBER: equ 00h ; last def. pass 3
 LevelInitAnimation_Char_5_LookupTable_Addr: equ 0D83Ch ; last def. pass 3
@@ -1966,7 +1972,7 @@ BIOS_GRPHED: equ 0FCA6h ; last def. pass 3
 BigEnemy_Temp_Struct: equ 0D4B8h ; last def. pass 3
 LoadLevel.level_5: equ 06F53h ; last def. pass 3
 PPI.R: equ 0ABh ; last def. pass 3
-StageClearAnimation.loop_30: equ 0C35Fh ; last def. pass 3
+StageClearAnimation.loop_30: equ 0C361h ; last def. pass 3
 ConvertMsx2SpritesToSc11.loop: equ 043B9h ; last def. pass 3
 PlaneRotating_Images_0.frame_0: equ 082ABh ; last def. pass 3
 Enemy_Init: equ 06064h ; last def. pass 3
@@ -2076,7 +2082,7 @@ StageClearAnimation_SPRATR_Char_1.frame_10: equ 0831Dh ; last def. pass 3
 ConvertMsx2SpritesToSc11.saveBit_Pattern_1: equ 043DDh ; last def. pass 3
 BIOS_CHGET: equ 09Fh ; last def. pass 3
 LARGE_FONT_CHAR_F: equ 03C0h ; last def. pass 3
-MEGAROM_PAGE_248_size: equ 01416h ; last def. pass 3
+MEGAROM_PAGE_248_size: equ 016C8h ; last def. pass 3
 PORT_3: equ 09Bh ; last def. pass 3
 UncompressedData.size: equ 01000h ; last def. pass 3
 PlayerShot_Temp_PatternNumber_0: equ 0D418h ; last def. pass 3
@@ -2124,7 +2130,7 @@ EnemyData_0.offset_y1: equ 08200h ; last def. pass 3
 Player_Status: equ 0D402h ; last def. pass 3
 GroundTarget_4_Struct: equ 0D651h ; last def. pass 3
 BIOS_ENASCR: equ 044h ; last def. pass 3
-StageClearAnimation.initChar_1: equ 0C052h ; last def. pass 3
+StageClearAnimation.initChar_1: equ 0C054h ; last def. pass 3
 Execute.waitVBlank: equ 07C17h ; last def. pass 3
 BIOS_H_ERAF: equ 0FDB8h ; last def. pass 3
 PauseAnimation.animationStep_1: equ 07108h ; last def. pass 3
@@ -2139,10 +2145,10 @@ StageClearAnimation_SPRATR_Char_9.frame_12_size: equ 011h ; last def. pass 3
 Item_Logic.resetItem: equ 06B47h ; last def. pass 3
 SpriteColors_EnemyChopper_Frame_2_BottomRight.size: equ 020h ; last def. pass 3
 PlaneRotating_Images_0.frame_11: equ 0B0AFh ; last def. pass 3
-Level_6_Data: equ 09306h ; last def. pass 3
+Level_6_Data: equ 095B8h ; last def. pass 3
 CurrentVRAMAddrLineScroll: equ 0D693h ; last def. pass 3
 GROUND_TARGET_DESTROYED_DOLLAR_3_VRAM_ADDR: equ 012h ; last def. pass 3
-StageClearAnimation.load_2x2_sprites_minimized: equ 0C2F1h ; last def. pass 3
+StageClearAnimation.load_2x2_sprites_minimized: equ 0C2F3h ; last def. pass 3
 @@INITV3: equ 04668h ; last def. pass 3
 EnemyShot_Logic.enemyShotColor_0: equ 06907h ; last def. pass 3
 CheckCol_GroundTarget_PlayerShot: equ 06E3Eh ; last def. pass 3
@@ -2225,7 +2231,7 @@ REG0SAV: equ 0F3DFh ; last def. pass 3
 StageClearAnimation_SPRATR_Char_3.frame_4_size: equ 025h ; last def. pass 3
 EnemyShot_Logic.checkCollision: equ 0694Eh ; last def. pass 3
 StageClear_Patterns_C_factor_5.size: equ 0320h ; last def. pass 3
-StageClearAnimation.load_3x3_sprites_maximized: equ 0C231h ; last def. pass 3
+StageClearAnimation.load_3x3_sprites_maximized: equ 0C233h ; last def. pass 3
 Item_Logic.not_set_double_width: equ 06B1Eh ; last def. pass 3
 EnemyShotDeltaX_0_degrees_center_slow: equ 0A7CAh ; last def. pass 3
 CHNPRM_TSlCnt: equ 05h ; last def. pass 3
@@ -2291,7 +2297,7 @@ Item_Temp_Y1: equ 0D57Ah ; last def. pass 3
 BIOS_VLZDAT: equ 0F41Bh ; last def. pass 3
 REG25SAV: equ 0FFFAh ; last def. pass 3
 BIOS_GTTRIG: equ 0D8h ; last def. pass 3
-StageClearAnimation.animationLoop_waitVBlank: equ 0C0D7h ; last def. pass 3
+StageClearAnimation.animationLoop_waitVBlank: equ 0C0D9h ; last def. pass 3
 CurrentMegaROMPage: equ 0D690h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_9.frame_12: equ 08EF6h ; last def. pass 3
 StageClearAnimation_SPRATR_Char_2.frame_0: equ 08358h ; last def. pass 3
@@ -2347,7 +2353,7 @@ BIOS_RSFCB: equ 0FB04h ; last def. pass 3
 BIOS_LINTTB: equ 0FBB2h ; last def. pass 3
 BigEnemy_Init.debugTrap: equ 06312h ; last def. pass 3
 EnemyData_0.patternNumber: equ 08100h ; last def. pass 3
-StageClearAnimation.initChar_3: equ 0C06Ah ; last def. pass 3
+StageClearAnimation.initChar_3: equ 0C06Ch ; last def. pass 3
 StageClearAnimationVars: equ 0D841h ; last def. pass 3
 StageClearAnimationVars.SPRPAT_Address: equ 0D845h ; last def. pass 3
 ChooseInputScreen.showPage_1: equ 0C17Dh ; last def. pass 3
@@ -2375,6 +2381,7 @@ BIOS_H_KILL: equ 0FDFEh ; last def. pass 3
 Level_1_Data.Enemy_Wave_9: equ 0578h ; last def. pass 3
 PAUSE_ANIMATION_DATA_MEGAROM_PAGE: equ 0F9h ; last def. pass 3
 EnemyShotDeltaX_22_degrees_left_fast: equ 0A7A6h ; last def. pass 3
+StageClearAnimation.endAnimation: equ 0C39Ah ; last def. pass 3
 BIOS_TAPION: equ 0E1h ; last def. pass 3
 SpritePattern_EnemyChopper_Frame_1_BottomLeft.size: equ 040h ; last def. pass 3
 SpritePattern_EnemyChopper_Frame_0_BottomRight: equ 08758h ; last def. pass 3

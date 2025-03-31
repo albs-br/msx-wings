@@ -13,7 +13,7 @@ StageClearAnimation:
 
     ld      a, (StageClearAnimationVars.CharCounter)
     cp      10
-    ret     z
+    JP      z, .endAnimation
 
     cp      0   ; char #0 (S)
     jp      z, .initChar_0
@@ -742,5 +742,13 @@ StageClearAnimation:
     out     (PORT_0), a
 
     djnz    .loop_2
+
+    ret
+
+
+.endAnimation:
+
+    ld      b, 4 * 60       ; 4 seconds
+    call    Wait_B_Vblanks
 
     ret

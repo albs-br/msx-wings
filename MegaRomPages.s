@@ -1101,7 +1101,7 @@ LEVEL_DATA_MEGAROM_PAGE:                equ 248
     INCLUDE "Data/LevelData/Level_5.s"
     INCLUDE "Data/LevelData/Level_6.s"
     ; this is gonna increase a lot with all levels production data
-MEGAROM_PAGE_248_size:          equ $ - 0x8000 ; 0x0cff bytes (more than 12 kb free)
+MEGAROM_PAGE_248_size:          equ $ - 0x8000 ; 0x1416 bytes (around 5kb)
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
 ; ------------------------------------------------------------------------

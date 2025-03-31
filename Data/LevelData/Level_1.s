@@ -466,3 +466,5 @@ Level_1_Data:
 
     ; end marking of level data
     dw  0
+
+.size: equ $ - Level_1_Data ; 0xD8B   (3.4 kb)

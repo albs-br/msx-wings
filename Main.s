@@ -265,7 +265,7 @@ Execute:
     ; 6: Paris
     ; 7: Sidney
     ; 8: Mexico
-    ld      a, 1                        ; level number (1-8)
+    ld      a, 2                        ; level number (1-8)
     ld      (CurrentLevelNumber), a
     call    LoadLevel
 
@@ -425,7 +425,7 @@ End:
 
     ; db      "End ROM started at 0x4000"
 
-PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3BED bytes (aprox 1000 bytes free)
+PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3c76 bytes (aprox 900 bytes free)
 	ds PAGE_SIZE - ($ - 0x4000), 255	; Fill the unused area with 0xFF
 
 
