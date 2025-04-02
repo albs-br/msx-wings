@@ -25,7 +25,11 @@ InitVariables_GameStart:
     ld      a, KEYBOARD
     ld      (Player_Tnput), a
     
-    ld      a, 3
+    IFDEF DEBUG
+        ld      a, 255
+    ELSE
+        ld      a, 3
+    ENDIF
     ld      (Player_Lives), a
 
     ld      a, 3

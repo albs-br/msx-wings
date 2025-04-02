@@ -342,7 +342,7 @@ LoadSpritePatternsAndColors_TopScore:
     otir
 
     ; set player lives number on sprite pattern
-    ld      a, (Player_Lives)
+    ld      a, (Player_Lives)                       ; TODO: lives above 9
     call    ConvertNumberToSpriteChar_SmallFont
     push    hl
         ; load pattern for bombs number on last 8 bytes of sprite position 5

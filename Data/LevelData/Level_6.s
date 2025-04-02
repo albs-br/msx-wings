@@ -1,10 +1,10 @@
 Level_6_Data:
 
-;                                           Initial_X                                     EnemyStruct_Addr
-;       Counter     ActionType              |         Delta_X_Initial_Addr                |                    SPRCOL_Addr
-;       |           |                       |         |                                   |                    |
-    dw  10    db  BIG_ENEMY_TYPE_HOVERCRAFT,     64     dw  TankData_0                    dw BigEnemy_0_Struct,   BIG_ENEMY_0_SPRCOL_ADDR,              0, 0               db 0
-    dw  42    db  BIG_ENEMY_TYPE_HOVERCRAFT,    192     dw  TankData_0                    dw BigEnemy_1_Struct,   BIG_ENEMY_1_SPRCOL_ADDR,              0, 0               db 0
+;                                                   Initial_X                                     EnemyStruct_Addr
+;       Counter     ActionType                      |         Delta_X_Initial_Addr                |                    SPRCOL_Addr
+;       |           |                               |         |                                   |                    |
+    dw  10      db  BIG_ENEMY_TYPE_HOVERCRAFT,     64     dw  TankData_0                    dw BigEnemy_0_Struct,   BIG_ENEMY_0_SPRCOL_ADDR,              0, 0               db 0
+    dw  42      db  BIG_ENEMY_TYPE_HOVERCRAFT,    192     dw  TankData_0                    dw BigEnemy_1_Struct,   BIG_ENEMY_1_SPRCOL_ADDR,              0, 0               db 0
 
 
 
