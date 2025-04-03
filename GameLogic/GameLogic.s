@@ -126,7 +126,9 @@ GameLogic:
     ld      (LevelCounter), hl
 
 
-    ; set MegaROM page for Level 1 data
+    ; TODO: if (CurrentLevelNumber <= 4) A = LEVEL_DATA_MEGAROM_PAGE_0; else A = LEVEL_DATA_MEGAROM_PAGE_1
+
+    ; set MegaROM page for Level data
     ld      a, LEVEL_DATA_MEGAROM_PAGE
     ; ld	    (Seg_P8000_SW), a
     call    Set_and_Save_MegaROM_Page
