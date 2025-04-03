@@ -18,5 +18,13 @@ Level_3_Data:
     dw  143     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_45_degrees_right_fast  dw GroundTarget_3_Struct, ENEMY_SHOT_6_SPRCOL_ADDR, EnemyShot_6_Struct,          0   db 0
 
 
+
+
+
+
+
+
+    ;dw 7100 ; last LevelCounter for Level 3 BG
+
     ; end marking of level data
     dw  0
