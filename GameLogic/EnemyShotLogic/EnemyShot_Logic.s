@@ -45,9 +45,9 @@ EnemyShot_Logic:
 
         inc     hl                      ; next Delta X addr
         
-        ; if (next Delta X addr == 255) returnToFirst()
+        ; if (next Delta X == 128) returnToFirst()
         ld      a, (hl)
-        inc     a
+        cp      128
         jp      z, .returnToFirst_Delta_X
         jp      .cont_10
 
@@ -76,9 +76,9 @@ EnemyShot_Logic:
 
         inc     hl                      ; next Delta Y addr
 
-        ; if (next Delta Y addr == 255) returnToFirst()
+        ; if (next Delta Y == 128) returnToFirst()
         ld      a, (hl)
-        inc     a
+        cp      128
         jp      z, .returnToFirst_Delta_Y
         jp      .cont_20
 

@@ -25,6 +25,10 @@ ram_watch   add     0xd68a      -type word       -desc LevelCounter      -format
 ram_watch   add     0xd410      -type word       -desc Score             -format hex
 #Player_Score: equ 0D410h ; last def. pass 3
 
+ram_watch   add     0xd51c      -type word       -desc DX_Addr             -format hex
+#EnemyShot_Temp_Delta_X_Current_Addr: equ 0D51Ch ; last def. pass 3
+
+
 # ram_watch   add     0xc002      -type byte       -desc Player_Status     -format dec
 # 
 # ram_watch   add     0xFC4A      -type word       -desc HIMEM             -format hex
