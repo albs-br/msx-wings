@@ -142,6 +142,33 @@ Level_3_Data:
 
 ; ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+; first ground target: 234 X 1525
+
+; first visible line of BG: 1791
+
+    ; -------------------------------------------
+    ; ground target position rules (for level 3):
+
+    ; H = height                  C = counter
+    ; |                           |    
+    ; 1790px on image: counter at 0
+    ; 1780px on image: counter at 40
+    ; 1770px on image: counter at 80
+
+    ; each -10px = +40 on counter
+
+    ; formula:
+    ; C = (1790 - H) * 4
+    ; -------------------------------------------
+
+;                                           Initial_X                      EnemyStruct_Addr
+;       Counter     ActionType              |         Delta_X_Initial_Addr |               SPRCOL_Addr
+;       |           |                       |         |                    |               |
+    dw  1060    db  GROUND_TARGET,          230   dw  0       dw GroundTarget_0_Struct, 0,                         0,       GROUND_TARGET_DONT_HAVE_ITEM db 0
+    dw  1116    db  GROUND_TARGET,          150   dw  0       dw GroundTarget_1_Struct, 0,                         0,       GROUND_TARGET_HAS_ITEM       db 0
+    
+; ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 .Enemy_Wave_5: equ 1220
 
 
@@ -193,32 +220,30 @@ Level_3_Data:
 
 ; ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-; first ground target: 234 X 1525
+.Enemy_Wave_7: equ 1600
 
-; first visible line of BG: 1791
+    dw  .Enemy_Wave_7  +  0     db  ENEMY_TYPE_1,           128   dw  EnemyData_4                      dw Enemy_0_Struct,      ENEMY_0_SPRCOL_ADDR,                       0,             0   db 0
+    dw  .Enemy_Wave_7  +  5     db  ENEMY_SHOT_TYPE_1,        0   dw  EnemyShotDeltaX_22_degrees_right_slow dw Enemy_0_Struct, ENEMY_SHOT_0_SPRCOL_ADDR, EnemyShot_0_Struct,             0   db 0
 
-    ; -------------------------------------------
-    ; ground target position rules (for level 3):
+    dw  .Enemy_Wave_7  + 10     db  ENEMY_TYPE_1,           128   dw  EnemyData_4                      dw Enemy_1_Struct,      ENEMY_1_SPRCOL_ADDR,                       0,             0   db 0
+    ; dw  .Enemy_Wave_7  + 15     db  ENEMY_SHOT_TYPE_1,        0   dw  EnemyShotDeltaX_22_degrees_right_slow dw Enemy_1_Struct, ENEMY_SHOT_1_SPRCOL_ADDR, EnemyShot_1_Struct,             0   db 0
 
-    ; H = height                  C = counter
-    ; |                           |    
-    ; 1790px on image: counter at 0
-    ; 1780px on image: counter at 40
-    ; 1770px on image: counter at 80
+    dw  .Enemy_Wave_7  + 20     db  ENEMY_TYPE_1,           128   dw  EnemyData_4                      dw Enemy_2_Struct,      ENEMY_2_SPRCOL_ADDR,                       0,             0   db 0
+    ; dw  .Enemy_Wave_7  + 25     db  ENEMY_SHOT_TYPE_1,        0   dw  EnemyShotDeltaX_22_degrees_right_slow dw Enemy_2_Struct, ENEMY_SHOT_2_SPRCOL_ADDR, EnemyShot_2_Struct,             0   db 0
 
-    ; each -10px = +40 on counter
+    dw  .Enemy_Wave_7  + 30     db  ENEMY_TYPE_1,           128   dw  EnemyData_4                      dw Enemy_3_Struct,      ENEMY_3_SPRCOL_ADDR,                       0,             0   db 0
+    ; dw  .Enemy_Wave_7  + 35     db  ENEMY_SHOT_TYPE_1,        0   dw  EnemyShotDeltaX_0_degrees_center_slow dw Enemy_3_Struct, ENEMY_SHOT_3_SPRCOL_ADDR, EnemyShot_3_Struct,             0   db 0
+      
+    dw  .Enemy_Wave_7  + 40     db  ENEMY_TYPE_1,           128   dw  EnemyData_4                      dw Enemy_4_Struct,      ENEMY_4_SPRCOL_ADDR,                       0,             0   db 0
+    ; dw  .Enemy_Wave_7  + 45     db  ENEMY_SHOT_TYPE_1,        0   dw  EnemyShotDeltaX_22_degrees_left_slow  dw Enemy_4_Struct, ENEMY_SHOT_4_SPRCOL_ADDR, EnemyShot_4_Struct,             0   db 0
+      
+    dw  .Enemy_Wave_7  + 50     db  ENEMY_TYPE_1,           128   dw  EnemyData_4                      dw Enemy_5_Struct,      ENEMY_5_SPRCOL_ADDR,                       0,             0   db 0
+    dw  .Enemy_Wave_7  + 65     db  ENEMY_SHOT_TYPE_1,        0   dw  EnemyShotDeltaX_22_degrees_left_slow  dw Enemy_5_Struct, ENEMY_SHOT_5_SPRCOL_ADDR, EnemyShot_5_Struct,             0   db 0
 
-    ; formula:
-    ; C = (1790 - H) * 4
-    ; -------------------------------------------
+    dw  .Enemy_Wave_7  + 60     db  ENEMY_TYPE_1,           128   dw  EnemyData_4                      dw Enemy_6_Struct,      ENEMY_6_SPRCOL_ADDR,                       0, Item_6_Struct   db ITEM_P
+    dw  .Enemy_Wave_7  + 65     db  ENEMY_SHOT_TYPE_1,        0   dw  EnemyShotDeltaX_22_degrees_left_slow  dw Enemy_6_Struct, ENEMY_SHOT_6_SPRCOL_ADDR, EnemyShot_6_Struct,             0   db 0
 
-;                                           Initial_X                      EnemyStruct_Addr
-;       Counter     ActionType              |         Delta_X_Initial_Addr |               SPRCOL_Addr
-;       |           |                       |         |                    |               |
-    dw  1060    db  GROUND_TARGET,          230   dw  0       dw GroundTarget_0_Struct, 0,                         0,       GROUND_TARGET_DONT_HAVE_ITEM db 0
-    dw  1116    db  GROUND_TARGET,          150   dw  0       dw GroundTarget_1_Struct, 0,                         0,       GROUND_TARGET_HAS_ITEM       db 0
-    
-
+; ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     dw  1760    db  GROUND_TARGET,          137   dw  0       dw GroundTarget_2_Struct, 0,                         0,       GROUND_TARGET_HAS_ITEM       db 0
     dw  1780    db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_left_slow   dw GroundTarget_2_Struct, ENEMY_SHOT_0_SPRCOL_ADDR, EnemyShot_0_Struct,          0   db 0
@@ -227,6 +252,21 @@ Level_3_Data:
     dw  1820    db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_45_degrees_left_slow   dw GroundTarget_2_Struct, ENEMY_SHOT_3_SPRCOL_ADDR, EnemyShot_3_Struct,          0   db 0
     dw  1821    db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_45_degrees_right_slow  dw GroundTarget_2_Struct, ENEMY_SHOT_4_SPRCOL_ADDR, EnemyShot_4_Struct,          0   db 0
 
+; ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+.Enemy_Wave_8: equ 1830
+
+;                                                           Initial_X                      EnemyStruct_Addr
+;       Counter                     ActionType              |         Delta_X_Initial_Addr |               SPRCOL_Addr
+;       |                           |                       |         |                    |               |
+    dw  .Enemy_Wave_8 + 10      db  ENEMY_TYPE_1,           32    dw  EnemyData_5     dw Enemy_0_Struct, ENEMY_0_SPRCOL_ADDR,      0,       Item_0_Struct   db ITEM_BOMB
+    dw  .Enemy_Wave_8 + 11      db  ENEMY_TYPE_1,           64    dw  EnemyData_5     dw Enemy_1_Struct, ENEMY_1_SPRCOL_ADDR,      0,       Item_1_Struct   db ITEM_BOMB
+    dw  .Enemy_Wave_8 + 12      db  ENEMY_TYPE_1,           96    dw  EnemyData_5     dw Enemy_2_Struct, ENEMY_2_SPRCOL_ADDR,      0,       Item_2_Struct   db ITEM_BOMB
+    dw  .Enemy_Wave_8 + 20      db  ENEMY_TYPE_1,           128   dw  EnemyData_5     dw Enemy_3_Struct, ENEMY_3_SPRCOL_ADDR,      0,       Item_3_Struct   db ITEM_P        
+    dw  .Enemy_Wave_8 + 21      db  ENEMY_TYPE_1,           160   dw  EnemyData_5     dw Enemy_4_Struct, ENEMY_4_SPRCOL_ADDR,      0,       Item_4_Struct   db ITEM_P
+    dw  .Enemy_Wave_8 + 22      db  ENEMY_TYPE_1,           192   dw  EnemyData_5     dw Enemy_5_Struct, ENEMY_5_SPRCOL_ADDR,      0,       Item_5_Struct   db ITEM_P
+
+; ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
     dw  2008    db  GROUND_TARGET,          137   dw  0       dw GroundTarget_3_Struct, 0,                         0,       GROUND_TARGET_HAS_ITEM       db 0
