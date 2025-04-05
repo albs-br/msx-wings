@@ -390,15 +390,45 @@ Level_3_Data:
 
 ; ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+.Enemy_Wave_13: equ 3200
+
+;                                                           Initial_X                                  EnemyStruct_Addr
+;       Counter                     ActionType              |         Delta_X_Initial_Addr             |                    SPRCOL_Addr
+;       |                           |                       |         |                                |                    |
+    dw  .Enemy_Wave_13 + 10     db  BIG_ENEMY_TYPE_TANK,   88     dw  TankData_0                    dw BigEnemy_0_Struct,   BIG_ENEMY_0_SPRCOL_ADDR,              0, 0               db 0
+    dw  .Enemy_Wave_13 + 42     db  BIG_ENEMY_TYPE_TANK,  120     dw  TankData_0                    dw BigEnemy_1_Struct,   BIG_ENEMY_1_SPRCOL_ADDR,              0, 0               db 0
+
+    dw  .Enemy_Wave_13 + 90     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_45_degrees_left_fast  dw BigEnemy_0_Struct, ENEMY_SHOT_0_SPRCOL_ADDR, EnemyShot_0_Struct,          0   db 0
+    dw  .Enemy_Wave_13 + 91     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_0_degrees_center_fast dw BigEnemy_0_Struct, ENEMY_SHOT_1_SPRCOL_ADDR, EnemyShot_1_Struct,          0   db 0
+    dw  .Enemy_Wave_13 + 92     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_45_degrees_right_fast dw BigEnemy_0_Struct, ENEMY_SHOT_2_SPRCOL_ADDR, EnemyShot_2_Struct,          0   db 0
+    
+    dw  .Enemy_Wave_13 + 120    db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_45_degrees_left_fast  dw BigEnemy_1_Struct, ENEMY_SHOT_3_SPRCOL_ADDR, EnemyShot_3_Struct,          0   db 0
+    dw  .Enemy_Wave_13 + 121    db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_left_fast  dw BigEnemy_1_Struct, ENEMY_SHOT_4_SPRCOL_ADDR, EnemyShot_4_Struct,          0   db 0
+    dw  .Enemy_Wave_13 + 122    db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right_fast dw BigEnemy_1_Struct, ENEMY_SHOT_5_SPRCOL_ADDR, EnemyShot_5_Struct,          0   db 0
+    dw  .Enemy_Wave_13 + 123    db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_45_degrees_right_fast dw BigEnemy_1_Struct, ENEMY_SHOT_6_SPRCOL_ADDR, EnemyShot_6_Struct,          0   db 0
+
+
+    ; consecutive enemy shots need to be spaced 100 frames apart for the same EnemyShotStruct 
+    dw  .Enemy_Wave_13 + 220    db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_45_degrees_left_fast  dw BigEnemy_0_Struct, ENEMY_SHOT_0_SPRCOL_ADDR, EnemyShot_0_Struct,          0   db 0
+    dw  .Enemy_Wave_13 + 221    db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_0_degrees_center_fast dw BigEnemy_0_Struct, ENEMY_SHOT_1_SPRCOL_ADDR, EnemyShot_1_Struct,          0   db 0
+    dw  .Enemy_Wave_13 + 222    db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_45_degrees_right_fast dw BigEnemy_0_Struct, ENEMY_SHOT_2_SPRCOL_ADDR, EnemyShot_2_Struct,          0   db 0
+    
+    dw  .Enemy_Wave_13 + 223    db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_45_degrees_left_fast  dw BigEnemy_1_Struct, ENEMY_SHOT_3_SPRCOL_ADDR, EnemyShot_3_Struct,          0   db 0
+    dw  .Enemy_Wave_13 + 224    db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_left_fast  dw BigEnemy_1_Struct, ENEMY_SHOT_4_SPRCOL_ADDR, EnemyShot_4_Struct,          0   db 0
+    dw  .Enemy_Wave_13 + 225    db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right_fast dw BigEnemy_1_Struct, ENEMY_SHOT_5_SPRCOL_ADDR, EnemyShot_5_Struct,          0   db 0
+    dw  .Enemy_Wave_13 + 226    db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_45_degrees_right_fast dw BigEnemy_1_Struct, ENEMY_SHOT_6_SPRCOL_ADDR, EnemyShot_6_Struct,          0   db 0
+
+; ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
-
+; TODO: continue here
 
 
 ; ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+;.Ground_Target_10: equ 3932
 .Ground_Target_10: equ (1790 - 807) * 4 ; this ground target is positioned at (118, 807) on the bitmap
 
     dw  .Ground_Target_10       db  GROUND_TARGET,          118   dw  0       dw GroundTarget_5_Struct, 0,                         0,       GROUND_TARGET_HAS_ITEM       db 0
@@ -413,6 +443,7 @@ Level_3_Data:
 
 ; ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+;.Ground_Target_11: equ 4196
 .Ground_Target_11: equ (1790 - 741) * 4 ; this ground target is positioned at (118, 741) on the bitmap
 
     dw  .Ground_Target_11       db  GROUND_TARGET,          118   dw  0       dw GroundTarget_0_Struct, 0,                         0,       GROUND_TARGET_HAS_ITEM       db 0
@@ -427,6 +458,7 @@ Level_3_Data:
 
 ; ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+;.Ground_Target_12: equ 4520
 .Ground_Target_12: equ (1790 - 660) * 4 ; this ground target is positioned at (118, 660) on the bitmap
 
     dw  .Ground_Target_12       db  GROUND_TARGET,          118   dw  0       dw GroundTarget_1_Struct, 0,                         0,       GROUND_TARGET_HAS_ITEM       db 0
