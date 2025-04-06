@@ -9,6 +9,11 @@ BigEnemy_Reset:
     pop     hl
 
 
+    ; ; EnemyMode = ENEMY_MODE_SMALL_ENEMIES
+    ; ld      a, ENEMY_MODE_SMALL_ENEMIES
+    ; ld      (EnemyMode), a
+
+
     xor     a
     ld      (hl), a     ; Status
     inc     hl

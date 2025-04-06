@@ -96,7 +96,10 @@ ram_watch   add     0xd51c      -type word       -desc DX_Addr             -form
 
 #ram_watch   add     0xC40e      -type byte      -desc PauseAnim_Counter            -format dec
 
-#ram_watch   add     0xC02a      -type byte      -desc EnemyMode            -format dec
+ram_watch   add     0xd42f      -type byte      -desc EnemyMode            -format dec
+#EnemyMode: equ 0D42Fh ; last def. pass 3
+
+
 #ram_watch   add     0xdfc3      -type byte      -desc CurrentFrameNumber            -format dec
 
 

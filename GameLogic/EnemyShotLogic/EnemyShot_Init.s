@@ -69,6 +69,9 @@ EnemyShot_Init:
 .cont_2:
     ld      (EnemyShot_Temp_X), a                ; X
 
+    ; TODO:
+    ; fix bug, when shot come from Ground target, ignore EnemyMode
+
 
     inc     hl
     ld      a, (hl)
