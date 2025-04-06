@@ -54,7 +54,7 @@ Level_1_Data:
 
 
     ; -------------------------------------------
-    ; ground target position rules (for level 1):
+    ; ground target positioning rules (for level 1):
 
     ; H = height                 C = counter
     ; |                          |    

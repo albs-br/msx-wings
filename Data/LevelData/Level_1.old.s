@@ -51,7 +51,7 @@
     dw  165     db  ENEMY_SHOT_TYPE_1,      0     dw  EnemyShotDeltaX_22_degrees_right dw Enemy_6_Struct, ENEMY_SHOT_6_SPRCOL_ADDR, EnemyShot_6_Struct,             0   db 0
 
     ; -------------------------------------------
-    ; ground target position rules:
+    ; ground target positioning rules:
 
     ; H = height                 C = counter
     ; |                          |    
