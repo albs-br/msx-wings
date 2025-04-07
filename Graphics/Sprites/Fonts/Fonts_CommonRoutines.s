@@ -144,7 +144,11 @@ Get_LargeFont_PatternAddr:
 
     ret
 
+; -------------------------------------------------------------------------------------------------------------------
+
 ; Inputs:
+;   HL: Zero terminated string addr
+;   DE: VRAM NAMTBL addr (SC5)
 DrawString_LargeFont_SC5:
 
 .loop:
@@ -158,22 +162,26 @@ DrawString_LargeFont_SC5:
         cp      32
         jp      z, .skipDrawChar ; efectivelly is like a space on string
 
-        sub     65 ; ASCII code for A
-        ld      l, a
-        ld      h, 0
-        ; multiply HL by 64 (shift left 6x)
-        add     hl, hl
-        add     hl, hl
-        add     hl, hl
-        add     hl, hl
-        add     hl, hl
-        add     hl, hl        
+        push    de
+            call    Get_LargeFont_PatternAddr
+        pop     de
 
-        ld      bc, LARGE_FONT_CHAR_A
-        add     hl, bc
+        ; sub     65 ; ASCII code for A
+        ; ld      l, a
+        ; ld      h, 0
+        ; ; multiply HL by 64 (shift left 6x)
+        ; add     hl, hl
+        ; add     hl, hl
+        ; add     hl, hl
+        ; add     hl, hl
+        ; add     hl, hl
+        ; add     hl, hl        
 
-        ld      bc, LargeFont_Patterns
-        add     hl, bc
+        ; ld      bc, LARGE_FONT_CHAR_A
+        ; add     hl, bc
+
+        ; ld      bc, LargeFont_Patterns
+        ; add     hl, bc
 
         call    .drawHalfChar
 
@@ -189,6 +197,13 @@ DrawString_LargeFont_SC5:
     pop     hl
     inc     hl
     jp      .loop
+
+.skipDrawChar:
+    ; DE += 8 (16 pixels on SC5)
+    ld      bc, 8
+    call    DE_Plus_BC
+
+    jp      .return_from_skipDrawChar
 
 .drawHalfChar:
 
@@ -210,18 +225,149 @@ DrawString_LargeFont_SC5:
     pop     de, hl
 
     ; DE += 4 (8 pixels on SC5)
-    ex      de, hl ; HL = DE
-        ld      bc, 4
-        add     hl, bc
-    ex      de, hl ; DE = HL
+    ld      bc, 4
+    call    DE_Plus_BC
 
     ret
 
+
+; -------------------------------------------------------------------------------------------------------------------
+
+; Inputs:
+;   HL: Zero terminated string addr
+;   DE: VRAM NAMTBL addr (SC5)
+DrawString_MediumFont_SC5:
+
+.loop:
+    ld      a, (hl)
+    or      a
+    ret     z        
+    
+    push    hl
+
+        ; if(A == ' ') skipDrawChar
+        cp      32
+        jp      z, .skipDrawChar ; efectivelly is like a space on string
+
+        push    de
+            call    Get_MediumFont_PatternAddr
+        pop     de
+
+        call    .drawChar
+
+.return_from_skipDrawChar:
+
+    pop     hl
+    inc     hl
+    jp      .loop
+
 .skipDrawChar:
-    ; DE += 8 (16 pixels on SC5)
-    ex      de, hl ; HL = DE
-        ld      bc, 8
-        add     hl, bc
-    ex      de, hl ; DE = HL
+    ; DE += 4 (8 pixels on SC5)
+    ld      bc, 4
+    call    DE_Plus_BC
+    ; ex      de, hl ; HL = DE
+    ;     ld      bc, 4
+    ;     add     hl, bc
+    ; ex      de, hl ; DE = HL
 
     jp      .return_from_skipDrawChar
+
+.drawChar:
+
+    push    hl, de
+        push    de
+            ld      ix, MediumFont_Colors
+            ld      de, UncompressedData
+            ld      b, 16
+            call    ConvertMsx2SpritesToSc5
+
+            ld      de, UncompressedData
+        pop     hl ; from DE to HL
+        ; ld      hl, SC5_NAMTBL_PAGE_0 + (128 * 85) + (((256-(12*16))/2)/2) ; line 85, column ?
+        push    hl
+            ; DE: source on RAM
+            ; HL: destiny on VRAM
+            call    Copy16x16ImageFromRAMToVRAM_SC5
+        pop     hl
+    pop     de, hl
+
+    ; DE += 4 (8 pixels on SC5)
+    ld      bc, 4
+    call    DE_Plus_BC
+    ; ex      de, hl ; HL = DE
+    ;     ld      bc, 4
+    ;     add     hl, bc
+    ; ex      de, hl ; DE = HL
+
+    ret
+
+; -------------------------------------------------------------------------------------------------------------------
+
+; Inputs:
+;   HL: Zero terminated string addr
+;   DE: VRAM NAMTBL addr (SC5)
+DrawString_SmallFont_SC5:
+
+.loop:
+    ld      a, (hl)
+    or      a
+    ret     z        
+    
+    push    hl
+
+        ; if(A == ' ') skipDrawChar
+        cp      32
+        jp      z, .skipDrawChar ; efectivelly is like a space on string
+
+        push    de
+            call    Get_SmallFont_PatternAddr
+        pop     de
+
+        call    .drawChar
+
+.return_from_skipDrawChar:
+
+    pop     hl
+    inc     hl
+    jp      .loop
+
+.skipDrawChar:
+    ; DE += 4 (8 pixels on SC5)
+    ld      bc, 3
+    call    DE_Plus_BC
+
+    jp      .return_from_skipDrawChar
+
+.drawChar:
+
+    push    hl, de
+        push    de
+            ld      ix, MediumFont_Colors
+            ld      de, UncompressedData
+            ld      b, 16
+            call    ConvertMsx2SpritesToSc5
+
+            ld      de, UncompressedData
+        pop     hl ; from DE to HL
+        ; ld      hl, SC5_NAMTBL_PAGE_0 + (128 * 85) + (((256-(12*16))/2)/2) ; line 85, column ?
+        push    hl
+            ; DE: source on RAM
+            ; HL: destiny on VRAM
+            call    Copy16x16ImageFromRAMToVRAM_SC5
+        pop     hl
+    pop     de, hl
+
+    ; DE += 4 (8 pixels on SC5)
+    ld      bc, 3
+    call    DE_Plus_BC
+
+    ret
+
+
+DE_Plus_BC:
+    ; DE += BC
+    ex      de, hl ; HL = DE
+        ;ld      bc, 4
+        add     hl, bc
+    ex      de, hl ; DE = HL
+    ret

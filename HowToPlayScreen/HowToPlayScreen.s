@@ -42,8 +42,26 @@ HowToPlayScreen:
     ld      de, SC5_NAMTBL_PAGE_0 + (128 * 8) + (((256-(11*16))/2)/2) ; line 8, column ?
     call    DrawString_LargeFont_SC5
 
+    ; ld      hl, String_HowToPlay
+    ; ld      de, SC5_NAMTBL_PAGE_0 + (128 * 64) + (((256-(11*16))/2)/2)
+    ; call    DrawString_MediumFont_SC5
 
 
+    ld      hl, String_HowToPlay_1
+    ld      de, SC5_NAMTBL_PAGE_0 + (128 * 64) + 16
+    call    DrawString_SmallFont_SC5
+
+    ld      hl, String_HowToPlay_2
+    ld      de, SC5_NAMTBL_PAGE_0 + (128 * 80) + 16
+    call    DrawString_SmallFont_SC5
+
+    ld      hl, String_HowToPlay_3
+    ld      de, SC5_NAMTBL_PAGE_0 + (128 * 96) + 16
+    call    DrawString_SmallFont_SC5
+
+    ld      hl, String_HowToPlay_4
+    ld      de, SC5_NAMTBL_PAGE_0 + (128 * 112) + 16
+    call    DrawString_SmallFont_SC5
 
 
 
@@ -59,6 +77,10 @@ jp $
 
 
 String_HowToPlay: db 'HOW TO PLAY', 0
+String_HowToPlay_1: db 'Cursors/Joystick: Move plane', 0
+String_HowToPlay_2: db 'Spacebar/Button A: Shot', 0
+String_HowToPlay_3: db 'Delete key/Button B: Bomb', 0
+String_HowToPlay_4: db 'Home key: Pause', 0
 
 
 
