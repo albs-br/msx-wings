@@ -185,8 +185,10 @@ TestFonts_WriteLine:
         add     hl, bc
     pop     bc
     djnz    .loop
-
+`
     ret
+
+; Inputs:
 
 DrawString:
     ; set MegaROM page for Fonts data

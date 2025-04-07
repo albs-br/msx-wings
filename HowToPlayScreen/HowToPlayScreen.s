@@ -6,16 +6,16 @@ HowToPlayScreen:
     call    BIOS_CHGMOD
 
 
-    ld 		a, 4      	            ; Foreground color
+    ld 		a, 1      	            ; Foreground color
     ld 		(BIOS_FORCLR), a    
-    ld 		a, 4  		            ; Background color
+    ld 		a, 1  		            ; Background color
     ld 		(BIOS_BAKCLR), a     
-    ld 		a, 4      	            ; Border color
+    ld 		a, 1      	            ; Border color
     ld 		(BIOS_BDRCLR), a    
     call 	BIOS_CHGCLR        		; Change Screen Color
 
-; jp $
-ret
+; ; jp $
+; ret
 
     call    BIOS_DISSCR
 
@@ -27,16 +27,49 @@ ret
 
     call    SetColor0ToTransparent
 
-    ; disable sprites to improve VDP commands speed
-    ; call    DisableSprites
+    ; call    BIOS_ENASCR
 
 
-    ; ; set MegaROM page for How To Play Screen data
-    ; ld      a, HOW_TO_PLAY_SCREEN_DATA_MEGAROM_PAGE
-    ; call    Set_and_Save_MegaROM_Page
+
+    ; ---- draw test string with 16x16 chars
+    ; starting line 90
+
+    ; set MegaROM page for Fonts data
+    ld      a, FONTS_DATA_MEGAROM_PAGE
+    call    Set_and_Save_MegaROM_Page
+
+    ld      ix, String_HowToPlay
+    ld      de, SC5_NAMTBL_PAGE_0 + (128 * 8) + (((256-(11*16))/2)/2) ; line 8, column ?
+    ld      b, 11 ; size of string
+    call    DrawString_LargeFont_SC5
 
 
-    ; load bg to all 4 pages (upper screen)
 
+
+
+
+    ld      hl, PaletteData_0
+    call    LoadPalette
+
+    call    BIOS_ENASCR
+
+jp $
 
     ret
+
+
+
+String_HowToPlay:
+    dw  LargeFont_Patterns + LARGE_FONT_CHAR_H
+    dw  LargeFont_Patterns + LARGE_FONT_CHAR_O
+    dw  LargeFont_Patterns + LARGE_FONT_CHAR_W
+    dw  0x0000 ; space
+    dw  LargeFont_Patterns + LARGE_FONT_CHAR_T
+    dw  LargeFont_Patterns + LARGE_FONT_CHAR_O
+    dw  0x0000 ; space
+    dw  LargeFont_Patterns + LARGE_FONT_CHAR_P
+    dw  LargeFont_Patterns + LARGE_FONT_CHAR_L
+    dw  LargeFont_Patterns + LARGE_FONT_CHAR_A
+    dw  LargeFont_Patterns + LARGE_FONT_CHAR_Y
+
+

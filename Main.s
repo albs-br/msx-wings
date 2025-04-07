@@ -5,7 +5,7 @@ PAGE_SIZE:	    equ	0x4000	        ; 16kB
 Seg_P8000_SW:	equ	0x7000	        ; Segment switch for page 0x8000-0xBFFF (ASCII 16k Mapper, same for 8k Mapper)
 
 
-DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
+; DEBUG:          equ 255             ; defines debug mode, value is irrelevant (comment it out for production version)
 
 
 ; Compilation address
@@ -220,7 +220,7 @@ Execute:
     ; call    ChooseInputScreen_RAM_Code ; comment it out for debug
     
     
-    ; call    HowToPlayScreen_RAM_Code ; comment it out for debug
+    call    HowToPlayScreen_RAM_Code ; comment it out for debug
 
 
 
@@ -425,7 +425,7 @@ End:
 
     ; db      "End ROM started at 0x4000"
 
-PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3c76 bytes (aprox 900 bytes free)
+PAGE_0x4000_size:          equ $ - 0x4000   ; 0x3c7e bytes (aprox 900 bytes free)
 	ds PAGE_SIZE - ($ - 0x4000), 255	; Fill the unused area with 0xFF
 
 

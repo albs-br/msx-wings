@@ -143,3 +143,70 @@ Get_LargeFont_PatternAddr:
     djnz    .loop
 
     ret
+
+; Inputs:
+DrawString_LargeFont_SC5:
+
+.loop:
+    push    bc
+        
+        ; HL = (IX)
+        ld      l, (ix)
+        ld      h, (ix + 1)
+        
+        push    ix
+
+            call    .drawHalfChar
+
+
+            ; HL += 16 (second half, 8x16 of the sprite)
+            ld      bc, 16
+            add     hl, bc
+
+            call    .drawHalfChar
+
+        pop     ix
+
+        ; next char address
+        inc     ix
+        inc     ix
+
+    pop     bc
+    djnz    .loop
+
+    ret
+
+.drawHalfChar:
+
+    ; if(H == 0x00) skipDrawChar
+    ld      a, h
+    or      a ; cp 0x00
+    jp      z, .skipDrawChar ; efectivelly is like a space on string
+
+    push    hl, de
+        push    de
+            ld      ix, LargeFont_Colors
+            ld      de, UncompressedData
+            ld      b, 16
+            call    ConvertMsx2SpritesToSc5
+
+            ld      de, UncompressedData
+        pop     hl ; from DE to HL
+        ; ld      hl, SC5_NAMTBL_PAGE_0 + (128 * 85) + (((256-(12*16))/2)/2) ; line 85, column ?
+        push    hl
+            ; DE: source on RAM
+            ; HL: destiny on VRAM
+            call    Copy16x16ImageFromRAMToVRAM_SC5
+        pop     hl
+    pop     de, hl
+
+.skipDrawChar:
+    ; DE += 4 (8 pixels on SC5)
+    push    hl
+        ex      de, hl ; HL = DE
+            ld      bc, 4
+            add     hl, bc
+        ex      de, hl ; DE = HL
+    pop     hl
+
+    ret

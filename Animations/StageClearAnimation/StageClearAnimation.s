@@ -719,7 +719,7 @@ StageClearAnimation:
     ld      b, 32
 .loop_2:
 
-    ; on v9938/57 OUTs must be 15 cycles apart outside of vblank
+    ; on v9938/58 OUTs must be 15 cycles apart outside of vblank
 
     ld      a, 216  ; Y
     nop
@@ -748,7 +748,14 @@ StageClearAnimation:
 
 .endAnimation:
 
+    ; Demo version:
+    ; if(Level == 3) endDemo()
+
+
     ld      b, 4 * 60       ; 4 seconds
     call    Wait_B_Vblanks
+
+
+
 
     ret

@@ -80,9 +80,9 @@ HowToPlayScreen_RAM_Code:
 
 
 
-    ; Starts the music
-    ld      a, MUSIC_YOU_WIN_1 			; index of music on SONG_TABLE
-    call	StartMusic 	                    ; param a: liiiiiii, where l (MSB) is the loop flag (0 = loop), and iiiiiii is the 0-based song index (0, 1, 2...)
+    ; ; Starts the music
+    ; ld      a, MUSIC_YOU_WIN_1 			; index of music on SONG_TABLE
+    ; call	StartMusic 	                    ; param a: liiiiiii, where l (MSB) is the loop flag (0 = loop), and iiiiiii is the 0-based song index (0, 1, 2...)
 
 
     call    HowToPlayScreen
@@ -91,8 +91,8 @@ HowToPlayScreen_RAM_Code:
 
 
 
-    ; Stops the music
-    call    StopMusic
+    ; ; Stops the music
+    ; call    StopMusic
 
 
 
