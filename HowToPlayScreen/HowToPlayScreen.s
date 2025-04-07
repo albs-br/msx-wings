@@ -38,9 +38,8 @@ HowToPlayScreen:
     ld      a, FONTS_DATA_MEGAROM_PAGE
     call    Set_and_Save_MegaROM_Page
 
-    ld      ix, String_HowToPlay
+    ld      hl, String_HowToPlay
     ld      de, SC5_NAMTBL_PAGE_0 + (128 * 8) + (((256-(11*16))/2)/2) ; line 8, column ?
-    ld      b, 11 ; size of string
     call    DrawString_LargeFont_SC5
 
 
@@ -59,17 +58,7 @@ jp $
 
 
 
-String_HowToPlay:
-    dw  LargeFont_Patterns + LARGE_FONT_CHAR_H
-    dw  LargeFont_Patterns + LARGE_FONT_CHAR_O
-    dw  LargeFont_Patterns + LARGE_FONT_CHAR_W
-    dw  0x0000 ; space
-    dw  LargeFont_Patterns + LARGE_FONT_CHAR_T
-    dw  LargeFont_Patterns + LARGE_FONT_CHAR_O
-    dw  0x0000 ; space
-    dw  LargeFont_Patterns + LARGE_FONT_CHAR_P
-    dw  LargeFont_Patterns + LARGE_FONT_CHAR_L
-    dw  LargeFont_Patterns + LARGE_FONT_CHAR_A
-    dw  LargeFont_Patterns + LARGE_FONT_CHAR_Y
+String_HowToPlay: db 'HOW TO PLAY', 0
+
 
 

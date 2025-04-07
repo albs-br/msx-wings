@@ -1,5 +1,5 @@
 LARGE_FONT_CHAR_A:          equ (64 * (9 + 1)) ; = 640
-LARGE_FONT_CHAR_B:          equ (64 * (9 + 2))
+LARGE_FONT_CHAR_B:          equ (64 * (9 + 2)) ; = 704
 LARGE_FONT_CHAR_C:          equ (64 * (9 + 3))
 LARGE_FONT_CHAR_D:          equ (64 * (9 + 4))
 LARGE_FONT_CHAR_E:          equ (64 * (9 + 5))

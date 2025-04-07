@@ -148,40 +148,49 @@ Get_LargeFont_PatternAddr:
 DrawString_LargeFont_SC5:
 
 .loop:
-    push    bc
-        
-        ; HL = (IX)
-        ld      l, (ix)
-        ld      h, (ix + 1)
-        
-        push    ix
+    ld      a, (hl)
+    or      a
+    ret     z        
+    
+    push    hl
 
-            call    .drawHalfChar
+        ; if(A == ' ') skipDrawChar
+        cp      32
+        jp      z, .skipDrawChar ; efectivelly is like a space on string
+
+        sub     65 ; ASCII code for A
+        ld      l, a
+        ld      h, 0
+        ; multiply HL by 64 (shift left 6x)
+        add     hl, hl
+        add     hl, hl
+        add     hl, hl
+        add     hl, hl
+        add     hl, hl
+        add     hl, hl        
+
+        ld      bc, LARGE_FONT_CHAR_A
+        add     hl, bc
+
+        ld      bc, LargeFont_Patterns
+        add     hl, bc
+
+        call    .drawHalfChar
 
 
-            ; HL += 16 (second half, 8x16 of the sprite)
-            ld      bc, 16
-            add     hl, bc
+        ; HL += 16 (second half, 8x16 of the sprite)
+        ld      bc, 16
+        add     hl, bc
 
-            call    .drawHalfChar
+        call    .drawHalfChar
 
-        pop     ix
+.return_from_skipDrawChar:
 
-        ; next char address
-        inc     ix
-        inc     ix
-
-    pop     bc
-    djnz    .loop
-
-    ret
+    pop     hl
+    inc     hl
+    jp      .loop
 
 .drawHalfChar:
-
-    ; if(H == 0x00) skipDrawChar
-    ld      a, h
-    or      a ; cp 0x00
-    jp      z, .skipDrawChar ; efectivelly is like a space on string
 
     push    hl, de
         push    de
@@ -200,13 +209,19 @@ DrawString_LargeFont_SC5:
         pop     hl
     pop     de, hl
 
-.skipDrawChar:
     ; DE += 4 (8 pixels on SC5)
-    push    hl
-        ex      de, hl ; HL = DE
-            ld      bc, 4
-            add     hl, bc
-        ex      de, hl ; DE = HL
-    pop     hl
+    ex      de, hl ; HL = DE
+        ld      bc, 4
+        add     hl, bc
+    ex      de, hl ; DE = HL
 
     ret
+
+.skipDrawChar:
+    ; DE += 8 (16 pixels on SC5)
+    ex      de, hl ; HL = DE
+        ld      bc, 8
+        add     hl, bc
+    ex      de, hl ; DE = HL
+
+    jp      .return_from_skipDrawChar
