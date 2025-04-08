@@ -1115,7 +1115,7 @@ CODE_TO_BE_RELOCATED_MEGAROM_PAGE:      equ 249
     INCLUDE "Animations/PauseAnimation/PauseAnimation_Data.s"
     INCLUDE "Graphics/Sprites/SpritePatterns.s"
 
-; code that needs to be realocated later need to be PHASE'd and DEPHASE'd 
+; code that needs to be realocated later needs to be PHASE'd and DEPHASE'd 
 ; in order to solve correctly the labels
 TitleScreen_Start:
     PHASE   0xc000
@@ -1138,11 +1138,11 @@ HowToPlayScreen_Size: equ $ - HowToPlayScreen_Start
 
 StageClearAnimation_Start:
     PHASE   0xc000
-		INCLUDE "Animations/StageClearAnimation/StageClearAnimation.s"  ; 905 bytes
+		INCLUDE "Animations/StageClearAnimation/StageClearAnimation.s"  ; 992 bytes
     DEPHASE
 StageClearAnimation_Size: equ $ - StageClearAnimation_Start
 
-MEGAROM_PAGE_249_size:          equ $ - 0x8000 ; 0x1af9 (6905 bytes)
+MEGAROM_PAGE_249_size:          equ $ - 0x8000 ; 0x1c66 (? bytes)
 	ds PAGE_SIZE - ($ - 0x8000), 255
 
 ; ------------------------------------------------------------------------

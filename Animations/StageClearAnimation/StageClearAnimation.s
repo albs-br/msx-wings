@@ -1,3 +1,4 @@
+; CAUTION: THIS ROUTINE CANNOT BE MORE THAN 1 KB LONG, BECAUSE IT WILL BE REALOCATED TO RAM!
 StageClearAnimation:
 
     ; restore default palette (one blue color is constantly being changed)
@@ -748,14 +749,62 @@ StageClearAnimation:
 
 .endAnimation:
 
-    ; Demo version:
-    ; if(Level == 3) endDemo()
-
-
     ld      b, 4 * 60       ; 4 seconds
     call    Wait_B_Vblanks
+
+    ; Demo version:
+    ; if(Level == 3) endDemo()
+    ld      a, (CurrentLevelNumber)
+    cp      3
+    jp      z, .endDemo
+
 
 
 
 
     ret
+
+
+.endDemo:
+
+    ; change to screen 5
+    call    Screen5
+
+
+
+    ld      hl, PaletteData_0
+    call    LoadPalette
+
+
+    call    InitVariablesForScroll
+
+
+    ; set MegaROM page for Fonts data
+    ld      a, FONTS_DATA_MEGAROM_PAGE
+    call    Set_and_Save_MegaROM_Page
+
+
+
+    ; clear UncompressedData RAM area
+    xor     a
+    ld      (UncompressedData), a
+    ld      hl, UncompressedData
+    ld      de, UncompressedData + 1
+    ld      bc, UncompressedData.size - 1
+    ldir
+
+
+
+
+    ld      hl, String_EndDemo
+    ld      de, SC5_NAMTBL_PAGE_0 + (128 * (128-8)) + ((128-32)/2)
+    call    DrawString_MediumFont_SC5
+
+    call    BIOS_ENASCR
+
+    jp $ ; debug
+
+
+    ;ret
+
+String_EndDemo: db 'END DEMO', 0

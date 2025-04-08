@@ -2,50 +2,38 @@
 HowToPlayScreen:
 
     ; change to screen 5
-    ld      a, 5
-    call    BIOS_CHGMOD
-
-
-    ld 		a, 1      	            ; Foreground color
-    ld 		(BIOS_FORCLR), a    
-    ld 		a, 1  		            ; Background color
-    ld 		(BIOS_BAKCLR), a     
-    ld 		a, 1      	            ; Border color
-    ld 		(BIOS_BDRCLR), a    
-    call 	BIOS_CHGCLR        		; Change Screen Color
-
-; ; jp $
-; ret
-
-    call    BIOS_DISSCR
-
-    call    ClearVram_MSX2
-
-    call    SetSprites16x16
-
-    call    Set192Lines
-
-    call    SetColor0ToTransparent
-
-    ; call    BIOS_ENASCR
+    call    Screen5
 
 
 
-    ; ---- draw test string with 16x16 chars
-    ; starting line 90
+    ld      hl, PaletteData_0
+    call    LoadPalette
+
 
     ; set MegaROM page for Fonts data
     ld      a, FONTS_DATA_MEGAROM_PAGE
     call    Set_and_Save_MegaROM_Page
+
+
+
+    ; clear UncompressedData RAM area
+    xor     a
+    ld      (UncompressedData), a
+    ld      hl, UncompressedData
+    ld      de, UncompressedData + 1
+    ld      bc, UncompressedData.size - 1
+    ldir
+
+
+
 
     ld      hl, String_HowToPlay
     ld      de, SC5_NAMTBL_PAGE_0 + (128 * 8) + (((256-(11*16))/2)/2) ; line 8, column ?
     call    DrawString_LargeFont_SC5
 
     ; ld      hl, String_HowToPlay
-    ; ld      de, SC5_NAMTBL_PAGE_0 + (128 * 64) + (((256-(11*16))/2)/2)
+    ; ld      de, SC5_NAMTBL_PAGE_0 + (128 * 32) + (((256-(11*16))/2)/2)
     ; call    DrawString_MediumFont_SC5
-
 
     ld      hl, String_HowToPlay_1
     ld      de, SC5_NAMTBL_PAGE_0 + (128 * 64) + 16
@@ -65,14 +53,40 @@ HowToPlayScreen:
 
 
 
-    ld      hl, PaletteData_0
-    call    LoadPalette
+
 
     call    BIOS_ENASCR
 
-jp $
 
-    ret
+    ; -----------------------------------------------------------------------------------
+
+    ld      b, 1 * 60       ; 1 second
+    call    Wait_B_Vblanks
+
+.loop:
+
+    call    Wait_Vblank
+
+    ld      a, 0                    ; read spacebar
+    call    BIOS_GTTRIG
+    jp      nz, .triggerPressed
+
+    ld      a, 1                    ; read button A of joystick 1
+    call    BIOS_GTTRIG
+    jp      nz, .triggerPressed
+
+    ld      a, 3                    ; read button B of joystick 1
+    call    BIOS_GTTRIG
+    jp      nz, .triggerPressed
+
+    jp      .loop
+
+
+.triggerPressed:
+    ld      a, SFX_EXPLOSION  ; number of sfx in the bank
+    ld      c, 15            ; sound priority
+    call    PlaySfx
+    ret     ; return, exiting this screen
 
 
 

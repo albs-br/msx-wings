@@ -265,10 +265,6 @@ DrawString_MediumFont_SC5:
     ; DE += 4 (8 pixels on SC5)
     ld      bc, 4
     call    DE_Plus_BC
-    ; ex      de, hl ; HL = DE
-    ;     ld      bc, 4
-    ;     add     hl, bc
-    ; ex      de, hl ; DE = HL
 
     jp      .return_from_skipDrawChar
 
@@ -283,7 +279,6 @@ DrawString_MediumFont_SC5:
 
             ld      de, UncompressedData
         pop     hl ; from DE to HL
-        ; ld      hl, SC5_NAMTBL_PAGE_0 + (128 * 85) + (((256-(12*16))/2)/2) ; line 85, column ?
         push    hl
             ; DE: source on RAM
             ; HL: destiny on VRAM
@@ -294,10 +289,6 @@ DrawString_MediumFont_SC5:
     ; DE += 4 (8 pixels on SC5)
     ld      bc, 4
     call    DE_Plus_BC
-    ; ex      de, hl ; HL = DE
-    ;     ld      bc, 4
-    ;     add     hl, bc
-    ; ex      de, hl ; DE = HL
 
     ret
 
