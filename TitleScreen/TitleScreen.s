@@ -1013,7 +1013,7 @@ ExitTitleScreen:
 PressFireChars:
     db      'PRESSFIRE'
 
-String_Version: db 'Demo v.0.90.0', 0
+String_Version: db 'Demo v.0.90.1', 0
 String_Version_Colors: 
 ; ------ color 0
     db 1, 1, 1, 1, 1, 1, 1, 1

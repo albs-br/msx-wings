@@ -20,7 +20,7 @@ ram_watch   add     0xd68a      -type word       -desc LevelCounter      -format
 
 #ram_watch   add     0xc3cd      -type byte       -desc LevelInitAnimation_Counter      -format dec
 
-# ram_watch   add     0xc00f      -type byte       -desc Player_Lives      -format dec
+ram_watch   add     0xD40F      -type byte       -desc Player_Lives      -format dec
 
 ram_watch   add     0xd410      -type word       -desc Score             -format hex
 #Player_Score: equ 0D410h ; last def. pass 3
@@ -89,7 +89,8 @@ ram_watch   add     0xd51c      -type word       -desc DX_Addr             -form
 
 #ram_watch   add     0xc01f      -type word      -desc NextShot_Struct_Addr       -format hex
 
-#ram_watch   add     0xC250      -type byte      -desc FramesSkipped            -format dec
+ram_watch   add     0xD69B      -type byte      -desc FramesSkipped            -format dec
+
 
 #ram_watch   add     0xC00a      -type byte      -desc BombsNumber            -format dec
 #ram_watch   add     0xC00b      -type byte      -desc BombActive            -format dec
