@@ -294,10 +294,16 @@ DrawString_MediumFont_SC5:
 
 ; -------------------------------------------------------------------------------------------------------------------
 
+DrawString_SmallFont_SC5:
+    ld      ix, SmallFont_Colors
+
 ; Inputs:
 ;   HL: Zero terminated string addr
 ;   DE: VRAM NAMTBL addr (SC5)
-DrawString_SmallFont_SC5:
+;   IX: Font color addr
+DrawString_SmallFont_SC5_Without_IX:
+
+    ld      (Temp_Addr), ix
 
 .loop:
     ld      a, (hl)
@@ -333,7 +339,8 @@ DrawString_SmallFont_SC5:
 
     push    hl, de
         push    de
-            ld      ix, MediumFont_Colors
+            ; ld      ix, SmallFont_Colors ; TODO: parametrize here
+            ld      ix, (Temp_Addr)
             ld      de, UncompressedData
             ld      b, 16
             call    ConvertMsx2SpritesToSc5

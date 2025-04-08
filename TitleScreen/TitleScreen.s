@@ -681,6 +681,30 @@ InitLoopRoundPalette:
 
     ; ; --------------------------------------------------------------------------
 
+    ; set MegaROM page for Fonts data
+    ld      a, FONTS_DATA_MEGAROM_PAGE
+    call    Set_and_Save_MegaROM_Page
+
+
+
+    ; clear UncompressedData RAM area
+    xor     a
+    ld      (UncompressedData), a
+    ld      hl, UncompressedData
+    ld      de, UncompressedData + 1
+    ld      bc, UncompressedData.size - 1
+    ldir
+
+
+
+
+    ld      hl, String_Version
+    ld      de, SC5_NAMTBL_PAGE_0 + (128 * (192-16)) ; bottom left of screen
+    ld      ix, String_Version_Colors
+    call    DrawString_SmallFont_SC5_Without_IX
+
+    ; -----------------------------------------------------
+
     call    BIOS_ENASCR
 
 .loopRoundPalette:
@@ -988,3 +1012,12 @@ ExitTitleScreen:
 
 PressFireChars:
     db      'PRESSFIRE'
+
+String_Version: db 'Demo v.0.90.0', 0
+String_Version_Colors: 
+; ------ color 0
+    db 1, 1, 1, 1, 1, 1, 1, 1
+    db 1, 1, 1, 1, 1, 1, 1, 1
+; ------ color 1
+    db 15, 15, 15, 15, 15, 15, 15, 15
+    db 15, 15, 15, 15, 15, 15, 15, 15

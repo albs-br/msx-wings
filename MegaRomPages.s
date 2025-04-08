@@ -1119,10 +1119,10 @@ CODE_TO_BE_RELOCATED_MEGAROM_PAGE:      equ 249
 ; in order to solve correctly the labels
 TitleScreen_Start:
     PHASE   0xc000
-        INCLUDE "TitleScreen/TitleScreen.s" ; 759 bytes
+        INCLUDE "TitleScreen/TitleScreen.s" ; ? bytes
         INCLUDE "TitleScreen/Data.s" ; 79 bytes
     DEPHASE
-TitleScreen_Size: equ $ - TitleScreen_Start
+TitleScreen_Size: equ $ - TitleScreen_Start ; 0x03B9 bytes
 
 ChooseInputScreen_Start:
     PHASE   0xc000
